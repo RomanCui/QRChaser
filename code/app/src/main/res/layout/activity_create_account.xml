@@ -11,7 +11,7 @@
         android:id="@+id/textViewEmailPrompt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Please enter your email as your username:" />
+        android:text="Please enter your email:" />
 
     <EditText
         android:id="@+id/editTextEmailAddress"

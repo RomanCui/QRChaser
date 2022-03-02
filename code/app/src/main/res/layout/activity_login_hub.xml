@@ -23,7 +23,7 @@
         android:id="@+id/buttonUsernameLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Username" />
+        android:text="Email" />
 
     <Button
         android:id="@+id/buttonQRCodeLogin"
