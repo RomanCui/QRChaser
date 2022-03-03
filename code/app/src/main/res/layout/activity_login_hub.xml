@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Welcome to QR Chaser" />
+
+    <TextView
+        android:id="@+id/textViewLoginOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log in options:" />
+
+    <Button
+        android:id="@+id/buttonUsernameLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Username" />
+
+    <Button
+        android:id="@+id/buttonQRCodeLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="QR Code" />
+
+    <Button
+        android:id="@+id/buttonGuestLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guest" />
+
+    <TextView
+        android:id="@+id/textViewNewPlayer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="New Player?" />
+
+    <Button
+        android:id="@+id/buttonCreateAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create Account" />
+</LinearLayout>
