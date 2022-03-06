@@ -40,7 +40,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ems="10"
-        android:hint="Give the QR code a nickname"
         android:inputType="textPersonName"
         android:minHeight="48dp" />
 
@@ -56,7 +55,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ems="10"
-        android:hint="Add comments"
         android:inputType="textPersonName"
         android:minHeight="48dp" />
 
