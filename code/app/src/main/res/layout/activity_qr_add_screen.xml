@@ -28,6 +28,12 @@
         android:layout_gravity="center"
         android:text="Add location" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Give the QR code a nickname:" />
+
     <EditText
         android:id="@+id/qr_nickname_edit_text"
         android:layout_width="match_parent"
@@ -37,6 +43,12 @@
         android:hint="Give the QR code a nickname"
         android:inputType="textPersonName"
         android:minHeight="48dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add comments:" />
 
     <EditText
         android:id="@+id/qr_comments_edit_text"
