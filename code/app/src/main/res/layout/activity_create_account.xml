@@ -41,8 +41,7 @@
         android:id="@+id/editTextNickname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:inputType="textPersonName" />
 
     <TextView
         android:id="@+id/textViewPhoneNumberPrompt"
