@@ -57,13 +57,13 @@ tools:context=".CreateAccountActivity">
     android:inputType="phone" />
 
 <Button
-    android:id="@+id/buttonConfirm"
+    android:id="@+id/buttonConfirm1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="Confirm" />
 
 <Button
-    android:id="@+id/buttonCancel"
+    android:id="@+id/buttonCancel1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="Cancel" />
