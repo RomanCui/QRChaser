@@ -64,39 +64,40 @@ public class CreateAccountActivity extends AppCompatActivity {
                 if (emailAddress.length()>0 && password.length()>0 &&
                         nickname.length()>0 && phone.length()>0) {
                     // If there’s some data in the EditText field, then we create a new key-value pair.
-                    accounts.put("Email address", emailAddress);
-
-                    collectionReference
-                            .document(emailAddress)
-                            .set(accounts)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-// These are a method which gets executed when the task is succeeded
-
-                                    Log.d(TAG, "Data has been added successfully!");
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-// These are a method which gets executed if there’s any problem
-                                    Log.d(TAG, "Data could not be added!" + e.toString());
-                                }
-                            });
-                    emailET.setText("");
-                    passwordET.setText("");
-                    nicknameET.setText("");
-                    phoneET.setText("");
-
-                    collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
-                                FirebaseFirestoreException error) {
-                        }
-                    });
-
+                    accounts.put("EmailAddress", emailAddress);
+                    accounts.put("Password", password);
+                    accounts.put("Nickname", nickname);
+                    accounts.put("Phone", phone);
                 }
+
+                collectionReference
+                        .document(emailAddress)
+                        .set(accounts)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                            // These are a method which gets executed when the task is succeeded
+                                Log.d(TAG, "Data has been added successfully!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                            // These are a method which gets executed if there’s any problem
+                                Log.d(TAG, "Data could not be added!" + e.toString());
+                            }
+                        });
+                emailET.setText("");
+                passwordET.setText("");
+                nicknameET.setText("");
+                phoneET.setText("");
+
+                collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                            FirebaseFirestoreException error) {
+                    }
+                });
 
             }
         });
