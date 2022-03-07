@@ -10,6 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QRChaser">
         <activity
+            android:name=".DesiredPlayer"
+            android:exported="false" />
+        <activity
+            android:name=".MyQRCodeScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginEmailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreateAccountActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
