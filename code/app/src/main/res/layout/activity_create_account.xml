@@ -1,69 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context=".CreateAccountActivity">
+
+<TextView
+    android:id="@+id/textViewEmailPrompt"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:text="Please enter your email:" />
 
-    <TextView
-        android:id="@+id/textViewEmailPrompt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Please enter your email:" />
+<EditText
+    android:id="@+id/editTextEmailAddress"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="textEmailAddress" />
 
-    <EditText
-        android:id="@+id/editTextEmailAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress" />
+<TextView
+    android:id="@+id/textViewPasswordPrompt"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Please set your password:" />
 
-    <TextView
-        android:id="@+id/textViewPasswordPrompt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Please set your password:" />
+<EditText
+    android:id="@+id/editTextPassword"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="textPassword" />
 
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword" />
+<TextView
+    android:id="@+id/textViewNicknamePrompt"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Please enter your nickname:" />
 
-    <TextView
-        android:id="@+id/textViewNicknamePrompt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Please enter your nickname:" />
+<EditText
+    android:id="@+id/editTextNickname"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/editTextNickname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName" />
+<TextView
+    android:id="@+id/textViewPhoneNumberPrompt"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Please enter your phone number:" />
 
-    <TextView
-        android:id="@+id/textViewPhoneNumberPrompt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Please enter your phone number:" />
+<EditText
+    android:id="@+id/editTextPhone"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="phone" />
 
-    <EditText
-        android:id="@+id/editTextPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="phone" />
+<Button
+    android:id="@+id/buttonConfirm"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Confirm" />
 
-    <Button
-        android:id="@+id/buttonConfirm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Confirm" />
-
-    <Button
-        android:id="@+id/buttonCancel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cancel" />
+<Button
+    android:id="@+id/buttonCancel"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Cancel" />
 </LinearLayout>
