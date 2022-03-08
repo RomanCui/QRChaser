@@ -18,12 +18,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_hub);
 
         email = findViewById(R.id.buttonUsernameLogin);
+        qrCode = findViewById(R.id.buttonQRCodeLogin);
         createAccount = findViewById(R.id.buttonCreateAccount);
 
         email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LoginEmailActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        qrCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MapActivity.class);
                 startActivity(intent);
             }
         });
@@ -35,5 +44,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 }
