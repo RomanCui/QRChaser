@@ -7,63 +7,71 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textViewEmailPrompt"
+    <Button
+        android:id="@+id/qr_scan_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Please enter your email:" />
-
-    <EditText
-        android:id="@+id/editTextEmailAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress" />
-
-    <TextView
-        android:id="@+id/textViewPasswordPrompt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Please set your password:" />
-
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword" />
-
-    <TextView
-        android:id="@+id/textViewNicknamePrompt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Please enter your nickname:" />
-
-    <EditText
-        android:id="@+id/editTextNickname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName" />
-
-    <TextView
-        android:id="@+id/textViewPhoneNumberPrompt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Please enter your phone number:" />
-
-    <EditText
-        android:id="@+id/editTextPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="phone" />
+        android:layout_gravity="center"
+        android:text="Scan" />
 
     <Button
-        android:id="@+id/buttonConfirm"
+        android:id="@+id/qr_add_photo_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Add photo" />
+
+    <Button
+        android:id="@+id/qr_add_location_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Add location" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Give the QR code a nickname:" />
+
+    <EditText
+        android:id="@+id/qr_nickname_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:hint="Nickname"
+        android:inputType="textPersonName"
+        android:minHeight="48dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add comments:" />
+
+    <EditText
+        android:id="@+id/qr_comments_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:hint="Comment"
+        android:inputType="textPersonName"
+        android:minHeight="48dp" />
+
+    <Button
+        android:id="@+id/qr_confirm_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="Confirm" />
 
     <Button
-        android:id="@+id/buttonCancel"
+        android:id="@+id/qr_add_cancel_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="Cancel" />
+
 </LinearLayout>

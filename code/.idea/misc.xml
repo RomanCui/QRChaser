@@ -5,7 +5,20 @@
       <map>
         <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_create_account.xml" value="0.5" />
         <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_login.xml" value="0.33" />
-        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_login_username.xml" value="0.6051899907321594" />
+        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_login_hub.xml" value="0.5" />
+        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_login_username.xml" value="0.25" />
+        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_admin_homepage.xml" value="0.24583333333333332" />
+        <entry key="app/src/main/res/layout/activity_browse_players.xml" value="0.23177083333333334" />
+        <entry key="app/src/main/res/layout/activity_create_account.xml" value="0.30241241455078116" />
+        <entry key="app/src/main/res/layout/activity_desired_player.xml" value="0.24583333333333332" />
+        <entry key="app/src/main/res/layout/activity_desired_player_info.xml" value="0.24583333333333332" />
+        <entry key="app/src/main/res/layout/activity_edit_qr_screen.xml" value="0.24583333333333332" />
+        <entry key="app/src/main/res/layout/activity_login_email.xml" value="0.31970062255859377" />
+        <entry key="app/src/main/res/layout/activity_login_hub.xml" value="0.39779968261718746" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.17968292236328126" />
+        <entry key="app/src/main/res/layout/activity_my_qrcode_screen.xml" value="0.24583333333333332" />
+        <entry key="app/src/main/res/layout/activity_qr_add_screen.xml" value="0.24583333333333332" />
       </map>
     </option>
   </component>

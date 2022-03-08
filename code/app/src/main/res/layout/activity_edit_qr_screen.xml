@@ -1,51 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textViewTitle"
+        android:id="@+id/qr_code_name_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Welcome to QR Chaser" />
+        android:text="Code name" />
 
     <TextView
-        android:id="@+id/textViewLoginOptions"
+        android:id="@+id/qr_score_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Log in options:" />
-
-    <Button
-        android:id="@+id/buttonUsernameLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Email" />
-
-    <Button
-        android:id="@+id/buttonQRCodeLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="QR Code" />
-
-    <Button
-        android:id="@+id/buttonGuestLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Guest" />
+        android:text="Score" />
 
     <TextView
-        android:id="@+id/textViewNewPlayer"
+        android:id="@+id/qr_comments_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Player?" />
+        android:text="Comments" />
 
     <Button
-        android:id="@+id/buttonCreateAccount"
+        android:id="@+id/qr_change_name_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create Account" />
+        android:text="Change Name" />
+
+    <Button
+        android:id="@+id/qr_change_comments_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Change Comments" />
+
+    <Button
+        android:id="@+id/qr_remove_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Remove" />
+
+    <Button
+        android:id="@+id/qr_edit_cancel_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel" />
+
 </LinearLayout>
