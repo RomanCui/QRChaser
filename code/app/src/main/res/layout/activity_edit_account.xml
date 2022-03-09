@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".EditAccount">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Change your email username:" />
+
+    <EditText
+        android:id="@+id/edit_account_email_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Reset password:" />
+
+    <EditText
+        android:id="@+id/edit_account_password_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Change nickname:" />
+
+    <EditText
+        android:id="@+id/edit_account_nickname_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Change contact number:" />
+
+    <EditText
+        android:id="@+id/edit_account_number_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:minHeight="48dp" />
+
+    <Button
+        android:id="@+id/edit_account_signout_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign out" />
+
+    <Button
+        android:id="@+id/edit_account_confirm_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm change" />
+
+    <Button
+        android:id="@+id/edit_account_login_qr_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Generate login QR code" />
+
+    <Button
+        android:id="@+id/edit_account_info_qr_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Generate info QR code" />
+
+    <Button
+        android:id="@+id/edit_account_cancel_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel" />
+</LinearLayout>
