@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QRChaser">
         <activity
+            android:name=".AdminPlayerRemoval"
+            android:exported="false" />
+        <activity
             android:name=".AdminQR"
             android:exported="false" />
         <activity
