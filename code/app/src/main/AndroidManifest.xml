@@ -28,6 +28,9 @@
             android:name=".CreateAccountActivity"
             android:exported="false" />
         <activity
+            android:name=".MainScreenActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
