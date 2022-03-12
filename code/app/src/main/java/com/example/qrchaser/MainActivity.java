@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
         email = findViewById(R.id.buttonUsernameLogin);
         createAccount = findViewById(R.id.buttonCreateAccount);
+        qrCode = findViewById(R.id.buttonQRCodeLogin);
+        guest = findViewById(R.id.buttonGuestLogin);
 
         email.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,6 +34,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CreateAccountActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        qrCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, CameraScannerActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        guest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, MyQRCodeScreenActivity.class);
                 startActivity(intent);
             }
         });
