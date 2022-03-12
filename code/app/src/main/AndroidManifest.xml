@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QRChaser">
         <activity
+            android:name=".CameraScannerActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditAccount"
             android:exported="false" />
         <activity

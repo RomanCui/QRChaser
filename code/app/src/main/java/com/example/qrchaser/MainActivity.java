@@ -38,13 +38,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        qrCode.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //Intent intent = new Intent(MainActivity.this, );
-//                //startActivity(intent);
-//            }
-//        });
+        qrCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, CameraScannerActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         guest.setOnClickListener(new View.OnClickListener() {

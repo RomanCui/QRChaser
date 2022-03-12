@@ -4,4 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.camera.view.PreviewView
+        android:id="@+id/cameraView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="1">
+
+    </androidx.camera.view.PreviewView>
+
+    <TextView
+        android:id="@+id/qrValueTextView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingTop="10sp"
+        android:text="Value"
+        android:textAlignment="center"
+        android:textSize="24sp" />
+
+
 </LinearLayout>
