@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         guest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, MainScreenActivity.class);
+                Intent intent = new Intent(MainActivity.this, MyQRCodeScreenActivity.class);
                 startActivity(intent);
             }
         });
