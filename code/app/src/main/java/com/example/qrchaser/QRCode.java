@@ -12,12 +12,9 @@ public class QRCode {
     //private image image;
     private ArrayList<QRComment> allComments = new ArrayList<>();
 
-    // Unsure as to how the rest of the implementation will go
-    // Due to all of the requirements for this class, we should implement a
-    // second class for the player login qr code, if one is even needed (Could just make it on the fly)
 
-    public QRCode(int hash, String name) {
-        this.hash = hash;
+    public QRCode(String qrCodeData, String name) {
+        //this.hash = get the hash from the qrCodeData (passed in from the scanner);
         this.name = name;
         //this.score = .... calculated from the hash
         this.id =  name + "(" + hash + ")"; // Used for the Geolocation for sure

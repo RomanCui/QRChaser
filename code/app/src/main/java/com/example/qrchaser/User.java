@@ -6,8 +6,32 @@ public abstract class User {
     private int totalScore;
     private ArrayList<QRCode> allPlayerQRCodes;
 
-    //Should output a QRCode image only when needed based on data in the account so other players can view the profile (needed for all player types)
-    private void generateInfoQRCode(){
+    private QRCode getLowestScoreCode(){
+        QRCode lowestQRCode = null;
+        // for each loop
+        for (QRCode code  : allPlayerQRCodes) {
+            if (code.getScore() < lowestQRCode.getScore())
+                lowestQRCode =  code;
+        }
+        return lowestQRCode;
+    } // end getlowestScoreCode
 
-    } // end generateInfoQRCode
+    private QRCode getHighestScoreCode(){
+        QRCode highestQRCode = null;
+        // for each loop
+        for (QRCode code  : allPlayerQRCodes) {
+            if (code.getScore() > highestQRCode.getScore())
+                highestQRCode =  code;
+        }
+        return highestQRCode;
+    } // end getHighestScoreCode
+
+    private int getTotalScore(){
+        int totalScore = 0;
+        // for each loop
+        for (QRCode code  : allPlayerQRCodes) {
+            totalScore += code.getScore();
+        }
+        return totalScore;
+    } // end getTotalScore
 } // end Class
