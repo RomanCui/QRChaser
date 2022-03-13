@@ -27,10 +27,12 @@ public class QRCode {
         for (int i = 0; i < hash.length(); i++){
             asciiList.add(i);
         }
-
+        //initializing score with 0
         this.score = 0;
+
+        //iterating through asciiList for score
         for (int i = 0; i < asciiList.toArray().length; i++){
-            score += asciiList.get(i);
+            this.score += asciiList.get(i);
         }
 
         this.id =  name + "(" + hash + ")"; // Used for the Geolocation for sure
