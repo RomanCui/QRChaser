@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.qrchaser">
-    <!-- Camera permission -->
-    <uses-feature android:name="android.hardware.camera" />
-
-    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -13,29 +8,21 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.QRChaser"
-        tools:replace="android:allowBackup">
+        android:theme="@style/Theme.QRChaser">
         <activity
-            android:name=".BrowseActivity"
+            android:name=".AdminPlayerRemoval"
             android:exported="false" />
         <activity
-            android:name=".GeneratedQRCodeActivity"
+            android:name=".AdminQR"
             android:exported="false" />
         <activity
-            android:name=".CameraScannerActivity"
+            android:name=".EditAccount"
             android:exported="false" />
         <activity
-            android:name=".EditAccountActivity"
+            android:name=".DesiredPlayerInfo"
             android:exported="false" />
         <activity
-            android:name=".MapActivity"
-            android:exported="false"
-            android:usesCleartextTraffic="true" />
-        <activity
-            android:name=".PlayerProfileInfoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PlayerProfileActivity"
+            android:name=".DesiredPlayer"
             android:exported="false" />
         <activity
             android:name=".MyQRCodeScreenActivity"
