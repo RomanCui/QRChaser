@@ -8,8 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-
-    Button email,qrCode,guest,createAccount;
+    private Button email,qrCode,guest,createAccount;
 
 
     @Override

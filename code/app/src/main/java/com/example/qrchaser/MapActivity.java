@@ -2,6 +2,7 @@ package com.example.qrchaser;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,6 +11,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,6 +47,7 @@ public class MapActivity extends AppCompatActivity{
     private MyLocationNewOverlay myLocationOverlay;
     private RotationGestureOverlay mapRotationGestureOverlay;
     private ScaleBarOverlay mapScaleBarOverlay;
+    private Button button1,button2,button4;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -164,10 +168,45 @@ public class MapActivity extends AppCompatActivity{
             }
         });
 
-// add overlay
+        // add overlay
         map.getOverlays().add(sfpo);
 
-    }
+        // ************************** Page Selection ****************************************
+        button1 = findViewById(R.id.button1);
+        button2 = findViewById(R.id.button2);
+        button4 = findViewById(R.id.button4);
+
+        // Head to My QR Code Screen
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapActivity.this, MyQRCodeScreenActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        // Head to Browse Players
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapActivity.this, BrowseActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        // Head to Player Profile
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapActivity.this, PlayerProfileActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+    } // end onCreate
 
     @Override
     public void onResume() {

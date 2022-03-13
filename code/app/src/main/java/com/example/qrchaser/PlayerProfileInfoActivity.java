@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class DesiredPlayerInfo extends AppCompatActivity {
+public class PlayerProfileInfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_desired_player_info);
+        setContentView(R.layout.activity_player_profile_info);
     }
 }

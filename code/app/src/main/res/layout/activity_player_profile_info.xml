@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DesiredPlayerInfo">
+    tools:context=".PlayerProfileInfoActivity">
 
     <TextView
         android:id="@+id/desired_player_info_nickname"

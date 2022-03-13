@@ -32,6 +32,7 @@ ext {
 }
 
 dependencies {
+    implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.3'
     implementation 'org.osmdroid:osmdroid-android:6.1.10'
     implementation 'org.osmdroid:osmdroid-wms:6.1.10'
     implementation 'org.osmdroid:osmdroid-mapsforge:6.1.10'
