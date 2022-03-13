@@ -17,6 +17,8 @@ import androidx.lifecycle.LifecycleOwner;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -39,6 +41,7 @@ import java.util.concurrent.Executors;
 
 public class CameraScannerActivity extends AppCompatActivity implements CameraXConfig.Provider {
     private static final int CAMERA_REQUEST_CODE = 1;
+    private String value;
     PreviewView cameraView;
     TextView valueText;
 
@@ -157,13 +160,19 @@ public class CameraScannerActivity extends AppCompatActivity implements CameraXC
                         .addOnSuccessListener( barcodes -> {
                             if(!barcodes.isEmpty()) {
                                 Barcode barcode = barcodes.get(0); //check if not null
-                                String value = barcode.getRawValue();
+                                value = barcode.getRawValue();
                                 valueText.setText(value);
                             }
                         }).addOnCompleteListener(new OnCompleteListener<List<Barcode>>() {
                     @Override
                     public void onComplete(@NonNull Task<List<Barcode>> task) {
                         image.close();
+                        if(value != null) {
+                            Intent qrValueIntent = new Intent();
+                            qrValueIntent.putExtra("qrValue", value);
+                            setResult(Activity.RESULT_OK, qrValueIntent);
+                            finish();
+                        }
                     }
                 });
             }
