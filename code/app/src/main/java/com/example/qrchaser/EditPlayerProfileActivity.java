@@ -65,7 +65,6 @@ public class EditPlayerProfileActivity extends AppCompatActivity {
         buttonGenerateLoginQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 2022-03-12 pass data (Username, password and special Code?) to the new activity
                 Intent intent = new Intent(EditPlayerProfileActivity.this, GeneratedQRCodeActivity.class);
                 intent.putExtra("qrData", "QRCHASERLOGIN," + currentPlayer.getEmail() + "," + currentPlayer.getPassword());
                 startActivity(intent);
@@ -76,7 +75,6 @@ public class EditPlayerProfileActivity extends AppCompatActivity {
         buttonGenerateInfoQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 2022-03-12 pass data (Username and special Code?) to the new activity
                 Intent intent = new Intent(EditPlayerProfileActivity.this, GeneratedQRCodeActivity.class);
                 intent.putExtra("qrData", "QRCHASERINFO," + currentPlayer.getEmail());
                 startActivity(intent);
