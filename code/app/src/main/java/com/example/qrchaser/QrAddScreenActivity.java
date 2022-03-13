@@ -99,10 +99,16 @@ public class QrAddScreenActivity extends AppCompatActivity {
 
                 if (nameCheck && scanCheck) {
                     //call QRCode constructor here
-                    //QRCode(qrValue, qrName);
+                    QRCode scannedQR = new QRCode(qrValue, qrName);
+
+                    //for testing
+                    int score = scannedQR.getScore();
+                    String scoreTestString = String.valueOf(score);
+                    String hashTestString = scannedQR.getHash();
+                    String testString = "score: " + scoreTestString + " hash: " + hashTestString;
 
                     //For Testing
-                    Toast.makeText(getApplicationContext(), "Pass name and scan check", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), testString, Toast.LENGTH_SHORT).show();
 
 
                     //TODO: Need User object
