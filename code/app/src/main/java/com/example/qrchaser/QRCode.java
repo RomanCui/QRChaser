@@ -1,25 +1,38 @@
 package com.example.qrchaser;
 
+import com.google.common.hash.Hashing;
+
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.List;
 
 public class QRCode {
-    private int hash;
+    private String hash;
     private String name;
     private int score;
     private String id;
-    // I am unsure as to how these two will be implmented
+    // I am unsure as to how these two will be implemented
     //private location;
     //private image image;
     private ArrayList<QRComment> allComments = new ArrayList<>();
+    private List<Integer> asciiList = new ArrayList<>();
 
-    // Unsure as to how the rest of the implementation will go
-    // Due to all of the requirements for this class, we should implement a
-    // second class for the player login qr code, if one is even needed (Could just make it on the fly)
 
-    public QRCode(int hash, String name) {
-        this.hash = hash;
+    public QRCode(String qrCodeData, String name) {
+        //this.hash = get the hash from the qrCodeData (passed in from the scanner);
+        this.hash = Hashing.sha256().hashString(qrCodeData, StandardCharsets.UTF_8).toString();
         this.name = name;
+
         //this.score = .... calculated from the hash
+        for (int i = 0; i < hash.length(); i++){
+            asciiList.add(i);
+        }
+
+        this.score = 0;
+        for (int i = 0; i < asciiList.toArray().length; i++){
+            score += asciiList.get(i);
+        }
+
         this.id =  name + "(" + hash + ")"; // Used for the Geolocation for sure
     }
 
@@ -31,7 +44,7 @@ public class QRCode {
         this.name = name;
     }
 
-    public int getHash() {
+    public String getHash() {
         return hash;
     }
 
