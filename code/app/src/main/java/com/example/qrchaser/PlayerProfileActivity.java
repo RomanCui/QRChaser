@@ -6,14 +6,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class PlayerProfileActivity extends AppCompatActivity {
-    private Button button1,button2,button3;
+    private Button button1,button2,button3, buttonPlayerInfo;
+    private TextView nicknameTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_profile);
+
+        // Using a dummy player for now
+        // TODO: 2022-03-12 Pass In Actual Players
+        Player currentPlayer = new Player("TestPlayer@gmail.com", "TestPassword", "TestPlayer" );
+
+
+        nicknameTV = findViewById(R.id.desired_player_nickname);
+        nicknameTV.setText(currentPlayer.getNickname());
         // ************************** Still need to add actual activity functionality ****************************************
 
 
@@ -21,7 +31,7 @@ public class PlayerProfileActivity extends AppCompatActivity {
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
-
+        buttonPlayerInfo = findViewById(R.id.desired_player_info_button);
         // Head to My QR Code Screen
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,5 +62,13 @@ public class PlayerProfileActivity extends AppCompatActivity {
             }
         });
 
+        // Head to Player Profile Info
+        buttonPlayerInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PlayerProfileActivity.this, EditPlayerProfileActivity.class);
+                startActivity(intent);
+            }
+        });
     } // end onCreate
 } // end PlayerProfileActivity Class

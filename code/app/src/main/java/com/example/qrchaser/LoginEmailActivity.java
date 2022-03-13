@@ -12,8 +12,8 @@ import android.widget.Toast;
 public class LoginEmailActivity extends AppCompatActivity {
 
     Button login;
-    String email,passWord;
-    EditText emailET,passWordET;
+    String email, passWord;
+    EditText emailET, passWordET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
