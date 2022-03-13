@@ -5,88 +5,77 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".EditAccountActivity">
+    tools:context=".EditPlayerProfileActivity">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textViewEmailPrompt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Change your email username:" />
+        android:text="Edit email address:" />
 
     <EditText
-        android:id="@+id/edit_account_email_editText"
+        android:id="@+id/editTextEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:inputType="textEmailAddress" />
+
+    <TextView
+        android:id="@+id/textViewPasswordPrompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit your password:" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword" />
+
+    <TextView
+        android:id="@+id/textViewNicknamePrompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit nickname:" />
+
+    <EditText
+        android:id="@+id/editTextNickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textViewPhoneNumberPrompt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Reset password:" />
+        android:text="Edit phone number:" />
 
     <EditText
-        android:id="@+id/edit_account_password_editText"
+        android:id="@+id/editTextPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Change nickname:" />
-
-    <EditText
-        android:id="@+id/edit_account_nickname_editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Change contact number:" />
-
-    <EditText
-        android:id="@+id/edit_account_number_editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:minHeight="48dp" />
+        android:inputType="phone" />
 
     <Button
-        android:id="@+id/edit_account_signout_button"
+        android:id="@+id/buttonConfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign out" />
+        android:text="Confirm" />
 
     <Button
-        android:id="@+id/edit_account_confirm_button"
+        android:id="@+id/buttonSignOut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Confirm change" />
+        android:text="Sign Out" />
 
     <Button
-        android:id="@+id/edit_account_login_qr_button"
+        android:id="@+id/ButtonGenerateLoginQRCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Generate login QR code" />
 
     <Button
-        android:id="@+id/edit_account_info_qr_button"
+        android:id="@+id/ButtonGenerateInfoQRCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Generate info QR code" />
-
-    <Button
-        android:id="@+id/edit_account_cancel_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cancel" />
 </LinearLayout>
