@@ -67,7 +67,7 @@ public class EditPlayerProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO: 2022-03-12 pass data (Username, password and special Code?) to the new activity
                 Intent intent = new Intent(EditPlayerProfileActivity.this, GeneratedQRCodeActivity.class);
-                intent.putExtra("qrdata", "QRCHASERLOGIN," + currentPlayer.getEmail() + "," + currentPlayer.getPassword());
+                intent.putExtra("qrData", "QRCHASERLOGIN," + currentPlayer.getEmail() + "," + currentPlayer.getPassword());
                 startActivity(intent);
             } // end onClick
         });// end buttonGenerateLoginQRCode.setOnClickListener
@@ -78,7 +78,7 @@ public class EditPlayerProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO: 2022-03-12 pass data (Username and special Code?) to the new activity
                 Intent intent = new Intent(EditPlayerProfileActivity.this, GeneratedQRCodeActivity.class);
-                intent.putExtra("qrdata", "QRCHASERINFO," + currentPlayer.getEmail());
+                intent.putExtra("qrData", "QRCHASERINFO," + currentPlayer.getEmail());
                 startActivity(intent);
             } // end onClick
         });// end buttonGenerateInfoQRCode.setOnClickListener
