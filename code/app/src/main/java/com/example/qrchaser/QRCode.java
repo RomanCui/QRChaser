@@ -25,15 +25,20 @@ public class QRCode {
 
         //this.score = .... calculated from the hash
         for (int i = 0; i < hash.length(); i++){
-            asciiList.add(i);
+            asciiList.add((int) hash.charAt(i));
         }
         //initializing score with 0
         this.score = 0;
 
         //iterating through asciiList for score
-        for (int i = 0; i < asciiList.toArray().length; i++){
+        for (int i = 0; i < asciiList.size(); i++){
             this.score += asciiList.get(i);
         }
+
+        //random score calculation scheme
+        int multiplier = score / 1000;
+        score = score % 1000;
+        score *= multiplier;
 
         this.id =  name + "(" + hash + ")"; // Used for the Geolocation for sure
     }
