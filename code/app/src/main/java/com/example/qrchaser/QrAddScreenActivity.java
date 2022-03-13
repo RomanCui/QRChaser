@@ -15,12 +15,16 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class QrAddScreenActivity extends AppCompatActivity {
 
     private Button scan, addPhoto, addLocation, confirm, cancel;
     private EditText nicknameET, commentET;
     String qrName, qrComment;
     String qrValue;
+
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,6 +75,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // TODO: 2022-03-13 Implement
+
             } // end onClick
         }); // end addLocation.setOnClickListener
 
@@ -126,6 +131,8 @@ public class QrAddScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // TODO: 2022-03-13 Implement
+                Intent intent = new Intent(QrAddScreenActivity.this, MyQRCodeScreenActivity.class);
+                startActivity(intent);
             } // end onClick
         }); // end cancel.setOnClickListener
     } // end onCreate
