@@ -25,7 +25,7 @@ public class GeneratedQRCodeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generated_qrcode);
-
+        QRData = getIntent().getStringExtra("qrdata");
         // initializing  variables.
         qrCodeIV = findViewById(R.id.idIVQrcode);
 

@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
     private Button email,qrCode,guest,createAccount;
     private String qrValue;
@@ -37,9 +40,16 @@ public class MainActivity extends AppCompatActivity {
                         if(result.getResultCode() == Activity.RESULT_OK) {
                             Intent scannerResult = result.getData();
                             qrValue = scannerResult.getStringExtra("qrValue");
-
                             //for testing the result
                             Toast.makeText(getApplicationContext(), qrValue, Toast.LENGTH_SHORT).show();
+                            // Use the data
+                            String[] qrDataArray = qrValue.split(",");
+                            if (qrDataArray[0].contentEquals("QRCHASERLOGIN")){
+                                // TODO: 2022-03-13 Attempt to login with Username: qrDataArray[1] and Password qrDataArray[1]
+                                Intent intent = new Intent(MainActivity.this, MyQRCodeScreenActivity.class);
+                                startActivity(intent);
+                            }
+
                         }
                     }
                 }
