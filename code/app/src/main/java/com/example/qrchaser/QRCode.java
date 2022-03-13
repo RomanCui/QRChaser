@@ -1,22 +1,45 @@
 package com.example.qrchaser;
 
+import com.google.common.hash.Hashing;
+
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.List;
 
 public class QRCode {
-    private int hash;
+    private String hash;
     private String name;
     private int score;
     private String id;
-    // I am unsure as to how these two will be implmented
+    // I am unsure as to how these two will be implemented
     //private location;
     //private image image;
     private ArrayList<QRComment> allComments = new ArrayList<>();
+    private List<Integer> asciiList = new ArrayList<>();
 
 
     public QRCode(String qrCodeData, String name) {
         //this.hash = get the hash from the qrCodeData (passed in from the scanner);
+        this.hash = Hashing.sha256().hashString(qrCodeData, StandardCharsets.UTF_8).toString();
         this.name = name;
+
         //this.score = .... calculated from the hash
+        for (int i = 0; i < hash.length(); i++){
+            asciiList.add((int) hash.charAt(i));
+        }
+        //initializing score with 0
+        this.score = 0;
+
+        //iterating through asciiList for score
+        for (int i = 0; i < asciiList.size(); i++){
+            this.score += asciiList.get(i);
+        }
+
+        //random score calculation scheme
+        int multiplier = score / 1000;
+        score = score % 1000;
+        score *= multiplier;
+
         this.id =  name + "(" + hash + ")"; // Used for the Geolocation for sure
     }
 
@@ -28,7 +51,7 @@ public class QRCode {
         this.name = name;
     }
 
-    public int getHash() {
+    public String getHash() {
         return hash;
     }
 

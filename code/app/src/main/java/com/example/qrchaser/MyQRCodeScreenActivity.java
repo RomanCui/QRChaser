@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class MyQRCodeScreenActivity extends AppCompatActivity {
     private Button button2,button3,button4;
+    private FloatingActionButton addQR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +24,7 @@ public class MyQRCodeScreenActivity extends AppCompatActivity {
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
         button4 = findViewById(R.id.button4);
+        addQR = findViewById(R.id.floatingActionButton);
 
         // Head to Browse Players
         button2.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +53,17 @@ public class MyQRCodeScreenActivity extends AppCompatActivity {
                 Intent intent = new Intent(MyQRCodeScreenActivity.this, PlayerProfileActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        // Head to qr add screen
+        addQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MyQRCodeScreenActivity.this, QrAddScreenActivity.class);
+                startActivity(intent);
+                finish();
+
             }
         });
 
