@@ -20,10 +20,13 @@ public class MainActivity extends AppCompatActivity {
     private Button email,qrCode,guest,createAccount;
     private String qrValue;
 
+    Button createAccountBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_hub);
+        setContentView(R.layout.activity_main);
 
         email = findViewById(R.id.buttonUsernameLogin);
         createAccount = findViewById(R.id.buttonCreateAccount);
@@ -87,3 +90,4 @@ public class MainActivity extends AppCompatActivity {
         }); // end guest.setOnClickListener
     } // end onCreate
 } // end MainActivity Class
+
