@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     private Button email,qrCode,guest,createAccount;
     private String qrValue;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         createAccount = findViewById(R.id.buttonCreateAccount);
         qrCode = findViewById(R.id.buttonQRCodeLogin);
         guest = findViewById(R.id.buttonGuestLogin);
-
 
         ActivityResultLauncher<Intent> scannerResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -51,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                         }
-                    }
+                    } // end onActivityResult
                 }
         );
 
@@ -60,24 +58,24 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LoginEmailActivity.class);
                 startActivity(intent);
-            }
-        });
+            } // end onClick
+        }); // end email.setOnClickListener
 
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CreateAccountActivity.class);
                 startActivity(intent);
-            }
-        });
+            } // end onClick
+        }); // end createAccount.setOnClickListener
 
         qrCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CameraScannerActivity.class);
                 scannerResultLauncher.launch(intent);
-            }
-        });
+            } // end onClick
+        }); // end qrCode.setOnClickListener
 
 
         guest.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, MyQRCodeScreenActivity.class);
                 startActivity(intent);
-            }
-        });
-    }
-}
+            } // end onClick
+        }); // end guest.setOnClickListener
+    } // end onCreate
+} // end MainActivity Class

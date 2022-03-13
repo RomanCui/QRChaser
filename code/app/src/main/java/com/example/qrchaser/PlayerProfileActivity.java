@@ -39,8 +39,8 @@ public class PlayerProfileActivity extends AppCompatActivity {
                 Intent intent = new Intent(PlayerProfileActivity.this, MyQRCodeScreenActivity.class);
                 startActivity(intent);
                 finish();
-            }
-        });
+            } // end onClick
+        }); // end button1.setOnClickListener
 
         // Head to Browse Players
         button2.setOnClickListener(new View.OnClickListener() {
@@ -49,8 +49,8 @@ public class PlayerProfileActivity extends AppCompatActivity {
                 Intent intent = new Intent(PlayerProfileActivity.this, BrowseActivity.class);
                 startActivity(intent);
                 finish();
-            }
-        });
+            } // end onClick
+        }); // end button2.setOnClickListener
 
         // Head to Map Screen
         button3.setOnClickListener(new View.OnClickListener() {
@@ -59,8 +59,8 @@ public class PlayerProfileActivity extends AppCompatActivity {
                 Intent intent = new Intent(PlayerProfileActivity.this, MapActivity.class);
                 startActivity(intent);
                 finish();
-            }
-        });
+            } // end onClick
+        }); // end button3.setOnClickListener
 
         // Head to Player Profile Info
         buttonPlayerInfo.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +68,7 @@ public class PlayerProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PlayerProfileActivity.this, EditPlayerProfileActivity.class);
                 startActivity(intent);
-            }
-        });
+            } // end onClick
+        }); // end buttonPlayerInfo.setOnClickListener
     } // end onCreate
 } // end PlayerProfileActivity Class

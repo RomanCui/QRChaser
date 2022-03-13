@@ -33,8 +33,8 @@ public class MyQRCodeScreenActivity extends AppCompatActivity {
                 Intent intent = new Intent(MyQRCodeScreenActivity.this, BrowseActivity.class);
                 startActivity(intent);
                 finish();
-            }
-        });
+            } // end onClick
+        }); // end button2.setOnClickListener
 
         // Head to Map Screen
         button3.setOnClickListener(new View.OnClickListener() {
@@ -43,8 +43,8 @@ public class MyQRCodeScreenActivity extends AppCompatActivity {
                 Intent intent = new Intent(MyQRCodeScreenActivity.this, MapActivity.class);
                 startActivity(intent);
                 finish();
-            }
-        });
+            } // end onClick
+        }); // end button3.setOnClickListener
 
         // Head to Player Profile
         button4.setOnClickListener(new View.OnClickListener() {
@@ -53,8 +53,8 @@ public class MyQRCodeScreenActivity extends AppCompatActivity {
                 Intent intent = new Intent(MyQRCodeScreenActivity.this, PlayerProfileActivity.class);
                 startActivity(intent);
                 finish();
-            }
-        });
+            } // end onClick
+        }); // end button4.setOnClickListener
 
         // Head to qr add screen
         addQR.setOnClickListener(new View.OnClickListener() {
@@ -63,9 +63,7 @@ public class MyQRCodeScreenActivity extends AppCompatActivity {
                 Intent intent = new Intent(MyQRCodeScreenActivity.this, QrAddScreenActivity.class);
                 startActivity(intent);
                 finish();
-
-            }
-        });
-
+            } // end onClick
+        }); // end addQR.setOnClickListener
     } // end onCreate
 } // end MyQRCodeScreenActivity Class

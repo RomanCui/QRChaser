@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class LoginEmailActivity extends AppCompatActivity {
-
     Button login;
     String email, passWord;
     EditText emailET, passWordET;
@@ -37,9 +36,9 @@ public class LoginEmailActivity extends AppCompatActivity {
                     // To show a message if login unsuccessfully
                     Toast.makeText(getApplicationContext(),"FAIL: Please check your email or password",Toast.LENGTH_LONG).show();
                 }
-            }
-        });
-    }
+            }  // end onClick
+        }); // end login.setOnClickListener
+    } // end onCreate
 
     public boolean accountVerify(String email, String passWord){
         if(email.equals("yes") && passWord.equals("123")){
@@ -47,5 +46,5 @@ public class LoginEmailActivity extends AppCompatActivity {
             return true;
         }else
             return false;
-    }
-}
+    } // end accountVerify
+} // end LoginEmailActivity Class

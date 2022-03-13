@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class AdminQR extends AppCompatActivity {
+public class AdminPlayerRemovalActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_qr);
-    }
-}
+        setContentView(R.layout.activity_admin_player_removal);
+    } // end OnCreate
+} // end AdminPlayerRemovalActivity Class

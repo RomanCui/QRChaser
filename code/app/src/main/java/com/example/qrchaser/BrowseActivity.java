@@ -29,8 +29,8 @@ public class BrowseActivity extends AppCompatActivity {
                 Intent intent = new Intent(BrowseActivity.this, MyQRCodeScreenActivity.class);
                 startActivity(intent);
                 finish();
-            }
-        });
+            }  // end onClick
+        }); // end button1.setOnClickListener
 
         // Head to Map Screen
         button3.setOnClickListener(new View.OnClickListener() {
@@ -39,8 +39,8 @@ public class BrowseActivity extends AppCompatActivity {
                 Intent intent = new Intent(BrowseActivity.this, MapActivity.class);
                 startActivity(intent);
                 finish();
-            }
-        });
+            }  // end onClick
+        }); // end button3.setOnClickListener
 
         // Head to Player Profile
         button4.setOnClickListener(new View.OnClickListener() {
@@ -49,8 +49,8 @@ public class BrowseActivity extends AppCompatActivity {
                 Intent intent = new Intent(BrowseActivity.this, PlayerProfileActivity.class);
                 startActivity(intent);
                 finish();
-            }
-        });
+            }  // end onClick
+        }); // end button4.setOnClickListener
 
     } // end onCreate
 } // end BrowseActivity Class

@@ -19,7 +19,6 @@ Author: https://auth.geeksforgeeks.org/user/chaitanyamunje
  */
 
 public class GeneratedQRCodeActivity extends AppCompatActivity {
-
     private ImageView qrCodeIV;
     private String QRData = "Something Went Wrong";
     private Bitmap bitmap;

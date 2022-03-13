@@ -48,34 +48,31 @@ public class QrAddScreenActivity extends AppCompatActivity {
                             //for testing the result
                             Toast.makeText(getApplicationContext(), qrValue, Toast.LENGTH_SHORT).show();
                         }
-                    }
+                    } // end onActivityResult
                 }
         );
-
-
 
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(QrAddScreenActivity.this, CameraScannerActivity.class);
                 scannerResultLauncher.launch(intent);
-
-            }
-        });
+            } // end onClick
+        }); // end scan.setOnClickListener
 
         addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-            }
-        });
+                // TODO: 2022-03-13 Implement
+            } // end onClick
+        }); // end addPhoto.setOnClickListener
 
         addLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-            }
-        });
+                // TODO: 2022-03-13 Implement
+            } // end onClick
+        }); // end addLocation.setOnClickListener
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,25 +86,25 @@ public class QrAddScreenActivity extends AppCompatActivity {
 
                 qrName = nicknameET.getText().toString();
                 qrComment = commentET.getText().toString();
-                //check if qrValue nad name are not null, then check other optional values
+                // Check if qrValue nad name are not null, then check other optional values
 
 
                 if (!qrName.isEmpty()) { nameCheck = true; }
                 if (!qrComment.isEmpty()) { commentCheck = true; }
                 if (qrValue != null) { scanCheck = true; }
-                //do other checks here
+                // Do other checks here
 
                 if (nameCheck && scanCheck) {
-                    //call QRCode constructor here
+                    // Call QRCode constructor here
                     QRCode scannedQR = new QRCode(qrValue, qrName);
 
-                    //for testing
+                    // For testing
                     int score = scannedQR.getScore();
                     String scoreTestString = String.valueOf(score);
                     String hashTestString = scannedQR.getHash();
                     String testString = "score: " + scoreTestString + " hash: " + hashTestString;
 
-                    //For Testing
+                    // For Testing
                     Toast.makeText(getApplicationContext(), testString, Toast.LENGTH_SHORT).show();
 
 
@@ -122,21 +119,14 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 } else if (!nameCheck) {
                     Toast.makeText(getApplicationContext(), "Please Enter nickname for this QRCode", Toast.LENGTH_SHORT).show();
                 }
-
-
-
-            }
-        });
+            } // end onClick
+        }); // end confirm.setOnClickListener
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-            }
-        });
-
-
-
-
-    }
-}
+                // TODO: 2022-03-13 Implement
+            } // end onClick
+        }); // end cancel.setOnClickListener
+    } // end onCreate
+} // end QrAddScreenActivity Class

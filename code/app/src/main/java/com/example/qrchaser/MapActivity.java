@@ -53,9 +53,9 @@ public class MapActivity extends AppCompatActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //handle permissions first, before map is created. not depicted here
+        // Handle permissions first, before map is created. Is this done?
 
-        //load/initialize the osmdroid configuration, this can be done
+        // Load/initialize the osmdroid configuration, this can be done
         Context context = getApplicationContext();
         Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context));
         //setting this before the layout is inflated is a good idea
@@ -65,17 +65,15 @@ public class MapActivity extends AppCompatActivity{
         //note, the load method also sets the HTTP User Agent to your application's package name, abusing osm's
         //tile servers will get you banned based on this string
 
-        //inflate and create the map
+        // Inflate and create the map
         setContentView(R.layout.activity_map);
 
         map = (MapView) findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
 
         requestPermissionsIfNecessary(new String[] {
-                // if you need to show the current location, uncomment the line below
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
-                // WRITE_EXTERNAL_STORAGE is required in order to show the map
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         });
 
@@ -114,7 +112,7 @@ public class MapActivity extends AppCompatActivity{
         }
         mapController.setCenter(myPoint);
 
-        //Enable rotation gestures
+        // Enable rotation gestures
         mapRotationGestureOverlay = new RotationGestureOverlay(map);
         mapRotationGestureOverlay.setEnabled(true);
         map.setMultiTouchControls(true);
@@ -128,7 +126,7 @@ public class MapActivity extends AppCompatActivity{
         mapScaleBarOverlay.setScaleBarOffset(dm.widthPixels / 2, 10);
         map.getOverlays().add(this.mapScaleBarOverlay);
 
-        // ***************************Test Points************************
+        // *************************** Test Points ************************
 
         // Create 10k labelled points, in most cases, there will be no problems of displaying >100k points
         List<IGeoPoint> points = new ArrayList<>();
@@ -154,7 +152,7 @@ public class MapActivity extends AppCompatActivity{
                 .setAlgorithm(SimpleFastPointOverlayOptions.RenderingAlgorithm.MAXIMUM_OPTIMIZATION)
                 .setRadius(7).setIsClickable(true).setCellSize(15).setTextStyle(textStyle);
 
-        // create the overlay with the theme
+        // Create the overlay with the theme
         final SimpleFastPointOverlay sfpo = new SimpleFastPointOverlay(pointTheme, pointOverlayOptions);
 
         // onClick callback
@@ -165,10 +163,10 @@ public class MapActivity extends AppCompatActivity{
                 Toast.makeText(map.getContext()
                         , "You clicked " + ((LabelledGeoPoint) points.get(point)).getLabel()
                         , Toast.LENGTH_SHORT).show();
-            }
-        });
+            } // end onClick
+        }); // end sfpo.setOnClickListener
 
-        // add overlay
+        // Add overlay
         map.getOverlays().add(sfpo);
 
         // ************************** Page Selection ****************************************
@@ -183,8 +181,8 @@ public class MapActivity extends AppCompatActivity{
                 Intent intent = new Intent(MapActivity.this, MyQRCodeScreenActivity.class);
                 startActivity(intent);
                 finish();
-            }
-        });
+            } // end onClick
+        }); // end button1.setOnClickListener
 
         // Head to Browse Players
         button2.setOnClickListener(new View.OnClickListener() {
@@ -193,8 +191,8 @@ public class MapActivity extends AppCompatActivity{
                 Intent intent = new Intent(MapActivity.this, BrowseActivity.class);
                 startActivity(intent);
                 finish();
-            }
-        });
+            } // end onClick
+        }); // end button2.setOnClickListener
 
         // Head to Player Profile
         button4.setOnClickListener(new View.OnClickListener() {
@@ -203,30 +201,29 @@ public class MapActivity extends AppCompatActivity{
                 Intent intent = new Intent(MapActivity.this, PlayerProfileActivity.class);
                 startActivity(intent);
                 finish();
-            }
-        });
-
+            } // end onClick
+        }); // end button4.setOnClickListener
     } // end onCreate
 
     @Override
     public void onResume() {
         super.onResume();
-        //this will refresh the osmdroid configuration on resuming.
-        //if you make changes to the configuration, use
-        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        //Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
-        map.onResume(); //needed for compass, my location overlays, v6.0.0 and up
-    }
+        // This will refresh the osmdroid configuration on resuming.
+        // If you make changes to the configuration, use
+        // SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        // Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
+        map.onResume();
+    } // end onResume
 
     @Override
     public void onPause() {
         super.onPause();
-        //this will refresh the osmdroid configuration on resuming.
-        //if you make changes to the configuration, use
-        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        //Configuration.getInstance().save(this, prefs);
-        map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
-    }
+        // This will refresh the osmdroid configuration on resuming.
+        // If you make changes to the configuration, use
+        // SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        // Configuration.getInstance().save(this, prefs);
+        map.onPause();
+    } // end onPause
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -241,7 +238,7 @@ public class MapActivity extends AppCompatActivity{
                     permissionsToRequest.toArray(new String[0]),
                     REQUEST_PERMISSIONS_REQUEST_CODE);
         }
-    }
+    } // end onRequestPermissionsResult
 
     private void requestPermissionsIfNecessary(String[] permissions) {
         ArrayList<String> permissionsToRequest = new ArrayList<>();
@@ -258,5 +255,5 @@ public class MapActivity extends AppCompatActivity{
                     permissionsToRequest.toArray(new String[0]),
                     REQUEST_PERMISSIONS_REQUEST_CODE);
         }
-    }
-}
+    } // end requestPermissionsIfNecessary
+} // end MapActivity Class
