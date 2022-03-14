@@ -15,9 +15,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.api.IMapController;
@@ -48,6 +56,9 @@ public class MapActivity extends AppCompatActivity{
     private RotationGestureOverlay mapRotationGestureOverlay;
     private ScaleBarOverlay mapScaleBarOverlay;
     private Button button1,button2,button4;
+
+    final String TAG = "Sample";
+    FirebaseFirestore db;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -135,6 +146,29 @@ public class MapActivity extends AppCompatActivity{
         // For each instance in the database Read id, lat and lon of each qr code
         // Then call allQRCodes.add(new QRCode(id, latitude, longitude);
         // Thats it
+
+        db = FirebaseFirestore.getInstance();
+
+        // Get a top level reference to the collection
+        final CollectionReference QRCodesReference =
+                db.collection("QRCodes");
+
+        db.collection("QRCodes")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot document : task.getResult()) {
+                                allQRCodes.add(new QRCode(document.getString("ID"),
+                                        Double.parseDouble(document.getString("Lat")),
+                                        Double.parseDouble(document.getString("Lon"))));
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
 
         for (QRCode code: allQRCodes) {
             if (code.getLatitude() < 200 && code.getLongitude() < 200)

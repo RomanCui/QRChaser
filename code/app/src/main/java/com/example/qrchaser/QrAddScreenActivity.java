@@ -199,7 +199,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 Boolean photoCheck = false;
                 Boolean locationCheck = false;
 
-                
+
 
 
                 qrName = nicknameET.getText().toString();
@@ -230,6 +230,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         int count = 0;
                                         for (DocumentSnapshot document : task.getResult()) {
+
                                             count++;
                                             qrSize = count;
                                         }
