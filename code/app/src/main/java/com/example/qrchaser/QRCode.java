@@ -10,6 +10,7 @@ import java.util.List;
  * This class holds all of the data for a single QR code
  */
 public class QRCode {
+    private static int numCodes = 0;
     private String hash;
     private String name;
     private int score;
@@ -21,12 +22,21 @@ public class QRCode {
     private ArrayList<QRComment> allComments = new ArrayList<>();
     private List<Integer> asciiList = new ArrayList<>();
 
+    public QRCode(String id, double latitude, double longitude) {
+        this.id = id;
+        id.split(",")
+        this.latitude = latitude;
+        this.longitude = longitude;
+        // Put query in here
+
+    }
+
     /**
      * The constructor for the QR code
      * @param qrCodeData
      * @param name
      */
-    public QRCode(String qrCodeData, String name, double latitude, double longitude) {
+    public QRCode(String qrCodeData, String name, double latitude, double longitude, int numCodes) {
         this.hash = Hashing.sha256().hashString(qrCodeData, StandardCharsets.UTF_8).toString();
         this.name = name;
         this.latitude = latitude;
@@ -47,7 +57,10 @@ public class QRCode {
         this.score = this.score % 1000;
         this.score *= multiplier;
 
-        this.id =  name + "(" + this.hash + ")"; // Used for the Geolocation for sure
+        // Pull number of qrcode from db
+
+
+        this.id =  this.name + "," + this.hash + "," + numCodes; // Used for the Geolocation for sure
     } // end QRCode Constructor
 
     /**

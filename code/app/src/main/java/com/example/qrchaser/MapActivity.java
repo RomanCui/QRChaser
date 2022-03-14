@@ -133,6 +133,9 @@ public class MapActivity extends AppCompatActivity{
         ArrayList<QRCode> allQRCodes = new ArrayList<QRCode>();
         // ************************************************ This is where you need to import all of the QR codes from the database: ************************************************************************************************
         // Put them into allQRCodes
+        // Read id, lat and lon of each qr code
+
+
         for (QRCode code: allQRCodes) {
             if (code.getLatitude() < 200 && code.getLongitude() < 200)
             points.add(new LabelledGeoPoint(code.getLatitude(), code.getLongitude(), code.getId()));
