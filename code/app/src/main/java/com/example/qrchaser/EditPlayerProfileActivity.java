@@ -9,16 +9,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class EditPlayerProfileActivity extends AppCompatActivity {
+public class EditPlayerProfileActivity extends SaveANDLoad {
     private EditText emailET, passwordET, nicknameET, phoneNumberET;
     private Button buttonConfirm, buttonSignOut, buttonGenerateLoginQRCode, buttonGenerateInfoQRCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Using a dummy player for now
-        // TODO: 2022-03-12 Pass In Actual Players
-        Player currentPlayer = new Player("TestPlayer@gmail.com", "TestPassword", "TestPlayer" );
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_player_profile);
+
+        // Get the player email in order to load the data from the database
+        String playerEmail = loadData(getApplicationContext(), "UserEmail");
+        // Get Player info from the database here
+
+        // Using a dummy player for now
+        // TODO: 2022-03-12 Pass In Actual Players
+        Player currentPlayer = new Player(playerEmail, "TestPassword", "TestPlayer" );
 
         // Initialize
         emailET = findViewById(R.id.editTextEmailAddress);
@@ -34,7 +39,7 @@ public class EditPlayerProfileActivity extends AppCompatActivity {
         buttonGenerateLoginQRCode = findViewById(R.id.ButtonGenerateLoginQRCode);
         buttonGenerateInfoQRCode = findViewById(R.id.ButtonGenerateInfoQRCode);
 
-        //Confirm all changes made
+        //Confirm all changes made (Push the changes to the database)
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

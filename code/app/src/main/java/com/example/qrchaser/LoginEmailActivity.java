@@ -20,7 +20,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-public class LoginEmailActivity extends AppCompatActivity {
+public class LoginEmailActivity extends SaveANDLoad {
 
     final String TAG = "Sample";
     FirebaseFirestore db;
@@ -62,6 +62,7 @@ public class LoginEmailActivity extends AppCompatActivity {
                                 }
                                 if (passWord.equals(passwordDB)){
                                     // probably some data to be passed
+                                    saveData(getApplicationContext(), "UserEmail", email);
                                     Intent intent = new Intent(LoginEmailActivity.this, MyQRCodeScreenActivity.class);
                                     startActivity(intent);
                                 } else {

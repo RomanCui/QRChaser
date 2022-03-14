@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class MyQRCodeScreenActivity extends AppCompatActivity {
+public class MyQRCodeScreenActivity extends SaveANDLoad {
     private Button button2,button3,button4;
     private FloatingActionButton addQR;
 
@@ -18,7 +18,13 @@ public class MyQRCodeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_qrcode_screen);
         // ************************** Still need to add actual activity functionality ****************************************
+        // Get the player email in order to load the data from the database
+        String playerEmail = loadData(getApplicationContext(), "UserEmail");
+        // Get Player info from the database here
 
+        // Using a dummy player for now
+        // TODO: 2022-03-12 Pass In Actual Players
+        Player currentPlayer = new Player(playerEmail, "TestPassword", "TestPlayer" );
 
         // ************************** Page Selection ****************************************
         button2 = findViewById(R.id.button2);

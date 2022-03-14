@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class PlayerProfileActivity extends AppCompatActivity {
+public class PlayerProfileActivity extends SaveANDLoad {
     private Button button1,button2,button3, buttonPlayerInfo;
     private TextView nicknameTV;
 
@@ -17,9 +17,13 @@ public class PlayerProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_profile);
 
+        // Get the player email in order to load the data from the database
+        String playerEmail = loadData(getApplicationContext(), "UserEmail");
+        // Get Player info from the database here
+
         // Using a dummy player for now
         // TODO: 2022-03-12 Pass In Actual Players
-        Player currentPlayer = new Player("TestPlayer@gmail.com", "TestPassword", "TestPlayer" );
+        Player currentPlayer = new Player(playerEmail, "TestPassword", "TestPlayer" );
 
 
         nicknameTV = findViewById(R.id.desired_player_nickname);

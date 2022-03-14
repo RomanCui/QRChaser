@@ -24,7 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends SaveANDLoad {
     private Button email,qrCode,guest,createAccount;
     private String qrValue;
     private String passwordDB;
@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
                                                 }
                                                 if (qrDataArray[2].equals(passwordDB)){
                                                     // probably some data to be passed
+                                                    saveData(getApplicationContext(), "UserEmail", qrDataArray[1]);
                                                     Intent intent = new Intent(MainActivity.this, MyQRCodeScreenActivity.class);
                                                     startActivity(intent);
                                                 } else {
