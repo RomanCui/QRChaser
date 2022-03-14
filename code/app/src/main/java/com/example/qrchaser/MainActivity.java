@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -13,14 +14,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     private Button email,qrCode,guest,createAccount;
     private String qrValue;
-
-    Button createAccountBtn;
+    private String passwordDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         qrCode = findViewById(R.id.buttonQRCodeLogin);
         guest = findViewById(R.id.buttonGuestLogin);
 
+        // Activated when "Scan with QR code is completed"
         ActivityResultLauncher<Intent> scannerResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -46,11 +54,34 @@ public class MainActivity extends AppCompatActivity {
                             // Use the data
                             String[] qrDataArray = qrValue.split(",");
                             if (qrDataArray[0].contentEquals("QRCHASERLOGIN")){
-                                // TODO: 2022-03-13 Attempt to login with Username: qrDataArray[1] and Password qrDataArray[1]
-                                Intent intent = new Intent(MainActivity.this, MyQRCodeScreenActivity.class);
-                                startActivity(intent);
+                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                CollectionReference accountsRef = db.collection("Accounts");
+                                DocumentReference myAccount = accountsRef.document(qrDataArray[1]);
+                                myAccount.get()
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                if (documentSnapshot.exists()) {
+                                                    passwordDB = documentSnapshot.getString("Password");
+                                                }else {
+                                                    Toast.makeText(getApplicationContext(),"Document does not exits",Toast.LENGTH_LONG).show();
+                                                }
+                                                if (qrDataArray[2].equals(passwordDB)){
+                                                    // probably some data to be passed
+                                                    Intent intent = new Intent(MainActivity.this, MyQRCodeScreenActivity.class);
+                                                    startActivity(intent);
+                                                } else {
+                                                    // To show a message if login unsuccessfully
+                                                    Toast.makeText(getApplicationContext(),"FAIL: Please try again",Toast.LENGTH_LONG).show();
+                                                }
+                                            } // end onSuccess
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
+                                    } // end onFailure
+                                }); // end myAccount.get().addOnSuccessListener
                             }
-
                         }
                     } // end onActivityResult
                 }

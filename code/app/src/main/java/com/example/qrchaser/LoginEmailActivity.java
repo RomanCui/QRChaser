@@ -68,13 +68,13 @@ public class LoginEmailActivity extends AppCompatActivity {
                                     // To show a message if login unsuccessfully
                                     Toast.makeText(getApplicationContext(),"FAIL: Please check your email or password",Toast.LENGTH_LONG).show();
                                 }
-                        }
+                        } // end onSuccess
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
-                        }
-                    });
+                        } // end onFailure
+                    }); // end myAccount.get().addOnSuccessListener
 
 
             }  // end onClick
