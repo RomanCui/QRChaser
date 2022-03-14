@@ -15,12 +15,18 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+
 public class QrAddScreenActivity extends AppCompatActivity {
 
     private Button scan, addPhoto, addLocation, confirm, cancel;
     private EditText nicknameET, commentET;
     String qrName, qrComment;
     String qrValue;
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -106,6 +112,21 @@ public class QrAddScreenActivity extends AppCompatActivity {
 
                     // For Testing
                     Toast.makeText(getApplicationContext(), testString, Toast.LENGTH_SHORT).show();
+
+                    db = FirebaseFirestore.getInstance();
+
+                    // Get a top level reference to the collection
+                    final CollectionReference QRCodesReference =
+                            db.collection("QRCodes");
+
+                    HashMap<String, String> qrCodes = new HashMap<>();
+                    if (scannedQR.getName().length()>0 && scannedQR.getHash().length()>0
+                            && scannedQR.getId().length()>0) {
+                        // If there’s some data in the EditText field, then we create a new key-value pair.
+                        qrCodes.put("Name", scannedQR.getName());
+                        qrCodes.put("HashValue", scannedQR.getHash());
+                    }
+
 
 
                     //TODO: Need User object
