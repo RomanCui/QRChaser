@@ -38,6 +38,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+
 public class QrAddScreenActivity extends AppCompatActivity {
 
     private Button scan, addPhoto, addLocation, confirm, cancel;
@@ -46,11 +51,10 @@ public class QrAddScreenActivity extends AppCompatActivity {
     private ImageView imageView;
     String qrName, qrComment;
     String qrValue;
+    FirebaseFirestore db;
 
     private ActivityResultLauncher<Intent> galleryResultLauncher;
     private ActivityResultLauncher<Intent> cameraResultLauncher;
-    
-	FirebaseFirestore db;
 
     private FusedLocationProviderClient fusedLocationProviderClient;
     // Both impossible values
@@ -213,9 +217,27 @@ public class QrAddScreenActivity extends AppCompatActivity {
                     // For Testing
                     Toast.makeText(getApplicationContext(), testString, Toast.LENGTH_SHORT).show();
 
+
                     //TODO: Compress image here
 //                    if(photoCheck) {
 //                    }
+
+                    db = FirebaseFirestore.getInstance();
+
+                    // Get a top level reference to the collection
+                    final CollectionReference QRCodesReference =
+                            db.collection("QRCodes");
+
+                    HashMap<String, String> qrCodes = new HashMap<>();
+                    if (scannedQR.getName().length()>0 && scannedQR.getHash().length()>0
+                            && scannedQR.getId().length()>0) {
+                        // If there’s some data in the EditText field, then we create a new key-value pair.
+                        qrCodes.put("Name", scannedQR.getName());
+                        qrCodes.put("HashValue", scannedQR.getHash());
+                    }
+
+
+
 
                     //TODO: Create comment here (Need User object)
 //                    if(commentCheck) {
