@@ -74,6 +74,8 @@
         android:layout_gravity="center"
         android:text="Cancel" />
 
+
+<!--    TODO: For preview/testing, could remove this in future version-->
     <ImageView
         android:id="@+id/qr_image_preview_imageView"
         android:layout_width="match_parent"

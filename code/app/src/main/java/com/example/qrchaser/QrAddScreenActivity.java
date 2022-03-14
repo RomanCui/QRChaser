@@ -21,8 +21,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.j256.ormlite.stmt.query.In;
 
+import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
 
 public class QrAddScreenActivity extends AppCompatActivity {
 
@@ -120,8 +122,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Launch a fragment and ask user to use camera or gallery
-                cameraAddPhoto();
-
+                new QrAddScreenAddPhotoFragment().show(getSupportFragmentManager(), "QR_ADD_PHOTO");
             } // end onClick
         }); // end addPhoto.setOnClickListener
 
@@ -166,8 +167,11 @@ public class QrAddScreenActivity extends AppCompatActivity {
                     // For Testing
                     Toast.makeText(getApplicationContext(), testString, Toast.LENGTH_SHORT).show();
 
+                    //TODO: Compress image here
+//                    if(photoCheck) {
+//                    }
 
-                    //TODO: Need User object
+                    //TODO: Create comment here (Need User object)
 //                    if(commentCheck) {
 //                        QRComment(new User(), qrComment);
 //                    }
@@ -190,6 +194,9 @@ public class QrAddScreenActivity extends AppCompatActivity {
     } // end onCreate
 
 
+    /**
+     *  Create intent for image capture, and launch the camera activity for the user to take a picture
+     */
     public void cameraAddPhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraResultLauncher.launch(intent);
@@ -197,6 +204,9 @@ public class QrAddScreenActivity extends AppCompatActivity {
     }
 
 
+    /**
+     *  Create intent for selecting image, and launch the gallery activity for the user to select a picture
+     */
     public void galleryAddPhoto() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
