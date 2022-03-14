@@ -22,17 +22,39 @@ public class QRCode {
     private ArrayList<QRComment> allComments = new ArrayList<>();
     private List<Integer> asciiList = new ArrayList<>();
 
+    /**
+     * A constructor for the QR code
+     * @param id
+     * @param latitude
+     * @param longitude
+     */
     public QRCode(String id, double latitude, double longitude) {
         this.id = id;
-        id.split(",")
+        String[] qrCodeData = id.split(",");
+        this.name = qrCodeData[0];
+        this.hash = qrCodeData[1];
         this.latitude = latitude;
         this.longitude = longitude;
-        // Put query in here
 
-    }
+        // Calculate the score from the hash
+        for (int i = 0; i < hash.length(); i++){
+            asciiList.add((int) hash.charAt(i));
+        }
+        this.score = 0;
+
+        // Iterate through asciiList for score
+        for (int i = 0; i < asciiList.size(); i++){
+            this.score += asciiList.get(i);
+        }
+
+        // Score calculation scheme
+        int multiplier = this.score / 1000;
+        this.score = this.score % 1000;
+        this.score *= multiplier;
+    } // end QRCode Constructor
 
     /**
-     * The constructor for the QR code
+     * A constructor for the QR code
      * @param qrCodeData
      * @param name
      */
