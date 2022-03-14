@@ -130,7 +130,6 @@ public class QrAddScreenActivity extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 2022-03-13 Implement
                 finish();
             } // end onClick
         }); // end cancel.setOnClickListener
