@@ -132,21 +132,20 @@ public class MapActivity extends AppCompatActivity{
 
         ArrayList<QRCode> allQRCodes = new ArrayList<QRCode>();
         // ************************************************ This is where you need to import all of the QR codes from the database: ************************************************************************************************
-        // Put them into allQRCodes
-        // Read id, lat and lon of each qr code
-
+        // For each instance in the database Read id, lat and lon of each qr code
+        // Then call allQRCodes.add(new QRCode(id, latitude, longitude);
+        // Thats it
 
         for (QRCode code: allQRCodes) {
             if (code.getLatitude() < 200 && code.getLongitude() < 200)
             points.add(new LabelledGeoPoint(code.getLatitude(), code.getLongitude(), code.getId()));
         }
+        
         // *************************** Test Points ************************
-
         // Create 10k labelled points, in most cases, there will be no problems of displaying >100k points
         for (int i = 0; i < 10000; i++) {
             points.add(new LabelledGeoPoint(37 + Math.random() * 5, -8 + Math.random() * 5, "Point #" + i));
         }
-
         // *************************** End Test Points ************************
 
         // Wrap them in a theme
