@@ -2,10 +2,14 @@ package com.example.qrchaser;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -15,12 +19,24 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.j256.ormlite.stmt.query.In;
+
+import java.io.BufferedOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
+
 public class QrAddScreenActivity extends AppCompatActivity {
 
     private Button scan, addPhoto, addLocation, confirm, cancel;
     private EditText nicknameET, commentET;
+    private Bitmap image;
+    private ImageView imageView;
     String qrName, qrComment;
     String qrValue;
+
+    private ActivityResultLauncher<Intent> galleryResultLauncher;
+    private ActivityResultLauncher<Intent> cameraResultLauncher;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +52,9 @@ public class QrAddScreenActivity extends AppCompatActivity {
         nicknameET = findViewById(R.id.qr_nickname_edit_text);
         commentET = findViewById(R.id.qr_comments_edit_text);
 
+        imageView = findViewById(R.id.qr_image_preview_imageView);
+
+        //scanner result receiver
         ActivityResultLauncher<Intent> scannerResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -52,6 +71,45 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 }
         );
 
+        //gallery result receiver
+        galleryResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            Uri uri = result.getData().getData();
+                            try {
+                                image = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                                imageView.setImageBitmap(image);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } // end onActivityResult
+                    }
+                }
+        );
+
+        //camera result receiver
+        cameraResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            Bundle bundle = result.getData().getExtras();
+                            image = (Bitmap) bundle.get("data");
+                            imageView.setImageBitmap(image);
+                        } // end onActivityResult
+                    }
+                }
+        );
+
+
+
+
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,7 +121,8 @@ public class QrAddScreenActivity extends AppCompatActivity {
         addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 2022-03-13 Implement
+                //Launch a fragment and ask user to use camera or gallery
+                new QrAddScreenAddPhotoFragment().show(getSupportFragmentManager(), "QR_ADD_PHOTO");
             } // end onClick
         }); // end addPhoto.setOnClickListener
 
@@ -92,6 +151,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 if (!qrName.isEmpty()) { nameCheck = true; }
                 if (!qrComment.isEmpty()) { commentCheck = true; }
                 if (qrValue != null) { scanCheck = true; }
+                if (image != null) { photoCheck = true; }
                 // Do other checks here
 
                 if (nameCheck && scanCheck) {
@@ -107,8 +167,11 @@ public class QrAddScreenActivity extends AppCompatActivity {
                     // For Testing
                     Toast.makeText(getApplicationContext(), testString, Toast.LENGTH_SHORT).show();
 
+                    //TODO: Compress image here
+//                    if(photoCheck) {
+//                    }
 
-                    //TODO: Need User object
+                    //TODO: Create comment here (Need User object)
 //                    if(commentCheck) {
 //                        QRComment(new User(), qrComment);
 //                    }
@@ -129,4 +192,25 @@ public class QrAddScreenActivity extends AppCompatActivity {
             } // end onClick
         }); // end cancel.setOnClickListener
     } // end onCreate
+
+
+    /**
+     *  Create intent for image capture, and launch the camera activity for the user to take a picture
+     */
+    public void cameraAddPhoto() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraResultLauncher.launch(intent);
+
+    }
+
+
+    /**
+     *  Create intent for selecting image, and launch the gallery activity for the user to select a picture
+     */
+    public void galleryAddPhoto() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        galleryResultLauncher.launch(intent);
+
+    }
 } // end QrAddScreenActivity Class
