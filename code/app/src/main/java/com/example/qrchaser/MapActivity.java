@@ -94,6 +94,7 @@ public class MapActivity extends AppCompatActivity{
 
         // Add touch Zoom Control
         map.setMultiTouchControls(true);
+        map.setBuiltInZoomControls(false);
 
         // Enable Compass Overlay
         this.mapCompassOverlay = new CompassOverlay(context, new InternalCompassOrientationProvider(context), map);
@@ -106,22 +107,7 @@ public class MapActivity extends AppCompatActivity{
         map.getOverlays().add(this.myLocationOverlay);
 
 
-        // Attempt to set to current location
-        // *****************I Am Unable to test this right now, my emulator always gives null**************************
-        GeoPoint myPoint = this.myLocationOverlay.getMyLocation();
-//        Log.d("lat", "" + myPoint.getLatitude());
-//        Log.d("long", "" + myPoint.getLongitude());
-        if (myPoint == null) {
-            // Since no current location exist, attempt with last known location
-            Location location = this.myLocationOverlay.getLastFix();
-            if (location != null) {
-                myPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
-            } else {
-                // Since no current nor last-know location exist, default to 0, 0!
-                myPoint =  new GeoPoint(0.0, 0.0);
-            }
-        }
-        mapController.setCenter(myPoint);
+
 
         // Enable rotation gestures
         mapRotationGestureOverlay = new RotationGestureOverlay(map);
@@ -160,26 +146,24 @@ public class MapActivity extends AppCompatActivity{
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot document : task.getResult()) {
-                                allQRCodes.add(new QRCode(document.getString("ID"),
-                                        Double.parseDouble(document.getString("Lat")),
-                                        Double.parseDouble(document.getString("Lon"))));
+                                String tempID = document.getString("ID");
+                                Double tempLat = Double.parseDouble(document.getString("Lat"));
+                                Double tempLon = Double.parseDouble(document.getString("Lon"));
+                                if (tempLon < 200 && tempLon < 200) {
+                                    points.add(new LabelledGeoPoint(tempLon, tempLon, tempID));
+                                }
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
                 });
-
-        for (QRCode code: allQRCodes) {
-            if (code.getLatitude() < 200 && code.getLongitude() < 200)
-            points.add(new LabelledGeoPoint(code.getLatitude(), code.getLongitude(), code.getId()));
-        }
         
         // *************************** Test Points ************************
         // Create 10k labelled points, in most cases, there will be no problems of displaying >100k points
-        for (int i = 0; i < 10000; i++) {
-            points.add(new LabelledGeoPoint(37 + Math.random() * 5, -8 + Math.random() * 5, "Point #" + i));
-        }
+//        for (int i = 0; i < 10000; i++) {
+//            points.add(new LabelledGeoPoint(37 + Math.random() * 5, -8 + Math.random() * 5, "Point #" + i));
+//        }
         // *************************** End Test Points ************************
 
         // Wrap them in a theme
@@ -214,6 +198,24 @@ public class MapActivity extends AppCompatActivity{
 
         // Add overlay
         map.getOverlays().add(sfpo);
+
+        // Attempt to set to current location
+        // *****************I Am Unable to test this right now, my emulator always gives null**************************
+        GeoPoint myPoint = this.myLocationOverlay.getMyLocation();
+        //Log.d("lat", "" + myPoint.getLatitude());
+        //Log.d("long", "" + myPoint.getLongitude());
+        if (myPoint == null) {
+            // Since no current location exist, attempt with last known location
+            Location location = this.myLocationOverlay.getLastFix();
+            if (location != null) {
+                myPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
+            } else {
+                Log.d("oof", "dam");
+                // Since no current nor last-know location exist, default to 0, 0!
+                myPoint =  new GeoPoint(0.0, 0.0);
+            }
+        }
+        mapController.setCenter(myPoint);
 
         // ************************** Page Selection ****************************************
         button1 = findViewById(R.id.button1);
