@@ -13,19 +13,19 @@ public class QRCodeTest {
 
     private QRCode mockQRCode1(){
         QRCode myQRCode = new QRCode("XXX", "MyCode1",
-                200.0, 200.0);
+                200.0, 200.0, 1);
         return myQRCode;
     }
 
     private QRCode mockQRCode2(){
         QRCode myQRCode = new QRCode("XXX", "MyCode2",
-                200.0, 200.0);
+                200.0, 200.0, 2);
         return myQRCode;
     }
 
     private QRCode mockQRCode3(){
         QRCode myQRCode = new QRCode("YYY", "MyCode3",
-                200.0, 200.0);
+                200.0, 200.0, 3);
         return myQRCode;
     }
 
