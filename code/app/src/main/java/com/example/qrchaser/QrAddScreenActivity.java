@@ -131,8 +131,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // TODO: 2022-03-13 Implement
-                Intent intent = new Intent(QrAddScreenActivity.this, MyQRCodeScreenActivity.class);
-                startActivity(intent);
+                finish();
             } // end onClick
         }); // end cancel.setOnClickListener
     } // end onCreate
