@@ -30,8 +30,11 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -68,6 +71,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
     private double latitude = 200;
     private double longitude  = 200;
     private boolean SetLocation = false;
+    private int qrSize = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -195,6 +199,8 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 Boolean photoCheck = false;
                 Boolean locationCheck = false;
 
+                qrValue = "A";
+
 
                 qrName = nicknameET.getText().toString();
                 qrComment = commentET.getText().toString();
@@ -207,11 +213,36 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 // Do other checks here
                 QRCode scannedQR;
                 if (nameCheck && scanCheck) {
+
+                    db = FirebaseFirestore.getInstance();
+
+                    // Get a top level reference to the collection
+                    final CollectionReference QRCodesReference =
+                            db.collection("QRCodes");
+
+
+
+                    db.collection("QRCodes")
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        int count = 0;
+                                        for (DocumentSnapshot document : task.getResult()) {
+                                            count++;
+                                            qrSize = count;
+                                        }
+                                    } else {
+                                        Log.d(TAG, "Error getting documents: ", task.getException());
+                                    }
+                                }
+                            });
                     // Call QRCode constructor here
                     if(SetLocation) {
-                        scannedQR = new QRCode(qrValue, qrName, latitude, longitude);
+                        scannedQR = new QRCode(qrValue, qrName, latitude, longitude, qrSize);
                     } else {
-                        scannedQR = new QRCode(qrValue, qrName, 200, 200);
+                        scannedQR = new QRCode(qrValue, qrName, 200, 200, qrSize);
                     }
 
                     // For testing
@@ -228,11 +259,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
 //                    if(photoCheck) {
 //                    }
 
-                    db = FirebaseFirestore.getInstance();
 
-                    // Get a top level reference to the collection
-                    final CollectionReference QRCodesReference =
-                            db.collection("QRCodes");
 
                     HashMap<String, String> qrCodes = new HashMap<>();
                     if (scannedQR.getId().length()>0) {
@@ -243,6 +270,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                         qrCodes.put("Lat", Double.toString(scannedQR.getLatitude()));
                         qrCodes.put("Lon", Double.toString(scannedQR.getLongitude()));
                         qrCodes.put("Lon", Double.toString(scannedQR.getLongitude()));
+                        qrCodes.put("Score", Double.toString(scannedQR.getScore()));
                     }
 
                     QRCodesReference
