@@ -30,35 +30,7 @@ public class EditPlayerProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_player_profile);
 
         // **************************** Get Player From DB*****************************************
-        db = FirebaseFirestore.getInstance();
-
-        CollectionReference accountsRef = db.collection("Accounts");
-        DocumentReference myAccount = accountsRef.document(email);
-        myAccount.get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) {
-                            passwordDB = documentSnapshot.getString("Password");
-                        }else {
-                            Toast.makeText(getApplicationContext(),"Document does not exits",Toast.LENGTH_LONG).show();
-                        }
-                        if (passWord.equals(passwordDB)){
-                            // probably some data to be passed
-                            Intent intent = new Intent(LoginEmailActivity.this, MyQRCodeScreenActivity.class);
-                            startActivity(intent);
-                        } else {
-                            // To show a message if login unsuccessfully
-                            Toast.makeText(getApplicationContext(),"FAIL: Please check your email or password",Toast.LENGTH_LONG).show();
-                        }
-                    } // end onSuccess
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
-            } // end onFailure
-        }); // end myAccount.get().addOnSuccessListener
-
+        
         // **************************** End Get Player From DB*****************************************
 
         // Initialize
