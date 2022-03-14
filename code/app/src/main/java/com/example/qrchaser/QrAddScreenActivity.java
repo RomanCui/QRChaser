@@ -1,9 +1,14 @@
 package com.example.qrchaser;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -18,6 +23,13 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import com.j256.ormlite.stmt.query.In;
 
@@ -37,6 +49,14 @@ public class QrAddScreenActivity extends AppCompatActivity {
 
     private ActivityResultLauncher<Intent> galleryResultLauncher;
     private ActivityResultLauncher<Intent> cameraResultLauncher;
+    
+	FirebaseFirestore db;
+
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    // Both impossible values
+    private double latitude = 200;
+    private double longitude  = 200;
+    private boolean SetLocation = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,7 +80,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
-                        if(result.getResultCode() == Activity.RESULT_OK) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
                             Intent scannerResult = result.getData();
                             qrValue = scannerResult.getStringExtra("qrValue");
 
@@ -126,10 +146,32 @@ public class QrAddScreenActivity extends AppCompatActivity {
             } // end onClick
         }); // end addPhoto.setOnClickListener
 
+        try {
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                }
+            }
+        });
+
         addLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 2022-03-13 Implement
+                // TODO: 2022-03-13 Implement Better
+                SetLocation = true;
+
             } // end onClick
         }); // end addLocation.setOnClickListener
 
@@ -153,10 +195,14 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 if (qrValue != null) { scanCheck = true; }
                 if (image != null) { photoCheck = true; }
                 // Do other checks here
-
+                QRCode scannedQR;
                 if (nameCheck && scanCheck) {
                     // Call QRCode constructor here
-                    QRCode scannedQR = new QRCode(qrValue, qrName);
+                    if(SetLocation) {
+                        scannedQR = new QRCode(qrValue, qrName, latitude, longitude);
+                    } else {
+                        scannedQR = new QRCode(qrValue, qrName, 200, 200);
+                    }
 
                     // For testing
                     int score = scannedQR.getScore();
@@ -188,7 +234,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 2022-03-13 Implement
+                finish();
             } // end onClick
         }); // end cancel.setOnClickListener
     } // end onCreate
