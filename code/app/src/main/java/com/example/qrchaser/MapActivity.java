@@ -53,7 +53,7 @@ public class MapActivity extends AppCompatActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Handle permissions first, before map is created. Is this done?
+        // Handle permissions first, before map is created. Is this done? I think so
 
         // Load/initialize the osmdroid configuration, this can be done
         Context context = getApplicationContext();
@@ -126,15 +126,25 @@ public class MapActivity extends AppCompatActivity{
         mapScaleBarOverlay.setScaleBarOffset(dm.widthPixels / 2, 10);
         map.getOverlays().add(this.mapScaleBarOverlay);
 
+
+        List<IGeoPoint> points = new ArrayList<>();
+
+
+        ArrayList<QRCode> allQRCodes = new ArrayList<QRCode>();
+        // ************************************************ This is where you need to import all of the QR codes from the database: ************************************************************************************************
+        // Put them into allQRCodes
+        for (QRCode code: allQRCodes) {
+            if (code.getLatitude() < 200 && code.getLongitude() < 200)
+            points.add(new LabelledGeoPoint(code.getLatitude(), code.getLongitude(), code.getId()));
+        }
         // *************************** Test Points ************************
 
         // Create 10k labelled points, in most cases, there will be no problems of displaying >100k points
-        List<IGeoPoint> points = new ArrayList<>();
-        // This is where you need to import all of the QR codes from the database:
-        // The Latitude, Longitude, and ID are all needed
         for (int i = 0; i < 10000; i++) {
             points.add(new LabelledGeoPoint(37 + Math.random() * 5, -8 + Math.random() * 5, "Point #" + i));
         }
+
+        // *************************** End Test Points ************************
 
         // Wrap them in a theme
         SimplePointTheme pointTheme = new SimplePointTheme(points, true);

@@ -37,8 +37,10 @@ public class QrAddScreenActivity extends AppCompatActivity {
     FirebaseFirestore db;
 
     private FusedLocationProviderClient fusedLocationProviderClient;
-    String latitude = "0";
-    String longitude = "0";
+    // Both impossible values
+    private double latitude = 200;
+    private double longitude  = 200;
+    private boolean SetLocation = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,8 +101,8 @@ public class QrAddScreenActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Location location) {
                 if (location != null) {
-                    latitude = Double.toString(location.getLatitude());
-                    longitude = Double.toString(location.getLongitude());
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
                 }
             }
         });
@@ -108,8 +110,8 @@ public class QrAddScreenActivity extends AppCompatActivity {
         addLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 2022-03-13 Implement
-
+                // TODO: 2022-03-13 Implement Better
+                SetLocation = true;
 
             } // end onClick
         }); // end addLocation.setOnClickListener
@@ -133,10 +135,14 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 if (!qrComment.isEmpty()) { commentCheck = true; }
                 if (qrValue != null) { scanCheck = true; }
                 // Do other checks here
-
+                QRCode scannedQR;
                 if (nameCheck && scanCheck) {
                     // Call QRCode constructor here
-                    QRCode scannedQR = new QRCode(qrValue, qrName);
+                    if(SetLocation) {
+                        scannedQR = new QRCode(qrValue, qrName, latitude, longitude);
+                    } else {
+                        scannedQR = new QRCode(qrValue, qrName, 200, 200);
+                    }
 
                     // For testing
                     int score = scannedQR.getScore();
