@@ -42,12 +42,12 @@ public class CreateAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
-        emailET = findViewById(R.id.editTextEmailAddress);
-        passwordET = findViewById(R.id.editTextPassword);
-        nicknameET = findViewById(R.id.editTextNickname);
-        phoneET = findViewById(R.id.editTextPhone);
-        confirmBtn = findViewById(R.id.buttonConfirm);
-        cancelBtn = findViewById(R.id.buttonCancel);
+        emailET = findViewById(R.id.editTextEmailAddress1);
+        passwordET = findViewById(R.id.editTextPassword1);
+        nicknameET = findViewById(R.id.editTextNickname1);
+        phoneET = findViewById(R.id.editTextPhone1);
+        confirmBtn = findViewById(R.id.buttonConfirm1);
+        cancelBtn = findViewById(R.id.buttonCancel1);
 
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override

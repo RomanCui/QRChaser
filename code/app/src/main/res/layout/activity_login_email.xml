@@ -8,31 +8,31 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textViewEmailPrompt"
+        android:id="@+id/textViewEmailPrompt2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Please enter your email address:" />
 
     <EditText
-        android:id="@+id/editTextEmailAddress"
+        android:id="@+id/editTextEmailAddress2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress" />
 
     <TextView
-        android:id="@+id/textViewPasswordPrompt"
+        android:id="@+id/textViewPasswordPrompt2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Please enter your password:" />
 
     <EditText
-        android:id="@+id/editTextPassword"
+        android:id="@+id/editTextPassword2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/buttonLogin"
+        android:id="@+id/buttonLogin2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login" />

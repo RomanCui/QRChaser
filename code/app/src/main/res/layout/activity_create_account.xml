@@ -15,55 +15,55 @@ tools:context=".CreateAccountActivity">
     android:text="Please enter your email:" />
 
 <EditText
-    android:id="@+id/editTextEmailAddress"
+    android:id="@+id/editTextEmailAddress1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:inputType="textEmailAddress" />
 
 <TextView
-    android:id="@+id/textViewPasswordPrompt"
+    android:id="@+id/textViewPasswordPrompt1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="Please set your password:" />
 
 <EditText
-    android:id="@+id/editTextPassword"
+    android:id="@+id/editTextPassword1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:inputType="textPassword" />
 
 <TextView
-    android:id="@+id/textViewNicknamePrompt"
+    android:id="@+id/textViewNicknamePrompt1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="Please enter your nickname:" />
 
 <EditText
-    android:id="@+id/editTextNickname"
+    android:id="@+id/editTextNickname1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:inputType="textPersonName" />
 
 <TextView
-    android:id="@+id/textViewPhoneNumberPrompt"
+    android:id="@+id/textViewPhoneNumberPrompt1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="Please enter your phone number:" />
 
 <EditText
-    android:id="@+id/editTextPhone"
+    android:id="@+id/editTextPhone1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:inputType="phone" />
 
     <Button
-        android:id="@+id/buttonConfirm"
+        android:id="@+id/buttonConfirm1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Confirm" />
 
     <Button
-        android:id="@+id/buttonCancel"
+        android:id="@+id/buttonCancel1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Cancel" />
