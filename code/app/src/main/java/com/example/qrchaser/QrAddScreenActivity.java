@@ -33,6 +33,9 @@ public class QrAddScreenActivity extends AppCompatActivity {
     String qrName, qrComment;
     String qrValue;
 
+    private ActivityResultLauncher<Intent> galleryResultLauncher;
+    private ActivityResultLauncher<Intent> cameraResultLauncher;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +70,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
         );
 
         //gallery result receiver
-        ActivityResultLauncher<Intent> galleryResultLauncher = registerForActivityResult(
+        galleryResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
@@ -87,6 +90,21 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 }
         );
 
+        //camera result receiver
+        cameraResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            Bundle bundle = result.getData().getExtras();
+                            image = (Bitmap) bundle.get("data");
+                            imageView.setImageBitmap(image);
+                        } // end onActivityResult
+                    }
+                }
+        );
+
 
 
 
@@ -101,10 +119,9 @@ public class QrAddScreenActivity extends AppCompatActivity {
         addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 2022-03-13 Implement
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                galleryResultLauncher.launch(intent);
+                //Launch a fragment and ask user to use camera or gallery
+                cameraAddPhoto();
+
             } // end onClick
         }); // end addPhoto.setOnClickListener
 
@@ -133,6 +150,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 if (!qrName.isEmpty()) { nameCheck = true; }
                 if (!qrComment.isEmpty()) { commentCheck = true; }
                 if (qrValue != null) { scanCheck = true; }
+                if (image != null) { photoCheck = true; }
                 // Do other checks here
 
                 if (nameCheck && scanCheck) {
@@ -170,4 +188,19 @@ public class QrAddScreenActivity extends AppCompatActivity {
             } // end onClick
         }); // end cancel.setOnClickListener
     } // end onCreate
+
+
+    public void cameraAddPhoto() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraResultLauncher.launch(intent);
+
+    }
+
+
+    public void galleryAddPhoto() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        galleryResultLauncher.launch(intent);
+
+    }
 } // end QrAddScreenActivity Class
