@@ -104,6 +104,7 @@ public class MapActivity extends AppCompatActivity{
         // Enable My Location overlay
         this.myLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(context),map);
         this.myLocationOverlay.enableMyLocation();
+        this.myLocationOverlay.enableFollowLocation();
         map.getOverlays().add(this.myLocationOverlay);
 
 
