@@ -11,6 +11,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +22,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -28,9 +30,13 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.j256.ormlite.stmt.query.In;
 
 import java.io.BufferedOutputStream;
@@ -51,6 +57,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
     private ImageView imageView;
     String qrName, qrComment;
     String qrValue;
+    final String TAG = "Sample";
     FirebaseFirestore db;
 
     private ActivityResultLauncher<Intent> galleryResultLauncher;
@@ -148,7 +155,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 //Launch a fragment and ask user to use camera or gallery
                 new QrAddScreenAddPhotoFragment().show(getSupportFragmentManager(), "QR_ADD_PHOTO");
             } // end onClick
-        }); // end addPhoto.setOnClickListener
+        });
 
         try {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
@@ -193,7 +200,6 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 qrComment = commentET.getText().toString();
                 // Check if qrValue nad name are not null, then check other optional values
 
-
                 if (!qrName.isEmpty()) { nameCheck = true; }
                 if (!qrComment.isEmpty()) { commentCheck = true; }
                 if (qrValue != null) { scanCheck = true; }
@@ -229,15 +235,40 @@ public class QrAddScreenActivity extends AppCompatActivity {
                             db.collection("QRCodes");
 
                     HashMap<String, String> qrCodes = new HashMap<>();
-                    if (scannedQR.getName().length()>0 && scannedQR.getHash().length()>0
-                            && scannedQR.getId().length()>0) {
+                    if (scannedQR.getId().length()>0) {
                         // If there’s some data in the EditText field, then we create a new key-value pair.
+                        qrCodes.put("ID", scannedQR.getId());
                         qrCodes.put("Name", scannedQR.getName());
                         qrCodes.put("HashValue", scannedQR.getHash());
+                        qrCodes.put("Lat", Double.toString(scannedQR.getLatitude()));
+                        qrCodes.put("Lon", Double.toString(scannedQR.getLongitude()));
+                        qrCodes.put("Lon", Double.toString(scannedQR.getLongitude()));
                     }
 
+                    QRCodesReference
+                            .document(scannedQR.getId())
+                            .set(qrCodes)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    // These are a method which gets executed when the task is succeeded
+                                    Log.d(TAG, "Data has been added successfully!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // These are a method which gets executed if there’s any problem
+                                    Log.d(TAG, "Data could not be added!" + e.toString());
+                                }
+                            });
 
-
+                    QRCodesReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
+                                FirebaseFirestoreException error) {
+                        }
+                    });
 
                     //TODO: Create comment here (Need User object)
 //                    if(commentCheck) {
