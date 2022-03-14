@@ -74,4 +74,10 @@
         android:layout_gravity="center"
         android:text="Cancel" />
 
+    <ImageView
+        android:id="@+id/qr_image_preview_imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="?attr/selectableItemBackground" />
+
 </LinearLayout>

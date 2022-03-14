@@ -2,10 +2,14 @@ package com.example.qrchaser;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -15,10 +19,17 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.j256.ormlite.stmt.query.In;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class QrAddScreenActivity extends AppCompatActivity {
 
     private Button scan, addPhoto, addLocation, confirm, cancel;
     private EditText nicknameET, commentET;
+    private Bitmap image;
+    private ImageView imageView;
     String qrName, qrComment;
     String qrValue;
 
@@ -36,6 +47,9 @@ public class QrAddScreenActivity extends AppCompatActivity {
         nicknameET = findViewById(R.id.qr_nickname_edit_text);
         commentET = findViewById(R.id.qr_comments_edit_text);
 
+        imageView = findViewById(R.id.qr_image_preview_imageView);
+
+        //scanner result receiver
         ActivityResultLauncher<Intent> scannerResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -52,6 +66,30 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 }
         );
 
+        //gallery result receiver
+        ActivityResultLauncher<Intent> galleryResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            Uri uri = result.getData().getData();
+                            try {
+                                image = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                                imageView.setImageBitmap(image);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } // end onActivityResult
+                    }
+                }
+        );
+
+
+
+
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,6 +102,9 @@ public class QrAddScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // TODO: 2022-03-13 Implement
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                galleryResultLauncher.launch(intent);
             } // end onClick
         }); // end addPhoto.setOnClickListener
 
