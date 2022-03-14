@@ -24,7 +24,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 
-public class CreateAccountActivity extends AppCompatActivity {
+public class CreateAccountActivity extends SaveANDLoad {
 
     final String TAG = "Sample";
     FirebaseFirestore db;
@@ -85,6 +85,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                                 public void onSuccess(Void aVoid) {
                                     // These are a method which gets executed when the task is succeeded
                                     Log.d(TAG, "Data has been added successfully!");
+                                    saveData(getApplicationContext(), "UserEmail", emailAddress);
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {

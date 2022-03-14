@@ -10,6 +10,7 @@ import java.util.List;
  * This class holds all of the data for a single QR code
  */
 public class QRCode {
+    private static int numCodes = 0;
     private String hash;
     private String name;
     private int score;
@@ -22,11 +23,42 @@ public class QRCode {
     private List<Integer> asciiList = new ArrayList<>();
 
     /**
-     * The constructor for the QR code
+     * A constructor for the QR code
+     * @param id
+     * @param latitude
+     * @param longitude
+     */
+    public QRCode(String id, double latitude, double longitude) {
+        this.id = id;
+        String[] qrCodeData = id.split(",");
+        this.name = qrCodeData[0];
+        this.hash = qrCodeData[1];
+        this.latitude = latitude;
+        this.longitude = longitude;
+
+        // Calculate the score from the hash
+        for (int i = 0; i < hash.length(); i++){
+            asciiList.add((int) hash.charAt(i));
+        }
+        this.score = 0;
+
+        // Iterate through asciiList for score
+        for (int i = 0; i < asciiList.size(); i++){
+            this.score += asciiList.get(i);
+        }
+
+        // Score calculation scheme
+        int multiplier = this.score / 1000;
+        this.score = this.score % 1000;
+        this.score *= multiplier;
+    } // end QRCode Constructor
+
+    /**
+     * A constructor for the QR code
      * @param qrCodeData
      * @param name
      */
-    public QRCode(String qrCodeData, String name, double latitude, double longitude) {
+    public QRCode(String qrCodeData, String name, double latitude, double longitude, int numCodes) {
         this.hash = Hashing.sha256().hashString(qrCodeData, StandardCharsets.UTF_8).toString();
         this.name = name;
         this.latitude = latitude;
@@ -47,7 +79,10 @@ public class QRCode {
         this.score = this.score % 1000;
         this.score *= multiplier;
 
-        this.id =  name + "(" + this.hash + ")"; // Used for the Geolocation for sure
+        // Pull number of qrcode from db
+
+
+        this.id =  this.name + "," + this.hash + "," + numCodes; // Used for the Geolocation for sure
     } // end QRCode Constructor
 
     /**
