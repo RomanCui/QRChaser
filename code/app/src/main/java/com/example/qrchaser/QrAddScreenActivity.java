@@ -199,7 +199,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 Boolean photoCheck = false;
                 Boolean locationCheck = false;
 
-                qrValue = "A";
+                
 
 
                 qrName = nicknameET.getText().toString();
