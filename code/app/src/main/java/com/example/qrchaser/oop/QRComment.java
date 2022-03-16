@@ -1,4 +1,4 @@
-package com.example.qrchaser;
+package com.example.qrchaser.oop;
 
 /**
  * This class holds all of the data for a comment on a QR Code

@@ -1,12 +1,17 @@
-package com.example.qrchaser;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.qrchaser.player.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.qrchaser.R;
+import com.example.qrchaser.general.SaveANDLoad;
+import com.example.qrchaser.oop.Player;
+import com.example.qrchaser.player.map.MapActivity;
+import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
+import com.example.qrchaser.player.browse.BrowseActivity;
 
 public class PlayerProfileActivity extends SaveANDLoad {
     private Button button1,button2,button3, buttonPlayerInfo;

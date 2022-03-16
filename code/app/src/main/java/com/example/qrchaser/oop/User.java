@@ -1,4 +1,6 @@
-package com.example.qrchaser;
+package com.example.qrchaser.oop;
+
+import com.example.qrchaser.oop.QRCode;
 
 import java.util.ArrayList;
 

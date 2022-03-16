@@ -1,4 +1,4 @@
-package com.example.qrchaser;
+package com.example.qrchaser.general;
 
 import android.content.Context;
 import android.content.SharedPreferences;

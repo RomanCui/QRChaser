@@ -4,6 +4,14 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.qrchaser.logIn.LoginEmailActivity;
+import com.example.qrchaser.logIn.WelcomeActivity;
+import com.example.qrchaser.player.browse.BrowseActivity;
+import com.example.qrchaser.player.CameraScannerActivity;
+import com.example.qrchaser.player.map.MapActivity;
+import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
+import com.example.qrchaser.player.profile.PlayerProfileActivity;
+import com.example.qrchaser.player.myQRCodes.QrAddScreenActivity;
 import com.robotium.solo.Solo;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
@@ -14,12 +22,12 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class MainActivityTest {
+public class WelcomeActivityTest {
 
     private Solo solo;
 
     @Rule
-    public ActivityTestRule<MainActivity> rule = new ActivityTestRule<>(MainActivity.class, true, true);
+    public ActivityTestRule<WelcomeActivity> rule = new ActivityTestRule<>(WelcomeActivity.class, true, true);
 
     @Before
     public void setUp() throws Exception {
@@ -38,7 +46,7 @@ public class MainActivityTest {
      */
     @Test
     public void scannerTest() {
-        solo.assertCurrentActivity("Not main Activity", MainActivity.class);
+        solo.assertCurrentActivity("Not main Activity", WelcomeActivity.class);
         solo.clickOnButton("QR Code"); //Click QR CODE Button
         solo.assertCurrentActivity("Not scanner Activity", CameraScannerActivity.class);
 
@@ -49,7 +57,7 @@ public class MainActivityTest {
      */
     @Test
     public void guestTest() {
-        solo.assertCurrentActivity("Not main Activity", MainActivity.class);
+        solo.assertCurrentActivity("Not main Activity", WelcomeActivity.class);
         solo.clickOnButton("Guest");
         solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
     }
@@ -59,7 +67,7 @@ public class MainActivityTest {
      */
     @Test
     public void testEmailLoginFail() {
-        solo.assertCurrentActivity("Not main Activity", MainActivity.class);
+        solo.assertCurrentActivity("Not main Activity", WelcomeActivity.class);
         solo.clickOnButton("Email");
         solo.assertCurrentActivity("Not Login Email Activity", LoginEmailActivity.class);
 
@@ -77,7 +85,7 @@ public class MainActivityTest {
      */
     @Test
     public void testEmailLoginPass() {
-        solo.assertCurrentActivity("Not main Activity", MainActivity.class);
+        solo.assertCurrentActivity("Not main Activity", WelcomeActivity.class);
         solo.clickOnButton("Email");
         solo.assertCurrentActivity("Not Login Email Activity", LoginEmailActivity.class);
 
@@ -96,7 +104,7 @@ public class MainActivityTest {
      */
     @Test
     public void testNavigation1() {
-        solo.assertCurrentActivity("Not main Activity", MainActivity.class);
+        solo.assertCurrentActivity("Not main Activity", WelcomeActivity.class);
         solo.clickOnButton("Guest");
         solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
 
@@ -109,7 +117,7 @@ public class MainActivityTest {
      */
     @Test
     public void testNavigation2() {
-        solo.assertCurrentActivity("Not main Activity", MainActivity.class);
+        solo.assertCurrentActivity("Not main Activity", WelcomeActivity.class);
         solo.clickOnButton("Guest");
         solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
 
@@ -123,7 +131,7 @@ public class MainActivityTest {
      */
     @Test
     public void testNavigation3() {
-        solo.assertCurrentActivity("Not main Activity", MainActivity.class);
+        solo.assertCurrentActivity("Not main Activity", WelcomeActivity.class);
         solo.clickOnButton("Guest");
         solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
 
@@ -136,7 +144,7 @@ public class MainActivityTest {
      */
     @Test
     public void testNavigation4() {
-        solo.assertCurrentActivity("Not main Activity", MainActivity.class);
+        solo.assertCurrentActivity("Not main Activity", WelcomeActivity.class);
         solo.clickOnButton("Guest");
         solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
 
@@ -150,7 +158,7 @@ public class MainActivityTest {
      */
     @Test
     public void testFloatingButton() {
-        solo.assertCurrentActivity("Not main Activity", MainActivity.class);
+        solo.assertCurrentActivity("Not main Activity", WelcomeActivity.class);
         solo.clickOnButton("Guest");
         solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
         solo.waitForText("MY QR codes");
@@ -165,7 +173,7 @@ public class MainActivityTest {
      */
     @Test
     public void testAddQRScanner() {
-        solo.assertCurrentActivity("Not main Activity", MainActivity.class);
+        solo.assertCurrentActivity("Not main Activity", WelcomeActivity.class);
         solo.clickOnButton("Guest");
         solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
         solo.waitForText("MY QR codes");

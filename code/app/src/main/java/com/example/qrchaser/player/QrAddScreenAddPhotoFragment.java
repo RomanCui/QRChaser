@@ -1,9 +1,7 @@
-package com.example.qrchaser;
+package com.example.qrchaser.player;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +10,9 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
+import com.example.qrchaser.R;
+import com.example.qrchaser.player.myQRCodes.QrAddScreenActivity;
 
 public class QrAddScreenAddPhotoFragment extends DialogFragment {
 

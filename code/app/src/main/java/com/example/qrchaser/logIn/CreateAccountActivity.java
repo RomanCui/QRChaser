@@ -1,4 +1,4 @@
-package com.example.qrchaser;
+package com.example.qrchaser.logIn;
 
 
 import android.os.Bundle;
@@ -6,6 +6,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.qrchaser.oop.Player;
+import com.example.qrchaser.R;
+import com.example.qrchaser.general.SaveANDLoad;
 
 public class CreateAccountActivity extends SaveANDLoad {
 

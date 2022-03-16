@@ -1,8 +1,9 @@
-package com.example.qrchaser;
+package com.example.qrchaser.oop;
 
 
 import android.util.Log;
 import androidx.annotation.NonNull;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -167,4 +168,8 @@ public class Player extends User {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     } // end setPhoneNumber
+
+    public static class Guest {
+
+    } // end Guest Class
 } // end Player Class
