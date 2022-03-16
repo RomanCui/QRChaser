@@ -21,6 +21,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Source;
+import com.google.firestore.v1.WriteResult;
 
 public class EditPlayerProfileActivity extends SaveANDLoad {
     private EditText emailET, passwordET, nicknameET, phoneNumberET;
@@ -70,11 +71,8 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
                     nicknameDB = document.getString("Nickname");
                     phoneDB = document.getString("Phone");
 
-                    // Using a dummy player for now
-                    // TODO: 2022-03-12 Pass In Actual Players
 
-                    // Using a dummy player for now
-                    // TODO: 2022-03-12 Pass In Actual Players
+                    //Pass In Actual Players
                     Player currentPlayer = new Player(playerEmail, passwordDB,
                             nicknameDB, phoneDB );
 
@@ -98,18 +96,7 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!TextUtils.isEmpty(emailET.getText().toString())) {
-                    currentPlayer.setEmail(emailET.getText().toString());
-                }
-                if(!TextUtils.isEmpty(passwordET.getText().toString())) {
-                    currentPlayer.setPassword(passwordET.getText().toString());
-                }
-                if(!TextUtils.isEmpty(nicknameET.getText().toString())) {
-                    currentPlayer.setNickname(nicknameET.getText().toString());
-                }
-                if(!TextUtils.isEmpty(phoneNumberET.getText().toString())) {
-                    currentPlayer.setPhoneNumber(phoneNumberET.getText().toString());
-                }
+                myAccount.update("Nickname", nicknameET.getText().toString());
             } // end onClick
         });// end buttonConfirm.setOnClickListener
 

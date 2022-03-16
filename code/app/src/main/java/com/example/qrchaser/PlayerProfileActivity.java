@@ -23,7 +23,8 @@ public class PlayerProfileActivity extends SaveANDLoad {
 
         // Using a dummy player for now
         // TODO: 2022-03-12 Pass In Actual Players
-        Player currentPlayer = new Player(playerEmail, "TestPassword", "TestPlayer" );
+        Player currentPlayer = new Player(playerEmail,
+                "TestPassword", "TestPlayer", "123" );
 
 
         nicknameTV = findViewById(R.id.desired_player_nickname);

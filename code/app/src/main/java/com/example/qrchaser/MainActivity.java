@@ -116,6 +116,8 @@ public class MainActivity extends SaveANDLoad {
         guest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Player player = new Player();
+                player.saveToDatabase();
                 Intent intent = new Intent(MainActivity.this, MyQRCodeScreenActivity.class);
                 startActivity(intent);
             } // end onClick
