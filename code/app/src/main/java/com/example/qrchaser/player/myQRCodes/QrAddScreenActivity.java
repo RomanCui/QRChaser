@@ -1,14 +1,11 @@
-package com.example.qrchaser;
+package com.example.qrchaser.player.myQRCodes;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -28,6 +25,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.qrchaser.R;
+import com.example.qrchaser.oop.QRCode;
+import com.example.qrchaser.player.CameraScannerActivity;
+import com.example.qrchaser.player.QrAddScreenAddPhotoFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,15 +41,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.j256.ormlite.stmt.query.In;
 
-import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.OutputStream;
 
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 

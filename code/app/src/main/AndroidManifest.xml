@@ -18,42 +18,41 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QRChaser"
         tools:replace="android:allowBackup">
+
+
         <activity
-            android:name=".EditQRCodeScreenActivity"
+            android:name=".player.myQRCodes.QrAddScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".QrAddScreenActivity"
+            android:name=".player.browse.BrowseActivity"
             android:exported="false" />
         <activity
-            android:name=".BrowseActivity"
+            android:name=".player.profile.GeneratedQRCodeActivity"
             android:exported="false" />
         <activity
-            android:name=".GeneratedQRCodeActivity"
+            android:name=".player.CameraScannerActivity"
             android:exported="false" />
         <activity
-            android:name=".CameraScannerActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MapActivity"
+            android:name=".player.map.MapActivity"
             android:exported="false"
             android:usesCleartextTraffic="true" />
         <activity
-            android:name=".EditPlayerProfileActivity"
+            android:name=".player.profile.EditPlayerProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".PlayerProfileActivity"
+            android:name=".player.profile.PlayerProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".MyQRCodeScreenActivity"
+            android:name=".player.myQRCodes.MyQRCodeScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginEmailActivity"
+            android:name=".logIn.LoginEmailActivity"
             android:exported="false" />
         <activity
-            android:name=".CreateAccountActivity"
+            android:name=".logIn.CreateAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".logIn.WelcomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

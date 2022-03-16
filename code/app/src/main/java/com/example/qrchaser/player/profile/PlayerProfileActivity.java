@@ -1,8 +1,7 @@
-package com.example.qrchaser;
+package com.example.qrchaser.player.profile;
+
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,8 +9,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.example.qrchaser.R;
+import com.example.qrchaser.general.SaveANDLoad;
+import com.example.qrchaser.oop.Player;
+import com.example.qrchaser.player.map.MapActivity;
+import com.example.qrchaser.player.browse.BrowseActivity;
+
 
 public class PlayerProfileActivity extends SaveANDLoad {
     private Button buttonPlayerInfo;
@@ -29,7 +35,8 @@ public class PlayerProfileActivity extends SaveANDLoad {
 
         // Using a dummy player for now
         // TODO: 2022-03-12 Pass In Actual Players
-        Player currentPlayer = new Player(playerEmail, "TestPassword", "TestPlayer" );
+        Player currentPlayer = new Player(playerEmail,
+                "TestPassword", "TestPlayer", "123" );
 
 
         nicknameTV = findViewById(R.id.desired_player_nickname);
@@ -47,7 +54,7 @@ public class PlayerProfileActivity extends SaveANDLoad {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.my_qr_code:
-                        startActivity(new Intent(getApplicationContext(),MyQRCodeScreenActivity.class));
+                        startActivity(new Intent(getApplicationContext(), MyQRCodeScreenActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.browse_player:

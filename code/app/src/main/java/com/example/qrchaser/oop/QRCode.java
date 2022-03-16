@@ -1,4 +1,4 @@
-package com.example.qrchaser;
+package com.example.qrchaser.oop;
 
 import com.google.common.hash.Hashing;
 

@@ -1,4 +1,4 @@
-package com.example.qrchaser;
+package com.example.qrchaser.player.profile;
 
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -8,6 +8,8 @@ import android.view.Display;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.qrchaser.R;
 import com.google.zxing.WriterException;
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;

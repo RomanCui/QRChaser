@@ -1,6 +1,8 @@
-package com.example.qrchaser;
+package com.example.qrchaser.oop;
 
-public class Admin extends Player{
+import com.example.qrchaser.oop.Player;
+
+public class Admin extends Player {
 
     // An Admin must have a phone number for emergencies
     public Admin(String email, String password, String nickname, String phoneNumber) {

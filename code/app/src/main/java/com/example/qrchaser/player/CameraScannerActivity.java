@@ -1,4 +1,4 @@
-package com.example.qrchaser;
+package com.example.qrchaser.player;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.qrchaser.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -36,7 +37,6 @@ import com.google.mlkit.vision.common.InputImage;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class CameraScannerActivity extends AppCompatActivity implements CameraXConfig.Provider {

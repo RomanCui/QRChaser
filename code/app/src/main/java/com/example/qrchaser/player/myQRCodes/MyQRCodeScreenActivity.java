@@ -1,17 +1,22 @@
-package com.example.qrchaser;
+package com.example.qrchaser.player.myQRCodes;
+
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.qrchaser.EditQRCodeScreenActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.qrchaser.R;
+import com.example.qrchaser.general.SaveANDLoad;
+import com.example.qrchaser.oop.Player;
+import com.example.qrchaser.player.browse.BrowseActivity;
+import com.example.qrchaser.player.map.MapActivity;
+import com.example.qrchaser.player.profile.PlayerProfileActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -33,7 +38,8 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
 
         // Using a dummy player for now
         // TODO: 2022-03-12 Pass In Actual Players
-        Player currentPlayer = new Player(playerEmail, "TestPassword", "TestPlayer" );
+        Player currentPlayer = new Player(playerEmail,
+                "TestPassword", "TestPlayer", "123" );
 
         // ************************** Page Selection ****************************************
         myQRCodeListView = findViewById(R.id.listViewQRCode);

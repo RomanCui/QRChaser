@@ -1,4 +1,4 @@
-package com.example.qrchaser;
+package com.example.qrchaser.player.browse;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,8 +9,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+
+import com.example.qrchaser.R;
+import com.example.qrchaser.player.map.MapActivity;
+import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
+import com.example.qrchaser.player.profile.PlayerProfileActivity;
+
 
 public class BrowseActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;

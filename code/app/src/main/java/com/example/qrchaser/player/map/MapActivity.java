@@ -1,4 +1,4 @@
-package com.example.qrchaser;
+package com.example.qrchaser.player.map;
 
 import android.Manifest;
 import android.content.Context;
@@ -12,15 +12,17 @@ import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.qrchaser.R;
+import com.example.qrchaser.oop.QRCode;
+import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
+import com.example.qrchaser.player.browse.BrowseActivity;
+import com.example.qrchaser.player.profile.PlayerProfileActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -33,7 +35,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
-import org.osmdroid.tileprovider.tilesource.ITileSource;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
