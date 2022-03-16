@@ -1,43 +1,98 @@
 package com.example.qrchaser;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Source;
 
 public class EditPlayerProfileActivity extends SaveANDLoad {
     private EditText emailET, passwordET, nicknameET, phoneNumberET;
     private Button buttonConfirm, buttonSignOut, buttonGenerateLoginQRCode, buttonGenerateInfoQRCode;
+
+    final String TAG = "Sample";
+    FirebaseFirestore db;
+    String passwordDB;
+    String nicknameDB;
+    String phoneDB;
+    Player currentPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_player_profile);
 
-        // Get the player email in order to load the data from the database
-        String playerEmail = loadData(getApplicationContext(), "UserEmail");
-        // Get Player info from the database here
-
-        // Using a dummy player for now
-        // TODO: 2022-03-12 Pass In Actual Players
-        Player currentPlayer = new Player(playerEmail, "TestPassword", "TestPlayer" );
-
-        // Initialize
         emailET = findViewById(R.id.editTextEmailAddress);
-        emailET.setText(currentPlayer.getEmail());
         passwordET = findViewById(R.id.editTextPassword);
-        passwordET.setText(currentPlayer.getPassword());
         nicknameET = findViewById(R.id.editTextNickname);
-        nicknameET.setText(currentPlayer.getNickname());
         phoneNumberET = findViewById(R.id.editTextPhone);
-        phoneNumberET.setText(currentPlayer.getPhoneNumber());
         buttonConfirm = findViewById(R.id.buttonConfirm);
         buttonSignOut = findViewById(R.id.buttonSignOut);
         buttonGenerateLoginQRCode = findViewById(R.id.ButtonGenerateLoginQRCode);
         buttonGenerateInfoQRCode = findViewById(R.id.ButtonGenerateInfoQRCode);
+
+        // Get the player email in order to load the data from the database
+        String playerEmail = loadData(getApplicationContext(), "UserEmail");
+
+        // Get Player info from the database here
+
+        db = FirebaseFirestore.getInstance();
+        CollectionReference accountsRef = db.collection("Accounts");
+        DocumentReference myAccount = accountsRef.document(playerEmail);
+
+        // Source can be CACHE, SERVER, or DEFAULT.
+        Source source = Source.CACHE;
+
+        // Get the document, forcing the SDK to use the offline cache
+        myAccount.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    // Document found in the offline cache
+                    DocumentSnapshot document = task.getResult();
+                    passwordDB = document.getString("Password");
+                    nicknameDB = document.getString("Nickname");
+                    phoneDB = document.getString("Phone");
+
+                    // Using a dummy player for now
+                    // TODO: 2022-03-12 Pass In Actual Players
+
+                    // Using a dummy player for now
+                    // TODO: 2022-03-12 Pass In Actual Players
+                    Player currentPlayer = new Player(playerEmail, passwordDB,
+                            nicknameDB, phoneDB );
+
+                    // Initialize
+                    emailET.setText(currentPlayer.getEmail());
+                    passwordET.setText(currentPlayer.getPassword());
+                    nicknameET.setText(currentPlayer.getNickname());
+                    phoneNumberET.setText(currentPlayer.getPhoneNumber());
+
+
+                } else {
+                    Toast.makeText(getApplicationContext(),"Load Failed",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+
 
         //Confirm all changes made (Push the changes to the database)
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
