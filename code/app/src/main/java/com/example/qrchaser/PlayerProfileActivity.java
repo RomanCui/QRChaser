@@ -15,7 +15,7 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class PlayerProfileActivity extends SaveANDLoad {
     private Button buttonPlayerInfo;
-    BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
     private TextView nicknameTV;
 
     @Override

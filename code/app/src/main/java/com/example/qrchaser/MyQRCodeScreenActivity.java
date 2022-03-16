@@ -18,7 +18,7 @@ import com.google.android.material.navigation.NavigationBarView;
 public class MyQRCodeScreenActivity extends SaveANDLoad {
 
     private ListView myQRCodeListView;
-    BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
     private FloatingActionButton addQR;
 
 
@@ -45,6 +45,7 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MyQRCodeScreenActivity.this, EditQRCodeScreenActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

@@ -58,7 +58,7 @@ public class MapActivity extends AppCompatActivity{
     private MyLocationNewOverlay myLocationOverlay;
     private RotationGestureOverlay mapRotationGestureOverlay;
     private ScaleBarOverlay mapScaleBarOverlay;
-    BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
 
     final String TAG = "Sample";
     FirebaseFirestore db;
