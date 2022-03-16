@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/my_qr_code"
+        android:title="qrcode"
+        android:icon="@drawable/ic_baseline_qr_code"/>
+
+    <item
+        android:id="@+id/browse_player"
+        android:title="player"
+        android:icon="@drawable/ic_baseline_player"/>
+
+    <item
+        android:id="@+id/map"
+        android:title="map"
+        android:icon="@drawable/ic_baseline_map"/>
+
+    <item
+        android:id="@+id/self_profile"
+        android:title="myself"
+        android:icon="@drawable/ic_baseline_self_profile"/>
+
+</menu>

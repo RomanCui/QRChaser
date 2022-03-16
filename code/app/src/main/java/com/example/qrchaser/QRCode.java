@@ -81,7 +81,6 @@ public class QRCode {
 
         // Pull number of qrcode from db
 
-
         this.id =  this.name + "," + this.hash + "," + numCodes; // Used for the Geolocation for sure
     } // end QRCode Constructor
 

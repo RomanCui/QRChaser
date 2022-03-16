@@ -1,13 +1,19 @@
 package com.example.qrchaser;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+
 public class BrowseActivity extends AppCompatActivity {
+    BottomNavigationView bottomNavigationView;
     private Button button1,button3,button4;
 
     @Override
@@ -18,39 +24,33 @@ public class BrowseActivity extends AppCompatActivity {
 
 
         // ************************** Page Selection ****************************************
-        button1 = findViewById(R.id.button1);
-        button3 = findViewById(R.id.button3);
-        button4 = findViewById(R.id.button4);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        // Head to My QR Code Screen
-        button1.setOnClickListener(new View.OnClickListener() {
+        bottomNavigationView.setSelectedItemId(R.id.browse_player);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BrowseActivity.this, MyQRCodeScreenActivity.class);
-                startActivity(intent);
-                finish();
-            }  // end onClick
-        }); // end button1.setOnClickListener
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.my_qr_code:
+                        startActivity(new Intent(getApplicationContext(),MyQRCodeScreenActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.browse_player:
+                        return true;
+                    case R.id.map:
+                        startActivity(new Intent(getApplicationContext(),MapActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.self_profile:
+                        startActivity(new Intent(getApplicationContext(),PlayerProfileActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
 
-        // Head to Map Screen
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BrowseActivity.this, MapActivity.class);
-                startActivity(intent);
-                finish();
-            }  // end onClick
-        }); // end button3.setOnClickListener
 
-        // Head to Player Profile
-        button4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BrowseActivity.this, PlayerProfileActivity.class);
-                startActivity(intent);
-                finish();
-            }  // end onClick
-        }); // end button4.setOnClickListener
 
     } // end onCreate
 } // end BrowseActivity Class

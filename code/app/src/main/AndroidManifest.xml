@@ -19,6 +19,9 @@
         android:theme="@style/Theme.QRChaser"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".EditQRCodeScreenActivity"
+            android:exported="false" />
+        <activity
             android:name=".QrAddScreenActivity"
             android:exported="false" />
         <activity

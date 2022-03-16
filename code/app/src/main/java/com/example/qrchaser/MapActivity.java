@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -22,6 +23,8 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -55,7 +58,7 @@ public class MapActivity extends AppCompatActivity{
     private MyLocationNewOverlay myLocationOverlay;
     private RotationGestureOverlay mapRotationGestureOverlay;
     private ScaleBarOverlay mapScaleBarOverlay;
-    private Button button1,button2,button4;
+    BottomNavigationView bottomNavigationView;
 
     final String TAG = "Sample";
     FirebaseFirestore db;
@@ -219,39 +222,31 @@ public class MapActivity extends AppCompatActivity{
         mapController.setCenter(myPoint);
 
         // ************************** Page Selection ****************************************
-        button1 = findViewById(R.id.button1);
-        button2 = findViewById(R.id.button2);
-        button4 = findViewById(R.id.button4);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        // Head to My QR Code Screen
-        button1.setOnClickListener(new View.OnClickListener() {
+        bottomNavigationView.setSelectedItemId(R.id.map);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MapActivity.this, MyQRCodeScreenActivity.class);
-                startActivity(intent);
-                finish();
-            } // end onClick
-        }); // end button1.setOnClickListener
-
-        // Head to Browse Players
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MapActivity.this, BrowseActivity.class);
-                startActivity(intent);
-                finish();
-            } // end onClick
-        }); // end button2.setOnClickListener
-
-        // Head to Player Profile
-        button4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MapActivity.this, PlayerProfileActivity.class);
-                startActivity(intent);
-                finish();
-            } // end onClick
-        }); // end button4.setOnClickListener
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.my_qr_code:
+                        startActivity(new Intent(getApplicationContext(),MyQRCodeScreenActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.browse_player:
+                        startActivity(new Intent(getApplicationContext(),BrowseActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.map:
+                        return true;
+                    case R.id.self_profile:
+                        startActivity(new Intent(getApplicationContext(),PlayerProfileActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
     } // end onCreate
 
     @Override
