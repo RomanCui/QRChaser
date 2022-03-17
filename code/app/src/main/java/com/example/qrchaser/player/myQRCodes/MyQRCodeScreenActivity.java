@@ -9,8 +9,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.qrchaser.oop.QRCode;
+import com.example.qrchaser.general.QRCodeAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -22,29 +24,23 @@ import com.example.qrchaser.player.profile.PlayerProfileActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
 
-// This activity shows the player's QR codes with name and score
-// The user can also go to the add QR code activity from here
 public class MyQRCodeScreenActivity extends SaveANDLoad {
 
     final String TAG = "Sample";
     FirebaseFirestore db;
 
-    private ListView myQRCodeListView;
     private BottomNavigationView bottomNavigationView;
     private FloatingActionButton addQR;
-
-    ArrayList<QRCode> qrCodes = new ArrayList<>();
-
-
+    private ListView myQRCodeListView;
+    private ArrayAdapter<QRCode> qrCodeAdapter;
+    private ArrayList<QRCode> qrCodes = new ArrayList<>();
 
 
     @Override
@@ -55,7 +51,6 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
         myQRCodeListView = findViewById(R.id.listViewQRCode);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         addQR = findViewById(R.id.floatingActionButton);
-
 
         // Get the player email in order for the query
         String playerEmail = loadData(getApplicationContext(), "UserEmail");
@@ -71,15 +66,17 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                qrCodes.add(document.toObject(QRCode.class));
-                            }
+                                Toast.makeText(getApplicationContext(),document.getString("name"),Toast.LENGTH_LONG).show();
+                                QRCode qrCode = document.toObject(QRCode.class);
+                                qrCodes.add(qrCode);
+                            }// Populate the listview
+                            qrCodeAdapter = new QRCodeAdapter(MyQRCodeScreenActivity.this,qrCodes);
+                            myQRCodeListView.setAdapter(qrCodeAdapter);
                     } else {
                         Log.d(TAG, "Error getting documents: ", task.getException());
                     }
             }
         });
-
-        
 
 
 
