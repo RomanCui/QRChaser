@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.qrchaser.general.QRCodeAdapter;
+import com.example.qrchaser.oop.QRCode;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.example.qrchaser.R;
 import com.example.qrchaser.general.SaveANDLoad;
@@ -19,14 +22,19 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+
 public class MyQRCodeScreenActivity extends SaveANDLoad {
 
     final String TAG = "Sample";
     FirebaseFirestore db;
 
-    private ListView myQRCodeListView;
     private BottomNavigationView bottomNavigationView;
     private FloatingActionButton addQR;
+
+    private ListView myQRCodeListView;
+    private ArrayAdapter<QRCode> QRCodeAdapter;
+    private ArrayList<QRCode> QRCodeList;
 
 
     @Override
@@ -41,6 +49,12 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         addQR = findViewById(R.id.floatingActionButton);
 
+        //ListView of this activity
+        QRCodeList = new ArrayList<>();
+        QRCode newQR = new QRCode("aaa","qr1","zhendgao@ualberta.ca","no",10.5,10.5);
+        QRCodeList.add(newQR);
+        QRCodeAdapter = new QRCodeAdapter(this,QRCodeList);
+        myQRCodeListView.setAdapter(QRCodeAdapter);
         
 
         myQRCodeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
