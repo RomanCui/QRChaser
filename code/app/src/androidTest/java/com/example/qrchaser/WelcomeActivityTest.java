@@ -4,9 +4,14 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.EditText;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import com.example.qrchaser.logIn.CreateAccountActivity;
 import com.example.qrchaser.logIn.LoginEmailActivity;
 import com.example.qrchaser.logIn.WelcomeActivity;
+import com.example.qrchaser.oop.QRCode;
 import com.example.qrchaser.player.browse.BrowseActivity;
 import com.example.qrchaser.player.CameraScannerActivity;
 import com.example.qrchaser.player.map.MapActivity;
@@ -22,6 +27,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 public class WelcomeActivityTest {
 
@@ -210,6 +217,32 @@ public class WelcomeActivityTest {
         solo.assertCurrentActivity("Not main activity", WelcomeActivity.class);
 
     }
+
+    /**
+     * Test showing scanned qrcode
+     */
+    @Test
+    public void testShowScannedQR() {
+        solo.assertCurrentActivity("Not main Activity", WelcomeActivity.class);
+        solo.clickOnButton("Email");
+        solo.assertCurrentActivity("Not Login Email Activity", LoginEmailActivity.class);
+
+        //enter email and password
+        solo.enterText((EditText) solo.getView(R.id.editTextEmailAddress2), "BBB");
+        solo.enterText((EditText) solo.getView(R.id.editTextPassword2), "bbb");
+        solo.clickOnButton("Login");
+
+        solo.waitForText("MY QR codes");
+        solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
+        ArrayList<QRCode> qrcodes = ((MyQRCodeScreenActivity) solo.getCurrentActivity()).getQrCodes();
+        QRCode testQR = qrcodes.get(0);
+        assertEquals("cb1ad2119d8fafb69566510ee712661f9f14b83385006ef92aec47f523a38358", testQR.getHash());
+        assertEquals("Code1", testQR.getName());
+        assertTrue(testQR.getScore() == 1396);
+
+    }
+
+
 
     @After
     public void teatDown() throws Exception {
