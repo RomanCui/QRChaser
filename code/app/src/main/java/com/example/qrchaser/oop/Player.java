@@ -41,7 +41,9 @@ public class Player extends User {
     // For guest
     public Player(){
         // guest email to be changed
-        this.email = "";
+        // repeating email to be checked
+        double randomNumber = Math.random()*100000;
+        this.email = Integer.toString((int)randomNumber);
         this.password = "";
         this.nickname = "";
         this.phoneNumber = "";
