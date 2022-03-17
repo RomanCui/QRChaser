@@ -17,9 +17,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-
-// This class is complete
-// Mar 16, 2022
+// This activity allows user to log in with email and password
+// If login successful, it takes the user to MyQRCode screen
+// completed, Mar 16, 2022
 public class LoginEmailActivity extends SaveANDLoad {
 
     final String TAG = "Sample";

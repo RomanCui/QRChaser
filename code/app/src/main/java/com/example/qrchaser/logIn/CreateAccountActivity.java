@@ -1,23 +1,26 @@
 package com.example.qrchaser.logIn;
 
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
 import com.example.qrchaser.oop.Player;
 import com.example.qrchaser.R;
 import com.example.qrchaser.general.SaveANDLoad;
 
+
+// This activity allows user to create account with email address
+// password, nickname and phone number
+// After creating account, it takes the user back to the welcome screen to log in
+// Most features complete
+// Input format check to do
+// Repeating email address check to do
 public class CreateAccountActivity extends SaveANDLoad {
 
     EditText emailET;
     EditText passwordET;
     EditText nicknameET;
     EditText phoneET;
-
     Button confirmBtn;
     Button cancelBtn;
 
@@ -36,6 +39,8 @@ public class CreateAccountActivity extends SaveANDLoad {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // Get user input from Edit Text
                 String emailAddress = emailET.getText().toString();
                 String password = passwordET.getText().toString();
                 String nickname = nicknameET.getText().toString();
@@ -43,25 +48,11 @@ public class CreateAccountActivity extends SaveANDLoad {
 
                 int formatResult = formatCheck(emailAddress, password, phone);
 
+                // If input format passed, the account is saved to database
                 if(formatResult == 0){
                     Player player = new Player(emailAddress, password, nickname, phone);
                     player.saveToDatabase();
                     finish();
-                }
-                else if(formatResult == 1){
-                    Toast.makeText(getApplicationContext(),
-                            "FAIL: Please check your email format",
-                            Toast.LENGTH_LONG).show();
-                }
-                else if(formatResult == 2){
-                    Toast.makeText(getApplicationContext(),
-                            "FAIL: Please check your password format",
-                            Toast.LENGTH_LONG).show();
-                }
-                else if(formatResult == 3){
-                    Toast.makeText(getApplicationContext(),
-                            "FAIL: Please check your phone number format",
-                            Toast.LENGTH_LONG).show();
                 }
             }
         });
