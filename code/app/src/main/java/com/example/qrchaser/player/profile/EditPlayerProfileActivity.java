@@ -65,9 +65,9 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
                 if (task.isSuccessful()) {
                     // Document found in the offline cache
                     DocumentSnapshot document = task.getResult();
-                    passwordDB = document.getString("Password");
-                    nicknameDB = document.getString("Nickname");
-                    phoneDB = document.getString("Phone");
+                    passwordDB = document.getString("password");
+                    nicknameDB = document.getString("nickname");
+                    phoneDB = document.getString("phoneNumber");
 
 
                     //Pass In Actual Players

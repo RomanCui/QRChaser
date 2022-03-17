@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import com.example.qrchaser.R;
 
+
+// To be developed
 public class AdminPlayerRemovalActivity extends AppCompatActivity {
 
     @Override

@@ -5,14 +5,12 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.example.qrchaser.player.CameraScannerActivity;
 import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
 import com.example.qrchaser.R;
@@ -25,6 +23,10 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+// This activity allows user to go to create account, and login with email
+// Otherwise, the user can login with QR code, or as a Guest
+// Login with QR code is under review
+// Login as a Guest is in progress
 public class WelcomeActivity extends SaveANDLoad {
     private Button email,qrCode,guest,createAccount;
     private String qrValue;
@@ -63,7 +65,7 @@ public class WelcomeActivity extends SaveANDLoad {
                                             @Override
                                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                                 if (documentSnapshot.exists()) {
-                                                    passwordDB = documentSnapshot.getString("Password");
+                                                    passwordDB = documentSnapshot.getString("password");
                                                 }else {
                                                     Toast.makeText(getApplicationContext(),"Document does not exits",Toast.LENGTH_LONG).show();
                                                 }

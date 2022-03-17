@@ -28,15 +28,14 @@ public class QRCode {
     private String hash;
     private String name;
     private int score;
-
-    // Photo to be added
+// Photo to be added
 
     // I am unsure as to how these two will be implemented
     private double latitude;
     private double longitude;
     //private image image;
-    private ArrayList<String> comments = new ArrayList<>();
-    private ArrayList<String> owners = new ArrayList<>();
+    private List<String> comments = new ArrayList<>();
+    private List<String> owners = new ArrayList<>();
 
 
     /**
@@ -81,19 +80,11 @@ public class QRCode {
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
         CollectionReference QRCodesReference = db.collection("QRCodes");
-        HashMap<String, String> qrCodes = new HashMap<>();
-        // If there’s some data in the EditText field, then we create a new key-value pair.
-        qrCodes.put("HashValue", hash);
-        qrCodes.put("Name", name);
-        qrCodes.put("Owners", this.getOwners());
-        qrCodes.put("Comments", this.getComments());
-        qrCodes.put("Lat", Double.toString(latitude));
-        qrCodes.put("Lon", Double.toString(longitude));
-        qrCodes.put("Score", Double.toString(score));
+
 
         QRCodesReference
                 .document(hash)
-                .set(qrCodes)
+                .set(this)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -108,31 +99,6 @@ public class QRCode {
                         Log.d(TAG, "Data could not be added!" + e.toString());
                     }
                 });
-
-        QRCodesReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
-                    FirebaseFirestoreException error) {
-            }
-        });
-    }
-
-    public String getOwners(){
-        String owner = "";
-        for (int i = 0; i < owners.size(); i++){
-            owner = owner + owners.get(i) + " ";
-        }
-        owner.trim();
-        return owner;
-    }
-
-    public String getComments(){
-        String comment = "";
-        for (int i = 0; i < comments.size(); i++){
-            comment = comment + comments.get(i) + "###";
-        }
-        comment.trim();
-        return comment;
     }
 
     /**
@@ -182,4 +148,36 @@ public class QRCode {
     public double getLongitude() {
         return longitude;
     } // end getLongitude
+
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public List<String> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<String> comments) {
+        this.comments = comments;
+    }
+
+    public List<String> getOwners() {
+        return owners;
+    }
+
+    public void setOwners(List<String> owners) {
+        this.owners = owners;
+    }
 }// end QRCode Class
