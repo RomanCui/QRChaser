@@ -12,22 +12,23 @@ import com.example.qrchaser.oop.QRCode;
 
 
 public class QRCodeTest {
+    /*
 
     private QRCode mockQRCode1(){
         QRCode myQRCode = new QRCode("XXX", "MyCode1",
-                200.0, 200.0, 1);
+                200.0, 200.0);
         return myQRCode;
     }
 
     private QRCode mockQRCode2(){
         QRCode myQRCode = new QRCode("XXX", "MyCode2",
-                200.0, 200.0, 2);
+                200.0, 200.0);
         return myQRCode;
     }
 
     private QRCode mockQRCode3(){
         QRCode myQRCode = new QRCode("YYY", "MyCode3",
-                200.0, 200.0, 3);
+                200.0, 200.0);
         return myQRCode;
     }
 
@@ -52,5 +53,7 @@ public class QRCodeTest {
         assertNotEquals(code1.getScore(),code3.getScore());
 
     }
+
+     */
 
 }

@@ -1,5 +1,7 @@
 package com.example.qrchaser.player.myQRCodes;
 
+import static com.example.qrchaser.general.SaveANDLoad.loadData;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -68,7 +70,6 @@ public class QrAddScreenActivity extends AppCompatActivity {
     private double latitude = 200;
     private double longitude  = 200;
     private boolean SetLocation = false;
-    private int qrSize = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -190,57 +191,33 @@ public class QrAddScreenActivity extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // Ronggang implemented comment check in the QRCode class
                 Boolean nameCheck = false;
-                Boolean commentCheck = false;
                 Boolean scanCheck = false;
                 Boolean photoCheck = false;
                 Boolean locationCheck = false;
-
-
-
 
                 qrName = nicknameET.getText().toString();
                 qrComment = commentET.getText().toString();
                 // Check if qrValue nad name are not null, then check other optional values
 
                 if (!qrName.isEmpty()) { nameCheck = true; }
-                if (!qrComment.isEmpty()) { commentCheck = true; }
                 if (qrValue != null) { scanCheck = true; }
                 if (image != null) { photoCheck = true; }
                 // Do other checks here
                 QRCode scannedQR;
                 if (nameCheck && scanCheck) {
 
-                    db = FirebaseFirestore.getInstance();
+                    String playerEmail = loadData(getApplicationContext(), "UserEmail");
 
-                    // Get a top level reference to the collection
-                    final CollectionReference QRCodesReference =
-                            db.collection("QRCodes");
-
-
-
-                    db.collection("QRCodes")
-                            .get()
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        int count = 0;
-                                        for (DocumentSnapshot document : task.getResult()) {
-
-                                            count++;
-                                            qrSize = count;
-                                        }
-                                    } else {
-                                        Log.d(TAG, "Error getting documents: ", task.getException());
-                                    }
-                                }
-                            });
                     // Call QRCode constructor here
                     if(SetLocation) {
-                        scannedQR = new QRCode(qrValue, qrName, latitude, longitude, qrSize);
+                        scannedQR = new QRCode(qrValue, qrName,
+                                playerEmail, qrComment, latitude, longitude);
                     } else {
-                        scannedQR = new QRCode(qrValue, qrName, 200, 200, qrSize);
+                        scannedQR = new QRCode(qrValue, qrName,
+                                playerEmail, qrComment, 200, 200);
                     }
 
                     // For testing
@@ -252,54 +229,12 @@ public class QrAddScreenActivity extends AppCompatActivity {
                     // For Testing
                     Toast.makeText(getApplicationContext(), testString, Toast.LENGTH_SHORT).show();
 
-
                     //TODO: Compress image here
-//                    if(photoCheck) {
-//                    }
+                    //if(photoCheck) {}
 
+                    // store the scanned code to database
+                    scannedQR.saveToDatabase();
 
-
-                    HashMap<String, String> qrCodes = new HashMap<>();
-                    if (scannedQR.getId().length()>0) {
-                        // If there’s some data in the EditText field, then we create a new key-value pair.
-                        qrCodes.put("ID", scannedQR.getId());
-                        qrCodes.put("Name", scannedQR.getName());
-                        qrCodes.put("HashValue", scannedQR.getHash());
-                        qrCodes.put("Lat", Double.toString(scannedQR.getLatitude()));
-                        qrCodes.put("Lon", Double.toString(scannedQR.getLongitude()));
-                        qrCodes.put("Lon", Double.toString(scannedQR.getLongitude()));
-                        qrCodes.put("Score", Double.toString(scannedQR.getScore()));
-                    }
-
-                    QRCodesReference
-                            .document(scannedQR.getId())
-                            .set(qrCodes)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    // These are a method which gets executed when the task is succeeded
-                                    Log.d(TAG, "Data has been added successfully!");
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    // These are a method which gets executed if there’s any problem
-                                    Log.d(TAG, "Data could not be added!" + e.toString());
-                                }
-                            });
-
-                    QRCodesReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
-                                FirebaseFirestoreException error) {
-                        }
-                    });
-
-                    //TODO: Create comment here (Need User object)
-//                    if(commentCheck) {
-//                        QRComment(new User(), qrComment);
-//                    }
                 } else if(!nameCheck && !scanCheck) {
                     Toast.makeText(getApplicationContext(), "Please Scan and Enter nickname for this QRCode", Toast.LENGTH_SHORT).show();
                 } else if(!scanCheck) {

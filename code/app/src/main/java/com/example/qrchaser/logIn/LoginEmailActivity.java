@@ -53,6 +53,7 @@ public class LoginEmailActivity extends SaveANDLoad {
                 DocumentReference myAccount = accountsRef.document(email);
 
                 // compare if password is correct
+                // may be changed to on complete listener
                 myAccount.get()
                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
