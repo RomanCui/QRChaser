@@ -122,4 +122,13 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
             } // end onClick
         }); // end addQR.setOnClickListener
     } // end onCreate
+
+
+    /**
+     * For testing purpose: Get the arraylist of qrcode currently present on MyQRCodeScreen
+     * @return qrCodes
+     */
+    public ArrayList<QRCode> getQrCodes() {
+        return qrCodes;
+    } // end getQrCodes
 } // end MyQRCodeScreenActivity Class

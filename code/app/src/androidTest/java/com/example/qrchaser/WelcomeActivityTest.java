@@ -4,10 +4,16 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.EditText;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import com.example.qrchaser.logIn.CreateAccountActivity;
 import com.example.qrchaser.logIn.LoginEmailActivity;
 import com.example.qrchaser.logIn.WelcomeActivity;
-import com.example.qrchaser.player.browse.BrowseQRActivity;
+import com.example.qrchaser.oop.QRCode;
 import com.example.qrchaser.player.CameraScannerActivity;
+import com.example.qrchaser.player.browse.BrowseQRActivity;
 import com.example.qrchaser.player.map.MapActivity;
 import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
 import com.example.qrchaser.player.profile.PlayerProfileActivity;
@@ -21,6 +27,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 public class WelcomeActivityTest {
 
@@ -90,7 +98,7 @@ public class WelcomeActivityTest {
         solo.assertCurrentActivity("Not Login Email Activity", LoginEmailActivity.class);
 
         //enter email and password
-        solo.enterText((EditText) solo.getView(R.id.editTextEmailAddress2), "ronggang@ualberta.ca");
+        solo.enterText((EditText) solo.getView(R.id.editTextEmailAddress2), "test@email.com");
         solo.enterText((EditText) solo.getView(R.id.editTextPassword2), "123456");
         solo.clickOnButton("Login");
 
@@ -100,6 +108,7 @@ public class WelcomeActivityTest {
     }
 
     /**
+     *  TODO: Need to update these tests for the new Navigation Bar
      *  Test navigation bar to access MyQRCodeScreen
      */
     @Test
@@ -108,11 +117,12 @@ public class WelcomeActivityTest {
         solo.clickOnButton("Guest");
         solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
 
-        solo.clickOnButton("1");
+        solo.clickOnActionBarItem(R.id.my_qr_code);
         solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
     }
 
     /**
+     *  TODO: Need to update these tests for the new Navigation Bar
      *  Test navigation bar to access Browse qr code screen
      */
     @Test
@@ -121,11 +131,12 @@ public class WelcomeActivityTest {
         solo.clickOnButton("Guest");
         solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
 
-        solo.clickOnButton("2");
+        solo.clickOnActionBarItem(R.id.browse_player);
         solo.assertCurrentActivity("Not Browse Activity", BrowseQRActivity.class);
     }
 
     /**
+     *  TODO: Need to update these tests for the new Navigation Bar
      *  Test navigation bar to Map
      *  Note : Location Permission required beforehand
      */
@@ -135,11 +146,12 @@ public class WelcomeActivityTest {
         solo.clickOnButton("Guest");
         solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
 
-        solo.clickOnButton("3");
+        solo.clickOnActionBarItem(R.id.map);
         solo.assertCurrentActivity("Not Map Activity", MapActivity.class);
     }
 
     /**
+     *  TODO: Need to update these tests for the new Navigation Bar
      *  Test navigation bar to player profile
      */
     @Test
@@ -148,7 +160,7 @@ public class WelcomeActivityTest {
         solo.clickOnButton("Guest");
         solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
 
-        solo.clickOnButton("4");
+        solo.clickOnActionBarItem(R.id.self_profile);
         solo.assertCurrentActivity("Not player profile Activity", PlayerProfileActivity.class);
     }
 
@@ -185,6 +197,52 @@ public class WelcomeActivityTest {
         solo.clickOnButton("Scan");
         solo.assertCurrentActivity("Not Scanner Activity", CameraScannerActivity.class);
     }
+
+    /**
+     * Test creating new account
+     * Note : this account might already be in the database
+     */
+    @Test
+    public void testCreateAccount() {
+        solo.assertCurrentActivity("Not main Activity", WelcomeActivity.class);
+        solo.clickOnButton("Create Account");
+        solo.assertCurrentActivity("Not create account Activity", CreateAccountActivity.class);
+        solo.waitForText("Please enter your email:");
+        solo.enterText((EditText) solo.getView(R.id.editTextEmailAddress1), "test@email.com");
+        solo.enterText((EditText) solo.getView(R.id.editTextPassword1), "123456");
+        solo.enterText((EditText) solo.getView(R.id.editTextPhone1), "123456");
+        solo.enterText((EditText) solo.getView(R.id.editTextNickname1), "tester");
+
+        solo.clickOnButton("Confirm");
+        solo.assertCurrentActivity("Not main activity", WelcomeActivity.class);
+
+    }
+
+    /**
+     * Test showing scanned qrcode
+     */
+    @Test
+    public void testShowScannedQR() {
+        solo.assertCurrentActivity("Not main Activity", WelcomeActivity.class);
+        solo.clickOnButton("Email");
+        solo.assertCurrentActivity("Not Login Email Activity", LoginEmailActivity.class);
+
+        //enter email and password
+        solo.enterText((EditText) solo.getView(R.id.editTextEmailAddress2), "BBB");
+        solo.enterText((EditText) solo.getView(R.id.editTextPassword2), "bbb");
+        solo.clickOnButton("Login");
+
+        solo.waitForText("MY QR codes");
+        solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
+        ArrayList<QRCode> qrcodes = ((MyQRCodeScreenActivity) solo.getCurrentActivity()).getQrCodes();
+        QRCode testQR = qrcodes.get(0);
+        assertEquals("cb1ad2119d8fafb69566510ee712661f9f14b83385006ef92aec47f523a38358", testQR.getHash());
+        assertEquals("Code1", testQR.getName());
+        assertEquals(1396, testQR.getScore());
+
+    }
+
+
 
     @After
     public void teatDown() throws Exception {
