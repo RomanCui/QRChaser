@@ -125,6 +125,7 @@ public class WelcomeActivityTest {
      *  TODO: Need to update these tests for the new Navigation Bar
      *  Test navigation bar to access Browse qr code screen
      */
+    /*
     @Test
     public void testNavigation2() {
         solo.assertCurrentActivity("Not main Activity", WelcomeActivity.class);
@@ -135,11 +136,14 @@ public class WelcomeActivityTest {
         solo.assertCurrentActivity("Not Browse Activity", BrowseQRActivity.class);
     }
 
+    */
+
     /**
      *  TODO: Need to update these tests for the new Navigation Bar
      *  Test navigation bar to Map
      *  Note : Location Permission required beforehand
      */
+    /*
     @Test
     public void testNavigation3() {
         solo.assertCurrentActivity("Not main Activity", WelcomeActivity.class);
@@ -149,11 +153,13 @@ public class WelcomeActivityTest {
         solo.clickOnActionBarItem(R.id.map);
         solo.assertCurrentActivity("Not Map Activity", MapActivity.class);
     }
+    */
 
     /**
      *  TODO: Need to update these tests for the new Navigation Bar
      *  Test navigation bar to player profile
      */
+    /*
     @Test
     public void testNavigation4() {
         solo.assertCurrentActivity("Not main Activity", WelcomeActivity.class);
@@ -163,7 +169,7 @@ public class WelcomeActivityTest {
         solo.clickOnActionBarItem(R.id.self_profile);
         solo.assertCurrentActivity("Not player profile Activity", PlayerProfileActivity.class);
     }
-
+    */
 
     /**
      *  Test floating button to go to QrAddScreen
