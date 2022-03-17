@@ -77,21 +77,22 @@ public class QRCode {
 
     public void saveToDatabase(){
 
-        /*
+        final String TAG = "Sample";
+        FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
-        CollectionReference codesRef = db.collection("QRCodes");
-
+        CollectionReference QRCodesReference = db.collection("QRCodes");
         HashMap<String, String> qrCodes = new HashMap<>();
         // If there’s some data in the EditText field, then we create a new key-value pair.
-        qrCodes.put("HashValue", scannedQR.getHash());
-        qrCodes.put("Name", scannedQR.getName());
-        qrCodes.put("Lat", Double.toString(scannedQR.getLatitude()));
-        qrCodes.put("Lon", Double.toString(scannedQR.getLongitude()));
-        qrCodes.put("Lon", Double.toString(scannedQR.getLongitude()));
-        qrCodes.put("Score", Double.toString(scannedQR.getScore()));
+        qrCodes.put("HashValue", hash);
+        qrCodes.put("Name", name);
+        qrCodes.put("Owners", this.getOwners());
+        qrCodes.put("Comments", this.getComments());
+        qrCodes.put("Lat", Double.toString(latitude));
+        qrCodes.put("Lon", Double.toString(longitude));
+        qrCodes.put("Score", Double.toString(score));
 
         QRCodesReference
-                .document(scannedQR.getId())
+                .document(hash)
                 .set(qrCodes)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -114,8 +115,24 @@ public class QRCode {
                     FirebaseFirestoreException error) {
             }
         });
+    }
 
-         */
+    public String getOwners(){
+        String owner = "";
+        for (int i = 0; i < owners.size(); i++){
+            owner = owner + owners.get(i) + " ";
+        }
+        owner.trim();
+        return owner;
+    }
+
+    public String getComments(){
+        String comment = "";
+        for (int i = 0; i < comments.size(); i++){
+            comment = comment + comments.get(i) + "###";
+        }
+        comment.trim();
+        return comment;
     }
 
     /**

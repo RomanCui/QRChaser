@@ -9,18 +9,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.qrchaser.EditQRCodeScreenActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.example.qrchaser.R;
 import com.example.qrchaser.general.SaveANDLoad;
-import com.example.qrchaser.oop.Player;
 import com.example.qrchaser.player.browse.BrowseActivity;
 import com.example.qrchaser.player.map.MapActivity;
 import com.example.qrchaser.player.profile.PlayerProfileActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MyQRCodeScreenActivity extends SaveANDLoad {
+
+    final String TAG = "Sample";
+    FirebaseFirestore db;
 
     private ListView myQRCodeListView;
     private BottomNavigationView bottomNavigationView;
@@ -31,27 +33,21 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_qrcode_screen);
-        // ************************** Still need to add actual activity functionality ****************************************
+
         // Get the player email in order to load the data from the database
         String playerEmail = loadData(getApplicationContext(), "UserEmail");
-        // Get Player info from the database here
 
-        // Using a dummy player for now
-        // TODO: 2022-03-12 Pass In Actual Players
-        Player currentPlayer = new Player(playerEmail,
-                "TestPassword", "TestPlayer", "123" );
-
-        // ************************** Page Selection ****************************************
         myQRCodeListView = findViewById(R.id.listViewQRCode);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         addQR = findViewById(R.id.floatingActionButton);
+
+        
 
         myQRCodeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MyQRCodeScreenActivity.this, EditQRCodeScreenActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 

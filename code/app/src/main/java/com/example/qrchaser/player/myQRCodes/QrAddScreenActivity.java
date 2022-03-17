@@ -198,6 +198,8 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 Boolean photoCheck = false;
                 Boolean locationCheck = false;
 
+                qrValue = "AAA";
+
                 qrName = nicknameET.getText().toString();
                 qrComment = commentET.getText().toString();
                 // Check if qrValue nad name are not null, then check other optional values
