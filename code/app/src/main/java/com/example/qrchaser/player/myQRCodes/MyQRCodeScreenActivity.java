@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.qrchaser.oop.QRCode;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -41,8 +42,9 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
     private BottomNavigationView bottomNavigationView;
     private FloatingActionButton addQR;
 
-    ArrayList<String> names = new ArrayList<>();
-    ArrayList<String> scores = new ArrayList<>();
+    ArrayList<QRCode> qrCodes = new ArrayList<>();
+
+
 
 
     @Override
@@ -53,6 +55,7 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
         myQRCodeListView = findViewById(R.id.listViewQRCode);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         addQR = findViewById(R.id.floatingActionButton);
+
 
         // Get the player email in order for the query
         String playerEmail = loadData(getApplicationContext(), "UserEmail");
@@ -67,17 +70,17 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            names.add(document.getString("name"));
-                            scores.add(document.getString("score"));
-                        }
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                qrCodes.add(document.toObject(QRCode.class));
+                            }
                     } else {
                         Log.d(TAG, "Error getting documents: ", task.getException());
                     }
             }
         });
 
-        // Populate the listview with data in array lists
+        
+
 
 
         // Click on the Name to see details about the code
