@@ -151,11 +151,15 @@ public class MapActivity extends AppCompatActivity{
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot document : task.getResult()) {
-                                String tempID = document.getString("ID");
-                                Double tempLat = Double.parseDouble(document.getString("Lat"));
-                                Double tempLon = Double.parseDouble(document.getString("Lon"));
-                                if (tempLon < 200 && tempLon < 200) {
-                                    points.add(new LabelledGeoPoint(tempLon, tempLon, tempID));
+                                try {
+                                    String tempID = document.getString("hash");
+                                    Double tempLat = document.getDouble("latitude");
+                                    Double tempLon = document.getDouble("longitude");
+                                    if (tempLon < 200 && tempLon < 200) {
+                                        points.add(new LabelledGeoPoint(tempLon, tempLon, tempID));
+                                    }
+                                } catch (NullPointerException e) {
+                                    e.printStackTrace();
                                 }
                             }
                         } else {
