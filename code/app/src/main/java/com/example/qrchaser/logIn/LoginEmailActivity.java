@@ -1,14 +1,12 @@
 package com.example.qrchaser.logIn;
 
 import androidx.annotation.NonNull;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
 import com.example.qrchaser.R;
 import com.example.qrchaser.general.SaveANDLoad;
@@ -19,6 +17,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+
+// This class is complete
+// Mar 16, 2022
 public class LoginEmailActivity extends SaveANDLoad {
 
     final String TAG = "Sample";
@@ -42,23 +43,27 @@ public class LoginEmailActivity extends SaveANDLoad {
             @Override
             public void onClick(View v) {
 
+                // Get user input
                 email = emailET.getText().toString();
                 passWord = passWordET.getText().toString();
 
-
+                // get Firestore document
                 db = FirebaseFirestore.getInstance();
-
                 CollectionReference accountsRef = db.collection("Accounts");
                 DocumentReference myAccount = accountsRef.document(email);
+
+                // compare if password is correct
                 myAccount.get()
                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 if (documentSnapshot.exists()) {
+                                    // get the password from the database
                                     passwordDB = documentSnapshot.getString("Password");
                                 }else {
                                     Toast.makeText(getApplicationContext(),"Document does not exits",Toast.LENGTH_LONG).show();
                                 }
+                                // compare the password, if correct, save email  to local storage and finish log in
                                 if (passWord.equals(passwordDB)){
                                     // probably some data to be passed
                                     saveData(getApplicationContext(), "UserEmail", email);

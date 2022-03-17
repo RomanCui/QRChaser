@@ -11,10 +11,10 @@
         android:id="@+id/textViewEmailPrompt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Edit email address:" />
+        android:text="Your email address:" />
 
-    <EditText
-        android:id="@+id/editTextEmailAddress"
+    <TextView
+        android:id="@+id/TextEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress" />

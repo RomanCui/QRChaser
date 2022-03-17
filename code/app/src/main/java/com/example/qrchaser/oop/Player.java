@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 
@@ -16,9 +17,6 @@ import java.util.HashMap;
  */
 public class Player extends User {
 
-    static int count = 0;
-
-    private String id;
     private String email;
     private String password;
     private String nickname;
@@ -26,15 +24,13 @@ public class Player extends User {
     private String guest;
 
     /**
-     * A constructor for the QR code
+     * A constructor for the Player
      * @param email
      * @param password
      * @param nickname
      * @param phoneNumber
      */
     public Player(String email, String password, String nickname, String phoneNumber) {
-        count++;
-        id = String.valueOf(count);
         this.email = email;
         this.password = password;
         this.nickname = nickname;
@@ -43,8 +39,7 @@ public class Player extends User {
     } // end Player Constructor
 
     public Player(){
-        count++;
-        id = String.valueOf(count);
+        // guest email to be changed
         this.email = "";
         this.password = "";
         this.nickname = "";
@@ -53,29 +48,26 @@ public class Player extends User {
     }
 
     // This method saves a player to the database
+    // used in create account
     public void saveToDatabase(){
 
+        // create Firestore collection
         final String TAG = "Sample";
         FirebaseFirestore db;
-
-        // Access a Cloud Firestore instance from your Activity
         db = FirebaseFirestore.getInstance();
-
-        // Get a top level reference to the collection
         final CollectionReference collectionReference =
                 db.collection("Accounts");
 
         HashMap<String, String> accounts = new HashMap<>();
 
-        // If there’s some data in the EditText field, then we create a new key-value pair.
-        accounts.put("ID", id);
+        //key-value pairs to be stored
         accounts.put("EmailAddress", email);
         accounts.put("Password", password);
         accounts.put("Nickname", nickname);
         accounts.put("Phone", phoneNumber);
         accounts.put("Guest", guest);
 
-
+        // save account as a document inside the collection
         collectionReference
                 .document(email)
                 .set(accounts)
@@ -97,13 +89,34 @@ public class Player extends User {
         // TO-Do: Notify other user to update browse player real time (Optional)
     }
 
-    public String getId() {
-        return id;
+    // This method saves a player to the database
+    // used in create account
+    public void updateDatabase(){
+
+        // create Firestore collection
+        final String TAG = "Sample";
+        FirebaseFirestore db;
+        db = FirebaseFirestore.getInstance();
+        final CollectionReference collectionReference =
+                db.collection("Accounts");
+        DocumentReference myAccountRef = collectionReference.document(email);
+
+        myAccountRef
+                .update("Phone", phoneNumber)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error updating document", e);
+                    }
+                });
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
     /**
      * This gets the email of the player

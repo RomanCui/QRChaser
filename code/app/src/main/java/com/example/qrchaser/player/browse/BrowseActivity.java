@@ -21,7 +21,6 @@ import com.example.qrchaser.player.profile.PlayerProfileActivity;
 
 public class BrowseActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
-    private Button button1,button3,button4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

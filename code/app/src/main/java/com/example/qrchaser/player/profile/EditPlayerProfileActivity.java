@@ -1,14 +1,13 @@
 package com.example.qrchaser.player.profile;
 
 import androidx.annotation.NonNull;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.qrchaser.R;
 import com.example.qrchaser.general.SaveANDLoad;
 import com.example.qrchaser.oop.Player;
@@ -20,8 +19,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Source;
 
+// This activity lets user change password, nickname and phone number
 public class EditPlayerProfileActivity extends SaveANDLoad {
-    private EditText emailET, passwordET, nicknameET, phoneNumberET;
+    private TextView emailText;
+    private EditText passwordET, nicknameET, phoneNumberET;
     private Button buttonConfirm, buttonSignOut, buttonGenerateLoginQRCode, buttonGenerateInfoQRCode;
 
     final String TAG = "Sample";
@@ -33,10 +34,11 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_player_profile);
 
-        emailET = findViewById(R.id.editTextEmailAddress);
+        emailText = findViewById(R.id.TextEmailAddress);
         passwordET = findViewById(R.id.editTextPassword);
         nicknameET = findViewById(R.id.editTextNickname);
         phoneNumberET = findViewById(R.id.editTextPhone);
@@ -48,8 +50,7 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
         // Get the player email in order to load the data from the database
         String playerEmail = loadData(getApplicationContext(), "UserEmail");
 
-        // Get Player info from the database here
-
+        // Get Player info from the database
         db = FirebaseFirestore.getInstance();
         CollectionReference accountsRef = db.collection("Accounts");
         DocumentReference myAccount = accountsRef.document(playerEmail);
@@ -70,11 +71,11 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
 
 
                     //Pass In Actual Players
-                    Player currentPlayer = new Player(playerEmail, passwordDB,
+                    currentPlayer = new Player(playerEmail, passwordDB,
                             nicknameDB, phoneDB );
 
                     // Initialize
-                    emailET.setText(currentPlayer.getEmail());
+                    emailText.setText(currentPlayer.getEmail());
                     passwordET.setText(currentPlayer.getPassword());
                     nicknameET.setText(currentPlayer.getNickname());
                     phoneNumberET.setText(currentPlayer.getPhoneNumber());
@@ -93,9 +94,16 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myAccount.update("Nickname", nicknameET.getText().toString());
-            } // end onClick
-        });// end buttonConfirm.setOnClickListener
+                // format check
+                if (true){
+                    currentPlayer.setPassword(passwordET.getText().toString());
+                    currentPlayer.setNickname(nicknameET.getText().toString());
+                    currentPlayer.setPhoneNumber(phoneNumberET.getText().toString());
+                    currentPlayer.updateDatabase();
+                }
+
+            }
+        });
 
         // Sign Out
         buttonSignOut.setOnClickListener(new View.OnClickListener() {
