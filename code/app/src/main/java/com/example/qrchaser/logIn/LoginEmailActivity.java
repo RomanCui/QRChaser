@@ -60,7 +60,7 @@ public class LoginEmailActivity extends SaveANDLoad {
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 if (documentSnapshot.exists()) {
                                     // get the password from the database
-                                    passwordDB = documentSnapshot.getString("Password");
+                                    passwordDB = documentSnapshot.getString("password");
                                 }else {
                                     Toast.makeText(getApplicationContext(),"Document does not exits",Toast.LENGTH_LONG).show();
                                 }

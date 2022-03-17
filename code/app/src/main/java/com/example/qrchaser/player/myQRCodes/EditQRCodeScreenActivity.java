@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.example.qrchaser.R;
 
+// To be completed
 public class EditQRCodeScreenActivity extends AppCompatActivity {
 
     @Override

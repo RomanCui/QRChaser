@@ -51,6 +51,10 @@ import com.google.firebase.firestore.CollectionReference;
 
 import java.util.HashMap;
 
+// This class let the user to add QR codes
+// The QR code must be added with a name
+// The QR code can be added with a photo (In progress)
+// a location (Under review), and a comment
 public class QrAddScreenActivity extends AppCompatActivity {
 
     private Button scan, addPhoto, addLocation, confirm, cancel;
@@ -59,8 +63,6 @@ public class QrAddScreenActivity extends AppCompatActivity {
     private ImageView imageView;
     String qrName, qrComment;
     String qrValue;
-    final String TAG = "Sample";
-    FirebaseFirestore db;
 
     private ActivityResultLauncher<Intent> galleryResultLauncher;
     private ActivityResultLauncher<Intent> cameraResultLauncher;
@@ -140,9 +142,6 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 }
         );
 
-
-
-
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,9 +191,10 @@ public class QrAddScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // Ronggang implemented comment check in the QRCode class
+                // Ronggang(Alex) implemented comment check in the QRCode class
                 Boolean nameCheck = false;
                 Boolean scanCheck = false;
+
                 Boolean photoCheck = false;
                 Boolean locationCheck = false;
 
@@ -202,17 +202,20 @@ public class QrAddScreenActivity extends AppCompatActivity {
 
                 qrName = nicknameET.getText().toString();
                 qrComment = commentET.getText().toString();
-                // Check if qrValue nad name are not null, then check other optional values
 
+                // Check if qrValue and name are not null, then check other optional values
                 if (!qrName.isEmpty()) { nameCheck = true; }
                 if (qrValue != null) { scanCheck = true; }
                 if (image != null) { photoCheck = true; }
+
                 // Do other checks here
-                QRCode scannedQR;
+
+                // If the name and scan are added, the program can store a QR code
+                // in the database
                 if (nameCheck && scanCheck) {
 
                     String playerEmail = loadData(getApplicationContext(), "UserEmail");
-
+                    QRCode scannedQR;
                     // Call QRCode constructor here
                     if(SetLocation) {
                         scannedQR = new QRCode(qrValue, qrName,
@@ -237,7 +240,10 @@ public class QrAddScreenActivity extends AppCompatActivity {
                     // store the scanned code to database
                     scannedQR.saveToDatabase();
 
-                } else if(!nameCheck && !scanCheck) {
+
+                }
+                // If there is a missing mandatory component, prompt the user for input
+                else if(!nameCheck && !scanCheck) {
                     Toast.makeText(getApplicationContext(), "Please Scan and Enter nickname for this QRCode", Toast.LENGTH_SHORT).show();
                 } else if(!scanCheck) {
                     Toast.makeText(getApplicationContext(), "Please Scan the QRCode", Toast.LENGTH_SHORT).show();

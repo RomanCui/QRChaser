@@ -38,6 +38,7 @@ public class Player extends User {
         this.guest = "0";
     } // end Player Constructor
 
+    // For guest
     public Player(){
         // guest email to be changed
         this.email = "";
@@ -58,19 +59,8 @@ public class Player extends User {
         final CollectionReference collectionReference =
                 db.collection("Accounts");
 
-        HashMap<String, String> accounts = new HashMap<>();
-
-        //key-value pairs to be stored
-        accounts.put("EmailAddress", email);
-        accounts.put("Password", password);
-        accounts.put("Nickname", nickname);
-        accounts.put("Phone", phoneNumber);
-        accounts.put("Guest", guest);
-
-        // save account as a document inside the collection
-        collectionReference
-                .document(email)
-                .set(accounts)
+        collectionReference.document(email)
+                .set(this)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -86,7 +76,6 @@ public class Player extends User {
                     }
                 });
 
-        // TO-Do: Notify other user to update browse player real time (Optional)
     }
 
     // This method saves a player to the database
@@ -182,7 +171,12 @@ public class Player extends User {
         this.phoneNumber = phoneNumber;
     } // end setPhoneNumber
 
-    public static class Guest {
+    public String getGuest() {
+        return guest;
+    }
 
-    } // end Guest Class
+    public void setGuest(String guest) {
+        this.guest = guest;
+    }
+
 } // end Player Class
