@@ -74,6 +74,10 @@ public class QRCode {
         this.score *= multiplier;
     } // end QRCode Constructor
 
+    public QRCode() {
+
+    }
+
     public void saveToDatabase(){
 
         final String TAG = "Sample";

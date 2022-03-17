@@ -121,6 +121,7 @@ public class WelcomeActivity extends SaveANDLoad {
             public void onClick(View view) {
                 Player player = new Player();
                 player.saveToDatabase();
+                saveData(getApplicationContext(), "UserEmail", player.getEmail());
                 Intent intent = new Intent(WelcomeActivity.this, MyQRCodeScreenActivity.class);
                 startActivity(intent);
             } // end onClick
