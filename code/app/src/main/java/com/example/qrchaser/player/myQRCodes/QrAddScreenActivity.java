@@ -97,6 +97,8 @@ public class QrAddScreenActivity extends AppCompatActivity {
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == Activity.RESULT_OK) {
                             Intent scannerResult = result.getData();
+
+                            // To do: not allow the same user to scan the same QR code
                             qrValue = scannerResult.getStringExtra("qrValue");
 
                             //for testing the result
@@ -198,7 +200,8 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 Boolean photoCheck = false;
                 Boolean locationCheck = false;
 
-                qrValue = "AAA";
+                // for testing
+                //qrValue = "AAA";
 
                 qrName = nicknameET.getText().toString();
                 qrComment = commentET.getText().toString();

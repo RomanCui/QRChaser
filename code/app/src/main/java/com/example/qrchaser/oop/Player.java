@@ -1,16 +1,12 @@
 package com.example.qrchaser.oop;
 
-
 import android.util.Log;
 import androidx.annotation.NonNull;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import java.util.HashMap;
-
 
 /**
  * This class holds all of the data for a single player

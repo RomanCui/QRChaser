@@ -6,7 +6,7 @@ import android.widget.EditText;
 
 import com.example.qrchaser.logIn.LoginEmailActivity;
 import com.example.qrchaser.logIn.WelcomeActivity;
-import com.example.qrchaser.player.browse.BrowseActivity;
+import com.example.qrchaser.player.browse.BrowseQRActivity;
 import com.example.qrchaser.player.CameraScannerActivity;
 import com.example.qrchaser.player.map.MapActivity;
 import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
@@ -122,7 +122,7 @@ public class WelcomeActivityTest {
         solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
 
         solo.clickOnButton("2");
-        solo.assertCurrentActivity("Not Browse Activity", BrowseActivity.class);
+        solo.assertCurrentActivity("Not Browse Activity", BrowseQRActivity.class);
     }
 
     /**

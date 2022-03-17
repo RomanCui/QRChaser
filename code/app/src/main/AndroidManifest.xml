@@ -24,7 +24,7 @@
             android:name=".player.myQRCodes.QrAddScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".player.browse.BrowseActivity"
+            android:name=".player.browse.BrowseQRActivity"
             android:exported="false" />
         <activity
             android:name=".player.profile.GeneratedQRCodeActivity"

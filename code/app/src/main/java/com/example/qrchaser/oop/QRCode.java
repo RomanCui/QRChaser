@@ -28,7 +28,7 @@ public class QRCode {
     private String hash;
     private String name;
     private int score;
-// Photo to be added
+    // Photo to be added
 
     // I am unsure as to how these two will be implemented
     private double latitude;
@@ -40,6 +40,8 @@ public class QRCode {
 
     /**
      * A constructor for the QR code
+     * To do:
+     * This constructor did not take into the consideration that two players scan the same QR code
      * @param qrCodeData
      * @param name
      */

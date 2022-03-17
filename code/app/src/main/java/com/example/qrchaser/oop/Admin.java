@@ -2,6 +2,7 @@ package com.example.qrchaser.oop;
 
 import com.example.qrchaser.oop.Player;
 
+// To be developed
 public class Admin extends Player {
 
     // An Admin must have a phone number for emergencies

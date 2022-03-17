@@ -6,20 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.example.qrchaser.R;
 import com.example.qrchaser.oop.QRCode;
-
 import java.util.ArrayList;
 
+// This adapter is used for list view in MyQRCodeScreen and Browse QR Codes Screen
 public class QRCodeAdapter extends ArrayAdapter<QRCode> {
 
     private ArrayList<QRCode> qrCodes;
     private Context context;
-
 
     public QRCodeAdapter(Context context, ArrayList<QRCode> qrCodes) {
         super(context, 0,qrCodes);
@@ -39,9 +36,9 @@ public class QRCodeAdapter extends ArrayAdapter<QRCode> {
 
         QRCode qrCode = qrCodes.get(position);
 
+        // Assign values to views in qrcode_content
         TextView qrCodeName = view.findViewById(R.id.name_text);
         TextView qrCodeScore = view.findViewById(R.id.score_text);
-
         qrCodeName.setText(qrCode.getName());
         qrCodeScore.setText(qrCode.getScore()+"");
 
