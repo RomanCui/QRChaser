@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.qrchaser.logIn.CreateAccountActivity;
 import com.example.qrchaser.logIn.LoginEmailActivity;
 import com.example.qrchaser.logIn.WelcomeActivity;
 import com.example.qrchaser.player.browse.BrowseActivity;
@@ -90,7 +91,7 @@ public class WelcomeActivityTest {
         solo.assertCurrentActivity("Not Login Email Activity", LoginEmailActivity.class);
 
         //enter email and password
-        solo.enterText((EditText) solo.getView(R.id.editTextEmailAddress2), "ronggang@ualberta.ca");
+        solo.enterText((EditText) solo.getView(R.id.editTextEmailAddress2), "test@email.com");
         solo.enterText((EditText) solo.getView(R.id.editTextPassword2), "123456");
         solo.clickOnButton("Login");
 
@@ -100,6 +101,7 @@ public class WelcomeActivityTest {
     }
 
     /**
+     *  TODO: Need to update these tests for the new Navigation Bar
      *  Test navigation bar to access MyQRCodeScreen
      */
     @Test
@@ -108,11 +110,12 @@ public class WelcomeActivityTest {
         solo.clickOnButton("Guest");
         solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
 
-        solo.clickOnButton("1");
+        solo.clickOnActionBarItem(R.id.my_qr_code);
         solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
     }
 
     /**
+     *  TODO: Need to update these tests for the new Navigation Bar
      *  Test navigation bar to access Browse qr code screen
      */
     @Test
@@ -121,11 +124,12 @@ public class WelcomeActivityTest {
         solo.clickOnButton("Guest");
         solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
 
-        solo.clickOnButton("2");
+        solo.clickOnActionBarItem(R.id.browse_player);
         solo.assertCurrentActivity("Not Browse Activity", BrowseActivity.class);
     }
 
     /**
+     *  TODO: Need to update these tests for the new Navigation Bar
      *  Test navigation bar to Map
      *  Note : Location Permission required beforehand
      */
@@ -135,11 +139,12 @@ public class WelcomeActivityTest {
         solo.clickOnButton("Guest");
         solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
 
-        solo.clickOnButton("3");
+        solo.clickOnActionBarItem(R.id.map);
         solo.assertCurrentActivity("Not Map Activity", MapActivity.class);
     }
 
     /**
+     *  TODO: Need to update these tests for the new Navigation Bar
      *  Test navigation bar to player profile
      */
     @Test
@@ -148,7 +153,7 @@ public class WelcomeActivityTest {
         solo.clickOnButton("Guest");
         solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
 
-        solo.clickOnButton("4");
+        solo.clickOnActionBarItem(R.id.self_profile);
         solo.assertCurrentActivity("Not player profile Activity", PlayerProfileActivity.class);
     }
 
@@ -184,6 +189,26 @@ public class WelcomeActivityTest {
 
         solo.clickOnButton("Scan");
         solo.assertCurrentActivity("Not Scanner Activity", CameraScannerActivity.class);
+    }
+
+    /**
+     * Test creating new account
+     * Note : this account might already be in the database
+     */
+    @Test
+    public void testCreateAccount() {
+        solo.assertCurrentActivity("Not main Activity", WelcomeActivity.class);
+        solo.clickOnButton("Create Account");
+        solo.assertCurrentActivity("Not create account Activity", CreateAccountActivity.class);
+        solo.waitForText("Please enter your email:");
+        solo.enterText((EditText) solo.getView(R.id.editTextEmailAddress1), "test@email.com");
+        solo.enterText((EditText) solo.getView(R.id.editTextPassword1), "123456");
+        solo.enterText((EditText) solo.getView(R.id.editTextPhone1), "123456");
+        solo.enterText((EditText) solo.getView(R.id.editTextNickname1), "tester");
+
+        solo.clickOnButton("Confirm");
+        solo.assertCurrentActivity("Not main activity", WelcomeActivity.class);
+
     }
 
     @After
