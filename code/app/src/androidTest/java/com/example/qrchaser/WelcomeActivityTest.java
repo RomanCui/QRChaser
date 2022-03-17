@@ -12,8 +12,8 @@ import com.example.qrchaser.logIn.CreateAccountActivity;
 import com.example.qrchaser.logIn.LoginEmailActivity;
 import com.example.qrchaser.logIn.WelcomeActivity;
 import com.example.qrchaser.oop.QRCode;
-import com.example.qrchaser.player.browse.BrowseActivity;
 import com.example.qrchaser.player.CameraScannerActivity;
+import com.example.qrchaser.player.browse.BrowseQRActivity;
 import com.example.qrchaser.player.map.MapActivity;
 import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
 import com.example.qrchaser.player.profile.PlayerProfileActivity;
@@ -132,7 +132,7 @@ public class WelcomeActivityTest {
         solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
 
         solo.clickOnActionBarItem(R.id.browse_player);
-        solo.assertCurrentActivity("Not Browse Activity", BrowseActivity.class);
+        solo.assertCurrentActivity("Not Browse Activity", BrowseQRActivity.class);
     }
 
     /**
@@ -238,7 +238,7 @@ public class WelcomeActivityTest {
         QRCode testQR = qrcodes.get(0);
         assertEquals("cb1ad2119d8fafb69566510ee712661f9f14b83385006ef92aec47f523a38358", testQR.getHash());
         assertEquals("Code1", testQR.getName());
-        assertTrue(testQR.getScore() == 1396);
+        assertEquals(1396, testQR.getScore());
 
     }
 
