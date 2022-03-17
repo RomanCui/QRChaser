@@ -16,7 +16,7 @@ import com.example.qrchaser.R;
 import com.example.qrchaser.general.SaveANDLoad;
 import com.example.qrchaser.oop.Player;
 import com.example.qrchaser.player.map.MapActivity;
-import com.example.qrchaser.player.browse.BrowseActivity;
+import com.example.qrchaser.player.browse.BrowseQRActivity;
 
 
 public class PlayerProfileActivity extends SaveANDLoad {
@@ -58,7 +58,7 @@ public class PlayerProfileActivity extends SaveANDLoad {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.browse_player:
-                        startActivity(new Intent(getApplicationContext(),BrowseActivity.class));
+                        startActivity(new Intent(getApplicationContext(), BrowseQRActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.map:

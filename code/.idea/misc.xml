@@ -48,6 +48,7 @@
         <entry key="app/src/main/res/layout/activity_my_qrcode_screen.xml" value="0.24583333333333332" />
         <entry key="app/src/main/res/layout/activity_qr_add_screen.xml" value="0.24583333333333332" />
         <entry key="app/src/main/res/layout/activity_qr_edit_screen.xml" value="0.26856884057971014" />
+        <entry key="app/src/main/res/menu/menu_navigation.xml" value="0.4244791666666667" />
       </map>
     </option>
   </component>

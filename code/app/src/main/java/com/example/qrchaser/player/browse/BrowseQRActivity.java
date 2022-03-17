@@ -1,63 +1,51 @@
-package com.example.qrchaser.player.myQRCodes;
+package com.example.qrchaser.player.browse;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import com.example.qrchaser.oop.QRCode;
 import com.example.qrchaser.general.QRCodeAdapter;
+import com.example.qrchaser.oop.QRCode;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.example.qrchaser.R;
-import com.example.qrchaser.general.SaveANDLoad;
-import com.example.qrchaser.player.browse.BrowseQRActivity;
-import com.example.qrchaser.player.map.MapActivity;
-import com.example.qrchaser.player.profile.PlayerProfileActivity;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
+import com.example.qrchaser.R;
+import com.example.qrchaser.player.map.MapActivity;
+import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
+import com.example.qrchaser.player.profile.PlayerProfileActivity;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
-
-// This activity allows user to see there own QR codes
-public class MyQRCodeScreenActivity extends SaveANDLoad {
-
-    final String TAG = "Sample";
-    FirebaseFirestore db;
+// This activity allows user to browse QR codes game wide
+// A twin activity to browse players is to be developed
+public class BrowseQRActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
-    private FloatingActionButton addQR;
-    private ListView myQRCodeListView;
+    final String TAG = "Sample";
+    FirebaseFirestore db;
     private ArrayAdapter<QRCode> qrCodeAdapter;
     private ArrayList<QRCode> qrCodes = new ArrayList<>();
-
+    ListView myQRCodeListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_qrcode_screen);
+        setContentView(R.layout.activity_browse_qr);
 
         myQRCodeListView = findViewById(R.id.listViewQRCode);
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
-        addQR = findViewById(R.id.floatingActionButton);
 
-        // Get the player email in order for the query
-        String playerEmail = loadData(getApplicationContext(), "UserEmail");
-
-        // Find all the QR codes that belong to this player, then add the name and score
-        // to array lists.
+        // Read all QR codes in this game into an array of QRCode objects
         db = FirebaseFirestore.getInstance();
         CollectionReference QRCodesReference = db.collection("QRCodes");
-        QRCodesReference.whereArrayContains("owners", playerEmail)
+        QRCodesReference
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -66,37 +54,28 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 QRCode qrCode = document.toObject(QRCode.class);
                                 qrCodes.add(qrCode);
-                            }// Populate the listview
-                            qrCodeAdapter = new QRCodeAdapter(MyQRCodeScreenActivity.this,qrCodes);
+                            }
+                            // Populate the listview
+                            qrCodeAdapter = new QRCodeAdapter(BrowseQRActivity.this,qrCodes);
                             myQRCodeListView.setAdapter(qrCodeAdapter);
-                    } else {
-                        Log.d(TAG, "Error getting documents: ", task.getException());
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
                     }
-            }
-        });
+                });
 
-
-
-        // Click on the Name to see details about the code
-        myQRCodeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MyQRCodeScreenActivity.this, EditQRCodeScreenActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-        bottomNavigationView.setSelectedItemId(R.id.my_qr_code);
+        // The navigation bar
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.browse_player);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.my_qr_code:
+                        startActivity(new Intent(getApplicationContext(),MyQRCodeScreenActivity.class));
+                        overridePendingTransition(0,0);
                         return true;
                     case R.id.browse_player:
-                        startActivity(new Intent(getApplicationContext(), BrowseQRActivity.class));
-                        overridePendingTransition(0,0);
                         return true;
                     case R.id.map:
                         startActivity(new Intent(getApplicationContext(),MapActivity.class));
@@ -112,23 +91,6 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
         });
 
 
-        // Head to qr add screen
-        addQR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MyQRCodeScreenActivity.this, QrAddScreenActivity.class);
-                startActivity(intent);
-                finish();
-            } // end onClick
-        }); // end addQR.setOnClickListener
+
     } // end onCreate
-
-
-    /**
-     * For testing purpose: Get the arraylist of qrcode currently present on MyQRCodeScreen
-     * @return qrCodes
-     */
-    public ArrayList<QRCode> getQrCodes() {
-        return qrCodes;
-    } // end getQrCodes
-} // end MyQRCodeScreenActivity Class
+} // end BrowseActivity Class

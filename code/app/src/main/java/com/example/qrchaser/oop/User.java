@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 /**
  * This abstract class is a base for all players / admin/ guests
+ * Not used now, to be developed
  */
 public abstract class User {
     private int totalScore;

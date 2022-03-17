@@ -21,7 +21,7 @@ import androidx.core.content.ContextCompat;
 import com.example.qrchaser.R;
 import com.example.qrchaser.oop.QRCode;
 import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
-import com.example.qrchaser.player.browse.BrowseActivity;
+import com.example.qrchaser.player.browse.BrowseQRActivity;
 import com.example.qrchaser.player.profile.PlayerProfileActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -52,6 +52,7 @@ import org.osmdroid.views.overlay.simplefastpoint.SimplePointTheme;
 import java.util.ArrayList;
 import java.util.List;
 
+// This activity allows user to view QR codes in a map
 public class MapActivity extends AppCompatActivity{
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private MapView map = null;
@@ -239,7 +240,7 @@ public class MapActivity extends AppCompatActivity{
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.browse_player:
-                        startActivity(new Intent(getApplicationContext(),BrowseActivity.class));
+                        startActivity(new Intent(getApplicationContext(), BrowseQRActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.map:

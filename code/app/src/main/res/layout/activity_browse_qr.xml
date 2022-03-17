@@ -17,7 +17,7 @@
             android:layout_weight="0"
             android:layout_marginStart="15dp"
             android:gravity="top"
-            android:text="Browse"
+            android:text="Browse QR Codes"
             android:textSize="34sp" />
 
         <ListView
