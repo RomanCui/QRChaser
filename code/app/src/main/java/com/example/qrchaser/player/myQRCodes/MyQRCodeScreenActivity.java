@@ -46,7 +46,7 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_qrcode_screen);
 
-        myQRCodeListView = findViewById(R.id.listViewQRCode);
+        myQRCodeListView = findViewById(R.id.browse_players_listView);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         addQR = findViewById(R.id.floatingActionButton);
 

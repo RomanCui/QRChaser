@@ -40,7 +40,7 @@ public class BrowseQRActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_qr);
 
-        myQRCodeListView = findViewById(R.id.listViewQRCode);
+        myQRCodeListView = findViewById(R.id.browse_players_listView);
 
         // Read all QR codes in this game into an array of QRCode objects
         db = FirebaseFirestore.getInstance();

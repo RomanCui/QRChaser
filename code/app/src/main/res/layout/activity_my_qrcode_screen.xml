@@ -17,11 +17,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:gravity="top"
-            android:text="MY QR codes"
+            android:text="My QR codes"
             android:textSize="34sp" />
 
         <ListView
-            android:id="@+id/listViewQRCode"
+            android:id="@+id/browse_players_listView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/textView" />
