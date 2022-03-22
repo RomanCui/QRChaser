@@ -19,6 +19,9 @@
         android:theme="@style/Theme.QRChaser"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".QRcodeInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".BrowsePlayerActivity"
             android:exported="false" />
         <activity

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".QRcodeInfoActivity">
+
+    <Button
+        android:id="@+id/qrcode_info_back_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back" />
+
+    <TextView
+        android:id="@+id/qrcode_info_qrname_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="QRcode Name" />
+
+    <TextView
+        android:id="@+id/qrcode_info_score_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Score" />
+
+    <TextView
+        android:id="@+id/qrcode_info_comment_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Comments" />
+
+    <TextView
+        android:id="@+id/qrcode_info_location_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Optional location" />
+
+    <TextView
+        android:id="@+id/qrcode_info_photo_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Optional photo" />
+</LinearLayout>
