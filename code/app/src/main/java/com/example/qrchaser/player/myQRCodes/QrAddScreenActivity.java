@@ -44,10 +44,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 
@@ -238,7 +242,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), testString, Toast.LENGTH_SHORT).show();
 
                     //TODO: Compress image here
-                    //if(photoCheck) {}
+                    if(photoCheck) compressAndUpload(image, qrName);
 
                     // store the scanned code to database
                     scannedQR.saveToDatabase();
@@ -283,5 +287,55 @@ public class QrAddScreenActivity extends AppCompatActivity {
         intent.setType("image/*");
         galleryResultLauncher.launch(intent);
 
+    }
+
+    /**
+     * Takes the bitmap image, compress it to JPG file, and upload that to firebase storage
+     * @param img Bitmap image to upload
+     * @param imgName name to be saved on storage
+     */
+    public void compressAndUpload(Bitmap img, String imgName) {
+        //TODO: Implement proper authentication and rules for database
+        FirebaseStorage db = FirebaseStorage.getInstance();
+        StorageReference storage = db.getReferenceFromUrl("gs://qrchaseredition2.appspot.com");
+        StorageReference imageRef = storage.child(imgName+".jpg");
+        int imgQuality = 100;
+
+        if(img.getByteCount() > 5000) {
+            imgQuality = 50;
+
+            //resize image
+            if (img.getWidth() > 500) {
+                double scale = 250 / img.getWidth();
+                int width = 250;
+                int height = img.getHeight() * 250 / img.getWidth();
+
+                Bitmap resizedImg = Bitmap.createScaledBitmap(img, width, height, false);
+                img.recycle();
+                img = resizedImg;
+            }
+        }
+
+        //compress the image and convert it to byte array
+        ByteArrayOutputStream imgBuffer = new ByteArrayOutputStream();
+        img.compress(Bitmap.CompressFormat.JPEG, imgQuality, imgBuffer); //compress to smallest size
+        byte[] imageBytes = imgBuffer.toByteArray();
+
+        imageRef.putBytes(imageBytes)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                String downloadUrl = taskSnapshot.getMetadata().getPath();
+                Toast.makeText(getApplicationContext(), downloadUrl, Toast.LENGTH_SHORT).show();
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "upload failed", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 } // end QrAddScreenActivity Class
