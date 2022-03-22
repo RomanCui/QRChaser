@@ -1,0 +1,119 @@
+Sprint Plannings / Weekly Reviews
+
+--- Feb08 Meeting ---
+
+Week 06 Planning:
+Alex: 
+Amirul: 
+Hannan: 
+Kin: 
+Matthew: 
+Zhengdao: 
+
+--- Feb15 Meeting ---
+
+Week 06 Review:
+Alex: 
+Amirul: 
+Hannan: 
+Kin: 
+Matthew: 
+Zhengdao: 
+
+Week 07 Planning:
+Alex: 
+Amirul: 
+Hannan: 
+Kin: 
+Matthew: 
+Zhengdao: 
+
+--- Mar01 Meeting ---
+
+Week 07 Review:
+Alex: 
+Amirul: 
+Hannan: 
+Kin: 
+Matthew: 
+Zhengdao: 
+
+Week 08 Planning:
+Alex: 
+Amirul: 
+Hannan: 
+Kin: 
+Matthew: 
+Zhengdao: 
+
+--- Mar08 Meeting ---
+
+Week 08 Review:
+Alex: 
+Amirul: 
+Hannan: 
+Kin: 
+Matthew: 
+Zhengdao: 
+
+Week 09 Planning:
+Alex: 
+Amirul: 
+Hannan: 
+Kin: 
+Matthew: 
+Zhengdao: 
+
+--- Mar15 Meeting ---
+
+Week 09 Review:
+Alex: 
+Amirul: 
+Hannan: 
+Kin: 
+Matthew: 
+Zhengdao: 
+
+Week 10 Planning:
+Alex: 
+Amirul: 
+Hannan: 
+Kin: 
+Matthew: 
+Zhengdao: 
+
+--- Mar22 Meeting ---
+
+Week 10 Review:
+Alex: EditPlayerProfile, BrowseQRCode, Player, QRCode
+Amirul: no tasks completed
+Hannan: no tasks completed
+Kin: EditQRCode, Database Storage for QRCode, Image upload
+Matthew: new Login requirements (with QRCode)
+Zhengdao: Unit Tests, BrowseQRCode
+
+Week 11 Planning:
+Alex: new Login requirements
+Amirul: UI Mockup
+Hannan: Wiki, Product Backlog refinement, UI Mockup/Storyboard review
+Kin: BrowseQRCode
+Matthew: new Login requirements
+Zhengdao: Intent Tests
+
+--- Mar29 Meeting ---
+
+Week 11 Review:
+Alex: 
+Amirul: 
+Hannan: 
+Kin: 
+Matthew: 
+Zhengdao: 
+
+Week 12 Planning:
+Alex: 
+Amirul: 
+Hannan: 
+Kin: 
+Matthew: 
+Zhengdao: 
