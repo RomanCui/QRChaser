@@ -81,7 +81,9 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
         myQRCodeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                QRCode selectedQrCode = qrCodeAdapter.getItem(position);
                 Intent intent = new Intent(MyQRCodeScreenActivity.this, EditQRCodeScreenActivity.class);
+                intent.putExtra("qrHash", selectedQrCode.getHash());
                 startActivity(intent);
             }
         });
