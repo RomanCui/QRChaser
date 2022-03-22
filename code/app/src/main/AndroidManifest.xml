@@ -24,6 +24,9 @@
             android:name=".player.myQRCodes.QrAddScreenActivity"
             android:exported="false" />
         <activity
+            android:name=".player.myQRCodes.EditQRCodeScreenActivity"
+            android:exported="false" />
+        <activity
             android:name=".player.browse.BrowseQRActivity"
             android:exported="false" />
         <activity
