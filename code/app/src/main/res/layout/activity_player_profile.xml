@@ -128,6 +128,89 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/num_qr_ranking_1"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:text="The number of QR code ranking: "
+                    android:textSize="15sp">
+                    >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/num_qr_ranking_2"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:text=""
+                    android:textSize="15sp">
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/total_score_ranking_1"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:text="The total score ranking: "
+                    android:textSize="15sp">
+                    >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/total_score_ranking_2"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:text=""
+                    android:textSize="15sp">
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/single_score_ranking_1"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:text="single highest score ranking: "
+                    android:textSize="15sp">
+                    >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/single_score_ranking_2"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:text=""
+                    android:textSize="15sp">
+                </TextView>
+
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

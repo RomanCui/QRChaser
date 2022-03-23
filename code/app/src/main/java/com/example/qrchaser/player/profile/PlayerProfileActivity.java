@@ -12,6 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.qrchaser.oop.Player;
+import com.example.qrchaser.oop.PlayerNumQRComparator;
+import com.example.qrchaser.oop.PlayerSingleScoreComparator;
+import com.example.qrchaser.oop.PlayerTotalScoreComparator;
 import com.example.qrchaser.oop.QRCode;
 import com.example.qrchaser.oop.QRCodeScoreComparator1;
 import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
@@ -40,11 +43,12 @@ public class PlayerProfileActivity extends SaveANDLoad {
     private BottomNavigationView bottomNavigationView;
     private TextView nicknameTV;
     private FirebaseFirestore db;
-    private ArrayList<QRCode> qrCodes = new ArrayList<>();
+    private ArrayList<Player> players = new ArrayList<>();
     private TextView num_QR_text, total_score_text, single_score_text;
     final String TAG = "Sample";
-    int numQR, totalScore, singleScore;
     private Player currentPlayer;
+    int num_QR_ranking, total_score_ranking, single_score_ranking;
+    TextView num_QR_ranking_text, total_score_ranking_text, single_score_ranking_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,13 @@ public class PlayerProfileActivity extends SaveANDLoad {
         setContentView(R.layout.activity_player_profile);
 
         nicknameTV = findViewById(R.id.desired_player_nickname);
+        num_QR_text = findViewById(R.id.num_qr_2);
+        total_score_text = findViewById(R.id.total_score_2);
+        single_score_text = findViewById(R.id.single_score_2);
+        num_QR_ranking_text = findViewById(R.id.num_qr_ranking_2);
+        total_score_ranking_text = findViewById(R.id.total_score_ranking_2);
+        single_score_ranking_text = findViewById(R.id.single_score_ranking_2);
+
 
         // Get the player id in order to load the data from the database
         String playerID = loadData(getApplicationContext(), "uniqueID");
@@ -64,6 +75,7 @@ public class PlayerProfileActivity extends SaveANDLoad {
         // Source can be CACHE, SERVER, or DEFAULT.
         Source source = Source.CACHE;
 
+
         // Get the document, forcing the SDK to use the offline cache
         myAccount.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -71,55 +83,63 @@ public class PlayerProfileActivity extends SaveANDLoad {
                 if (task.isSuccessful()) {
                     // Document found in the offline cache
                     DocumentSnapshot document = task.getResult();
-                    currentPlayer = new Player(document.getString("email"), document.getString("nickname"), document.getString("phoneNumber"), document.getBoolean("admin"), playerID);
-                    nicknameTV.setText(currentPlayer.getNickname());
+                    currentPlayer = document.toObject(Player.class);
                 } else {
                     Toast.makeText(getApplicationContext(),"Load Failed",Toast.LENGTH_LONG).show();
                 }
+                nicknameTV.setText(currentPlayer.getNickname());
+                num_QR_text.setText(String.valueOf(currentPlayer.getNumQR()));
+                total_score_text.setText(String.valueOf(currentPlayer.getTotalScore()));
+                single_score_text.setText(String.valueOf(currentPlayer.getHighestScore()));
+
+                accountsRef
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        Player player = document.toObject(Player.class);
+                                        players.add(player);
+                                    }// Populate the listview
+
+                                    Collections.sort(players, new PlayerNumQRComparator());
+                                    for (int i = 0; i < players.size(); i++){
+                                        if (currentPlayer.getUniqueID().equals(players.get(i).getUniqueID())){
+                                            num_QR_ranking = i + 1;
+                                        }
+                                    }
+
+                                    Collections.sort(players, new PlayerTotalScoreComparator());
+                                    for (int i = 0; i < players.size(); i++){
+                                        if (currentPlayer.getUniqueID().equals(players.get(i).getUniqueID())){
+                                            total_score_ranking = i + 1;
+                                        }
+                                    }
+
+                                    Collections.sort(players, new PlayerSingleScoreComparator());
+                                    for (int i = 0; i < players.size(); i++){
+                                        if (currentPlayer.getUniqueID().equals(players.get(i).getUniqueID())){
+                                            single_score_ranking = i + 1;
+                                        }
+                                    }
+
+                                    num_QR_ranking_text.setText(String.valueOf(num_QR_ranking));
+                                    total_score_ranking_text.setText(String.valueOf(total_score_ranking));
+                                    single_score_ranking_text.setText(String.valueOf(single_score_ranking));
+
+
+                                } else {
+                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                }
+
+
+                            }
+                        });
+
             }
         }); // end addOnCompleteListener
 
-        //********************************** QR CODES **********************************************
-        num_QR_text = findViewById(R.id.num_qr_2);
-        total_score_text = findViewById(R.id.total_score_2);
-        single_score_text = findViewById(R.id.single_score_2);
-
-        // Find all the QR codes that belong to this player, then add the name and score
-        // to array lists.
-        db = FirebaseFirestore.getInstance();
-        CollectionReference QRCodesReference = db.collection("QRCodes");
-        QRCodesReference.whereArrayContains("owners", playerID)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                QRCode qrCode = document.toObject(QRCode.class);
-                                qrCodes.add(qrCode);
-                            }// Populate the listview
-
-                            numQR = qrCodes.size();
-                            totalScore = 0;
-                            for (int i = 0; i < qrCodes.size(); i++){
-                                totalScore += qrCodes.get(i).getScore();
-                            }
-                            Collections.sort(qrCodes, new QRCodeScoreComparator1());
-                            if (qrCodes.size() > 0) {
-                                singleScore = qrCodes.get(0).getScore();
-                            } else {
-                                singleScore = 0;
-                            }
-                            num_QR_text.setText(String.valueOf(numQR));
-                            total_score_text.setText(String.valueOf(totalScore));
-                            single_score_text.setText(String.valueOf(singleScore));
-
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-        // ************************** Still need to add actual activity functionality ****************************************
 
 
         // ************************** Page Selection ****************************************
