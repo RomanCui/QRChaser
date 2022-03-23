@@ -8,6 +8,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.UUID;
+
 /**
  * This class holds all of the data for a single player
  */
@@ -29,11 +31,9 @@ public class Player extends User {
 
     // For new player (no details yet)
     public Player(){
-        // todo repeating id to be checked
-        double randomNumber = Math.random()*100000;
-        this.uniqueID = "newSystem" + Integer.toString((int)randomNumber);
+        this.uniqueID = "" + UUID.randomUUID();
         this.email = "";
-        this.nickname = "User:" + this.uniqueID;
+        this.nickname = "User-" + this.uniqueID;
         this.phoneNumber = "";
         this.admin = false;
     }
