@@ -4,6 +4,7 @@ package com.example.qrchaser.player.profile;
 import androidx.annotation.NonNull;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -39,6 +40,8 @@ public class PlayerProfileActivity extends SaveANDLoad {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_profile);
 
+        nicknameTV = findViewById(R.id.desired_player_nickname);
+
         // Get the player id in order to load the data from the database
         String playerID = loadData(getApplicationContext(), "uniqueID");
 
@@ -57,15 +60,13 @@ public class PlayerProfileActivity extends SaveANDLoad {
                 if (task.isSuccessful()) {
                     // Document found in the offline cache
                     DocumentSnapshot document = task.getResult();
-                    currentPlayer = new Player(document.getString("email"), document.getString("nickname"), document.getString("phoneNumber"), Boolean.parseBoolean(document.getString("admin")), playerID);
+                    currentPlayer = new Player(document.getString("email"), document.getString("nickname"), document.getString("phoneNumber"), document.getBoolean("admin"), playerID);
+                    nicknameTV.setText(currentPlayer.getNickname());
                 } else {
                     Toast.makeText(getApplicationContext(),"Load Failed",Toast.LENGTH_LONG).show();
                 }
             }
         }); // end addOnCompleteListener
-
-        nicknameTV = findViewById(R.id.desired_player_nickname);
-        nicknameTV.setText(currentPlayer.getNickname());
         // ************************** Still need to add actual activity functionality ****************************************
 
 
@@ -106,4 +107,11 @@ public class PlayerProfileActivity extends SaveANDLoad {
             } // end onClick
         }); // end buttonPlayerInfo.setOnClickListener
     } // end onCreate
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        this.recreate();
+    } // end onRestart
+
 } // end PlayerProfileActivity Class
