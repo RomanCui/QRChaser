@@ -105,8 +105,11 @@ public class PlayerProfileActivity extends SaveANDLoad {
                                 totalScore += qrCodes.get(i).getScore();
                             }
                             Collections.sort(qrCodes, new QRCodeScoreComparator1());
-                            singleScore = qrCodes.get(0).getScore();
-
+                            if (qrCodes.size() > 0) {
+                                singleScore = qrCodes.get(0).getScore();
+                            } else {
+                                singleScore = 0;
+                            }
                             num_QR_text.setText(String.valueOf(numQR));
                             total_score_text.setText(String.valueOf(totalScore));
                             single_score_text.setText(String.valueOf(singleScore));
