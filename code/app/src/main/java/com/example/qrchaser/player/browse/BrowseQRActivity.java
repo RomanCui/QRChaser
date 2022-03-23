@@ -103,7 +103,7 @@ public class BrowseQRActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(),MyQRCodeScreenActivity.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.browse_player:
+                    case R.id.browse:
                         return true;
                     case R.id.map:
                         startActivity(new Intent(getApplicationContext(),MapActivity.class));
