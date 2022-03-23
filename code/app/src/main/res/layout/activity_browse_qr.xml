@@ -74,7 +74,7 @@
         </LinearLayout>
 
         <ListView
-            android:id="@+id/listViewQRCode"
+            android:id="@+id/browse_qr_listView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1">
