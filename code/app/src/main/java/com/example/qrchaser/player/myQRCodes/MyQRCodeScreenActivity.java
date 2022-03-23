@@ -51,13 +51,13 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
         addQR = findViewById(R.id.floatingActionButton);
 
         // Get the player email in order for the query
-        String playerEmail = loadData(getApplicationContext(), "UserEmail");
+        String playerID = loadData(getApplicationContext(), "uniqueID");
 
         // Find all the QR codes that belong to this player, then add the name and score
         // to array lists.
         db = FirebaseFirestore.getInstance();
         CollectionReference QRCodesReference = db.collection("QRCodes");
-        QRCodesReference.whereArrayContains("owners", playerEmail)
+        QRCodesReference.whereArrayContains("owners", playerID)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

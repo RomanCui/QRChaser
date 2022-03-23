@@ -11,25 +11,13 @@
         android:id="@+id/textViewEmailPrompt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Your email address:" />
+        android:text="Edit your Email:" />
 
-    <TextView
-        android:id="@+id/TextEmailAddress"
+    <EditText
+        android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress" />
-
-    <TextView
-        android:id="@+id/textViewPasswordPrompt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Edit your password:" />
-
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword" />
 
     <TextView
         android:id="@+id/textViewNicknamePrompt"

@@ -8,8 +8,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.example.qrchaser.R;
@@ -17,27 +20,49 @@ import com.example.qrchaser.general.SaveANDLoad;
 import com.example.qrchaser.oop.Player;
 import com.example.qrchaser.player.map.MapActivity;
 import com.example.qrchaser.player.browse.BrowseQRActivity;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Source;
 
 
 public class PlayerProfileActivity extends SaveANDLoad {
     private Button buttonPlayerInfo;
     private BottomNavigationView bottomNavigationView;
     private TextView nicknameTV;
+    private FirebaseFirestore db;
+    private Player currentPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_profile);
 
-        // Get the player email in order to load the data from the database
-        String playerEmail = loadData(getApplicationContext(), "UserEmail");
-        // Get Player info from the database here
+        // Get the player id in order to load the data from the database
+        String playerID = loadData(getApplicationContext(), "uniqueID");
 
-        // Using a dummy player for now
-        // TODO: 2022-03-12 Pass In Actual Players
-        Player currentPlayer = new Player(playerEmail,
-                "TestPassword", "TestPlayer", "123" );
+        // Get Player info from the database
+        db = FirebaseFirestore.getInstance();
+        CollectionReference accountsRef = db.collection("Accounts");
+        DocumentReference myAccount = accountsRef.document(playerID);
 
+        // Source can be CACHE, SERVER, or DEFAULT.
+        Source source = Source.CACHE;
+
+        // Get the document, forcing the SDK to use the offline cache
+        myAccount.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    // Document found in the offline cache
+                    DocumentSnapshot document = task.getResult();
+                    currentPlayer = new Player(document.getString("email"), document.getString("nickname"), document.getString("phoneNumber"), Boolean.parseBoolean(document.getString("admin")), playerID);
+                } else {
+                    Toast.makeText(getApplicationContext(),"Load Failed",Toast.LENGTH_LONG).show();
+                }
+            }
+        }); // end addOnCompleteListener
 
         nicknameTV = findViewById(R.id.desired_player_nickname);
         nicknameTV.setText(currentPlayer.getNickname());
@@ -66,11 +91,10 @@ public class PlayerProfileActivity extends SaveANDLoad {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.self_profile:
-
                         return true;
                 }
                 return false;
-            }
+            } // end onNavigationItemSelected
         });
 
         // Head to Player Profile Info

@@ -12,44 +12,35 @@ import com.google.firebase.firestore.FirebaseFirestore;
  * This class holds all of the data for a single player
  */
 public class Player extends User {
-
+    private String uniqueID;
     private String email;
-    private String password;
     private String nickname;
     private String phoneNumber;
-    private String guest;
+    private boolean admin;
 
-    /**
-     * A constructor for the Player
-     * @param email
-     * @param password
-     * @param nickname
-     * @param phoneNumber
-     */
-    public Player(String email, String password, String nickname, String phoneNumber) {
+    // For creating a player from the database
+    public Player(String email, String nickname, String phoneNumber, boolean admin, String uniqueID) {
         this.email = email;
-        this.password = password;
         this.nickname = nickname;
         this.phoneNumber = phoneNumber;
-        this.guest = "0";
-    } // end Player Constructor
+        this.admin = admin;
+        this.uniqueID = uniqueID;
+    }
 
-    // For guest
+    // For new player (no details yet)
     public Player(){
-        // guest email to be changed
-        // repeating email to be checked
+        // todo repeating id to be checked
         double randomNumber = Math.random()*100000;
-        this.email = Integer.toString((int)randomNumber);
-        this.password = "";
-        this.nickname = "";
+        this.uniqueID = "newSystem" + Integer.toString((int)randomNumber);
+        this.email = "";
+        this.nickname = this.uniqueID;
         this.phoneNumber = "";
-        this.guest = "1";
+        this.admin = false;
     }
 
     // This method saves a player to the database
     // used in create account
     public void saveToDatabase(){
-
         // create Firestore collection
         final String TAG = "Sample";
         FirebaseFirestore db;
@@ -57,39 +48,35 @@ public class Player extends User {
         final CollectionReference collectionReference =
                 db.collection("Accounts");
 
-        collectionReference.document(email)
+        collectionReference.document(uniqueID)
                 .set(this)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         // These are a method which gets executed when the task is succeeded
                         Log.d(TAG, "Data has been added successfully!");
-                    }
+                    } // end onSuccess
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         // These are a method which gets executed if there’s any problem
                         Log.d(TAG, "Data could not be added!" + e.toString());
-                    }
+                    } // end onSuccess
                 });
+    } // end  saveToDatabase
 
-    }
-
-    // This method saves a player to the database
-    // used in create account
     public void updateDatabase(){
-
-        // create Firestore collection
+        // Create Firestore collection
         final String TAG = "Sample";
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference =
                 db.collection("Accounts");
-        DocumentReference myAccountRef = collectionReference.document(email);
+        DocumentReference myAccountRef = collectionReference.document(uniqueID);
 
         myAccountRef
-                .update("Phone", phoneNumber)
+                .update("phoneNumber", phoneNumber)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -102,7 +89,52 @@ public class Player extends User {
                         Log.w(TAG, "Error updating document", e);
                     }
                 });
-    }
+
+        myAccountRef
+                .update("email", email)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error updating document", e);
+                    }
+                });
+
+        myAccountRef
+                .update("nickname", nickname)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error updating document", e);
+                    }
+                });
+
+        myAccountRef
+                .update("admin", admin)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error updating document", e);
+                    }
+                });
+    } // end updateDatabase
 
 
     /**
@@ -120,23 +152,7 @@ public class Player extends User {
     public void setEmail(String email) {
         this.email = email;
     } // end setEmail
-
-    /**
-     * This gets the password of the player
-     * @return The password of the QRCode
-     */
-    public String getPassword() {
-        return password;
-    } // end getPassword
-
-    /**
-     * This sets the password of the player
-     * @param password
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    } // end setPassword
-
+    
     /**
      * This gets the nickname of the player
      * @return The nickname of the QRCode
@@ -169,12 +185,27 @@ public class Player extends User {
         this.phoneNumber = phoneNumber;
     } // end setPhoneNumber
 
-    public String getGuest() {
-        return guest;
-    }
+    /**
+     * This gets the admin privilege of the player
+     * @return admin
+     */
+    public boolean isAdmin() {
+        return this.admin;
+    } // end isAdmin
 
-    public void setGuest(String guest) {
-        this.guest = guest;
-    }
+    /**
+     * This sets the admin privilege of the player
+     * @param admin
+     */
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    } // end setAdmin
 
+    /**
+     * This gets the unique ID of the player
+     * @return uniqueID
+     */
+    public String getUniqueID() {
+        return uniqueID;
+    } // end uniqueID
 } // end Player Class

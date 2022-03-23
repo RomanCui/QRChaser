@@ -1,6 +1,8 @@
 package com.example.qrchaser.player.profile;
 
 import androidx.annotation.NonNull;
+
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.qrchaser.R;
 import com.example.qrchaser.general.SaveANDLoad;
+import com.example.qrchaser.logIn.WelcomeActivity;
 import com.example.qrchaser.oop.Player;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,25 +24,19 @@ import com.google.firebase.firestore.Source;
 
 // This activity lets user change password, nickname and phone number
 public class EditPlayerProfileActivity extends SaveANDLoad {
-    private TextView emailText;
-    private EditText passwordET, nicknameET, phoneNumberET;
+    private EditText emailET, nicknameET, phoneNumberET;
     private Button buttonConfirm, buttonSignOut, buttonGenerateLoginQRCode, buttonGenerateInfoQRCode;
 
     final String TAG = "Sample";
     FirebaseFirestore db;
-    String passwordDB;
-    String nicknameDB;
-    String phoneDB;
     Player currentPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_player_profile);
 
-        emailText = findViewById(R.id.TextEmailAddress);
-        passwordET = findViewById(R.id.editTextPassword);
+        emailET = findViewById(R.id.editTextEmail);
         nicknameET = findViewById(R.id.editTextNickname);
         phoneNumberET = findViewById(R.id.editTextPhone);
         buttonConfirm = findViewById(R.id.buttonConfirm);
@@ -47,13 +44,13 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
         buttonGenerateLoginQRCode = findViewById(R.id.ButtonGenerateLoginQRCode);
         buttonGenerateInfoQRCode = findViewById(R.id.ButtonGenerateInfoQRCode);
 
-        // Get the player email in order to load the data from the database
-        String playerEmail = loadData(getApplicationContext(), "UserEmail");
+        // Get the player id in order to load the data from the database
+        String playerID = loadData(getApplicationContext(), "uniqueID");
 
         // Get Player info from the database
         db = FirebaseFirestore.getInstance();
         CollectionReference accountsRef = db.collection("Accounts");
-        DocumentReference myAccount = accountsRef.document(playerEmail);
+        DocumentReference myAccount = accountsRef.document(playerID);
 
         // Source can be CACHE, SERVER, or DEFAULT.
         Source source = Source.CACHE;
@@ -65,29 +62,17 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
                 if (task.isSuccessful()) {
                     // Document found in the offline cache
                     DocumentSnapshot document = task.getResult();
-                    passwordDB = document.getString("password");
-                    nicknameDB = document.getString("nickname");
-                    phoneDB = document.getString("phoneNumber");
-
-
-                    //Pass In Actual Players
-                    currentPlayer = new Player(playerEmail, passwordDB,
-                            nicknameDB, phoneDB );
+                    currentPlayer = new Player(document.getString("email"), document.getString("nickname"), document.getString("phoneNumber"), Boolean.parseBoolean(document.getString("admin")), playerID);
 
                     // Initialize
-                    emailText.setText(currentPlayer.getEmail());
-                    passwordET.setText(currentPlayer.getPassword());
+                    emailET.setText(currentPlayer.getEmail());
                     nicknameET.setText(currentPlayer.getNickname());
                     phoneNumberET.setText(currentPlayer.getPhoneNumber());
-
-
                 } else {
                     Toast.makeText(getApplicationContext(),"Load Failed",Toast.LENGTH_LONG).show();
                 }
             }
-        });
-
-
+        }); // end addOnCompleteListener
 
 
         //Confirm all changes made (Push the changes to the database)
@@ -95,21 +80,44 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
             @Override
             public void onClick(View v) {
                 // format check
-                if (true){
-                    currentPlayer.setPassword(passwordET.getText().toString());
-                    currentPlayer.setNickname(nicknameET.getText().toString());
-                    currentPlayer.setPhoneNumber(phoneNumberET.getText().toString());
-                    currentPlayer.updateDatabase();
-                }
-
-            }
-        });
+                currentPlayer.setEmail(emailET.getText().toString());
+                currentPlayer.setPhoneNumber(phoneNumberET.getText().toString());
+                currentPlayer.setNickname(nicknameET.getText().toString());
+                currentPlayer.updateDatabase();
+            } // end onClick
+        }); // end buttonConfirm.setOnClickListener
 
         // Sign Out
         buttonSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 2022-03-12 Implement
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(EditPlayerProfileActivity.this);
+                View mView = getLayoutInflater().inflate(R.layout.signout_dialog, null);
+                Button confirm = (Button) mView.findViewById(R.id.button_confirm);
+                Button cancel = (Button) mView.findViewById(R.id.button_cancel);
+                dialogBuilder.setView(mView);
+
+                final AlertDialog dialog = dialogBuilder.create();
+                dialog.show();
+
+                confirm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        saveData(getApplicationContext(), "uniqueID", "");
+                        Intent intent = new Intent(EditPlayerProfileActivity.this, WelcomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } // end onClick
+                }); // end confirm.setOnClickListener(new View.OnClickListener()
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    } // end onClick
+                }); // end confirm.setOnClickListener(new View.OnClickListener()
+
             } // end onClick
         });// end buttonSignOut.setOnClickListener
 
@@ -118,7 +126,7 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EditPlayerProfileActivity.this, GeneratedQRCodeActivity.class);
-                intent.putExtra("qrData", "QRCHASERLOGIN," + currentPlayer.getEmail() + "," + currentPlayer.getPassword());
+                intent.putExtra("qrData", "QRCHASERLOGIN," + currentPlayer.getUniqueID());
                 startActivity(intent);
             } // end onClick
         });// end buttonGenerateLoginQRCode.setOnClickListener
@@ -128,7 +136,7 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EditPlayerProfileActivity.this, GeneratedQRCodeActivity.class);
-                intent.putExtra("qrData", "QRCHASERINFO," + currentPlayer.getEmail());
+                intent.putExtra("qrData", "QRCHASERINFO," + currentPlayer.getUniqueID());
                 startActivity(intent);
             } // end onClick
         });// end buttonGenerateInfoQRCode.setOnClickListener
