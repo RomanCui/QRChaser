@@ -33,7 +33,7 @@ public class Player extends User {
         double randomNumber = Math.random()*100000;
         this.uniqueID = "newSystem" + Integer.toString((int)randomNumber);
         this.email = "";
-        this.nickname = this.uniqueID;
+        this.nickname = "User:" + this.uniqueID;
         this.phoneNumber = "";
         this.admin = false;
     }
