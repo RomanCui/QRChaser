@@ -6,9 +6,10 @@
     android:orientation="horizontal" >
 
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    <TextView
         android:id="@+id/name_text"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:padding="20dp"
         android:text="QR Code Name"
@@ -18,7 +19,8 @@
 
     <TextView
         android:id="@+id/score_text"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_marginLeft="120dp"
         android:text="Score"

@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * This class holds all of the data for a single QR code
  */
-public class QRCode {
+public class QRCode implements Comparable<QRCode>{
 
     // use hash as id
     private String hash;
@@ -107,6 +107,11 @@ public class QRCode {
                 });
     }
 
+    @Override
+    public int compareTo(QRCode o) {
+        return name.toLowerCase().compareTo(o.getName().toLowerCase());
+    }
+
     /**
      * This gets the name of the QRCode
      * @return The name of the QRCode
@@ -186,4 +191,6 @@ public class QRCode {
     public void setOwners(List<String> owners) {
         this.owners = owners;
     }
+
+
 }// end QRCode Class

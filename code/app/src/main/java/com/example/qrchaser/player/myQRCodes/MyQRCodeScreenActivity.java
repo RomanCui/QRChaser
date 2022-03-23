@@ -8,9 +8,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import com.example.qrchaser.oop.QRCode;
 import com.example.qrchaser.general.QRCodeAdapter;
+import com.example.qrchaser.oop.QRCodeScoreComparator1;
+import com.example.qrchaser.oop.QRCodeScoreComparator2;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -26,6 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 // This activity allows user to see there own QR codes
@@ -39,6 +43,8 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
     private ListView myQRCodeListView;
     private ArrayAdapter<QRCode> qrCodeAdapter;
     private ArrayList<QRCode> qrCodes = new ArrayList<>();
+    ImageButton highToLowButton;
+    ImageButton lowToHighButton;
 
 
     @Override
@@ -49,6 +55,8 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
         myQRCodeListView = findViewById(R.id.listViewQRCode);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         addQR = findViewById(R.id.floatingActionButton);
+        highToLowButton = findViewById(R.id.highToLow_button);
+        lowToHighButton = findViewById(R.id.lowToHigh_button);
 
         // Get the player email in order for the query
         String playerEmail = loadData(getApplicationContext(), "UserEmail");
@@ -67,6 +75,9 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
                                 QRCode qrCode = document.toObject(QRCode.class);
                                 qrCodes.add(qrCode);
                             }// Populate the listview
+
+                            Collections.sort(qrCodes);
+
                             qrCodeAdapter = new QRCodeAdapter(MyQRCodeScreenActivity.this,qrCodes);
                             myQRCodeListView.setAdapter(qrCodeAdapter);
                     } else {
@@ -75,6 +86,22 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
             }
         });
 
+
+        highToLowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Collections.sort(qrCodes, new QRCodeScoreComparator1());
+                qrCodeAdapter.notifyDataSetChanged();
+            }
+        });
+
+        lowToHighButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Collections.sort(qrCodes, new QRCodeScoreComparator2());
+                qrCodeAdapter.notifyDataSetChanged();
+            }
+        });
 
 
         // Click on the Name to see details about the code
