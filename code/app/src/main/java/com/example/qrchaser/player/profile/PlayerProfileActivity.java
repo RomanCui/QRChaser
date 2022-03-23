@@ -79,34 +79,16 @@ public class PlayerProfileActivity extends SaveANDLoad {
             }
         }); // end addOnCompleteListener
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        //********************************** QR CODES **********************************************
         num_QR_text = findViewById(R.id.num_qr_2);
         total_score_text = findViewById(R.id.total_score_2);
         single_score_text = findViewById(R.id.single_score_2);
-
-        // Get the player email in order for the query
-        String playerEmail = loadData(getApplicationContext(), "UserEmail");
 
         // Find all the QR codes that belong to this player, then add the name and score
         // to array lists.
         db = FirebaseFirestore.getInstance();
         CollectionReference QRCodesReference = db.collection("QRCodes");
-        QRCodesReference.whereArrayContains("owners", playerEmail)
+        QRCodesReference.whereArrayContains("owners", playerID)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -175,4 +157,10 @@ public class PlayerProfileActivity extends SaveANDLoad {
             } // end onClick
         }); // end buttonPlayerInfo.setOnClickListener
     } // end onCreate
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        this.recreate();
+    } // end onRestart
 } // end PlayerProfileActivity Class
