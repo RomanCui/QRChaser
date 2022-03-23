@@ -17,6 +17,10 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+
+// TODO: 2022-03-22  THIS ACTIVITY IS NO LONGER USED. IT REMAINS TONLY TO REFERENCE THE CODE
+
+
 // This activity allows user to log in with email and password
 // If login successful, it takes the user to MyQRCode screen
 // completed, Mar 16, 2022
@@ -52,8 +56,6 @@ public class LoginEmailActivity extends SaveANDLoad {
                 CollectionReference accountsRef = db.collection("Accounts");
                 DocumentReference myAccount = accountsRef.document(email);
 
-                // compare if password is correct
-                // may be changed to on complete listener
                 myAccount.get()
                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
@@ -81,10 +83,7 @@ public class LoginEmailActivity extends SaveANDLoad {
                                 Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
                         } // end onFailure
                     }); // end myAccount.get().addOnSuccessListener
-
-
             }  // end onClick
         }); // end login.setOnClickListener
     } // end onCreate
-
 } // end LoginEmailActivity Class

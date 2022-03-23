@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -23,25 +25,44 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-// This activity allows user to go to create account, and login with email
-// Otherwise, the user can login with QR code, or as a Guest
-// Login with QR code is under review
-// Login as a Guest is in progress
+// This activity allows user to go to login with a qr code or with a new account
 public class WelcomeActivity extends SaveANDLoad {
-    private Button email,qrCode,guest,createAccount;
+    private Button qrCode, createAccount;
     private String qrValue;
-    private String passwordDB;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        email = findViewById(R.id.buttonUsernameLogin);
+        // Before doing anything check if you can login with the saved info
+        String playerID = loadData(getApplicationContext(), "uniqueID");
+        if (playerID != ""){
+             FirebaseFirestore db = FirebaseFirestore.getInstance();
+             CollectionReference accountsRef = db.collection("Accounts");
+             DocumentReference myAccount = accountsRef.document(playerID);
+             myAccount.get()
+                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                         @Override
+                         public void onSuccess(DocumentSnapshot documentSnapshot) {
+                             if (documentSnapshot.exists()) {
+                                 Intent intent = new Intent(WelcomeActivity.this, MyQRCodeScreenActivity.class);
+                                 startActivity(intent);
+                             } else {
+                                 Toast.makeText(getApplicationContext(),"No Previous Login Info", Toast.LENGTH_LONG).show();
+                             }
+                         } // end onSuccess
+                     }).addOnFailureListener(new OnFailureListener() {
+                 @Override
+                 public void onFailure(@NonNull Exception e) {
+                     Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
+                 } // end onFailure
+             }); // end myAccount.get().addOnSuccessListener
+         }
+
         createAccount = findViewById(R.id.buttonCreateAccount);
         qrCode = findViewById(R.id.buttonQRCodeLogin);
-        guest = findViewById(R.id.buttonGuestLogin);
 
         // Activated when "Scan with QR code is completed"
         ActivityResultLauncher<Intent> scannerResultLauncher = registerForActivityResult(
@@ -53,7 +74,7 @@ public class WelcomeActivity extends SaveANDLoad {
                             Intent scannerResult = result.getData();
                             qrValue = scannerResult.getStringExtra("qrValue");
                             //for testing the result
-                            Toast.makeText(getApplicationContext(), qrValue, Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getApplicationContext(), qrValue, Toast.LENGTH_SHORT).show();
                             // Use the data
                             String[] qrDataArray = qrValue.split(",");
                             if (qrDataArray[0].contentEquals("QRCHASERLOGIN")){
@@ -65,18 +86,11 @@ public class WelcomeActivity extends SaveANDLoad {
                                             @Override
                                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                                 if (documentSnapshot.exists()) {
-                                                    passwordDB = documentSnapshot.getString("password");
-                                                }else {
-                                                    Toast.makeText(getApplicationContext(),"Document does not exits",Toast.LENGTH_LONG).show();
-                                                }
-                                                if (qrDataArray[2].equals(passwordDB)){
-                                                    // probably some data to be passed
-                                                    saveData(getApplicationContext(), "UserEmail", qrDataArray[1]);
+                                                    saveData(getApplicationContext(), "uniqueID", qrDataArray[1]);
                                                     Intent intent = new Intent(WelcomeActivity.this, MyQRCodeScreenActivity.class);
                                                     startActivity(intent);
                                                 } else {
-                                                    // To show a message if login unsuccessfully
-                                                    Toast.makeText(getApplicationContext(),"FAIL: Please try again",Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(getApplicationContext(),"Document does not exist. Please try again",Toast.LENGTH_LONG).show();
                                                 }
                                             } // end onSuccess
                                         }).addOnFailureListener(new OnFailureListener() {
@@ -89,21 +103,18 @@ public class WelcomeActivity extends SaveANDLoad {
                         }
                     } // end onActivityResult
                 }
-        );
-
-        email.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WelcomeActivity.this, LoginEmailActivity.class);
-                startActivity(intent);
-            } // end onClick
-        }); // end email.setOnClickListener
+        ); // end ActivityResultLauncher
 
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WelcomeActivity.this, CreateAccountActivity.class);
+                // Automatically Create a new account here and save it to the database:
+                Player newPlayer = new Player();
+                newPlayer.saveToDatabase();
+                saveData(getApplicationContext(), "uniqueID", newPlayer.getNickname());
+                Intent intent = new Intent(WelcomeActivity.this, MyQRCodeScreenActivity.class);
                 startActivity(intent);
+                finish();
             } // end onClick
         }); // end createAccount.setOnClickListener
 
@@ -115,17 +126,6 @@ public class WelcomeActivity extends SaveANDLoad {
             } // end onClick
         }); // end qrCode.setOnClickListener
 
-
-        guest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Player player = new Player();
-                player.saveToDatabase();
-                saveData(getApplicationContext(), "UserEmail", player.getEmail());
-                Intent intent = new Intent(WelcomeActivity.this, MyQRCodeScreenActivity.class);
-                startActivity(intent);
-            } // end onClick
-        }); // end guest.setOnClickListener
     } // end onCreate
 } // end MainActivity Class
 

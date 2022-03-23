@@ -221,15 +221,15 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 // in the database
                 if (nameCheck && scanCheck) {
 
-                    String playerEmail = loadData(getApplicationContext(), "UserEmail");
+                    String playerID = loadData(getApplicationContext(), "uniqueID");
                     QRCode scannedQR;
                     // Call QRCode constructor here
                     if(SetLocation) {
                         scannedQR = new QRCode(qrValue, qrName,
-                                playerEmail, qrComment, latitude, longitude);
+                                playerID, qrComment, latitude, longitude);
                     } else {
                         scannedQR = new QRCode(qrValue, qrName,
-                                playerEmail, qrComment, 200, 200);
+                                playerID, qrComment, 200, 200);
                     }
 
                     // For testing

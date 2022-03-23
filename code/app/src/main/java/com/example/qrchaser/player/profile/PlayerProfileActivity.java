@@ -9,6 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.qrchaser.oop.Player;
 import com.example.qrchaser.oop.QRCode;
 import com.example.qrchaser.oop.QRCodeScoreComparator1;
 import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
@@ -21,9 +24,13 @@ import com.example.qrchaser.player.browse.BrowseQRActivity;
 import com.example.qrchaser.player.map.MapActivity;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -32,16 +39,61 @@ public class PlayerProfileActivity extends SaveANDLoad {
     private Button buttonPlayerInfo;
     private BottomNavigationView bottomNavigationView;
     private TextView nicknameTV;
-    FirebaseFirestore db;
+    private FirebaseFirestore db;
     private ArrayList<QRCode> qrCodes = new ArrayList<>();
-    TextView num_QR_text, total_score_text, single_score_text;
+    private TextView num_QR_text, total_score_text, single_score_text;
     final String TAG = "Sample";
     int numQR, totalScore, singleScore;
+    private Player currentPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_profile);
+
+        nicknameTV = findViewById(R.id.desired_player_nickname);
+
+        // Get the player id in order to load the data from the database
+        String playerID = loadData(getApplicationContext(), "uniqueID");
+
+        // Get Player info from the database
+        db = FirebaseFirestore.getInstance();
+        CollectionReference accountsRef = db.collection("Accounts");
+        DocumentReference myAccount = accountsRef.document(playerID);
+
+        // Source can be CACHE, SERVER, or DEFAULT.
+        Source source = Source.CACHE;
+
+        // Get the document, forcing the SDK to use the offline cache
+        myAccount.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    // Document found in the offline cache
+                    DocumentSnapshot document = task.getResult();
+                    currentPlayer = new Player(document.getString("email"), document.getString("nickname"), document.getString("phoneNumber"), document.getBoolean("admin"), playerID);
+                    nicknameTV.setText(currentPlayer.getNickname());
+                } else {
+                    Toast.makeText(getApplicationContext(),"Load Failed",Toast.LENGTH_LONG).show();
+                }
+            }
+        }); // end addOnCompleteListener
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         num_QR_text = findViewById(R.id.num_qr_2);
         total_score_text = findViewById(R.id.total_score_2);
@@ -82,12 +134,6 @@ public class PlayerProfileActivity extends SaveANDLoad {
                         }
                     }
                 });
-
-
-
-
-        nicknameTV = findViewById(R.id.desired_player_nickname);
-        nicknameTV.setText(playerEmail);
         // ************************** Still need to add actual activity functionality ****************************************
 
 
