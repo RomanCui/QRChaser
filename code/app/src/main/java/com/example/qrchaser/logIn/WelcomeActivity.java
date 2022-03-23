@@ -111,7 +111,7 @@ public class WelcomeActivity extends SaveANDLoad {
                 // Automatically Create a new account here and save it to the database:
                 Player newPlayer = new Player();
                 newPlayer.saveToDatabase();
-                saveData(getApplicationContext(), "uniqueID", newPlayer.getNickname());
+                saveData(getApplicationContext(), "uniqueID", newPlayer.getUniqueID());
                 Intent intent = new Intent(WelcomeActivity.this, MyQRCodeScreenActivity.class);
                 startActivity(intent);
                 finish();
