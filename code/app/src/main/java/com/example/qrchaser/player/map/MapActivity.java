@@ -239,7 +239,7 @@ public class MapActivity extends AppCompatActivity{
                         startActivity(new Intent(getApplicationContext(),MyQRCodeScreenActivity.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.browse_player:
+                    case R.id.browse_qr:
                         startActivity(new Intent(getApplicationContext(), BrowseQRActivity.class));
                         overridePendingTransition(0,0);
                         return true;
