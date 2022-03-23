@@ -11,7 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 /**
  * This class holds all of the data for a single player
  */
-public class Player extends User {
+public class Player {
     private String uniqueID;
     private String email;
     private String nickname;

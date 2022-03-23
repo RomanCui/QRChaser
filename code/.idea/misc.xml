@@ -54,6 +54,7 @@
         <entry key="app/src/main/res/layout/activity_create_account.xml" value="0.30241241455078116" />
         <entry key="app/src/main/res/layout/activity_desired_player.xml" value="0.24583333333333332" />
         <entry key="app/src/main/res/layout/activity_desired_player_info.xml" value="0.24583333333333332" />
+        <entry key="app/src/main/res/layout/activity_edit_player_profile.xml" value="0.23324275362318841" />
         <entry key="app/src/main/res/layout/activity_edit_qr_screen.xml" value="0.24583333333333332" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_login_email.xml" value="0.31970062255859377" />
