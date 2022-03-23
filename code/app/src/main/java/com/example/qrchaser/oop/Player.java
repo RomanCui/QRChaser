@@ -17,6 +17,9 @@ public class Player extends User {
     private String nickname;
     private String phoneNumber;
     private boolean admin;
+    private int numQR;
+    private int totalScore;
+    private int highestScore;
 
     // For creating a player from the database
     public Player(String email, String nickname, String phoneNumber, boolean admin, String uniqueID) {
@@ -25,6 +28,9 @@ public class Player extends User {
         this.phoneNumber = phoneNumber;
         this.admin = admin;
         this.uniqueID = uniqueID;
+        numQR = 0;
+        totalScore = 0;
+        highestScore = 0;
     }
 
     // For new player (no details yet)
@@ -36,6 +42,9 @@ public class Player extends User {
         this.nickname = "User:" + this.uniqueID;
         this.phoneNumber = "";
         this.admin = false;
+        numQR = 0;
+        totalScore = 0;
+        highestScore = 0;
     }
 
     // This method saves a player to the database
@@ -76,64 +85,19 @@ public class Player extends User {
         DocumentReference myAccountRef = collectionReference.document(uniqueID);
 
         myAccountRef
-                .update("phoneNumber", phoneNumber)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully updated!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error updating document", e);
-                    }
-                });
-
+                .update("email", email);
         myAccountRef
-                .update("email", email)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully updated!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error updating document", e);
-                    }
-                });
-
+                .update("phoneNumber", phoneNumber);
         myAccountRef
-                .update("nickname", nickname)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully updated!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error updating document", e);
-                    }
-                });
-
+                .update("nickname", nickname);
         myAccountRef
-                .update("admin", admin)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully updated!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error updating document", e);
-                    }
-                });
+                .update("numQR", numQR);
+        myAccountRef
+                .update("totalScore", totalScore);
+        myAccountRef
+                .update("highestScore", highestScore);
+
+
     } // end updateDatabase
 
 
@@ -208,4 +172,28 @@ public class Player extends User {
     public String getUniqueID() {
         return uniqueID;
     } // end uniqueID
+
+    public int getNumQR() {
+        return numQR;
+    }
+
+    public void setNumQR(int numQR) {
+        this.numQR = numQR;
+    }
+
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
+    }
+
+    public int getHighestScore() {
+        return highestScore;
+    }
+
+    public void setHighestScore(int highestScore) {
+        this.highestScore = highestScore;
+    }
 } // end Player Class
