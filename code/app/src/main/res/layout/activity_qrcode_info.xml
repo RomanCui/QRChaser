@@ -42,4 +42,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Optional photo" />
+
+    <ImageView
+        android:id="@+id/qrcode_info_imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        app:srcCompat="?attr/selectableItemBackgroundBorderless" />
 </LinearLayout>

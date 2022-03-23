@@ -82,7 +82,7 @@ public class EditQRCodeScreenActivity extends AppCompatActivity {
 
     private void updateViewData() {
         qrName.setText("Name: " + qrCode.getName());
-        qrScore.setText(String.valueOf("Score: " + qrCode.getScore()));
+        qrScore.setText("Score: " + qrCode.getScore());
 
         List<String> comments = qrCode.getComments();
         if(!comments.isEmpty()) {
@@ -91,7 +91,7 @@ public class EditQRCodeScreenActivity extends AppCompatActivity {
         }
     }
 
-    //return true if qr has image
+    //return download the img if exist, and update imageView
     private void updateImageView() {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReferenceFromUrl("gs://qrchaseredition2.appspot.com");
