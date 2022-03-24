@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
-        android:text="Edit your Email:"
+        android:text="Edit your email:"
         android:textColor="#051367"
         android:textSize="20sp" />
 
@@ -20,6 +20,7 @@
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Email"
         android:inputType="textEmailAddress" />
 
     <TextView
@@ -35,6 +36,7 @@
         android:id="@+id/editTextNickname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Nickname"
         android:inputType="textPersonName" />
 
     <TextView
@@ -50,6 +52,7 @@
         android:id="@+id/editTextPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Phone #"
         android:inputType="phone" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
