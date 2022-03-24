@@ -26,12 +26,6 @@
         android:text="Score" />
 
     <TextView
-        android:id="@+id/qrcode_info_comment_textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Comments" />
-
-    <TextView
         android:id="@+id/qrcode_info_location_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,6 +36,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Optional photo" />
+
+    <ListView
+        android:id="@+id/qrcode_info_comment_listView"
+        android:layout_width="match_parent"
+        android:layout_height="125dp" />
 
     <ImageView
         android:id="@+id/qrcode_info_imageView"

@@ -17,10 +17,10 @@
         android:layout_height="wrap_content"
         android:text="Score" />
 
-    <TextView
-        android:id="@+id/qr_comments_textView"
+    <ListView
+        android:id="@+id/qr_comments_ListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
         android:text="Comments" />
 
     <Button

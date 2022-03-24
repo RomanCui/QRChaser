@@ -12,13 +12,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.example.qrchaser.BrowsePlayerActivity;
 import com.example.qrchaser.QRcodeInfoActivity;
 import com.example.qrchaser.general.QRCodeAdapter;
 import com.example.qrchaser.oop.QRCode;
 import com.example.qrchaser.oop.QRCodeScoreComparator1;
 import com.example.qrchaser.oop.QRCodeScoreComparator2;
-import com.example.qrchaser.player.myQRCodes.EditQRCodeScreenActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

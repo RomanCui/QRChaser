@@ -8,10 +8,14 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.qrchaser.general.CommentAdapter;
+import com.example.qrchaser.oop.Comments;
 import com.example.qrchaser.oop.QRCode;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -28,7 +32,11 @@ public class QRcodeInfoActivity extends AppCompatActivity {
     private String hash;
     private FirebaseFirestore db;
     private QRCode qrCode;
-    TextView qrName, score, comment, location;
+
+    private ArrayAdapter<Comments> commentsAdapter;
+
+    TextView qrName, score, location;
+    ListView commentsListView;
     ImageView imageView;
     Button backButton;
 
@@ -41,7 +49,7 @@ public class QRcodeInfoActivity extends AppCompatActivity {
 
         qrName = findViewById(R.id.qrcode_info_qrname_textView);
         score = findViewById(R.id.qrcode_info_score_textView);
-        comment = findViewById(R.id.qrcode_info_comment_textView);
+        commentsListView = findViewById(R.id.qrcode_info_comment_listView);
         location = findViewById(R.id.qrcode_info_location_textView);
         imageView = findViewById(R.id.qrcode_info_imageView);
         backButton = findViewById(R.id.qrcode_info_back_button);
@@ -62,6 +70,10 @@ public class QRcodeInfoActivity extends AppCompatActivity {
                         qrCode = document.toObject(QRCode.class);
                         updateViewData();
                         updateImageView();
+
+                        commentsAdapter = new CommentAdapter(QRcodeInfoActivity.this, 0, qrCode.getComments());
+                        commentsListView.setAdapter(commentsAdapter);
+
                     } else {
                         Log.d("queryQR", "QR does not exist");
                     }
@@ -76,7 +88,6 @@ public class QRcodeInfoActivity extends AppCompatActivity {
     private void updateViewData() {
         qrName.setText("Name: " + qrCode.getName());
         score.setText("Score: " + qrCode.getScore());
-        comment.setText("Comments: " + qrCode.getComments().get(0));
         location.setText("Latitude: " + qrCode.getLatitude() + " Longitude: " + qrCode.getLongitude());
     }
 

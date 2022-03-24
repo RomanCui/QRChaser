@@ -10,11 +10,15 @@ import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.qrchaser.R;
+import com.example.qrchaser.general.CommentAdapter;
 import com.example.qrchaser.general.QRCodeAdapter;
+import com.example.qrchaser.oop.Comments;
 import com.example.qrchaser.oop.QRCode;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -40,11 +44,12 @@ public class EditQRCodeScreenActivity extends AppCompatActivity {
     private String hash;
     private FirebaseFirestore db;
     private QRCode qrCode;
+    private ArrayAdapter<Comments> commentsAdapter;
 
     ImageView qrImageView;
     TextView qrName;
     TextView qrScore;
-    TextView qrComments;
+    ListView qrCommentsListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +58,7 @@ public class EditQRCodeScreenActivity extends AppCompatActivity {
 
         qrName = findViewById(R.id.qr_code_name_textView);
         qrScore = findViewById(R.id.qr_score_textView);
-        qrComments = findViewById(R.id.qr_comments_textView);
+        qrCommentsListView = findViewById(R.id.qr_comments_ListView);
         qrImageView = findViewById(R.id.qr_imageView);
 
         hash = getIntent().getStringExtra("qrHash");
@@ -67,8 +72,11 @@ public class EditQRCodeScreenActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         qrCode = document.toObject(QRCode.class);
-                        updateViewData();
+                        updateTextView();
                         updateImageView();
+
+                        commentsAdapter = new CommentAdapter(EditQRCodeScreenActivity.this, 0, qrCode.getComments());
+                        qrCommentsListView.setAdapter(commentsAdapter);
                     } else {
                         Log.d("queryQR", "QR does not exist");
                     }
@@ -79,15 +87,15 @@ public class EditQRCodeScreenActivity extends AppCompatActivity {
         });
     }
 
-    private void updateViewData() {
+    private void updateTextView() {
         qrName.setText("Name: " + qrCode.getName());
         qrScore.setText("Score: " + qrCode.getScore());
 
-        List<String> comments = qrCode.getComments();
-        if(!comments.isEmpty()) {
-            //TODO: change qrComments to listview and display the whole list
-            qrComments.setText("Comments: " + comments.get(0));
-        }
+//        List<String> comments = qrCode.getComments();
+//        if(!comments.isEmpty()) {
+//            //TODO: change qrComments to listview and display the whole list
+//            qrComments.setText("Comments: " + comments.get(0));
+//        }
     }
 
     //return download the img if exist, and update imageView
