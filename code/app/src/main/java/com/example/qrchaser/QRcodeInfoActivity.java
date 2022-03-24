@@ -82,14 +82,14 @@ public class QRcodeInfoActivity extends AppCompatActivity {
                 }
             }
         });
-    }
+    } // end onCreate
 
     //Use qrCode information to update textViews
     private void updateViewData() {
         qrName.setText("Name: " + qrCode.getName());
         score.setText("Score: " + qrCode.getScore());
         location.setText("Latitude: " + qrCode.getLatitude() + " Longitude: " + qrCode.getLongitude());
-    }
+    } // end updateViewData
 
     //Same code as EditQRCodeScreenActivity
     //TODO: find a way to reuse this method
@@ -107,14 +107,14 @@ public class QRcodeInfoActivity extends AppCompatActivity {
                         Bitmap imgBM = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                         imageView.setImageBitmap(imgBM);
                         Log.d("LoadImg", "Img Found");
-                    }
+                    } // end onSuccess
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         e.printStackTrace();
                         Log.d("LoadImg", "Img not found");
-                    }
+                    } // end onFailure
                 });
-    }
-}
+    } // end updateImageView
+} // end QRcodeInfoActivity Class

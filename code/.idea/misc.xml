@@ -3,11 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_browse_player.xml" value="0.5" />
         <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_desired_player.xml" value="0.33" />
         <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_desired_player_info.xml" value="0.33" />
         <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_edit_account.xml" value="0.5" />
-        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_edit_player_profile.xml" value="0.5" />
-        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_edit_qrcode_screen.xml" value="0.33" />
+        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_found_player_profile.xml" value="0.5" />
         <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_generated_qrcode.xml" value="0.25" />
         <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_login_email.xml" value="0.46153846153846156" />
         <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_login_hub.xml" value="0.36666666666666664" />
@@ -16,47 +16,15 @@
         <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_player_profile.xml" value="0.25" />
         <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_player_profile_info.xml" value="0.33" />
         <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_qr_add_screen.xml" value="0.5" />
-        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_scanner_camera_screen.xml" value="0.25" />
         <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_welcome.xml" value="0.5" />
-        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/qrcode_content.xml" value="0.25" />
-        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/signout_dialog.xml" value="0.33" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301MAR16/QRChaser/code/app/src/main/res/layout/qrcode_content.xml" value="0.14130434782608695" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301MAR22/QRChaser/code/app/src/main/res/drawable/ic_baseline_qr_code.xml" value="0.1" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301MAR22/QRChaser/code/app/src/main/res/drawable/ic_baseline_qr_code_24.xml" value="0.1" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301MAR22/QRChaser/code/app/src/main/res/drawable/selector.xml" value="0.1" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301MAR22/QRChaser/code/app/src/main/res/layout/activity_browse_player.xml" value="0.1" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301MAR22/QRChaser/code/app/src/main/res/layout/activity_browse_qr.xml" value="0.1" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301MAR22/QRChaser/code/app/src/main/res/layout/activity_my_qrcode_screen.xml" value="0.1453125" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301MAR22/QRChaser/code/app/src/main/res/layout/activity_player_profile.xml" value="0.1" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301MAR22/QRChaser/code/app/src/main/res/menu/menu_navigation.xml" value="0.1453125" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301MAR22/QRChaser/code/app/src/main/res/menu/menu_top_navigation.xml" value="0.159375" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301Mar15/QRChaser/code/app/src/main/res/drawable/ic_baseline_qr_code.xml" value="0.1" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301Mar15/QRChaser/code/app/src/main/res/drawable/ic_baseline_self_profile.xml" value="0.1" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301Mar15/QRChaser/code/app/src/main/res/drawable/selector.xml" value="0.1465" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301Mar15/QRChaser/code/app/src/main/res/layout/activity_admin_player_removal.xml" value="0.1" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301Mar15/QRChaser/code/app/src/main/res/layout/activity_browse.xml" value="0.175" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301Mar15/QRChaser/code/app/src/main/res/layout/activity_create_account.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301Mar15/QRChaser/code/app/src/main/res/layout/activity_edit_qr_screen.xml" value="0.15260416666666668" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301Mar15/QRChaser/code/app/src/main/res/layout/activity_edit_qrcode_screen.xml" value="0.15260416666666668" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301Mar15/QRChaser/code/app/src/main/res/layout/activity_generated_qrcode.xml" value="0.1" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301Mar15/QRChaser/code/app/src/main/res/layout/activity_main.xml" value="0.175" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301Mar15/QRChaser/code/app/src/main/res/layout/activity_map.xml" value="0.159375" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301Mar15/QRChaser/code/app/src/main/res/layout/activity_my_qrcode_screen.xml" value="0.1" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301Mar15/QRChaser/code/app/src/main/res/layout/activity_player_profile.xml" value="0.1" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301Mar15/QRChaser/code/app/src/main/res/layout/activity_scanner_camera_screen.xml" value="0.175" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301Mar15/QRChaser/code/app/src/main/res/menu/_navigation.xml" value="0.15260416666666668" />
-        <entry key="..\:/Users/Paul/Desktop/CMPUT301Mar15/QRChaser/code/app/src/main/res/menu/menu_navigation.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_baseline_arrow_downward_24.xml" value="0.1655" />
         <entry key="app/src/main/res/layout/activity_admin_homepage.xml" value="0.24583333333333332" />
-        <entry key="app/src/main/res/layout/activity_admin_qr.xml" value="0.20643363728470113" />
+        <entry key="app/src/main/res/layout/activity_admin_player_removal.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/activity_admin_qr.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_browse.xml" value="0.3880208333333333" />
-        <entry key="app/src/main/res/layout/activity_browse_player.xml" value="0.23324275362318841" />
         <entry key="app/src/main/res/layout/activity_browse_players.xml" value="0.23177083333333334" />
-        <entry key="app/src/main/res/layout/activity_browse_qr.xml" value="0.2346014492753623" />
         <entry key="app/src/main/res/layout/activity_create_account.xml" value="0.30241241455078116" />
         <entry key="app/src/main/res/layout/activity_desired_player.xml" value="0.24583333333333332" />
         <entry key="app/src/main/res/layout/activity_desired_player_info.xml" value="0.24583333333333332" />
-        <entry key="app/src/main/res/layout/activity_edit_player_profile.xml" value="0.23324275362318841" />
         <entry key="app/src/main/res/layout/activity_edit_qr_screen.xml" value="0.24583333333333332" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_login_email.xml" value="0.31970062255859377" />
@@ -66,12 +34,7 @@
         <entry key="app/src/main/res/layout/activity_main_screen.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_map.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_my_qrcode_screen.xml" value="0.24583333333333332" />
-        <entry key="app/src/main/res/layout/activity_player_profile.xml" value="0.28351449275362317" />
         <entry key="app/src/main/res/layout/activity_qr_add_screen.xml" value="0.24583333333333332" />
-        <entry key="app/src/main/res/layout/activity_qr_edit_screen.xml" value="0.26856884057971014" />
-        <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.31567028985507245" />
-        <entry key="app/src/main/res/layout/qrcode_content.xml" value="0.3401434414628623" />
-        <entry key="app/src/main/res/menu/menu_navigation.xml" value="0.4244791666666667" />
       </map>
     </option>
   </component>

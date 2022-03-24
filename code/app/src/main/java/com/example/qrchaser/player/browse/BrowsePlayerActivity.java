@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.qrchaser.QRcodeInfoActivity;
 import com.example.qrchaser.R;
 import com.example.qrchaser.general.PlayerAdapter1;
 import com.example.qrchaser.general.PlayerAdapter2;
@@ -21,8 +23,10 @@ import com.example.qrchaser.oop.Player;
 import com.example.qrchaser.oop.PlayerNumQRComparator;
 import com.example.qrchaser.oop.PlayerSingleScoreComparator;
 import com.example.qrchaser.oop.PlayerTotalScoreComparator;
+import com.example.qrchaser.oop.QRCode;
 import com.example.qrchaser.player.map.MapActivity;
 import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
+import com.example.qrchaser.player.profile.FoundPlayerProfileActivity;
 import com.example.qrchaser.player.profile.PlayerProfileActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -46,6 +50,7 @@ public class BrowsePlayerActivity extends AppCompatActivity {
     private ArrayList<Player> players = new ArrayList<>();
     private ArrayAdapter<Player> playersAdapter1, playersAdapter2, playersAdapter3;
     ListView playersListView;
+    private int currentAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,9 +86,9 @@ public class BrowsePlayerActivity extends AppCompatActivity {
                         Collections.sort(players, new PlayerNumQRComparator());
                         playersAdapter1.notifyDataSetChanged();
                         playersListView.setAdapter(playersAdapter1);
-
-                    }
-                });
+                        currentAdapter = 1;
+                    } // end onComplete
+                }); // end accountsRef.get().addOnCompleteListener
 
         numButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,8 +97,9 @@ public class BrowsePlayerActivity extends AppCompatActivity {
                 Collections.sort(players, new PlayerNumQRComparator());
                 playersAdapter1.notifyDataSetChanged();
                 playersListView.setAdapter(playersAdapter1);
-            }
-        });
+                currentAdapter = 1;
+            } // end onClick
+        }); // end numButton.setOnClickListener
 
         totalButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,8 +108,9 @@ public class BrowsePlayerActivity extends AppCompatActivity {
                 Collections.sort(players, new PlayerTotalScoreComparator());
                 playersAdapter1.notifyDataSetChanged();
                 playersListView.setAdapter(playersAdapter2);
-            }
-        });
+                currentAdapter = 2;
+            } // end onClick
+        }); // end totalButton.setOnClickListener
 
         singleButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,11 +119,32 @@ public class BrowsePlayerActivity extends AppCompatActivity {
                 Collections.sort(players, new PlayerSingleScoreComparator());
                 playersAdapter1.notifyDataSetChanged();
                 playersListView.setAdapter(playersAdapter3);
-            }
-        });
+                currentAdapter = 3;
+            } // end onClick
+        }); // end singleButton.setOnClickListener
 
+        // Click on the Name to see details about the code
+        playersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Player selectedPlayer = playersAdapter1.getItem(0) ;
+                assert currentAdapter <= 3 && currentAdapter >= 1;
+                if (currentAdapter == 1) {
+                    selectedPlayer = playersAdapter1.getItem(position);
+                } else if (currentAdapter == 2) {
+                    selectedPlayer = playersAdapter2.getItem(position);
+                } else if (currentAdapter == 3) {
+                    selectedPlayer = playersAdapter3.getItem(position);
+                }
 
-        //bottom navigation bar
+                Intent intent = new Intent(BrowsePlayerActivity.this, FoundPlayerProfileActivity.class);
+                intent.putExtra("playerID", selectedPlayer.getUniqueID());
+                startActivity(intent);
+            } // end onItemClick
+        }); // end myQRCodeListView.setOnItemClickListener
+
+        // ************************** Page Selection ****************************************
+        // Bottom Navigation bar
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.browse_qr);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -139,10 +167,10 @@ public class BrowsePlayerActivity extends AppCompatActivity {
                         return true;
                 }
                 return false;
-            }
-        });
+            } // end onNavigationItemSelected
+        }); // end bottomNavigationView.setOnItemSelectedListener
 
-        //top Navigation bar
+        // Top Navigation bar
         topNavigationView = findViewById(R.id.top_navigation);
         topNavigationView.setSelectedItemId(R.id.browse_other_players);
         topNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -157,7 +185,8 @@ public class BrowsePlayerActivity extends AppCompatActivity {
                         return true;
                 }
                 return false;
-            }
-        });
-    }
-}
+            } // end onNavigationItemSelected
+        }); // end topNavigationView.setOnItemSelectedListener
+
+    } // end onCreate
+} // end BrowsePlayerActivity Class

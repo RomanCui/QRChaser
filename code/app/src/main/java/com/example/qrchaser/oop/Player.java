@@ -23,18 +23,6 @@ public class Player {
     private int totalScore;
     private int highestScore;
 
-    // For creating a player from the database
-    public Player(String email, String nickname, String phoneNumber, boolean admin, String uniqueID) {
-        this.email = email;
-        this.nickname = nickname;
-        this.phoneNumber = phoneNumber;
-        this.admin = admin;
-        this.uniqueID = uniqueID;
-        numQR = 0;
-        totalScore = 0;
-        highestScore = 0;
-    }
-
     // For new player (no details yet)
     public Player(){
         this.uniqueID = "" + UUID.randomUUID();
@@ -42,16 +30,16 @@ public class Player {
         this.nickname = "Player_" + this.uniqueID.substring(0, 4);
         this.phoneNumber = "";
         this.admin = false;
-        numQR = 0;
-        totalScore = 0;
-        highestScore = 0;
+        this.numQR = 0;
+        this.totalScore = 0;
+        this.highestScore = 0;
     }
 
     // This method saves a player to the database
     // used in create account
     public void saveToDatabase(){
         // create Firestore collection
-        final String TAG = "Sample";
+        final String TAG = "Error";
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference =
@@ -77,7 +65,6 @@ public class Player {
 
     public void updateDatabase(){
         // Create Firestore collection
-        final String TAG = "Sample";
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
         final CollectionReference collectionReference =
@@ -96,10 +83,7 @@ public class Player {
                 .update("totalScore", totalScore);
         myAccountRef
                 .update("highestScore", highestScore);
-
-
     } // end updateDatabase
-
 
     /**
      * This gets the email of the player

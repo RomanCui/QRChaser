@@ -22,6 +22,9 @@
             android:name=".QRcodeInfoActivity"
             android:exported="false" />
         <activity
+            android:name=".player.profile.FoundPlayerProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".player.browse.BrowsePlayerActivity"
             android:exported="false" />
         <activity
@@ -51,12 +54,6 @@
             android:exported="false" />
         <activity
             android:name=".player.myQRCodes.MyQRCodeScreenActivity"
-            android:exported="false" />
-        <activity
-            android:name=".logIn.LoginEmailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".logIn.CreateAccountActivity"
             android:exported="false" />
         <activity
             android:name=".logIn.WelcomeActivity"

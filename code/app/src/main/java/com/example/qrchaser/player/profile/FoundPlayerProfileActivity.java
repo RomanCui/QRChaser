@@ -1,7 +1,6 @@
 package com.example.qrchaser.player.profile;
 
 
-import androidx.annotation.NonNull;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,20 +10,20 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.example.qrchaser.R;
+import com.example.qrchaser.general.SaveANDLoad;
 import com.example.qrchaser.oop.Player;
 import com.example.qrchaser.oop.PlayerNumQRComparator;
 import com.example.qrchaser.oop.PlayerSingleScoreComparator;
 import com.example.qrchaser.oop.PlayerTotalScoreComparator;
-import com.example.qrchaser.oop.QRCode;
-import com.example.qrchaser.oop.QRCodeScoreComparator1;
+import com.example.qrchaser.player.browse.BrowseQRActivity;
+import com.example.qrchaser.player.map.MapActivity;
 import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.example.qrchaser.R;
-import com.example.qrchaser.general.SaveANDLoad;
-import com.example.qrchaser.player.browse.BrowseQRActivity;
-import com.example.qrchaser.player.map.MapActivity;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -38,22 +37,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class PlayerProfileActivity extends SaveANDLoad {
-    private Button buttonPlayerInfo;
-    private BottomNavigationView bottomNavigationView;
+public class FoundPlayerProfileActivity extends SaveANDLoad {
     private TextView nicknameTV;
     private FirebaseFirestore db;
     private ArrayList<Player> players = new ArrayList<>();
     private TextView num_QR_text, total_score_text, single_score_text;
-    final String TAG = "Error";
+    private final String TAG = "Error";
     private Player currentPlayer;
-    int num_QR_ranking, total_score_ranking, single_score_ranking;
-    TextView num_QR_ranking_text, total_score_ranking_text, single_score_ranking_text;
+    private int num_QR_ranking, total_score_ranking, single_score_ranking;
+    private TextView num_QR_ranking_text, total_score_ranking_text, single_score_ranking_text;
+    private Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_player_profile);
+        setContentView(R.layout.activity_found_player_profile);
 
         nicknameTV = findViewById(R.id.desired_player_nickname);
         num_QR_text = findViewById(R.id.num_qr_2);
@@ -62,9 +60,16 @@ public class PlayerProfileActivity extends SaveANDLoad {
         num_QR_ranking_text = findViewById(R.id.num_qr_ranking_2);
         total_score_ranking_text = findViewById(R.id.total_score_ranking_2);
         single_score_ranking_text = findViewById(R.id.single_score_ranking_2);
+        backButton = findViewById(R.id.button_back);
+
+        // Back button - return to previous activity
+        backButton.setOnClickListener( v -> {
+            finish();
+        });
 
         // Get the player id in order to load the data from the database
-        String playerID = loadData(getApplicationContext(), "uniqueID");
+        String playerID = getIntent().getStringExtra("playerID");
+
 
         // Get Player info from the database
         db = FirebaseFirestore.getInstance();
@@ -131,49 +136,8 @@ public class PlayerProfileActivity extends SaveANDLoad {
                                 }
                             }
                         });
-
             }
         }); // end addOnCompleteListener
-
-
-        // ************************** Page Selection ****************************************
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
-        buttonPlayerInfo = findViewById(R.id.desired_player_info_button);
-        // Head to My QR Code Screen
-        bottomNavigationView.setSelectedItemId(R.id.self_profile);
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.my_qr_code:
-                        startActivity(new Intent(getApplicationContext(), MyQRCodeScreenActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.browse_qr:
-                        startActivity(new Intent(getApplicationContext(), BrowseQRActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.map:
-                        startActivity(new Intent(getApplicationContext(),MapActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.self_profile:
-
-                        return true;
-                }
-                return false;
-            } // end onNavigationItemSelected
-        });
-
-        // Head to Player Profile Info
-        buttonPlayerInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PlayerProfileActivity.this, EditPlayerProfileActivity.class);
-                startActivity(intent);
-            } // end onClick
-        }); // end buttonPlayerInfo.setOnClickListener
-
     } // end onCreate
 
     @Override

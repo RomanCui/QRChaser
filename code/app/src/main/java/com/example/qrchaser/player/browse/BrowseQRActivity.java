@@ -76,24 +76,24 @@ public class BrowseQRActivity extends AppCompatActivity {
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
-                    }
-                });
+                    } // end onComplete
+                }); // end QRCodesReference.get().addOnCompleteListener
 
         highToLowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Collections.sort(qrCodes, new QRCodeScoreComparator1());
                 qrCodeAdapter.notifyDataSetChanged();
-            }
-        });
+            } // end onClick
+        }); // end highToLowButton.setOnClickListener
 
         lowToHighButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Collections.sort(qrCodes, new QRCodeScoreComparator2());
                 qrCodeAdapter.notifyDataSetChanged();
-            }
-        });
+            } // end onClick
+        }); // end lowToHighButton.setOnClickListener
 
         // Click on the Name to see details about the code
         myQRCodeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -103,10 +103,11 @@ public class BrowseQRActivity extends AppCompatActivity {
                 Intent intent = new Intent(BrowseQRActivity.this, QRcodeInfoActivity.class);
                 intent.putExtra("qrHash", selectedQrCode.getHash());
                 startActivity(intent);
-            }
-        });
+            } // end onItemClick
+        }); // end myQRCodeListView.setOnItemClickListener
 
-        // The navigation bar
+        // ************************** Page Selection ****************************************
+        // Bottom Navigation bar
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.browse_qr);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -129,8 +130,8 @@ public class BrowseQRActivity extends AppCompatActivity {
                         return true;
                 }
                 return false;
-            }
-        });
+            } // end onNavigationItemSelected
+        }); // end bottomNavigationView.setOnItemSelectedListener
 
         topNavigationView = findViewById(R.id.top_navigation);
         topNavigationView.setSelectedItemId(R.id.browse_qr_code);
@@ -146,10 +147,8 @@ public class BrowseQRActivity extends AppCompatActivity {
                         return true;
                 }
                 return false;
-            }
-        });
-
-
+            } // end onNavigationItemSelected
+        }); // end topNavigationView.setOnItemSelectedListener
 
     } // end onCreate
 } // end BrowseActivity Class
