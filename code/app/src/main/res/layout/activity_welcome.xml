@@ -1,27 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".logIn.WelcomeActivity">
 
     <TextView
         android:id="@+id/textViewTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Welcome to QR Chaser" />
+        android:layout_height="0sp"
+        android:layout_weight="1"
+        android:text="Welcome to QR Chaser"
+        android:gravity="center"
+        android:fontFamily="sans-serif"
+        android:textAlignment="center"
+        android:textColor="#051367"
+        android:textSize="30sp" />
 
-    <Button
-        android:id="@+id/buttonQRCodeLogin"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Login With QR Code" />
+        android:layout_weight="1.5"
+        android:layout_height="0sp"
+        >
 
-    <Button
-        android:id="@+id/buttonCreateAccount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Continue with new Account" />
+        <Button
+            android:id="@+id/buttonQRCodeLogin"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="35dp"
+            android:text="Login With QR Code"
+            android:textSize="15sp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="55dp" />
+
+        <Button
+            android:id="@+id/buttonCreateAccount"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="35dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="Continue with new Account"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@+id/buttonQRCodeLogin"
+            tools:layout_editor_absoluteX="111dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>

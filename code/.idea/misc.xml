@@ -48,6 +48,7 @@
         <entry key="..\:/Users/Paul/Desktop/CMPUT301Mar15/QRChaser/code/app/src/main/res/menu/menu_navigation.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_arrow_downward_24.xml" value="0.1655" />
         <entry key="app/src/main/res/layout/activity_admin_homepage.xml" value="0.24583333333333332" />
+        <entry key="app/src/main/res/layout/activity_admin_qr.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/layout/activity_browse.xml" value="0.3880208333333333" />
         <entry key="app/src/main/res/layout/activity_browse_player.xml" value="0.23324275362318841" />
         <entry key="app/src/main/res/layout/activity_browse_players.xml" value="0.23177083333333334" />
@@ -68,6 +69,7 @@
         <entry key="app/src/main/res/layout/activity_player_profile.xml" value="0.28351449275362317" />
         <entry key="app/src/main/res/layout/activity_qr_add_screen.xml" value="0.24583333333333332" />
         <entry key="app/src/main/res/layout/activity_qr_edit_screen.xml" value="0.26856884057971014" />
+        <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.31567028985507245" />
         <entry key="app/src/main/res/layout/qrcode_content.xml" value="0.3401434414628623" />
         <entry key="app/src/main/res/menu/menu_navigation.xml" value="0.4244791666666667" />
       </map>
