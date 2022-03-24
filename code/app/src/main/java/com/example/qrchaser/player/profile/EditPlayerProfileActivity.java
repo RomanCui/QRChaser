@@ -84,6 +84,7 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
                 currentPlayer.setPhoneNumber(phoneNumberET.getText().toString());
                 currentPlayer.setNickname(nicknameET.getText().toString());
                 currentPlayer.updateDatabase();
+                finish();
             } // end onClick
         }); // end buttonConfirm.setOnClickListener
 

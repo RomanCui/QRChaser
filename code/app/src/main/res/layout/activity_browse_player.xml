@@ -27,7 +27,7 @@
             android:layout_weight="0"
             android:padding="15dp"
             android:gravity="center"
-            android:text="Browse Other Players"
+            android:text="Browse All Players"
             android:textAlignment="center"
             android:textColor="#051367"
             android:textSize="30sp"/>

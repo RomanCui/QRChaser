@@ -6,6 +6,7 @@ public class Comments {
     private String comment;
 
     public Comments(String username, String comment) {
+
         this.username = username;
         this.comment = comment;
     }
