@@ -83,7 +83,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonConfirm" />
+            app:layout_constraintTop_toBottomOf="@+id/ButtonGenerateLoginQRCode" />
 
         <Button
             android:id="@+id/ButtonGenerateLoginQRCode"
@@ -97,7 +97,7 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonSignOut" />
+            app:layout_constraintTop_toBottomOf="@+id/ButtonGenerateInfoQRCode" />
 
         <Button
             android:id="@+id/ButtonGenerateInfoQRCode"
@@ -111,7 +111,7 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ButtonGenerateLoginQRCode" />
+            app:layout_constraintTop_toBottomOf="@+id/buttonConfirm" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
