@@ -62,7 +62,7 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
                 if (task.isSuccessful()) {
                     // Document found in the offline cache
                     DocumentSnapshot document = task.getResult();
-                    currentPlayer = new Player(document.getString("email"), document.getString("nickname"), document.getString("phoneNumber"), document.getBoolean("admin"), playerID);
+                    currentPlayer = document.toObject(Player.class);
 
                     // Initialize
                     emailET.setText(currentPlayer.getEmail());

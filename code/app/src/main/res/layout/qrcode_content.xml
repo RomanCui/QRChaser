@@ -11,9 +11,12 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:padding="20dp"
         android:text="QR Code Name"
-        android:textSize="20sp">
+        android:padding="5dp"
+        android:gravity="left"
+        android:fontFamily="sans-serif"
+        android:textColor="#051367"
+        android:textSize="15sp">
 
     </TextView>
 
@@ -22,9 +25,12 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="120dp"
         android:text="Score"
-        android:textSize="20sp">
+        android:padding="5dp"
+        android:gravity="left"
+        android:fontFamily="sans-serif"
+        android:textColor="#051367"
+        android:textSize="15sp">
 
     </TextView>
 

@@ -22,7 +22,7 @@
             android:name=".QRcodeInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".BrowsePlayerActivity"
+            android:name=".player.browse.BrowsePlayerActivity"
             android:exported="false" />
         <activity
             android:name=".player.myQRCodes.QrAddScreenActivity"

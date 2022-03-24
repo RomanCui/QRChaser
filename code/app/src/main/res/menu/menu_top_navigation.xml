@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/browse_qr_code"
+        android:title="qrcode"
+        android:icon="@drawable/ic_baseline_qr_code"/>
+
+    <item
+        android:id="@+id/browse_other_players"
+        android:title="players"
+        android:icon="@drawable/ic_baseline_people_outline_24"/>
+
+</menu>

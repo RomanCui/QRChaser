@@ -10,15 +10,28 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/top_navigation"
+            app:itemBackground="@color/design_default_color_on_primary"
+            app:itemTextColor="@drawable/selector"
+            app:itemIconTint="@drawable/selector"
+            app:menu="@menu/menu_top_navigation"
+            android:layout_alignParentTop="true"/>
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:layout_marginStart="15dp"
-            android:gravity="top"
             android:text="Browse QR Codes"
-            android:textSize="34sp" />
+            android:padding="15dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="#051367"
+            android:textSize="30sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,8 +69,11 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
                 android:text="Name"
+                android:padding="5dp"
+                android:gravity="left"
+                android:fontFamily="sans-serif"
+                android:textColor="#051367"
                 android:textSize="20sp">
             </TextView>
 
@@ -66,8 +82,11 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="120dp"
                 android:text="Score"
+                android:padding="5dp"
+                android:gravity="left"
+                android:fontFamily="sans-serif"
+                android:textColor="#051367"
                 android:textSize="20sp">
             </TextView>
 

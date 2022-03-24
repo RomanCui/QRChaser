@@ -38,7 +38,7 @@ import java.util.Collections;
 // A twin activity to browse players is to be developed
 public class BrowseQRActivity extends AppCompatActivity {
 
-    private BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView,topNavigationView;
     final String TAG = "Sample";
     FirebaseFirestore db;
     private ArrayAdapter<QRCode> qrCodeAdapter;
@@ -110,7 +110,7 @@ public class BrowseQRActivity extends AppCompatActivity {
 
         // The navigation bar
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.browse_player);
+        bottomNavigationView.setSelectedItemId(R.id.browse_qr);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -119,7 +119,7 @@ public class BrowseQRActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(),MyQRCodeScreenActivity.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.browse_player:
+                    case R.id.browse_qr:
                         return true;
                     case R.id.map:
                         startActivity(new Intent(getApplicationContext(),MapActivity.class));
@@ -128,6 +128,23 @@ public class BrowseQRActivity extends AppCompatActivity {
                     case R.id.self_profile:
                         startActivity(new Intent(getApplicationContext(),PlayerProfileActivity.class));
                         overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
+
+        topNavigationView = findViewById(R.id.top_navigation);
+        topNavigationView.setSelectedItemId(R.id.browse_qr_code);
+        topNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.browse_qr_code:
+                        return true;
+                    case R.id.browse_other_players:
+                        startActivity(new Intent(getApplicationContext(), BrowsePlayerActivity.class));
+                        overridePendingTransition(0, 0);
                         return true;
                 }
                 return false;

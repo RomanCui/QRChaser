@@ -7,7 +7,7 @@
         android:icon="@drawable/ic_baseline_qr_code"/>
 
     <item
-        android:id="@+id/browse_player"
+        android:id="@+id/browse_qr"
         android:title="browser"
         android:icon="@drawable/ic_baseline_player"/>
 

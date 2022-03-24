@@ -123,7 +123,7 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
                 switch (item.getItemId()){
                     case R.id.my_qr_code:
                         return true;
-                    case R.id.browse_player:
+                    case R.id.browse_qr:
                         startActivity(new Intent(getApplicationContext(), BrowseQRActivity.class));
                         overridePendingTransition(0,0);
                         return true;
