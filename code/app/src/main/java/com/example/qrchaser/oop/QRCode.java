@@ -192,9 +192,9 @@ public class QRCode implements Comparable<QRCode>{
         this.owners = owners;
     }
 
-    public void addComment(String user, String comment) {
-        comments.add(new Comments(user, comment));
-    }
+    public Boolean removeOwner(String owner) { return owners.remove(owner); }
+
+    public void addComment(String user, String comment) { comments.add(new Comments(user, comment)); }
 
 
 }// end QRCode Class

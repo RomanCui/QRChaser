@@ -17,7 +17,7 @@ public class AddCommentFragment extends DialogFragment {
     private OnFragmentInteractionListener listener;
 
     public interface OnFragmentInteractionListener {
-        void onOkPressed(String comment);
+        void onOkPressed(String comment, int returnCode);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class AddCommentFragment extends DialogFragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String comment = addComment.getText().toString();
                         if(!comment.isEmpty()) {
-                            listener.onOkPressed(comment);
+                            listener.onOkPressed(comment, 2);
                         }
                     }
                 }).create();
