@@ -164,16 +164,15 @@
             <TextView
                 android:id="@+id/num_qr_ranking_1"
                 android:layout_width="0dp"
-                android:layout_weight="2"
                 android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:fontFamily="sans-serif"
+                android:gravity="left|center"
                 android:padding="20dp"
                 android:text="The number of QR code ranking: "
-                android:textSize="15sp"
-                android:gravity="left|center"
-                android:fontFamily="sans-serif"
-                android:textColor="#051367">
-                >
-            </TextView>
+                android:textColor="#051367"
+                android:textSize="15sp">
+                ></TextView>
 
             <TextView
                 android:id="@+id/num_qr_ranking_2"

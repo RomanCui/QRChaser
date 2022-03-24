@@ -7,35 +7,56 @@
     android:orientation="vertical"
     tools:context=".QRcodeInfoActivity">
 
-    <Button
-        android:id="@+id/qrcode_info_back_button"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Back" />
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/qrcode_info_back_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif"
+            android:text="Back"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/qrcode_info_qrname_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="QRcode Name" />
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="QRcode name:"
+        android:textColor="#051367"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/qrcode_info_score_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Score" />
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="Score:"
+        android:textColor="#051367"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/qrcode_info_location_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Optional location" />
-
-    <TextView
-        android:id="@+id/qrcode_info_photo_textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Optional photo" />
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="Optional location:"
+        android:textColor="#051367"
+        android:textSize="20sp" />
 
     <ListView
         android:id="@+id/qrcode_info_comment_listView"
@@ -46,7 +67,7 @@
         android:id="@+id/qrcode_info_imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
         android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         app:srcCompat="?attr/selectableItemBackgroundBorderless" />
 </LinearLayout>
