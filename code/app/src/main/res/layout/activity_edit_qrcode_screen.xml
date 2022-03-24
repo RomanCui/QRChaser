@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,43 +10,25 @@
         android:id="@+id/qr_code_name_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Code name" />
+        android:text="Code name"
+        android:fontFamily="sans-serif"
+        android:textColor="#051367"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/qr_score_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Score" />
+        android:text="Score"
+        android:fontFamily="sans-serif"
+        android:textColor="#051367"
+        android:textSize="20sp" />
 
     <ListView
         android:id="@+id/qr_comments_ListView"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="120dp"
         android:text="Comments" />
-
-    <Button
-        android:id="@+id/qr_change_name_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Change Name" />
-
-    <Button
-        android:id="@+id/qr_change_comments_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Change Comments" />
-
-    <Button
-        android:id="@+id/qr_remove_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Remove" />
-
-    <Button
-        android:id="@+id/qr_edit_cancel_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cancel" />
 
     <ImageView
         android:id="@+id/qr_imageView"
@@ -54,5 +37,66 @@
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         app:srcCompat="?attr/selectableItemBackgroundBorderless" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/qr_change_name_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="sans-serif"
+            android:text="Change Name"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/qr_change_comments_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="sans-serif"
+            android:text="Change Comments"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/qr_change_name_button" />
+
+        <Button
+            android:id="@+id/qr_remove_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="sans-serif"
+            android:text="Remove"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/qr_change_comments_button" />
+
+        <Button
+            android:id="@+id/qr_edit_cancel_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="sans-serif"
+            android:text="Cancel"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/qr_remove_button" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
