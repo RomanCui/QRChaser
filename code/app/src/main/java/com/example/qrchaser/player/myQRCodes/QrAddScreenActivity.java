@@ -300,6 +300,8 @@ public class QrAddScreenActivity extends AppCompatActivity {
                                             }
                                         });
 
+                                //return to previous activity
+                                finish();
                             } else {
                                 Toast.makeText(getApplicationContext(),"Load Failed",Toast.LENGTH_LONG).show();
                             }

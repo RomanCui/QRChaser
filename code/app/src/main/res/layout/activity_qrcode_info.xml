@@ -1,58 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".QRcodeInfoActivity">
 
-    <TextView
-        android:id="@+id/qr_code_name_textView"
+    <Button
+        android:id="@+id/qrcode_info_back_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Code name" />
+        android:text="Back" />
 
     <TextView
-        android:id="@+id/qr_score_textView"
+        android:id="@+id/qrcode_info_qrname_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="QRcode Name" />
+
+    <TextView
+        android:id="@+id/qrcode_info_score_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Score" />
 
+    <TextView
+        android:id="@+id/qrcode_info_location_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Optional location" />
+
+    <TextView
+        android:id="@+id/qrcode_info_photo_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Optional photo" />
+
     <ListView
-        android:id="@+id/qr_comments_ListView"
+        android:id="@+id/qrcode_info_comment_listView"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:text="Comments" />
-
-    <Button
-        android:id="@+id/qr_change_name_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Change Name" />
-
-    <Button
-        android:id="@+id/qr_change_comments_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Change Comments" />
-
-    <Button
-        android:id="@+id/qr_remove_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Remove" />
-
-    <Button
-        android:id="@+id/qr_edit_cancel_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cancel" />
+        android:layout_height="125dp" />
 
     <ImageView
-        android:id="@+id/qr_imageView"
+        android:id="@+id/qrcode_info_imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
         android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
         app:srcCompat="?attr/selectableItemBackgroundBorderless" />
-
 </LinearLayout>

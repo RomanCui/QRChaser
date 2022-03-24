@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+
+import com.example.qrchaser.QRcodeInfoActivity;
 import com.example.qrchaser.general.QRCodeAdapter;
 import com.example.qrchaser.oop.QRCode;
 import com.example.qrchaser.oop.QRCodeScoreComparator1;
@@ -47,7 +50,7 @@ public class BrowseQRActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_qr);
 
-        myQRCodeListView = findViewById(R.id.listViewQRCode);
+        myQRCodeListView = findViewById(R.id.browse_qr_listView);
         highToLowButton = findViewById(R.id.highToLow_button);
         lowToHighButton = findViewById(R.id.lowToHigh_button);
 
@@ -89,6 +92,17 @@ public class BrowseQRActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Collections.sort(qrCodes, new QRCodeScoreComparator2());
                 qrCodeAdapter.notifyDataSetChanged();
+            }
+        });
+
+        // Click on the Name to see details about the code
+        myQRCodeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                QRCode selectedQrCode = qrCodeAdapter.getItem(position);
+                Intent intent = new Intent(BrowseQRActivity.this, QRcodeInfoActivity.class);
+                intent.putExtra("qrHash", selectedQrCode.getHash());
+                startActivity(intent);
             }
         });
 

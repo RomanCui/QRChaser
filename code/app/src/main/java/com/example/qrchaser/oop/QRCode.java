@@ -34,7 +34,7 @@ public class QRCode implements Comparable<QRCode>{
     private double latitude;
     private double longitude;
     //private image image;
-    private List<String> comments = new ArrayList<>();
+    private ArrayList<Comments> comments = new ArrayList<>();
     private List<String> owners = new ArrayList<>();
 
 
@@ -53,8 +53,8 @@ public class QRCode implements Comparable<QRCode>{
         this.owners.add(owner);
 
         // only add comments that are not empty
-        if (!comments.equals("")){
-            this.comments.add(comment);
+        if (!comment.equals("")){
+            this.comments.add(new Comments(owner, comment));
         }
         this.latitude = latitude;
         this.longitude = longitude;
@@ -176,11 +176,11 @@ public class QRCode implements Comparable<QRCode>{
         this.longitude = longitude;
     }
 
-    public List<String> getComments() {
+    public ArrayList<Comments> getComments() {
         return comments;
     }
 
-    public void setComments(List<String> comments) {
+    public void setComments(ArrayList<Comments> comments) {
         this.comments = comments;
     }
 
@@ -191,6 +191,10 @@ public class QRCode implements Comparable<QRCode>{
     public void setOwners(List<String> owners) {
         this.owners = owners;
     }
+
+    public Boolean removeOwner(String owner) { return owners.remove(owner); }
+
+    public void addComment(String user, String comment) { comments.add(new Comments(user, comment)); }
 
 
 }// end QRCode Class
