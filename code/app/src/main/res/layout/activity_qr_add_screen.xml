@@ -7,32 +7,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/qr_scan_button"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Scan" />
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/qr_add_photo_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Add photo" />
-
-    <Button
-        android:id="@+id/qr_add_location_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Add location" />
+        <Button
+            android:id="@+id/qr_scan_button"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:text="Scan"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="sans-serif"
+            android:textSize="20sp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Give the QR code a nickname:" />
+        android:text="Give the QR code a nickname:"
+        android:fontFamily="sans-serif"
+        android:textColor="#051367"
+        android:textSize="20sp"/>
 
     <EditText
         android:id="@+id/qr_nickname_edit_text"
@@ -48,7 +52,10 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add comments:" />
+        android:text="Add comments:"
+        android:fontFamily="sans-serif"
+        android:textColor="#051367"
+        android:textSize="20sp"/>
 
     <EditText
         android:id="@+id/qr_comments_edit_text"
@@ -60,26 +67,80 @@
         android:inputType="textPersonName"
         android:minHeight="48dp" />
 
-    <Button
-        android:id="@+id/qr_confirm_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Confirm" />
-
-    <Button
-        android:id="@+id/qr_add_cancel_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Cancel" />
-
-
-<!--    TODO: For preview/testing, could remove this in future version-->
     <ImageView
         android:id="@+id/qr_image_preview_imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:srcCompat="?attr/selectableItemBackground" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/qr_add_photo_button"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="Add photo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="sans-serif"
+            android:textSize="20sp"/>
+
+        <Button
+            android:id="@+id/qr_add_location_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="Add location"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/qr_add_photo_button"
+            android:fontFamily="sans-serif"
+            android:textSize="20sp"/>
+
+        <Button
+            android:id="@+id/qr_confirm_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="Confirm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/qr_add_location_button"
+            android:fontFamily="sans-serif"
+            android:textSize="20sp"/>
+
+        <Button
+            android:id="@+id/qr_add_cancel_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="Cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/qr_confirm_button"
+            android:fontFamily="sans-serif"
+            android:textSize="20sp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!--    TODO: For preview/testing, could remove this in future version-->
 
 </LinearLayout>

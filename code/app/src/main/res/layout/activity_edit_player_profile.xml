@@ -11,7 +11,10 @@
         android:id="@+id/textViewEmailPrompt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Edit your Email:" />
+        android:fontFamily="sans-serif"
+        android:text="Edit your Email:"
+        android:textColor="#051367"
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/editTextEmail"
@@ -23,7 +26,10 @@
         android:id="@+id/textViewNicknamePrompt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Edit nickname:" />
+        android:fontFamily="sans-serif"
+        android:text="Edit nickname:"
+        android:textColor="#051367"
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/editTextNickname"
@@ -35,7 +41,10 @@
         android:id="@+id/textViewPhoneNumberPrompt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Edit phone number:" />
+        android:fontFamily="sans-serif"
+        android:text="Edit phone number:"
+        android:textColor="#051367"
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/editTextPhone"
@@ -43,27 +52,66 @@
         android:layout_height="wrap_content"
         android:inputType="phone" />
 
-    <Button
-        android:id="@+id/buttonConfirm"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Confirm" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/buttonSignOut"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sign Out" />
+        <Button
+            android:id="@+id/buttonConfirm"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="sans-serif"
+            android:text="Confirm"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/ButtonGenerateLoginQRCode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Generate login QR code" />
+        <Button
+            android:id="@+id/buttonSignOut"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="sans-serif"
+            android:text="Sign Out"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonConfirm" />
 
-    <Button
-        android:id="@+id/ButtonGenerateInfoQRCode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Generate info QR code" />
+        <Button
+            android:id="@+id/ButtonGenerateLoginQRCode"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="sans-serif"
+            android:text="Generate login QR code"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonSignOut" />
+
+        <Button
+            android:id="@+id/ButtonGenerateInfoQRCode"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="sans-serif"
+            android:text="Generate info QR code"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ButtonGenerateLoginQRCode" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>
