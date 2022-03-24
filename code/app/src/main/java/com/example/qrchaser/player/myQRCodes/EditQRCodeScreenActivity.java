@@ -57,7 +57,6 @@ public class EditQRCodeScreenActivity extends AppCompatActivity {
         qrImageView = findViewById(R.id.qr_imageView);
 
         hash = getIntent().getStringExtra("qrHash");
-        //Log.d("hash",hash);
 
         db = FirebaseFirestore.getInstance();
         DocumentReference QRCodeReference = db.collection("QRCodes").document(hash);
