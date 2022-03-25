@@ -16,9 +16,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="sans-serif"
             android:text="Back"
             android:textSize="20sp"
@@ -27,6 +27,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/qrcode_info_imageView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:srcCompat="?attr/selectableItemBackgroundBorderless" />
 
     <TextView
         android:id="@+id/qrcode_info_qrname_textView"
@@ -57,15 +66,6 @@
         android:text="Optional location:"
         android:textColor="#051367"
         android:textSize="20sp" />
-
-    <ImageView
-        android:id="@+id/qrcode_info_imageView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        app:srcCompat="?attr/selectableItemBackgroundBorderless" />
 
     <ListView
         android:id="@+id/qrcode_info_comment_listView"

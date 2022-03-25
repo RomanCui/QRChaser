@@ -6,24 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/qr_code_name_textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Code name"
-        android:fontFamily="sans-serif"
-        android:textColor="#051367"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/qr_score_textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Score"
-        android:fontFamily="sans-serif"
-        android:textColor="#051367"
-        android:textSize="20sp" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -47,6 +29,24 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
+        android:id="@+id/qr_code_name_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Code name"
+        android:fontFamily="sans-serif"
+        android:textColor="#051367"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/qr_score_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Score"
+        android:fontFamily="sans-serif"
+        android:textColor="#051367"
+        android:textSize="20sp" />
+
+    <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -63,14 +63,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <Button
             android:id="@+id/qr_change_name_button"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
             android:fontFamily="sans-serif"
             android:text="Change Name"
@@ -86,7 +85,6 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
             android:fontFamily="sans-serif"
             android:text="Change Comments"
@@ -102,7 +100,6 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
             android:fontFamily="sans-serif"
             android:text="Remove"
@@ -118,9 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
             android:fontFamily="sans-serif"
             android:text="Cancel"
             android:textSize="20sp"
