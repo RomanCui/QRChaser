@@ -58,16 +58,18 @@
         android:textColor="#051367"
         android:textSize="20sp" />
 
-    <ListView
-        android:id="@+id/qrcode_info_comment_listView"
-        android:layout_width="match_parent"
-        android:layout_height="125dp" />
-
     <ImageView
         android:id="@+id/qrcode_info_imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         app:srcCompat="?attr/selectableItemBackgroundBorderless" />
+
+    <ListView
+        android:id="@+id/qrcode_info_comment_listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
