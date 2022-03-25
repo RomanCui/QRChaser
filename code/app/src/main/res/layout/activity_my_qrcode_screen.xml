@@ -96,13 +96,13 @@
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_alignBottom="@id/relativeLayoutFrame"
-        android:layout_marginBottom="60dp"
+        android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
+        android:layout_marginBottom="80dp"
         android:clickable="true"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:contentDescription="Floating action Button" />
+        android:contentDescription="Floating action Button"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"

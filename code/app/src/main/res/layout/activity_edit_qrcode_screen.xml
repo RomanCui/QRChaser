@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,18 +7,20 @@
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/CL"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
 
         <ImageView
             android:id="@+id/qr_imageView"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -32,8 +34,10 @@
         android:id="@+id/qr_code_name_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Code name"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_below="@id/CL"
         android:fontFamily="sans-serif"
+        android:text="Code name"
         android:textColor="#051367"
         android:textSize="20sp" />
 
@@ -41,8 +45,9 @@
         android:id="@+id/qr_score_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Score"
+        android:layout_below="@id/qr_code_name_textView"
         android:fontFamily="sans-serif"
+        android:text="Score"
         android:textColor="#051367"
         android:textSize="20sp" />
 
@@ -50,26 +55,31 @@
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Comments:"
+        android:layout_below="@id/qr_score_textView"
         android:fontFamily="sans-serif"
+        android:text="Comments:"
         android:textColor="#051367"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
     <ListView
         android:id="@+id/qr_comments_ListView"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:text="Comments" />
+        android:layout_height="wrap_content"
+        android:layout_above="@id/CL1"
+        android:layout_below="@id/textView3" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/CL1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
         <Button
             android:id="@+id/qr_change_name_button"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
             android:fontFamily="sans-serif"
             android:text="Change Name"
@@ -116,8 +126,9 @@
             android:layout_height="48dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="sans-serif"
-            android:text="Cancel"
+            android:text="Back"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -126,4 +137,4 @@
             app:layout_constraintTop_toBottomOf="@+id/qr_remove_button" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</LinearLayout>
+</RelativeLayout>
