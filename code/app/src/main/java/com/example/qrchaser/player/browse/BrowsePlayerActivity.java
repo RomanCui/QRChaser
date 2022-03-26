@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,7 +40,8 @@ import java.util.Collections;
 public class BrowsePlayerActivity extends AppCompatActivity {
 
     BottomNavigationView topNavigationView,bottomNavigationView;
-    ImageButton numButton, totalButton, singleButton;
+    ImageButton numButton, totalButton, singleButton, searchButton;
+    EditText search;
     TextView scoreType;
     final String TAG = "Sample";
     FirebaseFirestore db;
@@ -56,6 +58,9 @@ public class BrowsePlayerActivity extends AppCompatActivity {
         singleButton = findViewById(R.id.single_button);
         scoreType = findViewById(R.id.score_text);
         playersListView = findViewById(R.id.listViewPlayer);
+
+        // Player search implementation
+        //searchButton = findViewById(R.id.single_button);
 
         db = FirebaseFirestore.getInstance();
         CollectionReference accountsRef = db.collection("Accounts");
@@ -114,7 +119,6 @@ public class BrowsePlayerActivity extends AppCompatActivity {
                 playersListView.setAdapter(playersAdapter3);
             }
         });
-
 
         //bottom navigation bar
         bottomNavigationView = findViewById(R.id.bottom_navigation);
