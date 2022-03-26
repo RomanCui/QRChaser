@@ -27,12 +27,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.qrchaser.QRcodeInfoActivity;
 import com.example.qrchaser.R;
 import com.example.qrchaser.oop.Player;
 import com.example.qrchaser.oop.QRCode;
 import com.example.qrchaser.oop.QRCodeScoreComparator1;
 import com.example.qrchaser.player.CameraScannerActivity;
 import com.example.qrchaser.player.QrAddScreenAddPhotoFragment;
+import com.example.qrchaser.player.browse.BrowseQRActivity;
+import com.example.qrchaser.player.map.SelectQRLocationActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -77,6 +80,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
 
     private ActivityResultLauncher<Intent> galleryResultLauncher;
     private ActivityResultLauncher<Intent> cameraResultLauncher;
+    private ActivityResultLauncher<Intent>  locationResultLauncher;
 
     private FusedLocationProviderClient fusedLocationProviderClient;
     // Both impossible values
@@ -125,7 +129,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 }
         );
 
-        //gallery result receiver
+        // Gallery result receiver
         galleryResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -146,7 +150,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 }
         );
 
-        //camera result receiver
+        // Camera result receiver
         cameraResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -156,6 +160,21 @@ public class QrAddScreenActivity extends AppCompatActivity {
                             Bundle bundle = result.getData().getExtras();
                             image = (Bitmap) bundle.get("data");
                             imageView.setImageBitmap(image);
+                        } // end onActivityResult
+                    }
+                }
+        );
+
+        // Location result receiver
+        locationResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            Bundle bundle = result.getData().getExtras();
+                            latitude = (double) bundle.get("latitude");
+                            longitude = (double) bundle.get("longitude");
                         } // end onActivityResult
                     }
                 }
@@ -177,31 +196,11 @@ public class QrAddScreenActivity extends AppCompatActivity {
             } // end onClick
         });
 
-        try {
-            if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
-                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-                    latitude = location.getLatitude();
-                    longitude = location.getLongitude();
-                }
-            }
-        });
-
         addLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 2022-03-13 Implement Better
-                SetLocation = true;
+                Intent intent = new Intent(QrAddScreenActivity.this, SelectQRLocationActivity.class);
+                locationResultLauncher.launch(intent);
 
             } // end onClick
         }); // end addLocation.setOnClickListener
@@ -213,9 +212,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 // Ronggang(Alex) implemented comment check in the QRCode class
                 Boolean nameCheck = false;
                 Boolean scanCheck = false;
-
                 Boolean photoCheck = false;
-                Boolean locationCheck = false;
 
                 // for testing
                 //qrValue = "AAA";
@@ -236,14 +233,8 @@ public class QrAddScreenActivity extends AppCompatActivity {
 
                     String playerID = loadData(getApplicationContext(), "uniqueID");
                     QRCode scannedQR;
-                    // Call QRCode constructor here
-                    if(SetLocation) {
-                        scannedQR = new QRCode(qrValue, qrName,
-                                playerID, qrComment, latitude, longitude);
-                    } else {
-                        scannedQR = new QRCode(qrValue, qrName,
-                                playerID, qrComment, 200, 200);
-                    }
+                    scannedQR = new QRCode(qrValue, qrName, playerID, qrComment, latitude, longitude);
+
 
                     // store the scanned code to database
                     scannedQR.saveToDatabase();
@@ -297,15 +288,15 @@ public class QrAddScreenActivity extends AppCompatActivity {
                                                 } else {
                                                     Log.d(TAG, "Error getting documents: ", task.getException());
                                                 }
-                                            }
+                                            } // end onComplete
                                         });
 
-                                //return to previous activity
+                                // Return to previous activity
                                 finish();
                             } else {
                                 Toast.makeText(getApplicationContext(),"Load Failed",Toast.LENGTH_LONG).show();
                             }
-                        }
+                        } // end onComplete
                     }); // end addOnCompleteListener
 
 
@@ -349,8 +340,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
     public void cameraAddPhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraResultLauncher.launch(intent);
-
-    }
+    } // end cameraAddPhoto
 
 
     /**
@@ -360,8 +350,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         galleryResultLauncher.launch(intent);
-
-    }
+    } // end galleryAddPhoto
 
     /**
      * Takes the bitmap image, compress it to JPG file, and upload that to firebase storage
@@ -378,7 +367,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
         if(img.getByteCount() > 5000) {
             imgQuality = 50;
 
-            //resize image
+            // Resize image
             if (img.getWidth() > 500) {
                 double scale = 250 / img.getWidth();
                 int width = 250;
@@ -390,7 +379,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
             }
         }
 
-        //compress the image and convert it to byte array
+        // Compress the image and convert it to byte array
         ByteArrayOutputStream imgBuffer = new ByteArrayOutputStream();
         img.compress(Bitmap.CompressFormat.JPEG, imgQuality, imgBuffer); //compress to smallest size
         byte[] imageBytes = imgBuffer.toByteArray();
@@ -401,15 +390,14 @@ public class QrAddScreenActivity extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 String downloadUrl = taskSnapshot.getMetadata().getPath();
                 Toast.makeText(getApplicationContext(), downloadUrl, Toast.LENGTH_SHORT).show();
-            }
+            } // end onSuccess
         })
                 .addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 e.printStackTrace();
                 Toast.makeText(getApplicationContext(), "upload failed", Toast.LENGTH_SHORT).show();
-
-            }
+            } // end onFailure
         });
-    }
+    } // end compressAndUpload
 } // end QrAddScreenActivity Class

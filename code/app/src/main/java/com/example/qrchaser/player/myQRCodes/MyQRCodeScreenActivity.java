@@ -83,7 +83,7 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
                     } else {
                         Log.d(TAG, "Error getting documents: ", task.getException());
                     }
-            }
+            } // end onComplete
         });
 
 
@@ -92,16 +92,16 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
             public void onClick(View v) {
                 Collections.sort(qrCodes, new QRCodeScoreComparator1());
                 qrCodeAdapter.notifyDataSetChanged();
-            }
-        });
+            } // end onClick
+        }); // end highToLowButton.setOnClickListener
 
         lowToHighButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Collections.sort(qrCodes, new QRCodeScoreComparator2());
                 qrCodeAdapter.notifyDataSetChanged();
-            }
-        });
+            } // end onClick
+        }); // end lowToHighButton.setOnClickListener
 
 
         // Click on the Name to see details about the code
@@ -112,8 +112,8 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
                 Intent intent = new Intent(MyQRCodeScreenActivity.this, EditQRCodeScreenActivity.class);
                 intent.putExtra("qrHash", selectedQrCode.getHash());
                 startActivity(intent);
-            }
-        });
+            } // end onItemClick
+        }); // end myQRCodeListView.setOnItemClickListener
 
 
         bottomNavigationView.setSelectedItemId(R.id.my_qr_code);
@@ -137,7 +137,7 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
                         return true;
                 }
                 return false;
-            }
+            } //end onNavigationItemSelected
         });
 
 
@@ -147,7 +147,6 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
             public void onClick(View view) {
                 Intent intent = new Intent(MyQRCodeScreenActivity.this, QrAddScreenActivity.class);
                 startActivity(intent);
-                finish();
             } // end onClick
         }); // end addQR.setOnClickListener
     } // end onCreate
