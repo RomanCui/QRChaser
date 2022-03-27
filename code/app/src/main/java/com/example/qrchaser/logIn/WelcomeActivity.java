@@ -1,23 +1,23 @@
 package com.example.qrchaser.logIn;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Debug;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-import com.example.qrchaser.player.CameraScannerActivity;
-import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
+
 import com.example.qrchaser.R;
 import com.example.qrchaser.general.SaveANDLoad;
 import com.example.qrchaser.oop.Player;
+import com.example.qrchaser.player.CameraScannerActivity;
+import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -25,11 +25,14 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-// This activity allows user to go to login with a qr code or with a new account
+/**
+ * This Activity Class allows user to go to login with a qr code or with a new account
+ */
 public class WelcomeActivity extends SaveANDLoad {
+    // UI
     private Button qrCode, createAccount;
+    // General Data
     private String qrValue;
-    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +77,8 @@ public class WelcomeActivity extends SaveANDLoad {
                         if(result.getResultCode() == Activity.RESULT_OK) {
                             Intent scannerResult = result.getData();
                             qrValue = scannerResult.getStringExtra("qrValue");
-                            //for testing the result
-                           // Toast.makeText(getApplicationContext(), qrValue, Toast.LENGTH_SHORT).show();
+                            // For testing the result
+                            // Toast.makeText(getApplicationContext(), qrValue, Toast.LENGTH_SHORT).show();
                             // Use the data
                             String[] qrDataArray = qrValue.split(",");
                             if (qrDataArray[0].contentEquals("QRCHASERLOGIN")){
@@ -99,7 +102,7 @@ public class WelcomeActivity extends SaveANDLoad {
                                     public void onFailure(@NonNull Exception e) {
                                         Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
                                     } // end onFailure
-                                }); // end myAccount.get().addOnSuccessListener
+                                });
                             }
                         }
                     } // end onActivityResult
@@ -128,5 +131,5 @@ public class WelcomeActivity extends SaveANDLoad {
         }); // end qrCode.setOnClickListener
 
     } // end onCreate
-} // end MainActivity Class
+} // end WelcomeActivity Class
 

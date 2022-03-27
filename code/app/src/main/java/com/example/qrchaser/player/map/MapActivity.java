@@ -15,15 +15,15 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.qrchaser.R;
-import com.example.qrchaser.oop.QRCode;
-import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
 import com.example.qrchaser.player.browse.BrowseQRActivity;
+import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
 import com.example.qrchaser.player.profile.PlayerProfileActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -54,18 +54,23 @@ import org.osmdroid.views.overlay.simplefastpoint.SimplePointTheme;
 import java.util.ArrayList;
 import java.util.List;
 
-// This activity allows user to view QR codes in a map
+/**
+ * This Activity Class allows the user to view QR codes in a map
+ */
 public class MapActivity extends AppCompatActivity{
+    // UI
+    private BottomNavigationView bottomNavigationView;
+    // Permissions
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
+    // Map & Map Overlays
     private MapView map = null;
     private CompassOverlay mapCompassOverlay;
     private MyLocationNewOverlay myLocationOverlay;
     private RotationGestureOverlay mapRotationGestureOverlay;
     private ScaleBarOverlay mapScaleBarOverlay;
-    private BottomNavigationView bottomNavigationView;
-
-    final String TAG = "Sample";
-    FirebaseFirestore db;
+    // Database
+    private final String TAG = "Sample";
+    private FirebaseFirestore db;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -114,9 +119,6 @@ public class MapActivity extends AppCompatActivity{
         this.myLocationOverlay.enableFollowLocation();
         map.getOverlays().add(this.myLocationOverlay);
 
-
-
-
         // Enable rotation gestures
         mapRotationGestureOverlay = new RotationGestureOverlay(map);
         mapRotationGestureOverlay.setEnabled(true);
@@ -136,8 +138,7 @@ public class MapActivity extends AppCompatActivity{
         db = FirebaseFirestore.getInstance();
 
         // Get a top level reference to the collection
-        final CollectionReference QRCodesReference =
-                db.collection("QRCodes");
+        final CollectionReference QRCodesReference = db.collection("QRCodes");
 
         db.collection("QRCodes")
                 .get()
@@ -160,8 +161,8 @@ public class MapActivity extends AppCompatActivity{
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
-                    }
-                });
+                    } // end onComplete
+                }); // db.collection("QRCodes").get().addOnCompleteListener
         
         // *************************** Test Points ************************
         // Create 10k labelled points, in most cases, there will be no problems of displaying >100k points
@@ -234,8 +235,8 @@ public class MapActivity extends AppCompatActivity{
                         return true;
                 }
                 return false;
-            }
-        });
+            } // end onNavigationItemSelected
+        }); // end  bottomNavigationView.setOnItemSelectedListener
     } // end onCreate
 
     @Override

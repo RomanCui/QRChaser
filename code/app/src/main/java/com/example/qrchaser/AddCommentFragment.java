@@ -18,7 +18,7 @@ public class AddCommentFragment extends DialogFragment {
 
     public interface OnFragmentInteractionListener {
         void onOkPressed(String comment, int returnCode);
-    }
+    } // end OnFragmentInteractionListener
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -29,14 +29,13 @@ public class AddCommentFragment extends DialogFragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-    }
+    } // end onAttach
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_add_comment, null);
         EditText addComment = view.findViewById(R.id.add_comment_editText);
-
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         return builder
@@ -51,7 +50,7 @@ public class AddCommentFragment extends DialogFragment {
                         if(!comment.isEmpty()) {
                             listener.onOkPressed(comment, 2);
                         }
-                    }
+                    } // end onClick
                 }).create();
-    }
-}
+    } // end onCreateDialog
+} // end AddCommentFragment Class

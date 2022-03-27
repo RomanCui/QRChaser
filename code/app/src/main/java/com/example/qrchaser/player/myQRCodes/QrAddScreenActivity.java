@@ -6,8 +6,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -24,93 +22,79 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import com.example.qrchaser.QRcodeInfoActivity;
 import com.example.qrchaser.R;
 import com.example.qrchaser.oop.Player;
 import com.example.qrchaser.oop.QRCode;
 import com.example.qrchaser.oop.QRCodeScoreComparator1;
 import com.example.qrchaser.player.CameraScannerActivity;
 import com.example.qrchaser.player.QrAddScreenAddPhotoFragment;
-import com.example.qrchaser.player.browse.BrowseQRActivity;
 import com.example.qrchaser.player.map.SelectQRLocationActivity;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.Source;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 
-// This class let the user to add QR codes
-// The QR code must be added with a name
-// The QR code can be added with a photo (In progress)
-// a location (Under review), and a comment
+/**
+ * This Activity Class allows the user to add QR codes.
+ * The QR code must be added with a name, but may include a photo (In progress),
+ * location (Under review), and a comment.
+ */
 public class QrAddScreenActivity extends AppCompatActivity {
-
+    // UI
     private Button scan, addPhoto, addLocation, confirm, cancel;
     private EditText nicknameET, commentET;
     private Bitmap image;
     private ImageView imageView;
-    String qrName, qrComment;
-    String qrValue;
-
+    // QR code Data
+    private String qrName, qrComment, qrValue;
+    private ArrayList<QRCode> qrCodes = new ArrayList<>();
+    // Both impossible values as the default (For checking if a location was set or not)
+    private double latitude = 200;
+    private double longitude  = 200;
+    // Player Data
+    private Player currentPlayer;
+    private int numQR, totalScore, singleScore;
+    // ActivityResultLaunchers
     private ActivityResultLauncher<Intent> galleryResultLauncher;
     private ActivityResultLauncher<Intent> cameraResultLauncher;
     private ActivityResultLauncher<Intent>  locationResultLauncher;
-
-    private FusedLocationProviderClient fusedLocationProviderClient;
-    // Both impossible values
-    private double latitude = 200;
-    private double longitude  = 200;
-    private boolean SetLocation = false;
-
-    final String TAG = "Sample";
-    FirebaseFirestore db;
-    Player currentPlayer;
-    private ArrayList<QRCode> qrCodes = new ArrayList<>();
-    int numQR, totalScore, singleScore;
+    // Database
+    private final String TAG = "Error";
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr_add_screen);
 
+        // Setup UI
         scan = findViewById(R.id.qr_scan_button);
         addPhoto = findViewById(R.id.qr_add_photo_button);
         addLocation = findViewById(R.id.qr_add_location_button);
         confirm = findViewById(R.id.qr_confirm_button);
         cancel = findViewById(R.id.qr_add_cancel_button);
-
         nicknameET = findViewById(R.id.qr_nickname_edit_text);
         commentET = findViewById(R.id.qr_comments_edit_text);
-
         imageView = findViewById(R.id.qr_image_preview_imageView);
 
-        //scanner result receiver
+        // Scanner result receiver
         ActivityResultLauncher<Intent> scannerResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {

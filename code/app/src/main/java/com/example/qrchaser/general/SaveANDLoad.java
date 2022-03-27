@@ -4,11 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.appcompat.app.AppCompatActivity;
 
-
-// This class makes it convenient to sava and load data with shared preference
-// Complete
+/**
+ * This class makes it convenient to sava and load data with shared preference
+ */
 public class SaveANDLoad extends AppCompatActivity {
-
     private static final String SHARED_PREFS = "sharedPrefs";
 
     public static void saveData(Context context, String key, String text) {

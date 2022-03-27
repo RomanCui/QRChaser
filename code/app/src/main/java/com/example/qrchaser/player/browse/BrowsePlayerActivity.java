@@ -1,8 +1,5 @@
 package com.example.qrchaser.player.browse;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,7 +11,9 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.qrchaser.QRcodeInfoActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.qrchaser.R;
 import com.example.qrchaser.general.PlayerAdapter1;
 import com.example.qrchaser.general.PlayerAdapter2;
@@ -23,7 +22,6 @@ import com.example.qrchaser.oop.Player;
 import com.example.qrchaser.oop.PlayerNumQRComparator;
 import com.example.qrchaser.oop.PlayerSingleScoreComparator;
 import com.example.qrchaser.oop.PlayerTotalScoreComparator;
-import com.example.qrchaser.oop.QRCode;
 import com.example.qrchaser.player.map.MapActivity;
 import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
 import com.example.qrchaser.player.profile.FoundPlayerProfileActivity;
@@ -40,17 +38,22 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * This Activity Class allows the user to browse players game wide
+ */
 public class BrowsePlayerActivity extends AppCompatActivity {
-
-    BottomNavigationView topNavigationView,bottomNavigationView;
-    ImageButton numButton, totalButton, singleButton;
-    TextView scoreType;
-    final String TAG = "Sample";
-    FirebaseFirestore db;
-    private ArrayList<Player> players = new ArrayList<>();
+    // UI
+    private BottomNavigationView topNavigationView,bottomNavigationView;
+    private ImageButton numButton, totalButton, singleButton;
+    private TextView scoreType;
     private ArrayAdapter<Player> playersAdapter1, playersAdapter2, playersAdapter3;
-    ListView playersListView;
+    private ListView playersListView;
     private int currentAdapter;
+    // General Data
+    private ArrayList<Player> players = new ArrayList<>();
+    // Database
+    private final String TAG = "Error";
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

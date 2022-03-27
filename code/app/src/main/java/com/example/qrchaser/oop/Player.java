@@ -23,7 +23,9 @@ public class Player {
     private int totalScore;
     private int highestScore;
 
-    // For new player (no details yet)
+    /**
+     * This constructor creates a new player with the default data;
+     */
     public Player(){
         this.uniqueID = "" + UUID.randomUUID();
         this.email = "";
@@ -35,8 +37,9 @@ public class Player {
         this.highestScore = 0;
     }
 
-    // This method saves a player to the database
-    // used in create account
+    /**
+     * This saves the player object to the database for the first time (Used in create player)
+     */
     public void saveToDatabase(){
         // create Firestore collection
         final String TAG = "Error";
@@ -63,6 +66,9 @@ public class Player {
                 });
     } // end  saveToDatabase
 
+    /**
+     * This updates the database with the data contained in the current player object
+     */
     public void updateDatabase(){
         // Create Firestore collection
         FirebaseFirestore db;
@@ -157,27 +163,51 @@ public class Player {
         return uniqueID;
     } // end uniqueID
 
+    /**
+     * This gets the number of QR codes that the player has
+     * @return The number of QR codes
+     */
     public int getNumQR() {
         return numQR;
-    }
+    } // end getNumQR
 
+    /**
+     * This sets the number of QR codes that the player has
+     * @param numQR
+     */
     public void setNumQR(int numQR) {
         this.numQR = numQR;
-    }
+    } // end setNumQR
 
+    /**
+     * This gets the total score that the player has
+     * @return The total score
+     */
     public int getTotalScore() {
         return totalScore;
-    }
+    } // end getTotalScore
 
+    /**
+     * This sets the total score that the player has
+     * @param totalScore
+     */
     public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
-    }
+    } // end setTotalScore
 
+    /**
+     * This gets the highest score that the player has
+     * @return The highest score
+     */
     public int getHighestScore() {
         return highestScore;
-    }
+    } // end getHighestScore
 
+    /**
+     * This sets the highest score that the player has
+     * @param highestScore
+     */
     public void setHighestScore(int highestScore) {
         this.highestScore = highestScore;
-    }
+    } // end setHighestScore
 } // end Player Class

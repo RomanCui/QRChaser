@@ -7,23 +7,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.qrchaser.R;
-import com.example.qrchaser.logIn.WelcomeActivity;
-import com.example.qrchaser.player.CameraScannerActivity;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -43,17 +38,22 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
 
+/**
+ * This Activity Class allows the user to select the location of a QR code on a map
+ */
 public class SelectQRLocationActivity extends AppCompatActivity {
-
+    // Permissions
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
+    // Map & Map Overlays
     private MapView map = null;
     private CompassOverlay mapCompassOverlay;
     private MyLocationNewOverlay myLocationOverlay;
     private RotationGestureOverlay mapRotationGestureOverlay;
     private ScaleBarOverlay mapScaleBarOverlay;
+    // The  marker and location for the QR Code
     private GeoPoint QRLocation;
     private Marker QRLocationMarker = null;
-    private LocationManager locationManager;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +97,6 @@ public class SelectQRLocationActivity extends AppCompatActivity {
         this.myLocationOverlay.enableMyLocation();
         this.myLocationOverlay.enableFollowLocation();
         map.getOverlays().add(this.myLocationOverlay);
-
 
         // Enable rotation gestures
         mapRotationGestureOverlay = new RotationGestureOverlay(map);

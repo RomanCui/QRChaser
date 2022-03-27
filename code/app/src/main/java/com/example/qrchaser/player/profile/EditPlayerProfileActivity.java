@@ -1,15 +1,15 @@
 package com.example.qrchaser.player.profile;
 
-import androidx.annotation.NonNull;
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+
 import com.example.qrchaser.R;
 import com.example.qrchaser.general.SaveANDLoad;
 import com.example.qrchaser.logIn.WelcomeActivity;
@@ -22,20 +22,24 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Source;
 
-// This activity lets user change password, nickname and phone number
+/**
+ * This Activity Class allows the user to see and change their password, nickname and phone number
+ */
 public class EditPlayerProfileActivity extends SaveANDLoad {
+    // UI
     private EditText emailET, nicknameET, phoneNumberET;
     private Button buttonConfirm, buttonSignOut, buttonGenerateLoginQRCode, buttonGenerateInfoQRCode;
-    String[] PlayerData = new String[5];
-    final String TAG = "Sample";
-    FirebaseFirestore db;
-    Player currentPlayer;
+    // Database
+    private FirebaseFirestore db;
+    // General Data
+    private Player currentPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_player_profile);
 
+        // Setup UI
         emailET = findViewById(R.id.editTextEmail);
         nicknameET = findViewById(R.id.editTextNickname);
         phoneNumberET = findViewById(R.id.editTextPhone);

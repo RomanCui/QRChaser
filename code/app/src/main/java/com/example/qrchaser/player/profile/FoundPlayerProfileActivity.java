@@ -1,11 +1,7 @@
 package com.example.qrchaser.player.profile;
 
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,13 +14,8 @@ import com.example.qrchaser.oop.Player;
 import com.example.qrchaser.oop.PlayerNumQRComparator;
 import com.example.qrchaser.oop.PlayerSingleScoreComparator;
 import com.example.qrchaser.oop.PlayerTotalScoreComparator;
-import com.example.qrchaser.player.browse.BrowseQRActivity;
-import com.example.qrchaser.player.map.MapActivity;
-import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -36,24 +27,27 @@ import com.google.firebase.firestore.Source;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
+/**
+ * This Activity Class is opened when a user vists another players profile (Shows the data of the player who's profile is being visted)
+ */
 public class FoundPlayerProfileActivity extends SaveANDLoad {
-    private TextView nicknameTV;
-    private FirebaseFirestore db;
+    // UI
+    private TextView nickname_text, num_QR_ranking_text, total_score_ranking_text, single_score_ranking_text, num_QR_text, total_score_text, single_score_text;
+    private Button backButton;
     private ArrayList<Player> players = new ArrayList<>();
-    private TextView num_QR_text, total_score_text, single_score_text;
-    private final String TAG = "Error";
+    // General Data
     private Player currentPlayer;
     private int num_QR_ranking, total_score_ranking, single_score_ranking;
-    private TextView num_QR_ranking_text, total_score_ranking_text, single_score_ranking_text;
-    private Button backButton;
+    // Database
+    private FirebaseFirestore db;
+    private final String TAG = "Error";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_found_player_profile);
 
-        nicknameTV = findViewById(R.id.desired_player_nickname);
+        nickname_text = findViewById(R.id.desired_player_nickname);
         num_QR_text = findViewById(R.id.num_qr_2);
         total_score_text = findViewById(R.id.total_score_2);
         single_score_text = findViewById(R.id.single_score_2);
@@ -90,7 +84,7 @@ public class FoundPlayerProfileActivity extends SaveANDLoad {
                 } else {
                     Toast.makeText(getApplicationContext(),"Load Failed",Toast.LENGTH_LONG).show();
                 }
-                nicknameTV.setText(currentPlayer.getNickname());
+                nickname_text.setText(currentPlayer.getNickname());
                 num_QR_text.setText(String.valueOf(currentPlayer.getNumQR()));
                 total_score_text.setText(String.valueOf(currentPlayer.getTotalScore()));
                 single_score_text.setText(String.valueOf(currentPlayer.getHighestScore()));

@@ -20,6 +20,9 @@ URL: https://www.geeksforgeeks.org/how-to-generate-qr-code-in-android/
 Author: https://auth.geeksforgeeks.org/user/chaitanyamunje
  */
 
+/**
+ * This Activity Class is opened when a user needs to generate a QR code (To login or share their profile)
+ */
 public class GeneratedQRCodeActivity extends AppCompatActivity {
     private ImageView qrCodeIV;
     private String QRData = "Something Went Wrong";
@@ -55,7 +58,7 @@ public class GeneratedQRCodeActivity extends AppCompatActivity {
             bitmap = qrgEncoder.encodeAsBitmap();
             qrCodeIV.setImageBitmap(bitmap);
         } catch (WriterException e) {
-            Log.e("Tag", e.toString());
+            Log.e("Error", e.toString());
         }
     } // end onCreate
 } // end GeneratedQRCodeActivity Class

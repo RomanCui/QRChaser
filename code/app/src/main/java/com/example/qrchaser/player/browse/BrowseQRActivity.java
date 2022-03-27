@@ -32,18 +32,21 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Collections;
 
-// This activity allows user to browse QR codes game wide
-// A twin activity to browse players is to be developed
+// TODO: 2022-03-27  A twin activity to browse players is to be developed? (Who wrote this and what does it mean)
+/**
+ * This Activity Class allows the user to browse QR codes game wide
+ */
 public class BrowseQRActivity extends AppCompatActivity {
-
+    // UI
     private BottomNavigationView bottomNavigationView,topNavigationView;
-    final String TAG = "Sample";
-    FirebaseFirestore db;
+    private ImageButton highToLowButton, lowToHighButton;
     private ArrayAdapter<QRCode> qrCodeAdapter;
+    private ListView myQRCodeListView;
+    // General Data
     private ArrayList<QRCode> qrCodes = new ArrayList<>();
-    ListView myQRCodeListView;
-    ImageButton highToLowButton;
-    ImageButton lowToHighButton;
+    // Database
+    private final String TAG = "Error";
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

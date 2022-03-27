@@ -18,7 +18,7 @@ public class QrChangeNameFragment extends DialogFragment {
 
     public interface OnFragmentInteractionListener {
         void onOkPressed(String newName, int returnCode);
-    }
+    } // end OnFragmentInteractionListener
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -29,7 +29,7 @@ public class QrChangeNameFragment extends DialogFragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-    }
+    } // end onAttach
 
     @NonNull
     @Override
@@ -52,6 +52,6 @@ public class QrChangeNameFragment extends DialogFragment {
                         }
                     }
                 }).create();
-    }
-}
+    } // end onCreateDialog
+} // end QrChangeNameFragment Class
 

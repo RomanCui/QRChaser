@@ -31,27 +31,27 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
-// This activity allows user to see there own QR codes
+/**
+ * This Activity Class allows the user to see their own QR codes
+ */
 public class MyQRCodeScreenActivity extends SaveANDLoad {
-
-    final String TAG = "Sample";
-    FirebaseFirestore db;
-
+    // UI
+    private ImageButton highToLowButton, lowToHighButton;
     private BottomNavigationView bottomNavigationView;
     private FloatingActionButton addQR;
+    private ArrayList<QRCode> qrCodes = new ArrayList<>();
     private ListView myQRCodeListView;
     private ArrayAdapter<QRCode> qrCodeAdapter;
-    private ArrayList<QRCode> qrCodes = new ArrayList<>();
-    ImageButton highToLowButton;
-    ImageButton lowToHighButton;
-
+    // Database
+    private final String TAG = "Error";
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_qrcode_screen);
 
+        // Setup UI
         myQRCodeListView = findViewById(R.id.listViewQRCode);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         addQR = findViewById(R.id.floatingActionButton);

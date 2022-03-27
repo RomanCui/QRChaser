@@ -1,16 +1,9 @@
 package com.example.qrchaser.player.myQRCodes;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,11 +11,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.example.qrchaser.AddCommentFragment;
 import com.example.qrchaser.QrChangeNameFragment;
 import com.example.qrchaser.R;
 import com.example.qrchaser.general.CommentAdapter;
-import com.example.qrchaser.general.QRCodeAdapter;
 import com.example.qrchaser.general.SaveANDLoad;
 import com.example.qrchaser.oop.Comments;
 import com.example.qrchaser.oop.Player;
@@ -35,37 +29,31 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import org.w3c.dom.Text;
-
-import java.net.URI;
-import java.util.List;
-
-// To be completed
+// TODO: 2022-03-27  To be completed
 public class EditQRCodeScreenActivity extends SaveANDLoad implements AddCommentFragment.OnFragmentInteractionListener, QrChangeNameFragment.OnFragmentInteractionListener {
-
+    // UI
+    private Button changeComments, changeName, removeQR, backButton;
+    private ImageView qrImageView;
+    private TextView qrName, qrScore;
+    private ListView qrCommentsListView;
+    private ArrayAdapter<Comments> commentsAdapter;
+    // General Data
     private String hash;
-    private FirebaseFirestore db;
     private Player player;
     private QRCode qrCode;
-    private ArrayAdapter<Comments> commentsAdapter;
-
-    Button changeComments, changeName, removeQR, backButton;
-    ImageView qrImageView;
-    TextView qrName;
-    TextView qrScore;
-    ListView qrCommentsListView;
+    // Database
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_qrcode_screen);
 
+        // Setup UI
         changeComments = findViewById(R.id.qr_change_comments_button);
         changeName = findViewById(R.id.qr_change_name_button);
         removeQR = findViewById(R.id.qr_remove_button);
@@ -77,7 +65,7 @@ public class EditQRCodeScreenActivity extends SaveANDLoad implements AddCommentF
 
         hash = getIntent().getStringExtra("qrHash");
 
-        //query for the selected qrcode using hash
+        // Query for the selected qrcode using hash
         db = FirebaseFirestore.getInstance();
         DocumentReference QRCodeReference = db.collection("QRCodes").document(hash);
         QRCodeReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -98,10 +86,10 @@ public class EditQRCodeScreenActivity extends SaveANDLoad implements AddCommentF
                 } else {
                     Log.d("queryQR", "Error getting documents: ", task.getException());
                 }
-            }
-        });
+            } // end onComplete
+        }); // end QRCodeReference.get().addOnCompleteListener
 
-        // query for the user using uniqueID, and construct Player object
+        // Query for the user using uniqueID, and construct Player object
         String playerID = loadData(getApplicationContext(), "uniqueID");
         CollectionReference accountsRef = db.collection("Accounts");
         DocumentReference myAccount = accountsRef.document(playerID);
@@ -121,42 +109,42 @@ public class EditQRCodeScreenActivity extends SaveANDLoad implements AddCommentF
         }); // end addOnCompleteListener
 
 
-        //add new comments
+        // Add new comments
         changeComments.setOnClickListener((v) -> {
             new AddCommentFragment().show(getSupportFragmentManager(), "ADD_COMMENT");
-        });
+        }); // end  changeComments.setOnClickListener
 
-        //change the qr name
+        // Change the qr name
         changeName.setOnClickListener((v) -> {
             new QrChangeNameFragment().show(getSupportFragmentManager(), "CHANGE_QR_NAME");
-        });
+        }); // end changeName.setOnClickListener
 
-        //remove the user from this qrcode, return to previous activity if successful
+        // Remove the user from this qrcode, return to previous activity if successful
         removeQR.setOnClickListener((v) -> {
             if(qrCode.removeOwner(playerID)) {
                 qrCode.saveToDatabase();
                 finish();
             }
-        });
+        }); // end removeQR.setOnClickListener
 
-        //back to previous activity
+        // Back to previous activity
         backButton.setOnClickListener((v) -> {
             finish();
-        });
-    }
+        }); // end backButton.setOnClickListener
+    } // end onCreate
 
     private void updateTextView() {
         qrName.setText("Name: " + qrCode.getName());
         qrScore.setText("Score: " + qrCode.getScore());
-    }
+    } // end updateTextView
 
-    //return download the img if exist, and update imageView
+    // Return download the img if exist, and update imageView
     private void updateImageView() {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReferenceFromUrl("gs://qrchaseredition2.appspot.com");
         StorageReference imgReference = storageReference.child(qrCode.getName() + ".jpg");
 
-        //set max img size to ~10kb, most image size should be around 5kb
+        // Set max img size to ~10kb, most image size should be around 5kb
         imgReference.getBytes(10000)
                 .addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
@@ -165,21 +153,20 @@ public class EditQRCodeScreenActivity extends SaveANDLoad implements AddCommentF
                 Bitmap imgBM = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 qrImageView.setImageBitmap(imgBM);
                 Log.d("LoadImg", "Img Found");
-            }
+            } // end onSuccess
         })
                 .addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 e.printStackTrace();
                 Log.d("LoadImg", "Img not found");
-            }
+            } // end onFailure
         });
-    }
+    } // end updateImageView
 
     @Override
     public void onOkPressed(String returnedString, int returnCode) {
-
-        //Change name fragment
+        // Change name fragment
         if (returnCode == 1) {
             String newName = returnedString;
             qrCode.setName(newName);
@@ -187,7 +174,7 @@ public class EditQRCodeScreenActivity extends SaveANDLoad implements AddCommentF
             updateTextView();
         }
 
-        //Add Comment fragment
+        // Add Comment fragment
         if (returnCode == 2) {
             String comment = returnedString;
             String username = player.getNickname();
@@ -196,6 +183,5 @@ public class EditQRCodeScreenActivity extends SaveANDLoad implements AddCommentF
             qrCode.saveToDatabase();
             commentsAdapter.notifyDataSetChanged();
         }
-
-    }
-}
+    } // end onOkPressed
+} // end EditQRCodeScreenActivity Class

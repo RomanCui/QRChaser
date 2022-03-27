@@ -16,7 +16,6 @@ import com.example.qrchaser.oop.Comments;
 import java.util.ArrayList;
 
 public class CommentAdapter extends ArrayAdapter<Comments> {
-
     private ArrayList<Comments> comments;
     private Context context;
 
@@ -24,7 +23,7 @@ public class CommentAdapter extends ArrayAdapter<Comments> {
         super(context, resource, comments);
         this.comments = comments;
         this.context = context;
-    }
+    } // end CommentAdapter Constructor
 
     @NonNull
     @Override
@@ -43,5 +42,5 @@ public class CommentAdapter extends ArrayAdapter<Comments> {
         commentTV.setText(comment.getComment());
 
         return view;
-    }
-}
+    } // end getView
+} // end CommentAdapter Class

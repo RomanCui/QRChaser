@@ -3,39 +3,29 @@ package com.example.qrchaser.oop;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.common.hash.Hashing;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
  * This class holds all of the data for a single QR code
  */
 public class QRCode implements Comparable<QRCode>{
-
-    // use hash as id
     private String hash;
     private String name;
     private int score;
-    // Photo to be added
-
-    // I am unsure as to how these two will be implemented
     private double latitude;
     private double longitude;
-    //private image image;
     private ArrayList<Comments> comments = new ArrayList<>();
     private List<String> owners = new ArrayList<>();
+    // Photo to be added?
 
 
     /**
@@ -52,12 +42,13 @@ public class QRCode implements Comparable<QRCode>{
         this.name = name;
         this.owners.add(owner);
 
-        // only add comments that are not empty
+        // Only add comments that are not empty
         if (!comment.equals("")){
             this.comments.add(new Comments(owner, comment));
         }
         this.latitude = latitude;
         this.longitude = longitude;
+
         // Calculate the score from the hash
         List<Integer> asciiList = new ArrayList<>();
         for (int i = 0; i < hash.length(); i++){
@@ -76,17 +67,14 @@ public class QRCode implements Comparable<QRCode>{
         this.score *= multiplier;
     } // end QRCode Constructor
 
-    public QRCode() {
-
-    }
-
+    /**
+     * This saves the QR code object to the database
+     */
     public void saveToDatabase(){
-
         final String TAG = "Sample";
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
         CollectionReference QRCodesReference = db.collection("QRCodes");
-
 
         QRCodesReference
                 .document(hash)
@@ -96,21 +84,25 @@ public class QRCode implements Comparable<QRCode>{
                     public void onSuccess(Void aVoid) {
                         // These are a method which gets executed when the task is succeeded
                         Log.d(TAG, "Data has been added successfully!");
-                    }
+                    } // end onSuccess
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         // These are a method which gets executed if there’s any problem
                         Log.d(TAG, "Data could not be added!" + e.toString());
-                    }
+                    } // end onFailure
                 });
-    }
+    } // end saveToDatabase
 
+    /**
+     * This compares 2 QR codes together so they can be ordered.
+     * @param otherQR
+     */
     @Override
-    public int compareTo(QRCode o) {
-        return name.toLowerCase().compareTo(o.getName().toLowerCase());
-    }
+    public int compareTo(QRCode otherQR) {
+        return name.toLowerCase().compareTo(otherQR.getName().toLowerCase());
+    } // end compareTo
 
     /**
      * This gets the name of the QRCode
@@ -160,41 +152,79 @@ public class QRCode implements Comparable<QRCode>{
         return longitude;
     } // end getLongitude
 
+    /**
+     * This sets the hash value of the QRCode
+     * @param hash
+     */
     public void setHash(String hash) {
         this.hash = hash;
-    }
+    } // end setHash
 
+    /**
+     * This gets the score of the QRCode
+     * @return The score of the QRCode
+     */
     public void setScore(int score) {
         this.score = score;
-    }
+    } // end setScore
 
+    /**
+     * This sets the latitude of the QRCode
+     * @param latitude
+     */
     public void setLatitude(double latitude) {
         this.latitude = latitude;
-    }
+    } // end setLatitude
 
+    /**
+     * This sets the longitude of the QRCode
+     * @param longitude
+     */
     public void setLongitude(double longitude) {
         this.longitude = longitude;
-    }
+    } // end setLongitude
 
+    /**
+     * This gets all of the comments that were made on the QRCode
+     * @return An arrayList of all of the comments
+     */
     public ArrayList<Comments> getComments() {
         return comments;
-    }
+    } // end getComments
 
+    /**
+     * This sets the ArrayList of comments on the QRCode
+     * @param comments
+     */
     public void setComments(ArrayList<Comments> comments) {
         this.comments = comments;
-    }
+    } // end setComments
 
+    /**
+     * This gets the all of the owners of the QRCode
+     * @return An ArrayList of all of the owners
+     */
     public List<String> getOwners() {
         return owners;
-    }
+    } // end getOwners
 
+    /**
+     * This sets the List of owners on the QRCode
+     * @param owners
+     */
     public void setOwners(List<String> owners) {
         this.owners = owners;
-    }
+    } // end setOwners
 
-    public Boolean removeOwner(String owner) { return owners.remove(owner); }
+    /**
+     * This removes and owner from the List of owners on the QRCode
+     * @param owner
+     */
+    public Boolean removeOwner(String owner) { return owners.remove(owner); } // end removeOwner
 
-    public void addComment(String user, String comment) { comments.add(new Comments(user, comment)); }
-
-
+    /**
+     * This adds a comment to ArrayList of comments on the QRCode
+     * @param comment
+     */
+    public void addComment(String user, String comment) { comments.add(new Comments(user, comment)); } // end addComment
 }// end QRCode Class

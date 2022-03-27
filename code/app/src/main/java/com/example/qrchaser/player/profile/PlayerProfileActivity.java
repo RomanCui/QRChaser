@@ -1,7 +1,5 @@
 package com.example.qrchaser.player.profile;
 
-
-import androidx.annotation.NonNull;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,20 +9,20 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.example.qrchaser.R;
+import com.example.qrchaser.general.SaveANDLoad;
 import com.example.qrchaser.oop.Player;
 import com.example.qrchaser.oop.PlayerNumQRComparator;
 import com.example.qrchaser.oop.PlayerSingleScoreComparator;
 import com.example.qrchaser.oop.PlayerTotalScoreComparator;
-import com.example.qrchaser.oop.QRCode;
-import com.example.qrchaser.oop.QRCodeScoreComparator1;
+import com.example.qrchaser.player.browse.BrowseQRActivity;
+import com.example.qrchaser.player.map.MapActivity;
 import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.example.qrchaser.R;
-import com.example.qrchaser.general.SaveANDLoad;
-import com.example.qrchaser.player.browse.BrowseQRActivity;
-import com.example.qrchaser.player.map.MapActivity;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -37,25 +35,28 @@ import com.google.firebase.firestore.Source;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
+/**
+ * This Activity Class shows off the player profile and that data contained in their account (such as qr codes and total score)
+ */
 public class PlayerProfileActivity extends SaveANDLoad {
+    // UI
     private Button buttonPlayerInfo;
     private BottomNavigationView bottomNavigationView;
-    private TextView nicknameTV;
+    private TextView nickname_text, num_QR_text, total_score_text, single_score_text, num_QR_ranking_text, total_score_ranking_text, single_score_ranking_text;
+    // Database
     private FirebaseFirestore db;
-    private ArrayList<Player> players = new ArrayList<>();
-    private TextView num_QR_text, total_score_text, single_score_text;
     final String TAG = "Error";
+    // General Data
+    private ArrayList<Player> players = new ArrayList<>();
     private Player currentPlayer;
-    int num_QR_ranking, total_score_ranking, single_score_ranking;
-    TextView num_QR_ranking_text, total_score_ranking_text, single_score_ranking_text;
+    private int num_QR_ranking, total_score_ranking, single_score_ranking;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_profile);
 
-        nicknameTV = findViewById(R.id.desired_player_nickname);
+        nickname_text = findViewById(R.id.desired_player_nickname);
         num_QR_text = findViewById(R.id.num_qr_2);
         total_score_text = findViewById(R.id.total_score_2);
         single_score_text = findViewById(R.id.single_score_2);
@@ -85,7 +86,7 @@ public class PlayerProfileActivity extends SaveANDLoad {
                 } else {
                     Toast.makeText(getApplicationContext(),"Load Failed",Toast.LENGTH_LONG).show();
                 }
-                nicknameTV.setText(currentPlayer.getNickname());
+                nickname_text.setText(currentPlayer.getNickname());
                 num_QR_text.setText(String.valueOf(currentPlayer.getNumQR()));
                 total_score_text.setText(String.valueOf(currentPlayer.getTotalScore()));
                 single_score_text.setText(String.valueOf(currentPlayer.getHighestScore()));
@@ -129,11 +130,10 @@ public class PlayerProfileActivity extends SaveANDLoad {
                                 } else {
                                     Log.d(TAG, "Error getting documents: ", task.getException());
                                 }
-                            }
-                        });
-
-            }
-        }); // end addOnCompleteListener
+                            } // end onComplete
+                        }); // end accountsRef.get().addOnCompleteListener
+            } // end onComplete
+        }); // end myAccount.get(source).addOnCompleteListener
 
 
         // ************************** Page Selection ****************************************
