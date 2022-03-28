@@ -234,4 +234,13 @@ public class QRCode implements Comparable<QRCode>{
      * @param comment
      */
     public void addComment(String user, String comment) { comments.add(new Comments(user, comment)); } // end addComment
+
+
+    /**
+     * Remove the comment in the comments ArrayList given the index
+     * @param index
+     */
+    public void deleteCommentAt(int index) {
+        comments.remove(index);
+    }
 }// end QRCode Class

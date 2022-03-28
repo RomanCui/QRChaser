@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,7 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class QRcodeInfoActivity extends AppCompatActivity {
+public class QRcodeInfoActivity extends AppCompatActivity implements DeleteCommentFragment.OnFragmentInteractionListener {
     // UI
     private TextView qrName, score, location;
     private ListView commentsListView;
@@ -81,6 +83,16 @@ public class QRcodeInfoActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //Launch fragment that prompt the admin to delete the comment
+        commentsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                new DeleteCommentFragment(i).show(getSupportFragmentManager(), "DELETE_COMMENT");
+            } //end onItemClick
+        });
+
+
     } // end onCreate
 
     //Use qrCode information to update textViews
@@ -116,4 +128,16 @@ public class QRcodeInfoActivity extends AppCompatActivity {
                     } // end onFailure
                 });
     } // end updateImageView
+
+
+    /**
+     * Delete the comment from qrCode, update the database and listView
+     * @param index
+     */
+    @Override
+    public void onDeletePressed(int index) {
+        qrCode.deleteCommentAt(index);
+        qrCode.saveToDatabase();
+        commentsAdapter.notifyDataSetChanged();
+    }
 } // end QRcodeInfoActivity Class
