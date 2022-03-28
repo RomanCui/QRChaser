@@ -95,7 +95,7 @@ public class QRcodeInfoActivity extends AppCompatActivity {
     private void updateImageView() {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReferenceFromUrl("gs://qrchaseredition2.appspot.com");
-        StorageReference imgReference = storageReference.child(qrCode.getName() + ".jpg");
+        StorageReference imgReference = storageReference.child(qrCode.getHash() + ".jpg");
 
         //set max img size to ~10kb, most image size should be around 5kb
         imgReference.getBytes(10000)

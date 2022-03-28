@@ -293,8 +293,8 @@ public class QrAddScreenActivity extends AppCompatActivity {
                     // For Testing
                     Toast.makeText(getApplicationContext(), testString, Toast.LENGTH_SHORT).show();
 
-                    //TODO: Compress image here
-                    if(photoCheck) compressAndUpload(image, qrName);
+                    // Compressed the image and upload to firebase storage
+                    if(photoCheck) compressAndUpload(image, scannedQR.getHash());
 
 
                 }
