@@ -16,6 +16,12 @@ public class Comments {
     } // end Comments Constructor
 
     /**
+     * No-argument constructor for comments, used for creating Comments object from database query
+     */
+    public Comments(){} // end Comments Constructor
+
+
+    /**
      * This gets the username of the player who made the comment
      * @return the username of the player who made the comment
      */

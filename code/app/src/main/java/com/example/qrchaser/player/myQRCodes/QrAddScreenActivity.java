@@ -24,6 +24,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.qrchaser.R;
+import com.example.qrchaser.oop.Comments;
 import com.example.qrchaser.oop.Player;
 import com.example.qrchaser.oop.QRCode;
 import com.example.qrchaser.oop.QRCodeScoreComparator1;
@@ -71,6 +72,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
     // Player Data
     private Player currentPlayer;
     private int numQR, totalScore, singleScore;
+    private String playerName;
     // ActivityResultLaunchers
     private ActivityResultLauncher<Intent> galleryResultLauncher;
     private ActivityResultLauncher<Intent> cameraResultLauncher;
@@ -78,6 +80,12 @@ public class QrAddScreenActivity extends AppCompatActivity {
     // Database
     private final String TAG = "Error";
     private FirebaseFirestore db;
+    // Boolean Value check
+    // Ronggang(Alex) implemented comment check in the QRCode class
+    private Boolean nameCheck = false;
+    private Boolean scanCheck = false;
+    private Boolean photoCheck = false;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -193,11 +201,6 @@ public class QrAddScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // Ronggang(Alex) implemented comment check in the QRCode class
-                Boolean nameCheck = false;
-                Boolean scanCheck = false;
-                Boolean photoCheck = false;
-
                 // for testing
                 //qrValue = "AAA";
 
@@ -216,12 +219,6 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 if (nameCheck && scanCheck) {
 
                     String playerID = loadData(getApplicationContext(), "uniqueID");
-                    QRCode scannedQR;
-                    scannedQR = new QRCode(qrValue, qrName, playerID, qrComment, latitude, longitude);
-
-
-                    // store the scanned code to database
-                    scannedQR.saveToDatabase();
 
                     // Get Player info from the database
                     db = FirebaseFirestore.getInstance();
@@ -239,6 +236,33 @@ public class QrAddScreenActivity extends AppCompatActivity {
                                 // Document found in the offline cache
                                 DocumentSnapshot document = task.getResult();
                                 currentPlayer = document.toObject(Player.class);
+                                playerName = currentPlayer.getNickname();
+                                Log.d("name", playerName);
+
+                                //check comments
+                                Comments comments;
+                                if(qrComment.equals("")) {
+                                    comments = null;
+                                } else {
+                                    comments = new Comments(playerName,qrComment);
+                                }
+
+                                // store the scanned code to database
+                                QRCode scannedQR = new QRCode(qrValue, qrName, playerID, comments, latitude, longitude);
+                                scannedQR.saveToDatabase();
+
+
+                                // For testing
+                                int score = scannedQR.getScore();
+                                String scoreTestString = String.valueOf(score);
+                                String hashTestString = scannedQR.getHash();
+                                String testString = "score: " + scoreTestString + " hash: " + hashTestString;
+
+                                // For Testing
+                                Toast.makeText(getApplicationContext(), testString, Toast.LENGTH_SHORT).show();
+
+                                // Compressed the image and upload to firebase storage
+                                if(photoCheck) compressAndUpload(image, scannedQR.getHash());
 
                                 // updating the user's scores
                                 CollectionReference QRCodesReference = db.collection("QRCodes");
@@ -269,33 +293,19 @@ public class QrAddScreenActivity extends AppCompatActivity {
                                                     currentPlayer.setHighestScore(singleScore);
                                                     currentPlayer.updateDatabase();
 
+                                                    // Return to previous activity
+                                                    finish();
                                                 } else {
                                                     Log.d(TAG, "Error getting documents: ", task.getException());
                                                 }
                                             } // end onComplete
                                         });
 
-                                // Return to previous activity
-                                finish();
                             } else {
                                 Toast.makeText(getApplicationContext(),"Load Failed",Toast.LENGTH_LONG).show();
                             }
                         } // end onComplete
                     }); // end addOnCompleteListener
-
-
-                    // For testing
-                    int score = scannedQR.getScore();
-                    String scoreTestString = String.valueOf(score);
-                    String hashTestString = scannedQR.getHash();
-                    String testString = "score: " + scoreTestString + " hash: " + hashTestString;
-
-                    // For Testing
-                    Toast.makeText(getApplicationContext(), testString, Toast.LENGTH_SHORT).show();
-
-                    // Compressed the image and upload to firebase storage
-                    if(photoCheck) compressAndUpload(image, scannedQR.getHash());
-
 
                 }
                 // If there is a missing mandatory component, prompt the user for input

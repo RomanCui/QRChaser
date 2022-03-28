@@ -35,17 +35,18 @@ public class QRCode implements Comparable<QRCode>{
      * @param qrCodeData
      * @param name
      */
-    public QRCode(String qrCodeData, String name, String owner, String comment,
+    public QRCode(String qrCodeData, String name, String owner, Comments comment,
                   double latitude, double longitude) {
 
         this.hash = Hashing.sha256().hashString(qrCodeData, StandardCharsets.UTF_8).toString();
         this.name = name;
         this.owners.add(owner);
 
-        // Only add comments that are not empty
-        if (!comment.equals("")){
-            this.comments.add(new Comments(owner, comment));
+        if(comment != null) {
+            this.comments.add(comment);
         }
+
+
         this.latitude = latitude;
         this.longitude = longitude;
 
@@ -66,6 +67,12 @@ public class QRCode implements Comparable<QRCode>{
         this.score = this.score % 1000;
         this.score *= multiplier;
     } // end QRCode Constructor
+
+
+    /**
+     * A no-argument constructor for the QR code, for creating QRCode from database query
+     */
+    public QRCode() {} // end QRCode Constructor
 
     /**
      * This saves the QR code object to the database
