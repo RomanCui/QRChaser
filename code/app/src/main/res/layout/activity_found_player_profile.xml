@@ -8,6 +8,13 @@
     tools:context=".player.profile.PlayerProfileActivity">
 
     <Button
+        android:id="@+id/button_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="Delete This Player" />
+
+    <Button
         android:id="@+id/button_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -89,7 +96,6 @@
                 android:fontFamily="sans-serif"
                 android:textColor="#051367"
                 android:textSize="15sp">
-                >
             </TextView>
 
             <TextView

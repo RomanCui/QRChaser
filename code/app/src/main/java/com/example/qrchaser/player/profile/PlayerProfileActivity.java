@@ -46,6 +46,8 @@ public class PlayerProfileActivity extends SaveANDLoad {
     // Database
     private FirebaseFirestore db;
     final String TAG = "Error";
+    // Source can be CACHE, SERVER, or DEFAULT.
+    private Source source = Source.CACHE;
     // General Data
     private ArrayList<Player> players = new ArrayList<>();
     private Player currentPlayer;
@@ -72,8 +74,6 @@ public class PlayerProfileActivity extends SaveANDLoad {
         CollectionReference accountsRef = db.collection("Accounts");
         DocumentReference myAccount = accountsRef.document(playerID);
 
-        // Source can be CACHE, SERVER, or DEFAULT.
-        Source source = Source.CACHE;
 
         // Get the document, forcing the SDK to use the offline cache
         myAccount.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -181,4 +181,28 @@ public class PlayerProfileActivity extends SaveANDLoad {
         super.onRestart();
         this.recreate();
     } // end onRestart
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        String playerID = loadData(getApplicationContext(), "uniqueID");
+        db = FirebaseFirestore.getInstance();
+        CollectionReference accountsRef = db.collection("Accounts");
+        DocumentReference myAccount = accountsRef.document(playerID);
+        // Get the document, forcing the SDK to use the offline cache
+        myAccount.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    // Document found in the offline cache
+                    DocumentSnapshot document = task.getResult();
+                    nickname_text.setText(document.getString("nickname"));
+                } else {
+                    Toast.makeText(getApplicationContext(),"Load Nickname Failed",Toast.LENGTH_LONG).show();
+                }
+            } // end onComplete
+        }); // end myAccount.get(source).addOnCompleteListener
+    } // end onResume
+
 } // end PlayerProfileActivity Class

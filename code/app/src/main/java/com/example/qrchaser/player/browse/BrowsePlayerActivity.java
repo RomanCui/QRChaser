@@ -67,13 +67,13 @@ public class BrowsePlayerActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         CollectionReference accountsRef = db.collection("Accounts");
-
         accountsRef
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            players = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Player player = document.toObject(Player.class);
                                 players.add(player);
@@ -192,4 +192,36 @@ public class BrowsePlayerActivity extends AppCompatActivity {
         }); // end topNavigationView.setOnItemSelectedListener
 
     } // end onCreate
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        db = FirebaseFirestore.getInstance();
+        CollectionReference accountsRef = db.collection("Accounts");
+        accountsRef
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            players = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Player player = document.toObject(Player.class);
+                                players.add(player);
+                            }// Populate the listview
+
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                        playersAdapter1 = new PlayerAdapter1(BrowsePlayerActivity.this, players);
+                        playersAdapter2 = new PlayerAdapter2(BrowsePlayerActivity.this, players);
+                        playersAdapter3 = new PlayerAdapter3(BrowsePlayerActivity.this, players);
+                        Collections.sort(players, new PlayerNumQRComparator());
+                        playersAdapter1.notifyDataSetChanged();
+                        playersListView.setAdapter(playersAdapter1);
+                        currentAdapter = 1;
+                    } // end onComplete
+                }); // end accountsRef.get().addOnCompleteListener
+    } // end onResume
+
 } // end BrowsePlayerActivity Class

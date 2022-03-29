@@ -1,7 +1,10 @@
 package com.example.qrchaser.player.profile;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,11 +13,14 @@ import androidx.annotation.NonNull;
 
 import com.example.qrchaser.R;
 import com.example.qrchaser.general.SaveANDLoad;
+import com.example.qrchaser.logIn.WelcomeActivity;
 import com.example.qrchaser.oop.Player;
 import com.example.qrchaser.oop.PlayerNumQRComparator;
 import com.example.qrchaser.oop.PlayerSingleScoreComparator;
 import com.example.qrchaser.oop.PlayerTotalScoreComparator;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -33,10 +39,10 @@ import java.util.Collections;
 public class FoundPlayerProfileActivity extends SaveANDLoad {
     // UI
     private TextView nickname_text, num_QR_ranking_text, total_score_ranking_text, single_score_ranking_text, num_QR_text, total_score_text, single_score_text;
-    private Button backButton;
+    private Button backButton, deleteButton;
     private ArrayList<Player> players = new ArrayList<>();
     // General Data
-    private Player currentPlayer;
+    private Player desiredPlayer, currentPlayer;
     private int num_QR_ranking, total_score_ranking, single_score_ranking;
     // Database
     private FirebaseFirestore db;
@@ -55,24 +61,18 @@ public class FoundPlayerProfileActivity extends SaveANDLoad {
         total_score_ranking_text = findViewById(R.id.total_score_ranking_2);
         single_score_ranking_text = findViewById(R.id.single_score_ranking_2);
         backButton = findViewById(R.id.button_back);
-
-        // Back button - return to previous activity
-        backButton.setOnClickListener( v -> {
-            finish();
-        });
-
-        // Get the player id in order to load the data from the database
-        String playerID = getIntent().getStringExtra("playerID");
+        deleteButton = findViewById(R.id.button_delete);
 
 
-        // Get Player info from the database
+        //Initialize database Access
         db = FirebaseFirestore.getInstance();
         CollectionReference accountsRef = db.collection("Accounts");
-        DocumentReference myAccount = accountsRef.document(playerID);
-
         // Source can be CACHE, SERVER, or DEFAULT.
         Source source = Source.CACHE;
 
+        // Get the desired player id in order to load the data from the database
+        String currentPlayerID = loadData(getApplicationContext(), "uniqueID");
+        DocumentReference myAccount = accountsRef.document(currentPlayerID);
         // Get the document, forcing the SDK to use the offline cache
         myAccount.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -81,13 +81,34 @@ public class FoundPlayerProfileActivity extends SaveANDLoad {
                     // Document found in the offline cache
                     DocumentSnapshot document = task.getResult();
                     currentPlayer = document.toObject(Player.class);
+                    if (currentPlayer.isAdmin()){
+                        deleteButton.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(),"Admin Authentication Failed",Toast.LENGTH_LONG).show();
+                }
+            }
+        }); // end addOnCompleteListener
+
+
+        // Get Desired Player info from the database
+        String desiredPlayerID = getIntent().getStringExtra("playerID");
+        DocumentReference desiredAccount = accountsRef.document(desiredPlayerID);
+        // Get the document, forcing the SDK to use the offline cache
+        desiredAccount.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    // Document found in the offline cache
+                    DocumentSnapshot document = task.getResult();
+                    desiredPlayer = document.toObject(Player.class);
                 } else {
                     Toast.makeText(getApplicationContext(),"Load Failed",Toast.LENGTH_LONG).show();
                 }
-                nickname_text.setText(currentPlayer.getNickname());
-                num_QR_text.setText(String.valueOf(currentPlayer.getNumQR()));
-                total_score_text.setText(String.valueOf(currentPlayer.getTotalScore()));
-                single_score_text.setText(String.valueOf(currentPlayer.getHighestScore()));
+                nickname_text.setText(desiredPlayer.getNickname());
+                num_QR_text.setText(String.valueOf(desiredPlayer.getNumQR()));
+                total_score_text.setText(String.valueOf(desiredPlayer.getTotalScore()));
+                single_score_text.setText(String.valueOf(desiredPlayer.getHighestScore()));
 
                 accountsRef
                         .get()
@@ -102,21 +123,21 @@ public class FoundPlayerProfileActivity extends SaveANDLoad {
 
                                     Collections.sort(players, new PlayerNumQRComparator());
                                     for (int i = 0; i < players.size(); i++){
-                                        if (currentPlayer.getUniqueID().equals(players.get(i).getUniqueID())){
+                                        if (desiredPlayer.getUniqueID().equals(players.get(i).getUniqueID())){
                                             num_QR_ranking = i + 1;
                                         }
                                     }
 
                                     Collections.sort(players, new PlayerTotalScoreComparator());
                                     for (int i = 0; i < players.size(); i++){
-                                        if (currentPlayer.getUniqueID().equals(players.get(i).getUniqueID())){
+                                        if (desiredPlayer.getUniqueID().equals(players.get(i).getUniqueID())){
                                             total_score_ranking = i + 1;
                                         }
                                     }
 
                                     Collections.sort(players, new PlayerSingleScoreComparator());
                                     for (int i = 0; i < players.size(); i++){
-                                        if (currentPlayer.getUniqueID().equals(players.get(i).getUniqueID())){
+                                        if (desiredPlayer.getUniqueID().equals(players.get(i).getUniqueID())){
                                             single_score_ranking = i + 1;
                                         }
                                     }
@@ -132,6 +153,58 @@ public class FoundPlayerProfileActivity extends SaveANDLoad {
                         });
             }
         }); // end addOnCompleteListener
+
+        // Back button - return to previous activity
+        backButton.setOnClickListener( v -> {
+            finish();
+        });
+
+        // Delete button - Delete player and return to previous activity
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(FoundPlayerProfileActivity.this);
+                View mView = getLayoutInflater().inflate(R.layout.delete_dialog, null);
+                Button confirm = (Button) mView.findViewById(R.id.button_confirm);
+                Button cancel = (Button) mView.findViewById(R.id.button_cancel);
+                dialogBuilder.setView(mView);
+
+                final AlertDialog dialog = dialogBuilder.create();
+                dialog.show();
+
+                confirm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        db.collection("Accounts").document(desiredPlayerID)
+                                .delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG, "Player successfully deleted!");
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error deleting Player", e);
+                                    }
+                                });
+                        finish();
+                    } // end onClick
+                }); // end confirm.setOnClickListener(new View.OnClickListener()
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    } // end onClick
+                }); // end confirm.setOnClickListener(new View.OnClickListener()
+
+            } // end onClick
+        });// end deleteButton.setOnClickListener
+
+
     } // end onCreate
 
     @Override
