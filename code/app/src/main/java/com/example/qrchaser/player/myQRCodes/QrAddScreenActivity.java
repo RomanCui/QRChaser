@@ -35,6 +35,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.common.hash.Hashing;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -49,6 +50,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -73,6 +75,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
     private Player currentPlayer;
     private int numQR, totalScore, singleScore;
     private String playerName;
+    private String playerID;
     // ActivityResultLaunchers
     private ActivityResultLauncher<Intent> galleryResultLauncher;
     private ActivityResultLauncher<Intent> cameraResultLauncher;
@@ -102,6 +105,10 @@ public class QrAddScreenActivity extends AppCompatActivity {
         commentET = findViewById(R.id.qr_comments_edit_text);
         imageView = findViewById(R.id.qr_image_preview_imageView);
 
+        // Setup database
+        db = FirebaseFirestore.getInstance();
+        playerID = loadData(getApplicationContext(), "uniqueID");
+
         // Scanner result receiver
         ActivityResultLauncher<Intent> scannerResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -109,10 +116,36 @@ public class QrAddScreenActivity extends AppCompatActivity {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == Activity.RESULT_OK) {
+                            //get the result
                             Intent scannerResult = result.getData();
-
-                            // To do: not allow the same user to scan the same QR code
                             qrValue = scannerResult.getStringExtra("qrValue");
+
+                            //check for qr in database
+                            String qrHash = Hashing.sha256().hashString(qrValue, StandardCharsets.UTF_8).toString();
+                            DocumentReference qrReference = db.collection("QRCodes").document(qrHash);
+
+                            qrReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    QRCode qrcode = documentSnapshot.toObject(QRCode.class);
+                                    if (qrcode != null) {
+
+                                        //if not scanned before, add qr and update score
+                                        if(!qrcode.containOwner(playerID)) {
+                                            qrcode.addOwner(playerID);
+                                            qrcode.saveToDatabase();
+
+                                            //TODO: update user score here
+                                        }
+
+                                        Intent intent = new Intent(QrAddScreenActivity.this, EditQRCodeScreenActivity.class);
+                                        intent.putExtra("qrHash", qrcode.getHash());
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+                            });
+
 
                             //for testing the result
                             Toast.makeText(getApplicationContext(), qrValue, Toast.LENGTH_SHORT).show();
@@ -218,10 +251,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 // in the database
                 if (nameCheck && scanCheck) {
 
-                    String playerID = loadData(getApplicationContext(), "uniqueID");
-
                     // Get Player info from the database
-                    db = FirebaseFirestore.getInstance();
                     CollectionReference accountsRef = db.collection("Accounts");
                     DocumentReference myAccount = accountsRef.document(playerID);
 
@@ -394,4 +424,5 @@ public class QrAddScreenActivity extends AppCompatActivity {
             } // end onFailure
         });
     } // end compressAndUpload
+
 } // end QrAddScreenActivity Class

@@ -224,10 +224,23 @@ public class QRCode implements Comparable<QRCode>{
     } // end setOwners
 
     /**
+     * Add owner to the list of owners
+     * @param owner
+     */
+    public void addOwner(String owner) { this.owners.add(owner); } // end addOwner
+
+    /**
      * This removes and owner from the List of owners on the QRCode
      * @param owner
      */
     public Boolean removeOwner(String owner) { return owners.remove(owner); } // end removeOwner
+
+    /**
+     * Find if the QRCode contains the owner or not
+     * @param owner
+     * @return
+     */
+    public Boolean containOwner(String owner) { return owners.contains(owner); } // end containOwner
 
     /**
      * This adds a comment to ArrayList of comments on the QRCode
@@ -242,5 +255,5 @@ public class QRCode implements Comparable<QRCode>{
      */
     public void deleteCommentAt(int index) {
         comments.remove(index);
-    }
+    } // end deleteComment
 }// end QRCode Class
