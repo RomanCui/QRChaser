@@ -134,8 +134,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                                         if(!qrcode.containOwner(playerID)) {
                                             qrcode.addOwner(playerID);
                                             qrcode.saveToDatabase();
-
-                                            //TODO: update user score here
+                                            updateScore();
                                         }
 
                                         Intent intent = new Intent(QrAddScreenActivity.this, EditQRCodeScreenActivity.class);
@@ -294,42 +293,9 @@ public class QrAddScreenActivity extends AppCompatActivity {
                                 // Compressed the image and upload to firebase storage
                                 if(photoCheck) compressAndUpload(image, scannedQR.getHash());
 
-                                // updating the user's scores
-                                CollectionReference QRCodesReference = db.collection("QRCodes");
-                                QRCodesReference.whereArrayContains("owners", playerID)
-                                        .get()
-                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                if (task.isSuccessful()) {
-                                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                                        QRCode qrCode = document.toObject(QRCode.class);
-                                                        qrCodes.add(qrCode);
-                                                    }// Populate the listview
-                                                    numQR = qrCodes.size();
-                                                    totalScore = 0;
-                                                    for (int i = 0; i < qrCodes.size(); i++){
-                                                        totalScore += qrCodes.get(i).getScore();
-                                                    }
-                                                    Collections.sort(qrCodes, new QRCodeScoreComparator1());
-                                                    if (qrCodes.size() > 0) {
-                                                        singleScore = qrCodes.get(0).getScore();
-                                                    } else {
-                                                        singleScore = 0;
-                                                    }
-
-                                                    currentPlayer.setNumQR(numQR);
-                                                    currentPlayer.setTotalScore(totalScore);
-                                                    currentPlayer.setHighestScore(singleScore);
-                                                    currentPlayer.updateDatabase();
-
-                                                    // Return to previous activity
-                                                    finish();
-                                                } else {
-                                                    Log.d(TAG, "Error getting documents: ", task.getException());
-                                                }
-                                            } // end onComplete
-                                        });
+                                //update the user's score
+                                updateScore();
+                                finish();
 
                             } else {
                                 Toast.makeText(getApplicationContext(),"Load Failed",Toast.LENGTH_LONG).show();
@@ -424,5 +390,43 @@ public class QrAddScreenActivity extends AppCompatActivity {
             } // end onFailure
         });
     } // end compressAndUpload
+
+    private void updateScore() {
+        // updating the user's scores
+        CollectionReference QRCodesReference = db.collection("QRCodes");
+        QRCodesReference.whereArrayContains("owners", playerID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                QRCode qrCode = document.toObject(QRCode.class);
+                                qrCodes.add(qrCode);
+                            }// Populate the listview
+                            numQR = qrCodes.size();
+                            totalScore = 0;
+                            for (int i = 0; i < qrCodes.size(); i++){
+                                totalScore += qrCodes.get(i).getScore();
+                            }
+                            Collections.sort(qrCodes, new QRCodeScoreComparator1());
+                            if (qrCodes.size() > 0) {
+                                singleScore = qrCodes.get(0).getScore();
+                            } else {
+                                singleScore = 0;
+                            }
+
+                            currentPlayer.setNumQR(numQR);
+                            currentPlayer.setTotalScore(totalScore);
+                            currentPlayer.setHighestScore(singleScore);
+                            currentPlayer.updateDatabase();
+
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    } // end onComplete
+                });
+
+    }
 
 } // end QrAddScreenActivity Class
