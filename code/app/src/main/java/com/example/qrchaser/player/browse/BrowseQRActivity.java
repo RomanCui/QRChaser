@@ -32,18 +32,21 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Collections;
 
-// This activity allows user to browse QR codes game wide
-// A twin activity to browse players is to be developed
+// TODO: 2022-03-27  A twin activity to browse players is to be developed? (Who wrote this and what does it mean)
+/**
+ * This Activity Class allows the user to browse QR codes game wide
+ */
 public class BrowseQRActivity extends AppCompatActivity {
-
+    // UI
     private BottomNavigationView bottomNavigationView,topNavigationView;
-    final String TAG = "Sample";
-    FirebaseFirestore db;
+    private ImageButton highToLowButton, lowToHighButton;
     private ArrayAdapter<QRCode> qrCodeAdapter;
+    private ListView myQRCodeListView;
+    // General Data
     private ArrayList<QRCode> qrCodes = new ArrayList<>();
-    ListView myQRCodeListView;
-    ImageButton highToLowButton;
-    ImageButton lowToHighButton;
+    // Database
+    private final String TAG = "Error";
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,24 +79,24 @@ public class BrowseQRActivity extends AppCompatActivity {
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
-                    }
-                });
+                    } // end onComplete
+                }); // end QRCodesReference.get().addOnCompleteListener
 
         highToLowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Collections.sort(qrCodes, new QRCodeScoreComparator1());
                 qrCodeAdapter.notifyDataSetChanged();
-            }
-        });
+            } // end onClick
+        }); // end highToLowButton.setOnClickListener
 
         lowToHighButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Collections.sort(qrCodes, new QRCodeScoreComparator2());
                 qrCodeAdapter.notifyDataSetChanged();
-            }
-        });
+            } // end onClick
+        }); // end lowToHighButton.setOnClickListener
 
         // Click on the Name to see details about the code
         myQRCodeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -103,10 +106,11 @@ public class BrowseQRActivity extends AppCompatActivity {
                 Intent intent = new Intent(BrowseQRActivity.this, QRcodeInfoActivity.class);
                 intent.putExtra("qrHash", selectedQrCode.getHash());
                 startActivity(intent);
-            }
-        });
+            } // end onItemClick
+        }); // end myQRCodeListView.setOnItemClickListener
 
-        // The navigation bar
+        // ************************** Page Selection ****************************************
+        // Bottom Navigation bar
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.browse_qr);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -129,8 +133,8 @@ public class BrowseQRActivity extends AppCompatActivity {
                         return true;
                 }
                 return false;
-            }
-        });
+            } // end onNavigationItemSelected
+        }); // end bottomNavigationView.setOnItemSelectedListener
 
         topNavigationView = findViewById(R.id.top_navigation);
         topNavigationView.setSelectedItemId(R.id.browse_qr_code);
@@ -146,10 +150,8 @@ public class BrowseQRActivity extends AppCompatActivity {
                         return true;
                 }
                 return false;
-            }
-        });
-
-
+            } // end onNavigationItemSelected
+        }); // end topNavigationView.setOnItemSelectedListener
 
     } // end onCreate
 } // end BrowseActivity Class

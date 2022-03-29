@@ -12,9 +12,10 @@ import com.example.qrchaser.R;
 import com.example.qrchaser.oop.QRCode;
 import java.util.ArrayList;
 
-// This adapter is used for list view in MyQRCodeScreen and Browse QR Codes Screen
+/**
+ * This Adapter Class is used for list view in MyQRCodeScreen and Browse QR Codes Screen
+ */
 public class QRCodeAdapter extends ArrayAdapter<QRCode> {
-
     private ArrayList<QRCode> qrCodes;
     private Context context;
 
@@ -22,7 +23,7 @@ public class QRCodeAdapter extends ArrayAdapter<QRCode> {
         super(context, 0,qrCodes);
         this.qrCodes = qrCodes;
         this.context = context;
-    }
+    } // end QRCodeAdapter Constructor
 
     @NonNull
     @Override
@@ -43,6 +44,5 @@ public class QRCodeAdapter extends ArrayAdapter<QRCode> {
         qrCodeScore.setText(qrCode.getScore()+"");
 
         return view;
-
-    }
-}
+    } // end getView
+} // end QRCodeAdapter Class

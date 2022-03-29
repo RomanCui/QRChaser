@@ -15,18 +15,18 @@ import com.example.qrchaser.oop.Player;
 
 import java.util.ArrayList;
 
-// This adapter is used for list view in MyQRCodeScreen and Browse QR Codes Screen
+/**
+ * This Adapter Class is used for list view in the Browse Players Screen
+ */
 public class PlayerAdapter3 extends ArrayAdapter<Player> {
-
     private ArrayList<Player> players;
     private Context context;
-
 
     public PlayerAdapter3(Context context, ArrayList<Player> players) {
         super(context, 0, players);
         this.players = players;
         this.context = context;
-    }
+    } // end PlayerAdapter3 Constructor
 
     @NonNull
     @Override
@@ -47,7 +47,6 @@ public class PlayerAdapter3 extends ArrayAdapter<Player> {
         qrCodeScore.setText(String.valueOf(player.getHighestScore()));
 
         return view;
-
-    }
-}
+    } // end getView
+} // end PlayerAdapter3 Class
 

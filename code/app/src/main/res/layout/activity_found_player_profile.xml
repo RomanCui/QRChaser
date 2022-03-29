@@ -7,6 +7,19 @@
     android:orientation="vertical"
     tools:context=".player.profile.PlayerProfileActivity">
 
+    <Button
+        android:id="@+id/button_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="Delete This Player" />
+
+    <Button
+        android:id="@+id/button_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0sp"
@@ -18,33 +31,12 @@
             android:layout_width="0sp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text=""
+            android:text="Nickname"
             android:padding="20dp"
             android:gravity="left|center"
             android:fontFamily="sans-serif"
             android:textColor="#051367"
             android:textSize="20sp"/>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0sp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            >
-
-            <Button
-                android:id="@+id/desired_player_info_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="Info"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
@@ -104,7 +96,6 @@
                 android:fontFamily="sans-serif"
                 android:textColor="#051367"
                 android:textSize="15sp">
-                >
             </TextView>
 
             <TextView
@@ -164,15 +155,16 @@
             <TextView
                 android:id="@+id/num_qr_ranking_1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:fontFamily="sans-serif"
-                android:gravity="left|center"
+                android:layout_height="wrap_content"
                 android:padding="20dp"
                 android:text="The number of QR code ranking: "
-                android:textColor="#051367"
-                android:textSize="15sp">
-                ></TextView>
+                android:textSize="15sp"
+                android:gravity="left|center"
+                android:fontFamily="sans-serif"
+                android:textColor="#051367">
+                >
+            </TextView>
 
             <TextView
                 android:id="@+id/num_qr_ranking_2"
@@ -259,15 +251,5 @@
 
 
     </LinearLayout>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bottom_navigation"
-        app:itemBackground="@color/design_default_color_on_primary"
-        app:itemTextColor="@drawable/selector"
-        app:itemIconTint="@drawable/selector"
-        app:menu="@menu/menu_navigation"
-        android:layout_alignParentBottom="true"/>
 
 </LinearLayout>

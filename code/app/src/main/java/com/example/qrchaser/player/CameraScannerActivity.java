@@ -40,12 +40,14 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
 public class CameraScannerActivity extends AppCompatActivity implements CameraXConfig.Provider {
+    // Permissions
     private static final int CAMERA_REQUEST_CODE = 1;
+    // UI
+    private PreviewView cameraView;
+    private TextView valueText;
+    // General Data
     private String value;
-    PreviewView cameraView;
-    TextView valueText;
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
-
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override

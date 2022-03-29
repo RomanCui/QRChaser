@@ -1,18 +1,19 @@
 package com.example.qrchaser;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.qrchaser.general.CommentAdapter;
 import com.example.qrchaser.oop.Comments;
@@ -27,18 +28,18 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class QRcodeInfoActivity extends AppCompatActivity {
-
-    private String hash;
+public class QRcodeInfoActivity extends AppCompatActivity implements DeleteCommentFragment.OnFragmentInteractionListener {
+    // UI
+    private TextView qrName, score, location;
+    private ListView commentsListView;
+    private ImageView imageView;
+    private Button backButton;
+    // Database
     private FirebaseFirestore db;
+    // General Data
+    private String hash;
     private QRCode qrCode;
-
     private ArrayAdapter<Comments> commentsAdapter;
-
-    TextView qrName, score, location;
-    ListView commentsListView;
-    ImageView imageView;
-    Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,21 +83,31 @@ public class QRcodeInfoActivity extends AppCompatActivity {
                 }
             }
         });
-    }
+
+        //Launch fragment that prompt the admin to delete the comment
+        commentsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                new DeleteCommentFragment(i).show(getSupportFragmentManager(), "DELETE_COMMENT");
+            } //end onItemClick
+        });
+
+
+    } // end onCreate
 
     //Use qrCode information to update textViews
     private void updateViewData() {
         qrName.setText("Name: " + qrCode.getName());
         score.setText("Score: " + qrCode.getScore());
         location.setText("Latitude: " + qrCode.getLatitude() + " Longitude: " + qrCode.getLongitude());
-    }
+    } // end updateViewData
 
     //Same code as EditQRCodeScreenActivity
     //TODO: find a way to reuse this method
     private void updateImageView() {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReferenceFromUrl("gs://qrchaseredition2.appspot.com");
-        StorageReference imgReference = storageReference.child(qrCode.getName() + ".jpg");
+        StorageReference imgReference = storageReference.child(qrCode.getHash() + ".jpg");
 
         //set max img size to ~10kb, most image size should be around 5kb
         imgReference.getBytes(10000)
@@ -107,14 +118,26 @@ public class QRcodeInfoActivity extends AppCompatActivity {
                         Bitmap imgBM = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                         imageView.setImageBitmap(imgBM);
                         Log.d("LoadImg", "Img Found");
-                    }
+                    } // end onSuccess
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         e.printStackTrace();
                         Log.d("LoadImg", "Img not found");
-                    }
+                    } // end onFailure
                 });
+    } // end updateImageView
+
+
+    /**
+     * Delete the comment from qrCode, update the database and listView
+     * @param index
+     */
+    @Override
+    public void onDeletePressed(int index) {
+        qrCode.deleteCommentAt(index);
+        qrCode.saveToDatabase();
+        commentsAdapter.notifyDataSetChanged();
     }
-}
+} // end QRcodeInfoActivity Class

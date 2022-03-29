@@ -2,64 +2,46 @@ package com.example.qrchaser.player.map;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.qrchaser.R;
-import com.example.qrchaser.player.browse.BrowseQRActivity;
-import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
-import com.example.qrchaser.player.profile.PlayerProfileActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
+import org.osmdroid.events.MapEventsReceiver;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.MapEventsOverlay;
+import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
-import org.osmdroid.views.overlay.simplefastpoint.LabelledGeoPoint;
-import org.osmdroid.views.overlay.simplefastpoint.SimpleFastPointOverlay;
-import org.osmdroid.views.overlay.simplefastpoint.SimpleFastPointOverlayOptions;
-import org.osmdroid.views.overlay.simplefastpoint.SimplePointTheme;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- * This Activity Class allows the user to view QR codes in a map
+ * This Activity Class allows the user to select the location of a QR code on a map
  */
-public class MapActivity extends AppCompatActivity{
-    // UI
-    private BottomNavigationView bottomNavigationView;
+public class SelectQRLocationActivity extends AppCompatActivity {
     // Permissions
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     // Map & Map Overlays
@@ -68,17 +50,14 @@ public class MapActivity extends AppCompatActivity{
     private MyLocationNewOverlay myLocationOverlay;
     private RotationGestureOverlay mapRotationGestureOverlay;
     private ScaleBarOverlay mapScaleBarOverlay;
-    // Database
-    private final String TAG = "Sample";
-    private FirebaseFirestore db;
+    // The  marker and location for the QR Code
+    private GeoPoint QRLocation;
+    private Marker QRLocationMarker = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Handle permissions first, before map is created. Is this done? I think so
-
-        // Load/initialize the osmdroid configuration, this can be done
         Context context = getApplicationContext();
         Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context));
         //setting this before the layout is inflated is a good idea
@@ -89,7 +68,7 @@ public class MapActivity extends AppCompatActivity{
         //tile servers will get you banned based on this string
 
         // Inflate and create the map
-        setContentView(R.layout.activity_map);
+        setContentView(R.layout.activity_select_qr_location_map);
 
         map = (MapView) findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
@@ -133,110 +112,77 @@ public class MapActivity extends AppCompatActivity{
         mapScaleBarOverlay.setScaleBarOffset(dm.widthPixels / 2, 10);
         map.getOverlays().add(this.mapScaleBarOverlay);
 
-        List<IGeoPoint> points = new ArrayList<>();
-
-        db = FirebaseFirestore.getInstance();
-
-        // Get a top level reference to the collection
-        final CollectionReference QRCodesReference = db.collection("QRCodes");
-
-        db.collection("QRCodes")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (DocumentSnapshot document : task.getResult()) {
-                                try {
-                                    String tempID = document.getString("name");
-                                    Double tempLat = document.getDouble("latitude");
-                                    Double tempLon = document.getDouble("longitude");
-                                    if (tempLat < 200 && tempLon < 200) {
-                                        points.add(new LabelledGeoPoint(tempLat, tempLon, tempID));
-                                    }
-                                } catch (NullPointerException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    } // end onComplete
-                }); // db.collection("QRCodes").get().addOnCompleteListener
-        
-        // *************************** Test Points ************************
-        // Create 10k labelled points, in most cases, there will be no problems of displaying >100k points
-//        for (int i = 0; i < 10000; i++) {
-//            points.add(new LabelledGeoPoint(37 + Math.random() * 5, -8 + Math.random() * 5, "Point #" + i));
-//        }
-        // *************************** End Test Points ************************
-
-        // Wrap them in a theme
-        SimplePointTheme pointTheme = new SimplePointTheme(points, true);
-
-        // Create label style
-        Paint textStyle = new Paint();
-        textStyle.setStyle(Paint.Style.FILL);
-        textStyle.setColor(Color.parseColor("#0000ff"));
-        textStyle.setTextAlign(Paint.Align.CENTER);
-        textStyle.setTextSize(30);
-
-        // Set some visual options for the overlay
-        SimpleFastPointOverlayOptions pointOverlayOptions = SimpleFastPointOverlayOptions.getDefaultStyle()
-                .setAlgorithm(SimpleFastPointOverlayOptions.RenderingAlgorithm.MEDIUM_OPTIMIZATION)
-                .setRadius(7).setIsClickable(true).setCellSize(15).setTextStyle(textStyle);
-
-        // Create the overlay with the theme
-        final SimpleFastPointOverlay sfpo = new SimpleFastPointOverlay(pointTheme, pointOverlayOptions);
-
-        // onClick callback
-        sfpo.setOnClickListener(new SimpleFastPointOverlay.OnClickListener() {
-            @Override
-            public void onClick(SimpleFastPointOverlay.PointAdapter points, Integer point) {
-                // Will Bring up the QRCode Info here**
-                Toast.makeText(map.getContext()
-                        , "You clicked " + ((LabelledGeoPoint) points.get(point)).getLabel()
-                        , Toast.LENGTH_SHORT).show();
-            } // end onClick
-        }); // end sfpo.setOnClickListener
-
-        // Add overlay
-        map.getOverlays().add(sfpo);
-
         // Attempt to set to current location
         LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         @SuppressLint("MissingPermission") Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         GeoPoint myPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
-        if (myPoint != null){
+        boolean setPoint = false;
+        if (myPoint != null) {
+            setPoint = true;
             mapController.setCenter(myPoint);
         }
 
-        // ************************** Page Selection ****************************************
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
-
-        bottomNavigationView.setSelectedItemId(R.id.map);
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+        if (setPoint) {
+            QRLocation = myPoint;
+            // Add Marker
+            QRLocationMarker = new Marker(map);
+            QRLocationMarker.setId("QRLocation");
+            QRLocationMarker.setPosition(QRLocation);
+            QRLocationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+            map.getOverlays().add(QRLocationMarker);
+        } else {
+            // Set to out of bounds
+            QRLocation = new GeoPoint(200.0, 200.0);
+        }
+//            Toast.makeText(getBaseContext(),"yes", Toast.LENGTH_LONG).show();
+        // Setup Click For location (if the decide to choose a new location)
+        final MapEventsReceiver mReceive = new MapEventsReceiver(){
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.my_qr_code:
-                        startActivity(new Intent(getApplicationContext(),MyQRCodeScreenActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.browse_qr:
-                        startActivity(new Intent(getApplicationContext(), BrowseQRActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.map:
-                        return true;
-                    case R.id.self_profile:
-                        startActivity(new Intent(getApplicationContext(),PlayerProfileActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
+            public boolean singleTapConfirmedHelper(GeoPoint p) {
+                // Remove old marker
+                for(int i = 0; i < map.getOverlays().size(); i++){
+                    Overlay overlay = map.getOverlays().get(i);
+                    if(overlay instanceof Marker && ((Marker) overlay).getId().equals("QRLocation")){
+                        map.getOverlays().remove(overlay);
+                    }
                 }
+                //Set new one
+                QRLocation = p;
+                QRLocationMarker = new Marker(map);
+                QRLocationMarker.setId("QRLocation");
+                QRLocationMarker.setPosition(QRLocation);
+                QRLocationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                map.getOverlays().add(QRLocationMarker);
                 return false;
-            } // end onNavigationItemSelected
-        }); // end  bottomNavigationView.setOnItemSelectedListener
+            } // end singleTapConfirmedHelper
+            @Override
+            public boolean longPressHelper(GeoPoint p) {
+                return false;
+            } // end longPressHelper
+        };
+        map.getOverlays().add(new MapEventsOverlay(mReceive));
+
+        // Buttons
+        final Button confirm = findViewById(R.id.button_confirm);
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent qrLocationIntent = new Intent();
+                qrLocationIntent.putExtra("latitude", QRLocation.getLatitude());
+                qrLocationIntent.putExtra("longitude", QRLocation.getLongitude());
+                setResult(Activity.RESULT_OK, qrLocationIntent);
+                finish();
+            } // end onClick
+        }); // end qrCode.setOnClickListener
+
+        final Button cancel = findViewById(R.id.button_back);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            } // end onClick
+        }); // end qrCode.setOnClickListener
+
     } // end onCreate
 
     @Override
@@ -290,4 +236,4 @@ public class MapActivity extends AppCompatActivity{
                     REQUEST_PERMISSIONS_REQUEST_CODE);
         }
     } // end requestPermissionsIfNecessary
-} // end MapActivity Class
+} // end SelectQRLocationActivity class

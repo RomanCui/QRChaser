@@ -36,5 +36,5 @@ public class QrAddScreenAddPhotoFragment extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         return builder.setView(view).setTitle("How would you like to add photo?").create();
-    }
-}
+    } // end onCreateDialog
+} // end QrAddScreenAddPhotoFragment Class
