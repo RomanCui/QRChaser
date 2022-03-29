@@ -119,7 +119,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                         }
                     } // end onActivityResult
                 }
-        );
+        ); // end registerForActivityResult
 
         // Gallery result receiver
         galleryResultLauncher = registerForActivityResult(

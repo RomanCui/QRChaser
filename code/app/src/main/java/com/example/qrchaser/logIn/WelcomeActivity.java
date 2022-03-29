@@ -100,9 +100,11 @@ public class WelcomeActivity extends SaveANDLoad {
                                         }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(),"Player not found",Toast.LENGTH_LONG).show();
                                     } // end onFailure
                                 });
+                            } else {
+                                Toast.makeText(getApplicationContext(),"Invalid QR Code",Toast.LENGTH_LONG).show();
                             }
                         }
                     } // end onActivityResult
