@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/relativeLayoutFrame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -49,7 +50,7 @@
                 android:textAlignment="center"
                 android:textColor="#051367"
                 android:textSize="15sp">
-                >
+
             </TextView>
 
             <TextView
@@ -156,10 +157,19 @@
             android:layout_weight="1">
 
         </ListView>
-
-
     </LinearLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonScanPlayerQR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/relativeLayoutFrame"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="60dp"
+        android:clickable="true"
+        android:contentDescription="Floating action Button"
+        app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
@@ -170,6 +180,5 @@
         app:itemIconTint="@drawable/selector"
         app:menu="@menu/menu_navigation"
         android:layout_alignParentBottom="true"/>
-
 
 </RelativeLayout>

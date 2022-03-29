@@ -18,6 +18,7 @@ import com.example.qrchaser.oop.Player;
 import com.example.qrchaser.oop.PlayerNumQRComparator;
 import com.example.qrchaser.oop.PlayerSingleScoreComparator;
 import com.example.qrchaser.oop.PlayerTotalScoreComparator;
+import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -95,64 +96,68 @@ public class FoundPlayerProfileActivity extends SaveANDLoad {
         String desiredPlayerID = getIntent().getStringExtra("playerID");
         DocumentReference desiredAccount = accountsRef.document(desiredPlayerID);
         // Get the document, forcing the SDK to use the offline cache
-        desiredAccount.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        desiredAccount.get(source).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    // Document found in the offline cache
-                    DocumentSnapshot document = task.getResult();
-                    desiredPlayer = document.toObject(Player.class);
-                } else {
-                    Toast.makeText(getApplicationContext(),"Load Failed",Toast.LENGTH_LONG).show();
-                }
-                nickname_text.setText(desiredPlayer.getNickname());
-                num_QR_text.setText(String.valueOf(desiredPlayer.getNumQR()));
-                total_score_text.setText(String.valueOf(desiredPlayer.getTotalScore()));
-                single_score_text.setText(String.valueOf(desiredPlayer.getHighestScore()));
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    desiredPlayer = documentSnapshot.toObject(Player.class);
+                    nickname_text.setText(desiredPlayer.getNickname());
+                    num_QR_text.setText(String.valueOf(desiredPlayer.getNumQR()));
+                    total_score_text.setText(String.valueOf(desiredPlayer.getTotalScore()));
+                    single_score_text.setText(String.valueOf(desiredPlayer.getHighestScore()));
 
-                accountsRef
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        Player player = document.toObject(Player.class);
-                                        players.add(player);
-                                    }// Populate the listview
+                    accountsRef
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            Player player = document.toObject(Player.class);
+                                            players.add(player);
+                                        }// Populate the listview
 
-                                    Collections.sort(players, new PlayerNumQRComparator());
-                                    for (int i = 0; i < players.size(); i++){
-                                        if (desiredPlayer.getUniqueID().equals(players.get(i).getUniqueID())){
-                                            num_QR_ranking = i + 1;
+                                        Collections.sort(players, new PlayerNumQRComparator());
+                                        for (int i = 0; i < players.size(); i++){
+                                            if (desiredPlayer.getUniqueID().equals(players.get(i).getUniqueID())){
+                                                num_QR_ranking = i + 1;
+                                            }
                                         }
-                                    }
 
-                                    Collections.sort(players, new PlayerTotalScoreComparator());
-                                    for (int i = 0; i < players.size(); i++){
-                                        if (desiredPlayer.getUniqueID().equals(players.get(i).getUniqueID())){
-                                            total_score_ranking = i + 1;
+                                        Collections.sort(players, new PlayerTotalScoreComparator());
+                                        for (int i = 0; i < players.size(); i++){
+                                            if (desiredPlayer.getUniqueID().equals(players.get(i).getUniqueID())){
+                                                total_score_ranking = i + 1;
+                                            }
                                         }
-                                    }
 
-                                    Collections.sort(players, new PlayerSingleScoreComparator());
-                                    for (int i = 0; i < players.size(); i++){
-                                        if (desiredPlayer.getUniqueID().equals(players.get(i).getUniqueID())){
-                                            single_score_ranking = i + 1;
+                                        Collections.sort(players, new PlayerSingleScoreComparator());
+                                        for (int i = 0; i < players.size(); i++){
+                                            if (desiredPlayer.getUniqueID().equals(players.get(i).getUniqueID())){
+                                                single_score_ranking = i + 1;
+                                            }
                                         }
+
+                                        num_QR_ranking_text.setText(String.valueOf(num_QR_ranking));
+                                        total_score_ranking_text.setText(String.valueOf(total_score_ranking));
+                                        single_score_ranking_text.setText(String.valueOf(single_score_ranking));
+
+                                    } else {
+                                        Log.d(TAG, "Error getting documents: ", task.getException());
                                     }
-
-                                    num_QR_ranking_text.setText(String.valueOf(num_QR_ranking));
-                                    total_score_ranking_text.setText(String.valueOf(total_score_ranking));
-                                    single_score_ranking_text.setText(String.valueOf(single_score_ranking));
-
-                                } else {
-                                    Log.d(TAG, "Error getting documents: ", task.getException());
                                 }
-                            }
-                        });
-            }
-        }); // end addOnCompleteListener
+                            });
+                } else {
+                    Toast.makeText(getApplicationContext(),"Document does not exist. Please try again",Toast.LENGTH_LONG).show();
+                }
+            } // end onSuccess
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                finish();
+                Toast.makeText(getApplicationContext(),"Player Not Found",Toast.LENGTH_LONG).show();
+            } // end onFailure
+        });
 
         // Back button - return to previous activity
         backButton.setOnClickListener( v -> {
@@ -203,13 +208,5 @@ public class FoundPlayerProfileActivity extends SaveANDLoad {
 
             } // end onClick
         });// end deleteButton.setOnClickListener
-
-
     } // end onCreate
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        this.recreate();
-    } // end onRestart
 } // end PlayerProfileActivity Class

@@ -1,5 +1,6 @@
 package com.example.qrchaser.player.browse;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +11,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,13 +28,16 @@ import com.example.qrchaser.oop.Player;
 import com.example.qrchaser.oop.PlayerNumQRComparator;
 import com.example.qrchaser.oop.PlayerSingleScoreComparator;
 import com.example.qrchaser.oop.PlayerTotalScoreComparator;
+import com.example.qrchaser.player.CameraScannerActivity;
 import com.example.qrchaser.player.map.MapActivity;
 import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
+import com.example.qrchaser.player.myQRCodes.QrAddScreenActivity;
 import com.example.qrchaser.player.profile.FoundPlayerProfileActivity;
 import com.example.qrchaser.player.profile.PlayerProfileActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -49,6 +58,7 @@ public class BrowsePlayerActivity extends AppCompatActivity {
     private ArrayAdapter<Player> playersAdapter1, playersAdapter2, playersAdapter3;
     private ListView playersListView;
     private int currentAdapter;
+    private FloatingActionButton scanPlayerQRButton;
     // General Data
     private ArrayList<Player> players = new ArrayList<>();
     // Database
@@ -64,6 +74,7 @@ public class BrowsePlayerActivity extends AppCompatActivity {
         singleButton = findViewById(R.id.single_button);
         scoreType = findViewById(R.id.score_text);
         playersListView = findViewById(R.id.listViewPlayer);
+        scanPlayerQRButton = findViewById(R.id.floatingActionButtonScanPlayerQR);
 
         db = FirebaseFirestore.getInstance();
         CollectionReference accountsRef = db.collection("Accounts");
@@ -145,6 +156,38 @@ public class BrowsePlayerActivity extends AppCompatActivity {
                 startActivity(intent);
             } // end onItemClick
         }); // end myQRCodeListView.setOnItemClickListener
+
+
+        // Scanner result receiver
+        ActivityResultLauncher<Intent> scannerResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            Intent scannerResult = result.getData();
+                            String qrValue = scannerResult.getStringExtra("qrValue");
+                            String[] qrDataArray = qrValue.split(",");
+                            if (qrDataArray[0].contentEquals("QRCHASERINFO")){
+                                Intent intent = new Intent(BrowsePlayerActivity.this, FoundPlayerProfileActivity.class);
+                                intent.putExtra("playerID", qrDataArray[1]);
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(getApplicationContext(),"Invalid QR Code",Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    } // end onActivityResult
+                }
+        ); // end registerForActivityResult
+
+        // Head to scan screen
+        scanPlayerQRButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(BrowsePlayerActivity.this, CameraScannerActivity.class);
+                scannerResultLauncher.launch(intent);
+            } // end onClick
+        }); // end scanPlayerQRButton.setOnClickListener
 
         // ************************** Page Selection ****************************************
         // Bottom Navigation bar
