@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -55,6 +56,7 @@ public class BrowsePlayerActivity extends AppCompatActivity {
     private BottomNavigationView topNavigationView,bottomNavigationView;
     private ImageButton numButton, totalButton, singleButton;
     private TextView scoreType;
+    private EditText search;
     private ArrayAdapter<Player> playersAdapter1, playersAdapter2, playersAdapter3;
     private ListView playersListView;
     private int currentAdapter;
