@@ -246,8 +246,13 @@ public class BrowsePlayerActivity extends AppCompatActivity {
             public void onClick(View view) {
                 for (int i = 0; i < players.size(); i++) {
                     if (searchEditText.getText().toString().equals(players.get(i).getNickname())) {
-                        startActivity(new Intent(BrowsePlayerActivity.this, MyQRCodeScreenActivity.class));
+                        Intent intent = new Intent(BrowsePlayerActivity.this, FoundPlayerProfileActivity.class);
+                        intent.putExtra("playerID", players.get(i).getUniqueID());
+                        startActivity(intent);;
                         break;
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),"Player not found, enter valid nickname",Toast.LENGTH_LONG).show();
                     }
                 }
             } // end onClick
