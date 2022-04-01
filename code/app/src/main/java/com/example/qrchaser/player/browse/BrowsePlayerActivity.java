@@ -253,7 +253,9 @@ public class BrowsePlayerActivity extends AppCompatActivity {
                 int j = 0;
                 while (j < players.size()){
                     if (search.getText().toString().equals(players.get(j).toString())){
-                        startActivity(new Intent(BrowsePlayerActivity.this, MyQRCodeScreenActivity.class));
+                        Intent intent = new Intent(BrowsePlayerActivity.this, FoundPlayerProfileActivity.class);
+                        intent.putExtra("playerID", players.get(j).getUniqueID());
+                        startActivity(intent);
                     }
                     else{
                         j++;
@@ -261,9 +263,6 @@ public class BrowsePlayerActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
 
     } // end onCreate
 
