@@ -44,8 +44,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:ems="10"
-                android:hint="Search by name..."
-                android:inputType="textPersonName"/>
+                android:hint="Search by full nickname..."
+                android:inputType="textPersonName" />
 
             <ImageButton
                 android:id="@+id/search_button"

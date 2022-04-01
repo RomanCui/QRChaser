@@ -237,7 +237,7 @@ public class BrowsePlayerActivity extends AppCompatActivity {
             } // end onNavigationItemSelected
         }); // end topNavigationView.setOnItemSelectedListener
 
-        // Search Implementation
+        // Search Implementation for players
         searchEditText = (EditText) findViewById(R.id.search_editText);
         searchButton = (ImageButton) findViewById(R.id.search_button);
 
@@ -252,7 +252,7 @@ public class BrowsePlayerActivity extends AppCompatActivity {
                         break;
                     }
                     else{
-                        Toast.makeText(getApplicationContext(),"Player not found, enter valid nickname",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"Player not found, enter valid nickname.",Toast.LENGTH_LONG).show();
                     }
                 }
             } // end onClick
