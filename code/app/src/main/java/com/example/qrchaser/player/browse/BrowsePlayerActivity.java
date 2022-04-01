@@ -57,7 +57,7 @@ public class BrowsePlayerActivity extends AppCompatActivity {
     private BottomNavigationView topNavigationView,bottomNavigationView;
     private ImageButton numButton, totalButton, singleButton, searchButton;
     private TextView scoreType;
-    private EditText search;
+    private EditText searchEditText;
     private ArrayAdapter<Player> playersAdapter1, playersAdapter2, playersAdapter3;
     private ListView playersListView;
     private int currentAdapter;
@@ -237,32 +237,24 @@ public class BrowsePlayerActivity extends AppCompatActivity {
             } // end onNavigationItemSelected
         }); // end topNavigationView.setOnItemSelectedListener
 
-        //Search implementation
-        search = (EditText) findViewById(R.id.search_editText);
+        // Search Implementation
+        searchEditText = (EditText) findViewById(R.id.search_editText);
         searchButton = (ImageButton) findViewById(R.id.search_button);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*for (int i = 0; i < players.size(); i++) {
-                    if (search.getText() == players.get(i)){
-                        startActivity(new Intent(BrowsePlayerActivity.this, PlayerProfileActivity.class));
-                    }
-                    else
-                }*/
-                int j = 0;
-                while (j < players.size()){
-                    if (search.getText().toString().equals(players.get(j).toString())){
-                        Intent intent = new Intent(BrowsePlayerActivity.this, FoundPlayerProfileActivity.class);
-                        intent.putExtra("playerID", players.get(j).getUniqueID());
-                        startActivity(intent);
-                    }
-                    else{
-                        j++;
+                for (int i = 0; i < players.size(); i++) {
+                    if (searchEditText.getText().toString().equals(players.get(i).getNickname())) {
+                        startActivity(new Intent(BrowsePlayerActivity.this, MyQRCodeScreenActivity.class));
+                        break;
                     }
                 }
-            }
-        });
+            } // end onClick
+        }); // end searchButton.setOnClickListener
+
+
+
 
     } // end onCreate
 
