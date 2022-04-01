@@ -244,19 +244,23 @@ public class BrowsePlayerActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //to determine if profile is found
+                boolean found = false;
+
                 for (int i = 0; i < players.size(); i++) {
                     if (searchEditText.getText().toString().equals(players.get(i).getNickname())) {
                         Intent intent = new Intent(BrowsePlayerActivity.this, FoundPlayerProfileActivity.class);
                         intent.putExtra("playerID", players.get(i).getUniqueID());
-                        startActivity(intent);;
+                        startActivity(intent);
+                        found = true;
                         break;
                     }
-                    else{
-                        Toast.makeText(getApplicationContext(),"Player not found, enter valid nickname.",Toast.LENGTH_LONG).show();
-                    }
                 }
-            } // end onClick
-        }); // end searchButton.setOnClickListener
+                if (found == false){
+                    Toast.makeText(getApplicationContext(),"Player not found, enter valid nickname.",Toast.LENGTH_LONG).show();
+                }
+            } // end searchButton.setOnClickListener
+        }); // end onClick
 
 
 
