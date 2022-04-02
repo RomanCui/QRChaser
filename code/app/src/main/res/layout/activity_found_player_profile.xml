@@ -25,7 +25,7 @@
             android:fontFamily="sans-serif"
             android:text="Delete Player"
             android:textSize="20sp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button_back"
             app:layout_constraintStart_toStartOf="parent"

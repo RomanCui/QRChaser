@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.qrchaser.general.CommentAdapter;
 import com.example.qrchaser.oop.Comments;
+import com.example.qrchaser.oop.Player;
 import com.example.qrchaser.oop.QRCode;
 import com.example.qrchaser.player.profile.FoundPlayerProfileActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,6 +43,7 @@ public class QRcodeInfoActivity extends AppCompatActivity implements DeleteComme
     private String hash;
     private QRCode qrCode;
     private ArrayAdapter<Comments> commentsAdapter;
+    private Player currentPlayer;
     private final String TAG = "Error";
 
     @Override
