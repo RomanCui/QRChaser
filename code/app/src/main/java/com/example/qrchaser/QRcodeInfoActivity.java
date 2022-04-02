@@ -1,5 +1,6 @@
 package com.example.qrchaser;
 
+import android.app.AlertDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.qrchaser.general.CommentAdapter;
 import com.example.qrchaser.oop.Comments;
 import com.example.qrchaser.oop.QRCode;
+import com.example.qrchaser.player.profile.FoundPlayerProfileActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,13 +35,14 @@ public class QRcodeInfoActivity extends AppCompatActivity implements DeleteComme
     private TextView qrName, score, location;
     private ListView commentsListView;
     private ImageView imageView;
-    private Button backButton;
+    private Button backButton, deleteButton;
     // Database
     private FirebaseFirestore db;
     // General Data
     private String hash;
     private QRCode qrCode;
     private ArrayAdapter<Comments> commentsAdapter;
+    private final String TAG = "Error";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,7 @@ public class QRcodeInfoActivity extends AppCompatActivity implements DeleteComme
         location = findViewById(R.id.qrcode_info_location_textView);
         imageView = findViewById(R.id.qrcode_info_imageView);
         backButton = findViewById(R.id.qrcode_info_back_button);
+        deleteButton = findViewById(R.id.qrcode_info_delete_button);
 
         //back button - return to previous activity
         backButton.setOnClickListener( v -> {
@@ -92,8 +96,51 @@ public class QRcodeInfoActivity extends AppCompatActivity implements DeleteComme
             } //end onItemClick
         });
 
+        // Delete button - Delete player and return to previous activity
 
-    } // end onCreate
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(QRcodeInfoActivity.this);
+                View mView = getLayoutInflater().inflate(R.layout.delete_dialog, null);
+                Button confirm = (Button) mView.findViewById(R.id.button_confirm);
+                Button cancel = (Button) mView.findViewById(R.id.button_cancel);
+                dialogBuilder.setView(mView);
+
+                final AlertDialog dialog = dialogBuilder.create();
+                dialog.show();
+
+                confirm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        db.collection("QRCodes").document(hash)
+                                .delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG, "QR code successfully deleted!");
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error deleting QR code", e);
+                                    }
+                                });
+                        finish();
+                    } // end onClick
+                }); // end confirm.setOnClickListener(new View.OnClickListener()
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    } // end onClick
+                }); // end confirm.setOnClickListener(new View.OnClickListener()
+            }
+        });
+    }// end onCreate
 
     //Use qrCode information to update textViews
     private void updateViewData() {
