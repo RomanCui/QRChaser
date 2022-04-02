@@ -96,8 +96,7 @@ public class QRcodeInfoActivity extends AppCompatActivity implements DeleteComme
             } //end onItemClick
         });
 
-        // Delete button - Delete player and return to previous activity
-
+        // Delete button - Delete QR code and return to previous activity
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
