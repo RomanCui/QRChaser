@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.qrchaser.QRcodeInfoActivity;
 import com.example.qrchaser.R;
 import com.example.qrchaser.player.browse.BrowseQRActivity;
 import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
@@ -103,6 +104,7 @@ public class MapActivity extends AppCompatActivity{
         // Set default map zoom
         IMapController mapController = map.getController();
         mapController.setZoom(22.0);
+        map.setMinZoomLevel(4.0);
 
         // Add touch Zoom Control
         map.setMultiTouchControls(true);
@@ -148,7 +150,7 @@ public class MapActivity extends AppCompatActivity{
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot document : task.getResult()) {
                                 try {
-                                    String tempID = document.getString("name");
+                                    String tempID =  document.getString("hash");
                                     Double tempLat = document.getDouble("latitude");
                                     Double tempLon = document.getDouble("longitude");
                                     if (tempLat < 200 && tempLon < 200) {
@@ -174,17 +176,21 @@ public class MapActivity extends AppCompatActivity{
         // Wrap them in a theme
         SimplePointTheme pointTheme = new SimplePointTheme(points, true);
 
-        // Create label style
+        // Create label style (Hidden)
         Paint textStyle = new Paint();
         textStyle.setStyle(Paint.Style.FILL);
-        textStyle.setColor(Color.parseColor("#0000ff"));
+        textStyle.setColor(Color.parseColor("#000000"));
         textStyle.setTextAlign(Paint.Align.CENTER);
-        textStyle.setTextSize(30);
+        textStyle.setTextSize(0);
 
+        // Create Point style
+        Paint pointStyle = new Paint();
+        pointStyle.setStyle(Paint.Style.FILL);
+        pointStyle.setColor(Color.parseColor("#e94335"));
         // Set some visual options for the overlay
         SimpleFastPointOverlayOptions pointOverlayOptions = SimpleFastPointOverlayOptions.getDefaultStyle()
                 .setAlgorithm(SimpleFastPointOverlayOptions.RenderingAlgorithm.MEDIUM_OPTIMIZATION)
-                .setRadius(7).setIsClickable(true).setCellSize(15).setTextStyle(textStyle);
+                .setRadius(15).setIsClickable(true).setCellSize(5).setTextStyle(textStyle).setPointStyle(pointStyle).setSymbol(SimpleFastPointOverlayOptions.Shape.CIRCLE);
 
         // Create the overlay with the theme
         final SimpleFastPointOverlay sfpo = new SimpleFastPointOverlay(pointTheme, pointOverlayOptions);
@@ -193,10 +199,9 @@ public class MapActivity extends AppCompatActivity{
         sfpo.setOnClickListener(new SimpleFastPointOverlay.OnClickListener() {
             @Override
             public void onClick(SimpleFastPointOverlay.PointAdapter points, Integer point) {
-                // Will Bring up the QRCode Info here**
-                Toast.makeText(map.getContext()
-                        , "You clicked " + ((LabelledGeoPoint) points.get(point)).getLabel()
-                        , Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MapActivity.this, QRcodeInfoActivity.class);
+                intent.putExtra("qrHash", ((LabelledGeoPoint) points.get(point)).getLabel());
+                startActivity(intent);
             } // end onClick
         }); // end sfpo.setOnClickListener
 
