@@ -86,6 +86,7 @@ public class SelectQRLocationActivity extends AppCompatActivity {
         // Add touch Zoom Control
         map.setMultiTouchControls(true);
         map.setBuiltInZoomControls(false);
+        map.setMinZoomLevel(4.0);
 
         // Enable Compass Overlay
         this.mapCompassOverlay = new CompassOverlay(context, new InternalCompassOrientationProvider(context), map);
