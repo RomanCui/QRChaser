@@ -27,13 +27,17 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import javax.annotation.Nullable;
 
 /**
  * This Activity Class shows off the player profile and that data contained in their account (such as qr codes and total score)
@@ -176,11 +180,6 @@ public class PlayerProfileActivity extends SaveANDLoad {
 
     } // end onCreate
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        this.recreate();
-    } // end onRestart
 
     @Override
     protected void onResume() {
@@ -197,12 +196,32 @@ public class PlayerProfileActivity extends SaveANDLoad {
                 if (task.isSuccessful()) {
                     // Document found in the offline cache
                     DocumentSnapshot document = task.getResult();
-                    nickname_text.setText(document.getString("nickname"));
+                    String nickname = document.getString("nickname");
+                    nickname_text.setText(nickname);
                 } else {
                     Toast.makeText(getApplicationContext(),"Load Nickname Failed",Toast.LENGTH_LONG).show();
                 }
             } // end onComplete
-        }); // end myAccount.get(source).addOnCompleteListener
+        });// end myAccount.get(source).addOnCompleteListener
+
+        myAccount.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e);
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    DocumentSnapshot document = snapshot;
+                    String nickname = document.getString("nickname");
+                    nickname_text.setText(nickname);
+                } else {
+                    Log.d(TAG, "Current data: null");
+                }
+            }
+        });
     } // end onResume
 
 } // end PlayerProfileActivity Class
