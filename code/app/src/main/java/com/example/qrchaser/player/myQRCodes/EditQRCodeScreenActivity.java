@@ -144,8 +144,8 @@ public class EditQRCodeScreenActivity extends SaveANDLoad implements AddCommentF
         StorageReference storageReference = storage.getReferenceFromUrl("gs://qrchaseredition2.appspot.com");
         StorageReference imgReference = storageReference.child(qrCode.getHash() + ".jpg");
 
-        // Set max img size to ~10kb, most image size should be around 5kb
-        imgReference.getBytes(10000)
+        // Set max img size to ~100kb, most image size should be around 5kb
+        imgReference.getBytes(100000)
                 .addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {

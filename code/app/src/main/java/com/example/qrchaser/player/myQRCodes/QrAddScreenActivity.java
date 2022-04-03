@@ -391,6 +391,10 @@ public class QrAddScreenActivity extends AppCompatActivity {
         });
     } // end compressAndUpload
 
+
+    /**
+     * update user's totalscore, highscore, number of scanned qrcodes
+     */
     private void updateScore() {
         // updating the user's scores
         CollectionReference QRCodesReference = db.collection("QRCodes");
