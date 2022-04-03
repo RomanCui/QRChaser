@@ -3,12 +3,12 @@
 
     <item
         android:id="@+id/browse_qr_code"
-        android:title="qrcode"
+        android:title="QR Codes"
         android:icon="@drawable/ic_baseline_qr_code"/>
 
     <item
         android:id="@+id/browse_other_players"
-        android:title="players"
+        android:title="Players"
         android:icon="@drawable/ic_baseline_people_outline_24"/>
 
 </menu>
