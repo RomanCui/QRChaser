@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -53,8 +55,9 @@ import java.util.Collections;
 public class BrowsePlayerActivity extends AppCompatActivity {
     // UI
     private BottomNavigationView topNavigationView,bottomNavigationView;
-    private ImageButton numButton, totalButton, singleButton;
+    private ImageButton numButton, totalButton, singleButton, searchButton;
     private TextView scoreType;
+    private EditText searchEditText;
     private ArrayAdapter<Player> playersAdapter1, playersAdapter2, playersAdapter3;
     private ListView playersListView;
     private int currentAdapter;
@@ -233,6 +236,34 @@ public class BrowsePlayerActivity extends AppCompatActivity {
                 return false;
             } // end onNavigationItemSelected
         }); // end topNavigationView.setOnItemSelectedListener
+
+        // Search Implementation for players
+        searchEditText = (EditText) findViewById(R.id.search_editText);
+        searchButton = (ImageButton) findViewById(R.id.search_button);
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //to determine if profile is found
+                boolean found = false;
+
+                for (int i = 0; i < players.size(); i++) {
+                    if (searchEditText.getText().toString().equals(players.get(i).getNickname())) {
+                        Intent intent = new Intent(BrowsePlayerActivity.this, FoundPlayerProfileActivity.class);
+                        intent.putExtra("playerID", players.get(i).getUniqueID());
+                        startActivity(intent);
+                        found = true;
+                        break;
+                    }
+                }
+                if (found == false){
+                    Toast.makeText(getApplicationContext(),"Player not found, enter valid nickname.",Toast.LENGTH_LONG).show();
+                }
+            } // end searchButton.setOnClickListener
+        }); // end onClick
+
+
+
 
     } // end onCreate
 

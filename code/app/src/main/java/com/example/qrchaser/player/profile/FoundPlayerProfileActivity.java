@@ -64,7 +64,6 @@ public class FoundPlayerProfileActivity extends SaveANDLoad {
         backButton = findViewById(R.id.button_back);
         deleteButton = findViewById(R.id.button_delete);
 
-
         //Initialize database Access
         db = FirebaseFirestore.getInstance();
         CollectionReference accountsRef = db.collection("Accounts");

@@ -55,6 +55,7 @@
         <entry key="app/src/main/res/layout/activity_edit_player_profile.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_edit_qr_screen.xml" value="0.24583333333333332" />
         <entry key="app/src/main/res/layout/activity_edit_qrcode_screen.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/activity_found_player_profile.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_generated_qrcode.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_login_email.xml" value="0.31970062255859377" />
@@ -71,6 +72,7 @@
         <entry key="app/src/main/res/layout/activity_scanner_camera_screen.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/comments_content.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/delete_dialog.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_add_comment.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_qr_add_photo.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_qr_change_name.xml" value="0.3098958333333333" />
