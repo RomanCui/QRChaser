@@ -104,8 +104,8 @@ public class QRcodeInfoActivity extends AppCompatActivity implements DeleteComme
             public void onClick(View v) {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(QRcodeInfoActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.delete_dialog, null);
-                Button confirm = (Button) mView.findViewById(R.id.button_confirm);
-                Button cancel = (Button) mView.findViewById(R.id.button_cancel);
+                Button confirm = mView.findViewById(R.id.button_confirm);
+                Button cancel = mView.findViewById(R.id.button_cancel);
                 dialogBuilder.setView(mView);
 
                 final AlertDialog dialog = dialogBuilder.create();
