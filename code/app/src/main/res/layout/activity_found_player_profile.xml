@@ -74,7 +74,6 @@
             android:fontFamily="sans-serif"
             android:textColor="#051367"
             android:textSize="20sp"/>
-
     </LinearLayout>
 
     <LinearLayout
@@ -94,12 +93,11 @@
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
-                android:text="The number of QR codes owned: "
+                android:text="Number of QR codes owned: "
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
                 android:textColor="#051367"
                 android:textSize="15sp">
-                >
             </TextView>
 
             <TextView
@@ -128,7 +126,7 @@
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
-                android:text="The total score: "
+                android:text="Total score: "
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
                 android:textColor="#051367"
@@ -147,7 +145,6 @@
                 android:fontFamily="sans-serif"
                 android:textColor="#051367">
             </TextView>
-
         </LinearLayout>
 
         <LinearLayout
@@ -161,12 +158,11 @@
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
-                android:text="The single highest score: "
+                android:text="Highest scoring QR code: "
                 android:textSize="15sp"
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
                 android:textColor="#051367">
-                >
             </TextView>
 
             <TextView
@@ -181,7 +177,6 @@
                 android:fontFamily="sans-serif"
                 android:textColor="#051367">
             </TextView>
-
         </LinearLayout>
 
         <LinearLayout
@@ -195,12 +190,11 @@
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
-                android:text="The number of QR code ranking: "
+                android:text="Number of scanned QR codes ranking: "
                 android:textSize="15sp"
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
                 android:textColor="#051367">
-                >
             </TextView>
 
             <TextView
@@ -215,7 +209,6 @@
                 android:fontFamily="sans-serif"
                 android:textColor="#051367">
             </TextView>
-
         </LinearLayout>
 
         <LinearLayout
@@ -229,12 +222,11 @@
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
-                android:text="The total score ranking: "
+                android:text="Total score ranking: "
                 android:textSize="15sp"
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
                 android:textColor="#051367">
-                >
             </TextView>
 
             <TextView
@@ -249,7 +241,6 @@
                 android:fontFamily="sans-serif"
                 android:textColor="#051367">
             </TextView>
-
         </LinearLayout>
 
         <LinearLayout
@@ -263,12 +254,11 @@
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
-                android:text="single highest score ranking: "
+                android:text="Single highest scoring QR ranking: "
                 android:textSize="15sp"
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
                 android:textColor="#051367">
-                >
             </TextView>
 
             <TextView
@@ -283,10 +273,6 @@
                 android:fontFamily="sans-serif"
                 android:textColor="#051367">
             </TextView>
-
         </LinearLayout>
-
-
     </LinearLayout>
-
 </LinearLayout>

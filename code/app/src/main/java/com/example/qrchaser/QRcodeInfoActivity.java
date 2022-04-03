@@ -12,11 +12,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.qrchaser.general.CommentAdapter;
+import com.example.qrchaser.general.SaveANDLoad;
 import com.example.qrchaser.oop.Comments;
 import com.example.qrchaser.oop.Player;
 import com.example.qrchaser.oop.QRCode;
@@ -25,13 +27,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Source;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class QRcodeInfoActivity extends AppCompatActivity implements DeleteCommentFragment.OnFragmentInteractionListener {
+public class QRcodeInfoActivity extends SaveANDLoad implements DeleteCommentFragment.OnFragmentInteractionListener {
     // UI
     private TextView qrName, score, location;
     private ListView commentsListView;
@@ -90,11 +94,43 @@ public class QRcodeInfoActivity extends AppCompatActivity implements DeleteComme
             }
         });
 
+
+        // Check If the player is an admin
+        //Initialize database Access
+        db = FirebaseFirestore.getInstance();
+        CollectionReference accountsRef = db.collection("Accounts");
+        // Source can be CACHE, SERVER, or DEFAULT.
+        Source source = Source.CACHE;
+
+        // Get the desired player id in order to load the data from the database
+        String currentPlayerID = loadData(getApplicationContext(), "uniqueID");
+        DocumentReference myAccount = accountsRef.document(currentPlayerID);
+        // Get the document, forcing the SDK to use the offline cache
+        myAccount.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    // Document found in the offline cache
+                    DocumentSnapshot document = task.getResult();
+                    currentPlayer = document.toObject(Player.class);
+                    if (currentPlayer.isAdmin()){
+                        deleteButton.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(),"Admin Authentication Failed",Toast.LENGTH_LONG).show();
+                }
+            }
+        }); // end addOnCompleteListener
+
+
+
         //Launch fragment that prompt the admin to delete the comment
         commentsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                new DeleteCommentFragment(i).show(getSupportFragmentManager(), "DELETE_COMMENT");
+                if (currentPlayer.isAdmin()){
+                    new DeleteCommentFragment(i).show(getSupportFragmentManager(), "DELETE_COMMENT");
+                }
             } //end onItemClick
         });
 
