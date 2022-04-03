@@ -3,6 +3,7 @@ package com.example.qrchaser.player.profile;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +21,11 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
+
+import java.util.ArrayList;
 
 /**
  * This Activity Class allows the user to see and change their password, nickname and phone number
@@ -33,6 +38,7 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
     private FirebaseFirestore db;
     // General Data
     private Player currentPlayer;
+    ArrayList<String> nickNameList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,9 +92,36 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
                 // format check
                 currentPlayer.setEmail(emailET.getText().toString());
                 currentPlayer.setPhoneNumber(phoneNumberET.getText().toString());
-                currentPlayer.setNickname(nicknameET.getText().toString());
-                currentPlayer.updateDatabase();
-                finish();
+                nickNameList = new ArrayList<>();
+                String nickname = nicknameET.getText().toString();
+                final String TAG = "Error";
+
+                accountsRef
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        Player player = document.toObject(Player.class);
+                                        nickNameList.add(player.getNickname());
+                                    }// Populate the listview
+
+                                    if (nickNameList.contains(nickname)){
+                                        Toast.makeText(getApplicationContext(),"Name already exists",Toast.LENGTH_LONG).show();
+                                    }
+                                    else {
+                                        currentPlayer.setNickname(nickname);
+                                        currentPlayer.updateDatabase();
+                                        finish();
+                                    }
+
+                                } else {
+                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                }
+                            } // end onComplete
+                        }); // end accountsRef.get().addOnCompleteListener
+
             } // end onClick
         }); // end buttonConfirm.setOnClickListener
 
