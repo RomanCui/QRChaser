@@ -188,7 +188,7 @@
         android:layout_alignBottom="@id/relativeLayoutFrame"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="80dp"
         android:clickable="true"
         android:contentDescription="Floating action Button"
         app:srcCompat="@android:drawable/ic_menu_camera" />
