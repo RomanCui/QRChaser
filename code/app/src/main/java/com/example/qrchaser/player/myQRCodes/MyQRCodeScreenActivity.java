@@ -58,34 +58,6 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
         highToLowButton = findViewById(R.id.highToLow_button);
         lowToHighButton = findViewById(R.id.lowToHigh_button);
 
-        // Get the player email in order for the query
-        String playerID = loadData(getApplicationContext(), "uniqueID");
-
-        // Find all the QR codes that belong to this player, then add the name and score
-        // to array lists.
-        db = FirebaseFirestore.getInstance();
-        CollectionReference QRCodesReference = db.collection("QRCodes");
-        QRCodesReference.whereArrayContains("owners", playerID)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                QRCode qrCode = document.toObject(QRCode.class);
-                                qrCodes.add(qrCode);
-                            }// Populate the listview
-
-                            Collections.sort(qrCodes);
-
-                            qrCodeAdapter = new QRCodeAdapter(MyQRCodeScreenActivity.this,qrCodes);
-                            myQRCodeListView.setAdapter(qrCodeAdapter);
-                    } else {
-                        Log.d(TAG, "Error getting documents: ", task.getException());
-                    }
-            } // end onComplete
-        });
-
 
         highToLowButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,6 +122,40 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
             } // end onClick
         }); // end addQR.setOnClickListener
     } // end onCreate
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        // Get the player email in order for the query
+        String playerID = loadData(getApplicationContext(), "uniqueID");
+
+        // Find all the QR codes that belong to this player, then add the name and score
+        // to array lists.
+        db = FirebaseFirestore.getInstance();
+        CollectionReference QRCodesReference = db.collection("QRCodes");
+        QRCodesReference.whereArrayContains("owners", playerID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            qrCodes = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                QRCode qrCode = document.toObject(QRCode.class);
+                                qrCodes.add(qrCode);
+                            }// Populate the listview
+
+                            Collections.sort(qrCodes);
+
+                            qrCodeAdapter = new QRCodeAdapter(MyQRCodeScreenActivity.this,qrCodes);
+                            myQRCodeListView.setAdapter(qrCodeAdapter);
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    } // end onComplete
+                });
+    }
 
 
     /**
