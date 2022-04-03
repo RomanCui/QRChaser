@@ -15,7 +15,7 @@
         android:padding="5dp"
         android:gravity="left"
         android:fontFamily="sans-serif"
-        android:textColor="#051367"
+        android:textColor="@color/black"
         android:textSize="15sp">
 
     </TextView>
@@ -29,7 +29,7 @@
         android:padding="5dp"
         android:gravity="left"
         android:fontFamily="sans-serif"
-        android:textColor="#051367"
+        android:textColor="@color/black"
         android:textSize="15sp">
 
     </TextView>

@@ -20,7 +20,7 @@
             android:padding="15dp"
             android:text="My QR codes"
             android:textAlignment="center"
-            android:textColor="#051367"
+            android:textColor="@color/black"
             android:textSize="30sp" />
 
         <LinearLayout
@@ -63,7 +63,7 @@
                 android:padding="5dp"
                 android:gravity="left"
                 android:fontFamily="sans-serif"
-                android:textColor="#051367"
+                android:textColor="@color/black"
                 android:textSize="20sp">
             </TextView>
 
@@ -76,7 +76,7 @@
                 android:padding="5dp"
                 android:gravity="left"
                 android:fontFamily="sans-serif"
-                android:textColor="#051367"
+                android:textColor="@color/black"
                 android:textSize="20sp">
             </TextView>
 

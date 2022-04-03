@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:text="Give the QR code a nickname:"
         android:fontFamily="sans-serif"
-        android:textColor="#051367"
+        android:textColor="@color/black"
         android:textSize="20sp"/>
 
     <EditText
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:text="Add comments:"
         android:fontFamily="sans-serif"
-        android:textColor="#051367"
+        android:textColor="@color/black"
         android:textSize="20sp"/>
 
     <EditText

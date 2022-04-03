@@ -77,7 +77,7 @@
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="QRcode name:"
-        android:textColor="#051367"
+        android:textColor="@color/black"
         android:textSize="20sp" />
 
     <TextView
@@ -87,7 +87,7 @@
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="Score:"
-        android:textColor="#051367"
+        android:textColor="@color/black"
         android:textSize="20sp" />
 
     <TextView
@@ -97,7 +97,7 @@
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="Optional location:"
-        android:textColor="#051367"
+        android:textColor="@color/black"
         android:textSize="20sp" />
 
     <ListView

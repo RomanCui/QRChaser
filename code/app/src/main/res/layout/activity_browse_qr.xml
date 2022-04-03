@@ -30,7 +30,7 @@
             android:padding="15dp"
             android:gravity="center"
             android:textAlignment="center"
-            android:textColor="#051367"
+            android:textColor="@color/black"
             android:textSize="30sp" />
 
         <LinearLayout
@@ -73,7 +73,7 @@
                 android:padding="5dp"
                 android:gravity="left"
                 android:fontFamily="sans-serif"
-                android:textColor="#051367"
+                android:textColor="@color/black"
                 android:textSize="20sp">
             </TextView>
 
@@ -86,7 +86,7 @@
                 android:padding="5dp"
                 android:gravity="left"
                 android:fontFamily="sans-serif"
-                android:textColor="#051367"
+                android:textColor="@color/black"
                 android:textSize="20sp">
             </TextView>
 

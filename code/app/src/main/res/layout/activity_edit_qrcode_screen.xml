@@ -38,7 +38,7 @@
         android:layout_below="@id/CL"
         android:fontFamily="sans-serif"
         android:text="Code name"
-        android:textColor="#051367"
+        android:textColor="@color/black"
         android:textSize="20sp" />
 
     <TextView
@@ -48,7 +48,7 @@
         android:layout_below="@id/qr_code_name_textView"
         android:fontFamily="sans-serif"
         android:text="Score"
-        android:textColor="#051367"
+        android:textColor="@color/black"
         android:textSize="20sp" />
 
     <TextView
@@ -58,7 +58,7 @@
         android:layout_below="@id/qr_score_textView"
         android:fontFamily="sans-serif"
         android:text="Comments:"
-        android:textColor="#051367"
+        android:textColor="@color/black"
         android:textSize="20sp" />
 
     <ListView

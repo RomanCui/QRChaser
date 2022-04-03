@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:text="Edit your email:"
-        android:textColor="#051367"
+        android:textColor="@color/black"
         android:textSize="20sp" />
 
     <EditText
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:text="Edit nickname:"
-        android:textColor="#051367"
+        android:textColor="@color/black"
         android:textSize="20sp" />
 
     <EditText
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:text="Edit phone number:"
-        android:textColor="#051367"
+        android:textColor="@color/black"
         android:textSize="20sp" />
 
     <EditText

@@ -22,7 +22,7 @@
             android:padding="20dp"
             android:gravity="left|center"
             android:fontFamily="sans-serif"
-            android:textColor="#051367"
+            android:textColor="@color/black"
             android:textSize="20sp"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -67,7 +67,7 @@
                 android:text="Number of QR codes owned: "
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
-                android:textColor="#051367"
+                android:textColor="@color/black"
                 android:textSize="15sp">
                 >
             </TextView>
@@ -81,7 +81,7 @@
                 android:text=""
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
-                android:textColor="#051367"
+                android:textColor="@color/black"
                 android:textSize="15sp">
             </TextView>
 
@@ -101,7 +101,7 @@
                 android:text="Total score: "
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
-                android:textColor="#051367"
+                android:textColor="@color/black"
                 android:textSize="15sp">
                 >
             </TextView>
@@ -116,7 +116,7 @@
                 android:textSize="15sp"
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
-                android:textColor="#051367">
+                android:textColor="@color/black">
             </TextView>
 
         </LinearLayout>
@@ -136,7 +136,7 @@
                 android:textSize="15sp"
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
-                android:textColor="#051367">
+                android:textColor="@color/black">
             </TextView>
 
             <TextView
@@ -149,7 +149,7 @@
                 android:textSize="15sp"
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
-                android:textColor="#051367">
+                android:textColor="@color/black">
             </TextView>
 
         </LinearLayout>
@@ -168,7 +168,7 @@
                 android:gravity="left|center"
                 android:padding="20dp"
                 android:text="Number of scanned QR codes ranking: "
-                android:textColor="#051367"
+                android:textColor="@color/black"
                 android:textSize="15sp">
                 </TextView>
 
@@ -182,7 +182,7 @@
                 android:textSize="15sp"
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
-                android:textColor="#051367">
+                android:textColor="@color/black">
             </TextView>
         </LinearLayout>
 
@@ -201,7 +201,7 @@
                 android:textSize="15sp"
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
-                android:textColor="#051367">
+                android:textColor="@color/black">
             </TextView>
 
             <TextView
@@ -214,7 +214,7 @@
                 android:textSize="15sp"
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
-                android:textColor="#051367">
+                android:textColor="@color/black">
             </TextView>
         </LinearLayout>
 
@@ -233,7 +233,7 @@
                 android:textSize="15sp"
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
-                android:textColor="#051367">
+                android:textColor="@color/black">
                 >
             </TextView>
 
@@ -247,7 +247,7 @@
                 android:textSize="15sp"
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
-                android:textColor="#051367">
+                android:textColor="@color/black">
             </TextView>
         </LinearLayout>
     </LinearLayout>

@@ -16,7 +16,7 @@
         android:gravity="center"
         android:fontFamily="sans-serif"
         android:textAlignment="center"
-        android:textColor="#051367"
+        android:textColor="@color/black"
         android:textSize="30sp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
