@@ -13,7 +13,17 @@
         <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_map.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_player_profile.xml" value="0.25" />
         <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_player_profile_info.xml" value="0.33" />
-        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_qr_add_screen.xml" value="0.5" />
+        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_qr_add_screen.xml" value="0.33" />
+        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_qrcode_info.xml" value="0.33" />
+        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_scanner_camera_screen.xml" value="0.22" />
+        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_select_qr_location_map.xml" value="0.25" />
+        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/activity_welcome.xml" value="0.25" />
+        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/comments_content.xml" value="0.25" />
+        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/delete_dialog.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/fragment_add_comment.xml" value="0.25" />
+        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/fragment_qr_add_photo.xml" value="0.22" />
+        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/fragment_qr_change_name.xml" value="0.22" />
+        <entry key="..\:/Users/Matthew Davies/Documents/School Work/CMPUT301/QRChaser/code/app/src/main/res/layout/qrcode_content.xml" value="0.33" />
         <entry key="..\:/Users/Paul/Desktop/CMPUT301MAR16/QRChaser/code/app/src/main/res/layout/qrcode_content.xml" value="0.14130434782608695" />
         <entry key="..\:/Users/Paul/Desktop/CMPUT301Mar15/QRChaser/code/app/src/main/res/drawable/ic_baseline_qr_code.xml" value="0.1" />
         <entry key="..\:/Users/Paul/Desktop/CMPUT301Mar15/QRChaser/code/app/src/main/res/drawable/ic_baseline_self_profile.xml" value="0.1" />
