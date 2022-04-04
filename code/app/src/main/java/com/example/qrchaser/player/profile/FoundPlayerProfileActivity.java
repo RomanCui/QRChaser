@@ -40,7 +40,9 @@ import java.util.Collections;
 public class FoundPlayerProfileActivity extends SaveANDLoad {
     // UI
     private Button backButton, deleteButton;
-    private TextView nickname_text, num_QR_text, single_score_text, total_score_text, num_QR_ranking_text, single_score_ranking_text, total_score_ranking_text;
+    private TextView nickname_text, num_QR_text, single_score_text, single_scoreL_text,
+            total_score_text, num_QR_ranking_text, single_score_ranking_text,
+            total_score_ranking_text;
     private ArrayList<Player> players = new ArrayList<>();
     // General Data
     private Player currentPlayer, desiredPlayer;
@@ -58,6 +60,7 @@ public class FoundPlayerProfileActivity extends SaveANDLoad {
         num_QR_text = findViewById(R.id.num_qr_2);
         total_score_text = findViewById(R.id.total_score_2);
         single_score_text = findViewById(R.id.single_score_2);
+        single_scoreL_text = findViewById(R.id.single_scoreL_2);
         num_QR_ranking_text = findViewById(R.id.num_qr_ranking_2);
         total_score_ranking_text = findViewById(R.id.total_score_ranking_2);
         single_score_ranking_text = findViewById(R.id.single_score_ranking_2);
@@ -103,6 +106,7 @@ public class FoundPlayerProfileActivity extends SaveANDLoad {
                     num_QR_text.setText(String.valueOf(desiredPlayer.getNumQR()));
                     total_score_text.setText(String.valueOf(desiredPlayer.getTotalScore()));
                     single_score_text.setText(String.valueOf(desiredPlayer.getHighestScore()));
+                    single_scoreL_text.setText(String.valueOf(currentPlayer.getLowestScore()));
 
                     accountsRef
                             .get()

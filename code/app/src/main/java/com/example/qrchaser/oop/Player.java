@@ -22,6 +22,7 @@ public class Player {
     private int numQR;
     private int totalScore;
     private int highestScore;
+    private int lowestScore;
 
     /**
      * This constructor creates a new Player with the default data;
@@ -210,5 +211,21 @@ public class Player {
     public void setHighestScore(int highestScore) {
         this.highestScore = highestScore;
     } // end setHighestScore
+
+    /**
+     * This gets the lowest score that the player has
+     * @return lowestScore
+     */
+    public int getLowestScore() {
+        return lowestScore;
+    }
+
+    /**
+     * This sets the highest score that the player has
+     * @param  lowestScore
+     */
+    public void setLowestScore(int lowestScore) {
+        this.lowestScore = lowestScore;
+    }
 
 } // end Player Class

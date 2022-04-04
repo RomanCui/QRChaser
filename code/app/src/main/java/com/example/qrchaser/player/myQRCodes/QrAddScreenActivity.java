@@ -73,7 +73,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
     private double longitude  = 200;
     // Player Data
     private Player currentPlayer;
-    private int numQR, singleScore, totalScore;
+    private int numQR, singleScore, singleScoreL, totalScore;
     private String playerName;
     private String playerID;
     // ActivityResultLaunchers
@@ -399,12 +399,15 @@ public class QrAddScreenActivity extends AppCompatActivity {
                             Collections.sort(qrCodes, new QRCodeScoreComparator1());
                             if (qrCodes.size() > 0) {
                                 singleScore = qrCodes.get(0).getScore();
+                                singleScoreL = qrCodes.get(qrCodes.size()-1).getScore();
                             } else {
                                 singleScore = 0;
+                                singleScoreL = 0;
                             }
                             currentPlayer.setNumQR(numQR);
                             currentPlayer.setTotalScore(totalScore);
                             currentPlayer.setHighestScore(singleScore);
+                            currentPlayer.setLowestScore(singleScoreL);
                             currentPlayer.updateDatabase();
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
