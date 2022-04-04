@@ -228,7 +228,7 @@ public class QRCodeInfoActivity extends SaveANDLoad implements DeleteCommentFrag
     private void updateViewData() {
         qrName.setText("Name: " + qrCode.getName());
         score.setText("Score: " + qrCode.getScore());
-        location.setText("Latitude: " + qrCode.getLatitude() + " Longitude: " + qrCode.getLongitude());
+        location.setText("Latitude:" + qrCode.getLatitude() + "\n Longitude: " + qrCode.getLongitude());
     } // end updateViewData
 
     // Same code as EditQRCodeScreenActivity
