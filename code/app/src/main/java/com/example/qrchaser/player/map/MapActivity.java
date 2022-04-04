@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -53,11 +55,12 @@ import org.osmdroid.views.overlay.simplefastpoint.SimplePointTheme;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * This Activity Class allows the user to view QR Codes in a Map
  */
-public class MapActivity extends AppCompatActivity{
+public class MapActivity extends AppCompatActivity {
     // UI
     private BottomNavigationView bottomNavigationView;
     // Permissions
@@ -72,6 +75,8 @@ public class MapActivity extends AppCompatActivity{
     private final String TAG = "Sample";
     private FirebaseFirestore db;
 
+    @SuppressLint("MissingPermission")
+    @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +99,7 @@ public class MapActivity extends AppCompatActivity{
         map = (MapView) findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
 
-        requestPermissionsIfNecessary(new String[] {
+        requestPermissionsIfNecessary(new String[]{
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -115,7 +120,7 @@ public class MapActivity extends AppCompatActivity{
         map.getOverlays().add(this.mapCompassOverlay);
 
         // Enable My Location overlay
-        this.myLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(context),map);
+        this.myLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(context), map);
         this.myLocationOverlay.enableMyLocation();
         this.myLocationOverlay.enableFollowLocation();
         map.getOverlays().add(this.myLocationOverlay);
@@ -149,7 +154,7 @@ public class MapActivity extends AppCompatActivity{
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot document : task.getResult()) {
                                 try {
-                                    String tempID =  document.getString("hash");
+                                    String tempID = document.getString("hash");
                                     Double tempLat = document.getDouble("latitude");
                                     Double tempLon = document.getDouble("longitude");
                                     if (tempLat < 200 && tempLon < 200) {
@@ -164,7 +169,7 @@ public class MapActivity extends AppCompatActivity{
                         }
                     } // end onComplete
                 }); // db.collection("QRCodes").get().addOnCompleteListener
-        
+
         // *************************** Test Points ************************
         // Create 10k labelled points, in most cases, there will be no problems of displaying >100k points
 //        for (int i = 0; i < 10000; i++) {
@@ -208,12 +213,25 @@ public class MapActivity extends AppCompatActivity{
         map.getOverlays().add(sfpo);
 
         // Attempt to set to current location
-        LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         @SuppressLint("MissingPermission") Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        GeoPoint myPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
-        if (myPoint != null){
-            mapController.setCenter(myPoint);
+        if (location == null) {
+            locationManager.getCurrentLocation(LocationManager.GPS_PROVIDER, null, getApplication().getMainExecutor(), new Consumer<Location>() {
+                @Override
+                public void accept(Location location) {
+                    GeoPoint myPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
+                    if (myPoint != null) {
+                        mapController.setCenter(myPoint);
+                    }
+                }
+            });
+        } else {
+            GeoPoint myPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
+            if (myPoint != null){
+                mapController.setCenter(myPoint);
+            }
         }
+
 
         // ************************** Page Selection ****************************************
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -278,7 +296,7 @@ public class MapActivity extends AppCompatActivity{
         }
     } // end onRequestPermissionsResult
 
-    private void requestPermissionsIfNecessary(String[] permissions) {
+    public void requestPermissionsIfNecessary(String[] permissions) {
         ArrayList<String> permissionsToRequest = new ArrayList<>();
         for (String permission : permissions) {
             if (ContextCompat.checkSelfPermission(this, permission)

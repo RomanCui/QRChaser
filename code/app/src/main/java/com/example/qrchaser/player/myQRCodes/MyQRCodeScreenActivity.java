@@ -1,7 +1,12 @@
 package com.example.qrchaser.player.myQRCodes;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -88,18 +93,24 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
 
         bottomNavigationView.setSelectedItemId(R.id.my_qr_code);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.my_qr_code:
                         return true;
                     case R.id.browse_qr:
+
                         startActivity(new Intent(getApplicationContext(), BrowseQRActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.map:
-                        startActivity(new Intent(getApplicationContext(),MapActivity.class));
-                        overridePendingTransition(0,0);
+                        if(checkCoarseLocationPermission() && checkFineLocationPermission()) {
+                            launchMap();
+                        } else {
+                            requestLocationPermission();
+                        }
+
                         return true;
                     case R.id.self_profile:
                         startActivity(new Intent(getApplicationContext(),PlayerProfileActivity.class));
@@ -163,4 +174,34 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
         return qrCodes;
     } // end getQrCodes
 
+
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private Boolean checkCoarseLocationPermission() {
+        return checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private Boolean checkFineLocationPermission() {
+        return checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void requestLocationPermission() {
+        requestPermissions(new String[] {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+    }
+
+    private void launchMap() {
+        startActivity(new Intent(getApplicationContext(),MapActivity.class));
+        overridePendingTransition(0,0);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(checkCoarseLocationPermission() && checkFineLocationPermission()) {
+            launchMap();
+        }
+    }
 } // end MyQRCodeScreenActivity Class
