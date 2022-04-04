@@ -136,8 +136,8 @@ public class EditQRCodeScreenActivity extends SaveANDLoad implements AddCommentF
      * Update the Name and Score textView
      */
     private void updateTextView() {
-        qrName.setText("Name: " + qrCode.getName());
-        qrScore.setText("Score: " + qrCode.getScore());
+        qrName.setText(qrCode.getName());
+        qrScore.setText(qrCode.getScore() + "");
     } // end updateTextView
 
     /**

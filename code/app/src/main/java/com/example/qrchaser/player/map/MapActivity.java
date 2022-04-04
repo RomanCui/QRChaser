@@ -22,7 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.qrchaser.QRCodeInfoActivity;
+import com.example.qrchaser.player.browse.QRCodeInfoActivity;
 import com.example.qrchaser.R;
 import com.example.qrchaser.player.browse.BrowseQRActivity;
 import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;

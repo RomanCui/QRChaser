@@ -36,8 +36,10 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
         }
 
         Player player = players.get(position);
-        TextView username = view.findViewById(R.id.player_string_textView);
+        TextView ownerNumber = view.findViewById(R.id.player_string_textView);
+        TextView username = view.findViewById(R.id.player_string_textView1);
 
+        ownerNumber.setText("Owner " + (position + 1) +": ");
         username.setText(player.getNickname());
         return view;
     } // end getView
