@@ -73,6 +73,10 @@ public class QRCodeInfoActivity extends SaveANDLoad implements DeleteCommentFrag
         backButton = findViewById(R.id.qrcode_info_back_button);
         deleteButton = findViewById(R.id.qrcode_info_delete_button);
 
+        ArrayList<Player> playerNames = new ArrayList<Player>();
+        playersAdapter = new PlayerAdapter(QRCodeInfoActivity.this, 0, playerNames);
+        playersListView.setAdapter(playersAdapter);
+
         // back button -> return to previous activity
         backButton.setOnClickListener( v -> {
             finish();
@@ -94,7 +98,6 @@ public class QRCodeInfoActivity extends SaveANDLoad implements DeleteCommentFrag
                         commentsListView.setAdapter(commentsAdapter);
 
 
-                        ArrayList<Player> playerNames = new ArrayList<Player>();
                         // Initialize database Access
                         CollectionReference accountsRef = db.collection("Accounts");
                         // Source can be CACHE, SERVER, or DEFAULT.
@@ -112,8 +115,7 @@ public class QRCodeInfoActivity extends SaveANDLoad implements DeleteCommentFrag
                                         Player tempPlayer = document.toObject(Player.class);
                                         if (tempPlayer != null) {
                                             playerNames.add(tempPlayer);
-                                            Log.d("Player*****", ""+ tempPlayer.getNickname());
-
+                                            playersAdapter.notifyDataSetChanged();
                                         }
                                     } else {
                                         Toast.makeText(getApplicationContext(), "Owner List Failed", Toast.LENGTH_LONG).show();
@@ -121,10 +123,6 @@ public class QRCodeInfoActivity extends SaveANDLoad implements DeleteCommentFrag
                                 }
                             }); // end addOnCompleteListener
                         }
-                        playersAdapter = new PlayerAdapter(QRCodeInfoActivity.this, 0, playerNames);
-                        playersListView.setAdapter(playersAdapter);
-
-
                     } else {
                         Log.d("queryQR","QR does not exist");
                     }
