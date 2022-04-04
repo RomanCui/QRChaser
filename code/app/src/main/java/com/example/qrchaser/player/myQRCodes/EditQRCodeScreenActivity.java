@@ -180,7 +180,7 @@ public class EditQRCodeScreenActivity extends SaveANDLoad implements AddCommentF
         // Add Comment fragment
         if (returnCode == 2) {
             String comment = returnedString;
-            String username = player.getNickname();
+            String username = player.getUniqueID();
             if(username == "") { username = "Guest"; }
             qrCode.addComment(username, comment);
             qrCode.saveToDatabase();

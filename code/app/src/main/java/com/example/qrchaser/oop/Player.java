@@ -29,7 +29,7 @@ public class Player {
      */
     public Player() {
         this.uniqueID = "" + UUID.randomUUID();
-        this.nickname = "Player_" + this.uniqueID.substring(0, 4);
+        this.nickname = "Player_" + this.uniqueID;
         this.email = "";
         this.phoneNumber = "";
         this.admin = false;

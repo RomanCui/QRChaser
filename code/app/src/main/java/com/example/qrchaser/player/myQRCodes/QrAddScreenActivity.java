@@ -253,7 +253,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                                 // Document found in the offline cache
                                 DocumentSnapshot document = task.getResult();
                                 currentPlayer = document.toObject(Player.class);
-                                playerName = currentPlayer.getNickname();
+                                playerName = currentPlayer.getUniqueID();
                                 Log.d("name", playerName);
 
                                 // check comments
