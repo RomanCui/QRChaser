@@ -70,7 +70,7 @@ public class CommentAdapter extends ArrayAdapter<Comments> {
                     // Document found in the offline cache
                     DocumentSnapshot document = task.getResult();
                     currentPlayer = document.toObject(Player.class);
-                    username.setText(currentPlayer.getNickname());
+                    username.setText("Comment "+ (position + 1) + " by " + currentPlayer.getNickname());
                     commentTV.setText(comment.getComment());
 
                 } else {

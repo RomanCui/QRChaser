@@ -1,4 +1,4 @@
-package com.example.qrchaser;
+package com.example.qrchaser.player.browse;
 
 import android.app.AlertDialog;
 import android.graphics.Bitmap;
@@ -15,15 +15,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.qrchaser.DeleteCommentFragment;
+import com.example.qrchaser.R;
 import com.example.qrchaser.general.CommentAdapter;
 import com.example.qrchaser.general.PlayerAdapter;
 import com.example.qrchaser.general.SaveANDLoad;
 import com.example.qrchaser.oop.Comments;
 import com.example.qrchaser.oop.Player;
 import com.example.qrchaser.oop.QRCode;
-import com.example.qrchaser.player.profile.FoundPlayerProfileActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,8 +32,6 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -45,7 +43,7 @@ import java.util.List;
  */
 public class QRCodeInfoActivity extends SaveANDLoad implements DeleteCommentFragment.OnFragmentInteractionListener {
     // UI
-    private TextView qrName, score, location;
+    private TextView qrName, score, location1, location2;
     private ListView commentsListView, playersListView;
     private ImageView imageView;
     private Button backButton, deleteButton;
@@ -70,7 +68,8 @@ public class QRCodeInfoActivity extends SaveANDLoad implements DeleteCommentFrag
         score = findViewById(R.id.qrcode_info_score_textView);
         commentsListView = findViewById(R.id.qrcode_info_comment_listView);
         playersListView = findViewById(R.id.qrcode_info_players_listView);
-        location = findViewById(R.id.qrcode_info_location_textView);
+        location1 = findViewById(R.id.qrcode_info_location1_textView);
+        location2 = findViewById(R.id.qrcode_info_location2_textView);
         imageView = findViewById(R.id.qrcode_info_imageView);
         backButton = findViewById(R.id.qrcode_info_back_button);
         deleteButton = findViewById(R.id.qrcode_info_delete_button);
@@ -226,9 +225,10 @@ public class QRCodeInfoActivity extends SaveANDLoad implements DeleteCommentFrag
      * Use QRCode information to update textViews
      */
     private void updateViewData() {
-        qrName.setText("Name: " + qrCode.getName());
-        score.setText("Score: " + qrCode.getScore());
-        location.setText("Latitude:" + qrCode.getLatitude() + "\n Longitude: " + qrCode.getLongitude());
+        qrName.setText(qrCode.getName());
+        score.setText(qrCode.getScore() + "");
+        location1.setText(qrCode.getLatitude() + "");
+        location2.setText(qrCode.getLongitude() + "");
     } // end updateViewData
 
     // Same code as EditQRCodeScreenActivity
