@@ -177,6 +177,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre>public class <span class="typeNameLabel">CameraScannerActivity</span>
 extends androidx.appcompat.app.AppCompatActivity
 implements androidx.camera.core.CameraXConfig.Provider</pre>
+<div class="block">This activity launches the camera to scan qrcode, bind the qrcode scanner and qrcode analyzer to camera,
+ and preview the feed from camera</div>
 </li>
 </ul>
 </div>
@@ -269,7 +271,10 @@ implements androidx.camera.core.CameraXConfig.Provider</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>androidx.camera.core.CameraXConfig</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCameraXConfig()">getCameraXConfig</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Get the camera config, for some situation where android could not get the camera config
+ Might not need this, try testing without this method</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
@@ -431,6 +436,8 @@ public&nbsp;void&nbsp;onRequestPermissionsResult&#8203;(int&nbsp;requestCode,
 <h4>getCameraXConfig</h4>
 <pre class="methodSignature">@NonNull
 public&nbsp;androidx.camera.core.CameraXConfig&nbsp;getCameraXConfig()</pre>
+<div class="block">Get the camera config, for some situation where android could not get the camera config
+ Might not need this, try testing without this method</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code>getCameraXConfig</code>&nbsp;in interface&nbsp;<code>androidx.camera.core.CameraXConfig.Provider</code></dd>

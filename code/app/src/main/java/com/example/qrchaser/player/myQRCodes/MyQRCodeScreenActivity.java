@@ -58,7 +58,6 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
 
         // Setup UI
         myQRCodeListView = findViewById(R.id.listViewQRCode);
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
         addQR = findViewById(R.id.floatingActionButton);
         highToLowButton = findViewById(R.id.highToLow_button);
         lowToHighButton = findViewById(R.id.lowToHigh_button);
@@ -91,6 +90,9 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
             } // end onItemClick
         }); // end myQRCodeListView.setOnItemClickListener
 
+        // ************************** Page Selection ****************************************
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        // Head to My QR Code Screen
         bottomNavigationView.setSelectedItemId(R.id.my_qr_code);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -100,7 +102,6 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
                     case R.id.my_qr_code:
                         return true;
                     case R.id.browse_qr:
-
                         startActivity(new Intent(getApplicationContext(), BrowseQRActivity.class));
                         overridePendingTransition(0,0);
                         return true;
@@ -110,7 +111,6 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
                         } else {
                             requestMapPermissions();
                         }
-
                         return true;
                     case R.id.self_profile:
                         startActivity(new Intent(getApplicationContext(),PlayerProfileActivity.class));

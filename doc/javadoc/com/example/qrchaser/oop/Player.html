@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -122,26 +122,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li><a href="User.html" title="class in com.example.qrchaser.oop">com.example.qrchaser.oop.User</a></li>
-<li>
-<ul class="inheritance">
 <li>com.example.qrchaser.oop.Player</li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
 <div class="description">
 <ul class="blockList">
 <li class="blockList">
-<dl>
-<dt>Direct Known Subclasses:</dt>
-<dd><code><a href="Admin.html" title="class in com.example.qrchaser.oop">Admin</a></code></dd>
-</dl>
 <hr>
 <pre>public class <span class="typeNameLabel">Player</span>
-extends <a href="User.html" title="class in com.example.qrchaser.oop">User</a></pre>
-<div class="block">This class holds all of the data for a single player</div>
+extends java.lang.Object</pre>
+<div class="block">This class holds all of the data for a single Player</div>
 </li>
 </ul>
 </div>
@@ -163,15 +154,8 @@ extends <a href="User.html" title="class in com.example.qrchaser.oop">User</a></
 </tr>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">Player</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.lang.String,java.lang.String,java.lang.String,java.lang.String)">Player</a></span>&#8203;(java.lang.String&nbsp;email,
-      java.lang.String&nbsp;password,
-      java.lang.String&nbsp;nickname,
-      java.lang.String&nbsp;phoneNumber)</code></th>
 <td class="colLast">
-<div class="block">A constructor for the Player</div>
+<div class="block">This constructor creates a new Player with the default data;</div>
 </td>
 </tr>
 </table>
@@ -196,77 +180,134 @@ extends <a href="User.html" title="class in com.example.qrchaser.oop">User</a></
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEmail()">getEmail</a></span>()</code></th>
 <td class="colLast">
-<div class="block">This gets the email of the player</div>
+<div class="block">This gets the email of the Player</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGuest()">getGuest</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getHighestScore()">getHighestScore</a></span>()</code></th>
+<td class="colLast">
+<div class="block">This gets the highest score that the Player has</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getNickname()">getNickname</a></span>()</code></th>
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLowestScore()">getLowestScore</a></span>()</code></th>
 <td class="colLast">
-<div class="block">This gets the nickname of the player</div>
+<div class="block">This gets the lowest score that the player has</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPassword()">getPassword</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getNickname()">getNickname</a></span>()</code></th>
 <td class="colLast">
-<div class="block">This gets the password of the player</div>
+<div class="block">This gets the nickname of the Player</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
-<td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPhoneNumber()">getPhoneNumber</a></span>()</code></th>
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getNumQR()">getNumQR</a></span>()</code></th>
 <td class="colLast">
-<div class="block">This gets the phone number of the player</div>
+<div class="block">This gets the number of QR Codes that the Player has scanned</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveToDatabase()">saveToDatabase</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPhoneNumber()">getPhoneNumber</a></span>()</code></th>
+<td class="colLast">
+<div class="block">This gets the phone number of the Player</div>
+</td>
 </tr>
 <tr id="i6" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setEmail(java.lang.String)">setEmail</a></span>&#8203;(java.lang.String&nbsp;email)</code></th>
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTotalScore()">getTotalScore</a></span>()</code></th>
 <td class="colLast">
-<div class="block">This sets the email of the player</div>
+<div class="block">This gets the total score that the Player has</div>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setGuest(java.lang.String)">setGuest</a></span>&#8203;(java.lang.String&nbsp;guest)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUniqueID()">getUniqueID</a></span>()</code></th>
+<td class="colLast">
+<div class="block">This gets the unique ID of the Player</div>
+</td>
 </tr>
 <tr id="i8" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setNickname(java.lang.String)">setNickname</a></span>&#8203;(java.lang.String&nbsp;nickname)</code></th>
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isAdmin()">isAdmin</a></span>()</code></th>
 <td class="colLast">
-<div class="block">This sets the nickname of the player</div>
+<div class="block">This gets the admin privilege of the Player</div>
 </td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPassword(java.lang.String)">setPassword</a></span>&#8203;(java.lang.String&nbsp;password)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveToDatabase()">saveToDatabase</a></span>()</code></th>
 <td class="colLast">
-<div class="block">This sets the password of the player</div>
+<div class="block">This saves the Player object to the database for the first time (Used in CreatePlayer)</div>
 </td>
 </tr>
 <tr id="i10" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPhoneNumber(java.lang.String)">setPhoneNumber</a></span>&#8203;(java.lang.String&nbsp;phoneNumber)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAdmin(boolean)">setAdmin</a></span>&#8203;(boolean&nbsp;admin)</code></th>
 <td class="colLast">
-<div class="block">This sets the phone number of the player</div>
+<div class="block">This sets the admin privilege of the Player</div>
 </td>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setEmail(java.lang.String)">setEmail</a></span>&#8203;(java.lang.String&nbsp;email)</code></th>
+<td class="colLast">
+<div class="block">This sets the email of the Player</div>
+</td>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setHighestScore(int)">setHighestScore</a></span>&#8203;(int&nbsp;highestScore)</code></th>
+<td class="colLast">
+<div class="block">This sets the highest score that the Player has</div>
+</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLowestScore(int)">setLowestScore</a></span>&#8203;(int&nbsp;lowestScore)</code></th>
+<td class="colLast">
+<div class="block">This sets the highest score that the player has</div>
+</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setNickname(java.lang.String)">setNickname</a></span>&#8203;(java.lang.String&nbsp;nickname)</code></th>
+<td class="colLast">
+<div class="block">This sets the nickname of the Player</div>
+</td>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setNumQR(int)">setNumQR</a></span>&#8203;(int&nbsp;numQR)</code></th>
+<td class="colLast">
+<div class="block">This sets the number of QR Codes that the Player has scanned</div>
+</td>
+</tr>
+<tr id="i16" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPhoneNumber(java.lang.String)">setPhoneNumber</a></span>&#8203;(java.lang.String&nbsp;phoneNumber)</code></th>
+<td class="colLast">
+<div class="block">This sets the phone number of the Player</div>
+</td>
+</tr>
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTotalScore(int)">setTotalScore</a></span>&#8203;(int&nbsp;totalScore)</code></th>
+<td class="colLast">
+<div class="block">This sets the total score that the Player has</div>
+</td>
+</tr>
+<tr id="i18" class="altColor">
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateDatabase()">updateDatabase</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">This updates the database with the data contained in the current player object</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -292,26 +333,6 @@ extends <a href="User.html" title="class in com.example.qrchaser.oop">User</a></
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(java.lang.String,java.lang.String,java.lang.String,java.lang.String)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>Player</h4>
-<pre>public&nbsp;Player&#8203;(java.lang.String&nbsp;email,
-              java.lang.String&nbsp;password,
-              java.lang.String&nbsp;nickname,
-              java.lang.String&nbsp;phoneNumber)</pre>
-<div class="block">A constructor for the Player</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>email</code> - </dd>
-<dd><code>password</code> - </dd>
-<dd><code>nickname</code> - </dd>
-<dd><code>phoneNumber</code> - </dd>
-</dl>
-</li>
-</ul>
 <a id="&lt;init&gt;()">
 <!--   -->
 </a>
@@ -319,6 +340,7 @@ extends <a href="User.html" title="class in com.example.qrchaser.oop">User</a></
 <li class="blockList">
 <h4>Player</h4>
 <pre>public&nbsp;Player()</pre>
+<div class="block">This constructor creates a new Player with the default data;</div>
 </li>
 </ul>
 </li>
@@ -338,6 +360,7 @@ extends <a href="User.html" title="class in com.example.qrchaser.oop">User</a></
 <li class="blockList">
 <h4>saveToDatabase</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;saveToDatabase()</pre>
+<div class="block">This saves the Player object to the database for the first time (Used in CreatePlayer)</div>
 </li>
 </ul>
 <a id="updateDatabase()">
@@ -347,61 +370,20 @@ extends <a href="User.html" title="class in com.example.qrchaser.oop">User</a></
 <li class="blockList">
 <h4>updateDatabase</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;updateDatabase()</pre>
+<div class="block">This updates the database with the data contained in the current player object</div>
 </li>
 </ul>
-<a id="getEmail()">
+<a id="getUniqueID()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getEmail</h4>
-<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getEmail()</pre>
-<div class="block">This gets the email of the player</div>
+<h4>getUniqueID</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getUniqueID()</pre>
+<div class="block">This gets the unique ID of the Player</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>The email of the QRCode</dd>
-</dl>
-</li>
-</ul>
-<a id="setEmail(java.lang.String)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setEmail</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setEmail&#8203;(java.lang.String&nbsp;email)</pre>
-<div class="block">This sets the email of the player</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>email</code> - </dd>
-</dl>
-</li>
-</ul>
-<a id="getPassword()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getPassword</h4>
-<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getPassword()</pre>
-<div class="block">This gets the password of the player</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>The password of the QRCode</dd>
-</dl>
-</li>
-</ul>
-<a id="setPassword(java.lang.String)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setPassword</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setPassword&#8203;(java.lang.String&nbsp;password)</pre>
-<div class="block">This sets the password of the player</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>password</code> - </dd>
+<dd>uniqueID</dd>
 </dl>
 </li>
 </ul>
@@ -412,10 +394,10 @@ extends <a href="User.html" title="class in com.example.qrchaser.oop">User</a></
 <li class="blockList">
 <h4>getNickname</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getNickname()</pre>
-<div class="block">This gets the nickname of the player</div>
+<div class="block">This gets the nickname of the Player</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>The nickname of the QRCode</dd>
+<dd>The nickname of the Player</dd>
 </dl>
 </li>
 </ul>
@@ -426,10 +408,38 @@ extends <a href="User.html" title="class in com.example.qrchaser.oop">User</a></
 <li class="blockList">
 <h4>setNickname</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setNickname&#8203;(java.lang.String&nbsp;nickname)</pre>
-<div class="block">This sets the nickname of the player</div>
+<div class="block">This sets the nickname of the Player</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>nickname</code> - </dd>
+</dl>
+</li>
+</ul>
+<a id="getEmail()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getEmail</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getEmail()</pre>
+<div class="block">This gets the email of the Player</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The email of the Player</dd>
+</dl>
+</li>
+</ul>
+<a id="setEmail(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setEmail</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setEmail&#8203;(java.lang.String&nbsp;email)</pre>
+<div class="block">This sets the email of the Player</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>email</code> - </dd>
 </dl>
 </li>
 </ul>
@@ -440,10 +450,10 @@ extends <a href="User.html" title="class in com.example.qrchaser.oop">User</a></
 <li class="blockList">
 <h4>getPhoneNumber</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getPhoneNumber()</pre>
-<div class="block">This gets the phone number of the player</div>
+<div class="block">This gets the phone number of the Player</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>The phone number of the QRCode</dd>
+<dd>The phone number of the Player</dd>
 </dl>
 </li>
 </ul>
@@ -454,29 +464,151 @@ extends <a href="User.html" title="class in com.example.qrchaser.oop">User</a></
 <li class="blockList">
 <h4>setPhoneNumber</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setPhoneNumber&#8203;(java.lang.String&nbsp;phoneNumber)</pre>
-<div class="block">This sets the phone number of the player</div>
+<div class="block">This sets the phone number of the Player</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>phoneNumber</code> - </dd>
 </dl>
 </li>
 </ul>
-<a id="getGuest()">
+<a id="isAdmin()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getGuest</h4>
-<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getGuest()</pre>
+<h4>isAdmin</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;isAdmin()</pre>
+<div class="block">This gets the admin privilege of the Player</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>admin</dd>
+</dl>
 </li>
 </ul>
-<a id="setGuest(java.lang.String)">
+<a id="setAdmin(boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setAdmin</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setAdmin&#8203;(boolean&nbsp;admin)</pre>
+<div class="block">This sets the admin privilege of the Player</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>admin</code> - </dd>
+</dl>
+</li>
+</ul>
+<a id="getNumQR()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getNumQR</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;getNumQR()</pre>
+<div class="block">This gets the number of QR Codes that the Player has scanned</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The number of QR Codes</dd>
+</dl>
+</li>
+</ul>
+<a id="setNumQR(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setNumQR</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setNumQR&#8203;(int&nbsp;numQR)</pre>
+<div class="block">This sets the number of QR Codes that the Player has scanned</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>numQR</code> - </dd>
+</dl>
+</li>
+</ul>
+<a id="getTotalScore()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTotalScore</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;getTotalScore()</pre>
+<div class="block">This gets the total score that the Player has</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The total score</dd>
+</dl>
+</li>
+</ul>
+<a id="setTotalScore(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setTotalScore</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setTotalScore&#8203;(int&nbsp;totalScore)</pre>
+<div class="block">This sets the total score that the Player has</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>totalScore</code> - </dd>
+</dl>
+</li>
+</ul>
+<a id="getHighestScore()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getHighestScore</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;getHighestScore()</pre>
+<div class="block">This gets the highest score that the Player has</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The highest score</dd>
+</dl>
+</li>
+</ul>
+<a id="setHighestScore(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setHighestScore</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setHighestScore&#8203;(int&nbsp;highestScore)</pre>
+<div class="block">This sets the highest score that the Player has</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>highestScore</code> - </dd>
+</dl>
+</li>
+</ul>
+<a id="getLowestScore()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getLowestScore</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;getLowestScore()</pre>
+<div class="block">This gets the lowest score that the player has</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>lowestScore</dd>
+</dl>
+</li>
+</ul>
+<a id="setLowestScore(int)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>setGuest</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setGuest&#8203;(java.lang.String&nbsp;guest)</pre>
+<h4>setLowestScore</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setLowestScore&#8203;(int&nbsp;lowestScore)</pre>
+<div class="block">This sets the highest score that the player has</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>lowestScore</code> - </dd>
+</dl>
 </li>
 </ul>
 </li>

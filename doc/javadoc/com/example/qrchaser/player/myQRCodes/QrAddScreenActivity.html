@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -176,6 +176,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">QrAddScreenActivity</span>
 extends androidx.appcompat.app.AppCompatActivity</pre>
+<div class="block">This Activity Class allows the user to add QR Codes.
+ The QR Code must be added with a name, but may include a photo,
+ location, and/or a comment.</div>
 </li>
 </ul>
 </div>
@@ -269,17 +272,25 @@ extends androidx.appcompat.app.AppCompatActivity</pre>
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#cameraAddPhoto()">cameraAddPhoto</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Create intent for image capture, and launch the camera activity for the user to take a picture</div>
+<div class="block">Create intent for image capture, and launch the CameraActivity for the Player to take a picture</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#galleryAddPhoto()">galleryAddPhoto</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#compressAndUpload(android.graphics.Bitmap,java.lang.String)">compressAndUpload</a></span>&#8203;(android.graphics.Bitmap&nbsp;img,
+                 java.lang.String&nbsp;imgName)</code></th>
 <td class="colLast">
-<div class="block">Create intent for selecting image, and launch the gallery activity for the user to select a picture</div>
+<div class="block">Takes the bitmap image, compress it to JPG file, and upload that to firebase storage</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#galleryAddPhoto()">galleryAddPhoto</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Create intent for selecting image, and launch the GalleryActivity for the Player to select a picture</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCreate(android.os.Bundle)">onCreate</a></span>&#8203;(android.os.Bundle&nbsp;savedInstanceState)</code></th>
 <td class="colLast">&nbsp;</td>
@@ -411,17 +422,33 @@ extends androidx.appcompat.app.AppCompatActivity</pre>
 <li class="blockList">
 <h4>cameraAddPhoto</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;cameraAddPhoto()</pre>
-<div class="block">Create intent for image capture, and launch the camera activity for the user to take a picture</div>
+<div class="block">Create intent for image capture, and launch the CameraActivity for the Player to take a picture</div>
 </li>
 </ul>
 <a id="galleryAddPhoto()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>galleryAddPhoto</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;galleryAddPhoto()</pre>
-<div class="block">Create intent for selecting image, and launch the gallery activity for the user to select a picture</div>
+<div class="block">Create intent for selecting image, and launch the GalleryActivity for the Player to select a picture</div>
+</li>
+</ul>
+<a id="compressAndUpload(android.graphics.Bitmap,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>compressAndUpload</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;compressAndUpload&#8203;(android.graphics.Bitmap&nbsp;img,
+                              java.lang.String&nbsp;imgName)</pre>
+<div class="block">Takes the bitmap image, compress it to JPG file, and upload that to firebase storage</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>img</code> - Bitmap image to upload</dd>
+<dd><code>imgName</code> - name to be saved on storage</dd>
+</dl>
 </li>
 </ul>
 </li>

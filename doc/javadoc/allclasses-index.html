@@ -26,6 +26,12 @@
     catch(err) {
     }
 //-->
+var data = {"i0":2,"i1":1,"i2":2,"i3":2,"i4":2,"i5":2,"i6":2,"i7":2,"i8":1,"i9":2,"i10":2,"i11":2,"i12":2,"i13":2,"i14":2,"i15":2,"i16":2,"i17":2,"i18":2,"i19":2,"i20":2,"i21":2,"i22":2,"i23":2,"i24":2,"i25":2,"i26":2,"i27":1,"i28":2,"i29":2,"i30":2,"i31":2,"i32":2,"i33":2,"i34":2,"i35":2};
+var tabs = {65535:["t0","All Classes"],1:["t1","Interface Summary"],2:["t2","Class Summary"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 var pathtoroot = "./";
 var useModuleDirectories = true;
 loadScripts(document, 'script');</script>
@@ -98,105 +104,211 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <table class="typeSummary">
-<caption><span>Class Summary</span><span class="tabEnd">&nbsp;</span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Classes</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Interface Summary</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Class Summary</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Class</th>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><a href="com/example/qrchaser/oop/Admin.html" title="class in com.example.qrchaser.oop">Admin</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<td class="colFirst"><a href="com/example/qrchaser/AddCommentFragment.html" title="class in com.example.qrchaser">AddCommentFragment</a></td>
+<th class="colLast" scope="row">
+<div class="block">This fragment prompt the user to type in the new comment</div>
+</th>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><a href="com/example/qrchaser/admin/AdminPlayerRemovalActivity.html" title="class in com.example.qrchaser.admin">AdminPlayerRemovalActivity</a></td>
+<td class="colFirst"><a href="com/example/qrchaser/AddCommentFragment.OnFragmentInteractionListener.html" title="interface in com.example.qrchaser">AddCommentFragment.OnFragmentInteractionListener</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><a href="com/example/qrchaser/admin/AdminQRActivity.html" title="class in com.example.qrchaser.admin">AdminQRActivity</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<td class="colFirst"><a href="com/example/qrchaser/player/browse/BrowsePlayerActivity.html" title="class in com.example.qrchaser.player.browse">BrowsePlayerActivity</a></td>
+<th class="colLast" scope="row">
+<div class="block">This Activity Class allows the user to browse players game wide</div>
+</th>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><a href="com/example/qrchaser/admin/AdminQRRemovalActivity.html" title="class in com.example.qrchaser.admin">AdminQRRemovalActivity</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<td class="colFirst"><a href="com/example/qrchaser/player/browse/BrowseQRActivity.html" title="class in com.example.qrchaser.player.browse">BrowseQRActivity</a></td>
+<th class="colLast" scope="row">
+<div class="block">This Activity Class allows the user to browse QR codes game wide</div>
+</th>
 </tr>
 <tr id="i4" class="altColor">
-<td class="colFirst"><a href="com/example/qrchaser/player/browse/BrowseQRActivity.html" title="class in com.example.qrchaser.player.browse">BrowseQRActivity</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<td class="colFirst"><a href="com/example/qrchaser/player/CameraScannerActivity.html" title="class in com.example.qrchaser.player">CameraScannerActivity</a></td>
+<th class="colLast" scope="row">
+<div class="block">This activity launches the camera to scan qrcode, bind the qrcode scanner and qrcode analyzer to camera,
+ and preview the feed from camera</div>
+</th>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><a href="com/example/qrchaser/player/CameraScannerActivity.html" title="class in com.example.qrchaser.player">CameraScannerActivity</a></td>
+<td class="colFirst"><a href="com/example/qrchaser/general/CommentAdapter.html" title="class in com.example.qrchaser.general">CommentAdapter</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i6" class="altColor">
-<td class="colFirst"><a href="com/example/qrchaser/logIn/CreateAccountActivity.html" title="class in com.example.qrchaser.logIn">CreateAccountActivity</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<td class="colFirst"><a href="com/example/qrchaser/oop/Comments.html" title="class in com.example.qrchaser.oop">Comments</a></td>
+<th class="colLast" scope="row">
+<div class="block">This class holds all of the data for a Comment on a QR code</div>
+</th>
 </tr>
 <tr id="i7" class="rowColor">
-<td class="colFirst"><a href="com/example/qrchaser/player/profile/EditPlayerProfileActivity.html" title="class in com.example.qrchaser.player.profile">EditPlayerProfileActivity</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<td class="colFirst"><a href="com/example/qrchaser/DeleteCommentFragment.html" title="class in com.example.qrchaser">DeleteCommentFragment</a></td>
+<th class="colLast" scope="row">
+<div class="block">This fragment prompt the admin if they want to delete the comment</div>
+</th>
 </tr>
 <tr id="i8" class="altColor">
-<td class="colFirst"><a href="com/example/qrchaser/player/myQRCodes/EditQRCodeScreenActivity.html" title="class in com.example.qrchaser.player.myQRCodes">EditQRCodeScreenActivity</a></td>
+<td class="colFirst"><a href="com/example/qrchaser/DeleteCommentFragment.OnFragmentInteractionListener.html" title="interface in com.example.qrchaser">DeleteCommentFragment.OnFragmentInteractionListener</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i9" class="rowColor">
-<td class="colFirst"><a href="com/example/qrchaser/player/profile/GeneratedQRCodeActivity.html" title="class in com.example.qrchaser.player.profile">GeneratedQRCodeActivity</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<td class="colFirst"><a href="com/example/qrchaser/player/profile/EditPlayerProfileActivity.html" title="class in com.example.qrchaser.player.profile">EditPlayerProfileActivity</a></td>
+<th class="colLast" scope="row">
+<div class="block">This Activity Class allows the user to see and change their password, nickname and phone number</div>
+</th>
 </tr>
 <tr id="i10" class="altColor">
-<td class="colFirst"><a href="com/example/qrchaser/logIn/LoginEmailActivity.html" title="class in com.example.qrchaser.logIn">LoginEmailActivity</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<td class="colFirst"><a href="com/example/qrchaser/player/myQRCodes/EditQRCodeScreenActivity.html" title="class in com.example.qrchaser.player.myQRCodes">EditQRCodeScreenActivity</a></td>
+<th class="colLast" scope="row">
+<div class="block">This activity allows user to edit the general information about the qrcode such changing name, and adding comments</div>
+</th>
 </tr>
 <tr id="i11" class="rowColor">
-<td class="colFirst"><a href="com/example/qrchaser/player/map/MapActivity.html" title="class in com.example.qrchaser.player.map">MapActivity</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<td class="colFirst"><a href="com/example/qrchaser/player/profile/FoundPlayerProfileActivity.html" title="class in com.example.qrchaser.player.profile">FoundPlayerProfileActivity</a></td>
+<th class="colLast" scope="row">
+<div class="block">This Activity Class is opened when a user vists another players profile (Shows the data of the player who's profile is being visted)</div>
+</th>
 </tr>
 <tr id="i12" class="altColor">
-<td class="colFirst"><a href="com/example/qrchaser/player/myQRCodes/MyQRCodeScreenActivity.html" title="class in com.example.qrchaser.player.myQRCodes">MyQRCodeScreenActivity</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<td class="colFirst"><a href="com/example/qrchaser/player/profile/GeneratedQRCodeActivity.html" title="class in com.example.qrchaser.player.profile">GeneratedQRCodeActivity</a></td>
+<th class="colLast" scope="row">
+<div class="block">This Activity Class is opened when a Player needs to generate a QR Code (to login or share their profile)</div>
+</th>
 </tr>
 <tr id="i13" class="rowColor">
-<td class="colFirst"><a href="com/example/qrchaser/oop/Player.html" title="class in com.example.qrchaser.oop">Player</a></td>
+<td class="colFirst"><a href="com/example/qrchaser/player/map/MapActivity.html" title="class in com.example.qrchaser.player.map">MapActivity</a></td>
 <th class="colLast" scope="row">
-<div class="block">This class holds all of the data for a single player</div>
+<div class="block">This Activity Class allows the user to view QR Codes in a Map</div>
 </th>
 </tr>
 <tr id="i14" class="altColor">
-<td class="colFirst"><a href="com/example/qrchaser/player/profile/PlayerProfileActivity.html" title="class in com.example.qrchaser.player.profile">PlayerProfileActivity</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<td class="colFirst"><a href="com/example/qrchaser/player/myQRCodes/MyQRCodeScreenActivity.html" title="class in com.example.qrchaser.player.myQRCodes">MyQRCodeScreenActivity</a></td>
+<th class="colLast" scope="row">
+<div class="block">This Activity Class allows the Player to see their own scanned QR Codes, and contains a button that allows user to scan new qrcode</div>
+</th>
 </tr>
 <tr id="i15" class="rowColor">
-<td class="colFirst"><a href="com/example/qrchaser/player/myQRCodes/QrAddScreenActivity.html" title="class in com.example.qrchaser.player.myQRCodes">QrAddScreenActivity</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<td class="colFirst"><a href="com/example/qrchaser/oop/Player.html" title="class in com.example.qrchaser.oop">Player</a></td>
+<th class="colLast" scope="row">
+<div class="block">This class holds all of the data for a single Player</div>
+</th>
 </tr>
 <tr id="i16" class="altColor">
-<td class="colFirst"><a href="com/example/qrchaser/player/QrAddScreenAddPhotoFragment.html" title="class in com.example.qrchaser.player">QrAddScreenAddPhotoFragment</a></td>
+<td class="colFirst"><a href="com/example/qrchaser/general/PlayerAdapter.html" title="class in com.example.qrchaser.general">PlayerAdapter</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
 </tr>
 <tr id="i17" class="rowColor">
-<td class="colFirst"><a href="com/example/qrchaser/oop/QRCode.html" title="class in com.example.qrchaser.oop">QRCode</a></td>
+<td class="colFirst"><a href="com/example/qrchaser/general/PlayerAdapter1.html" title="class in com.example.qrchaser.general">PlayerAdapter1</a></td>
 <th class="colLast" scope="row">
-<div class="block">This class holds all of the data for a single QR code</div>
+<div class="block">This Adapter Class is used for listview in the BrowsePlayersScreen (getNumQR())</div>
 </th>
 </tr>
 <tr id="i18" class="altColor">
-<td class="colFirst"><a href="com/example/qrchaser/general/QRCodeAdapter.html" title="class in com.example.qrchaser.general">QRCodeAdapter</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
-</tr>
-<tr id="i19" class="rowColor">
-<td class="colFirst"><a href="com/example/qrchaser/general/SaveANDLoad.html" title="class in com.example.qrchaser.general">SaveANDLoad</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
-</tr>
-<tr id="i20" class="altColor">
-<td class="colFirst"><a href="com/example/qrchaser/oop/User.html" title="class in com.example.qrchaser.oop">User</a></td>
+<td class="colFirst"><a href="com/example/qrchaser/general/PlayerAdapter2.html" title="class in com.example.qrchaser.general">PlayerAdapter2</a></td>
 <th class="colLast" scope="row">
-<div class="block">This abstract class is a base for all players / admin/ guests
- Not used now, to be developed</div>
+<div class="block">This Adapter Class is used for listview in the BrowsePlayersScreen (getTotalScore())</div>
 </th>
 </tr>
-<tr id="i21" class="rowColor">
-<td class="colFirst"><a href="com/example/qrchaser/logIn/WelcomeActivity.html" title="class in com.example.qrchaser.logIn">WelcomeActivity</a></td>
+<tr id="i19" class="rowColor">
+<td class="colFirst"><a href="com/example/qrchaser/general/PlayerAdapter3.html" title="class in com.example.qrchaser.general">PlayerAdapter3</a></td>
+<th class="colLast" scope="row">
+<div class="block">This Adapter Class is used for listview in the BrowsePlayersScreen (getHighestScore())</div>
+</th>
+</tr>
+<tr id="i20" class="altColor">
+<td class="colFirst"><a href="com/example/qrchaser/oop/PlayerNumQRComparator.html" title="class in com.example.qrchaser.oop">PlayerNumQRComparator</a></td>
 <th class="colLast" scope="row">&nbsp;</th>
+</tr>
+<tr id="i21" class="rowColor">
+<td class="colFirst"><a href="com/example/qrchaser/player/profile/PlayerProfileActivity.html" title="class in com.example.qrchaser.player.profile">PlayerProfileActivity</a></td>
+<th class="colLast" scope="row">
+<div class="block">This Activity Class shows the Player profile and the data contained in their account (such as QR Codes and Total Score)</div>
+</th>
+</tr>
+<tr id="i22" class="altColor">
+<td class="colFirst"><a href="com/example/qrchaser/oop/PlayerSingleScoreComparator.html" title="class in com.example.qrchaser.oop">PlayerSingleScoreComparator</a></td>
+<th class="colLast" scope="row">&nbsp;</th>
+</tr>
+<tr id="i23" class="rowColor">
+<td class="colFirst"><a href="com/example/qrchaser/oop/PlayerTotalScoreComparator.html" title="class in com.example.qrchaser.oop">PlayerTotalScoreComparator</a></td>
+<th class="colLast" scope="row">&nbsp;</th>
+</tr>
+<tr id="i24" class="altColor">
+<td class="colFirst"><a href="com/example/qrchaser/player/myQRCodes/QrAddScreenActivity.html" title="class in com.example.qrchaser.player.myQRCodes">QrAddScreenActivity</a></td>
+<th class="colLast" scope="row">
+<div class="block">This Activity Class allows the user to add QR Codes.</div>
+</th>
+</tr>
+<tr id="i25" class="rowColor">
+<td class="colFirst"><a href="com/example/qrchaser/player/QrAddScreenAddPhotoFragment.html" title="class in com.example.qrchaser.player">QrAddScreenAddPhotoFragment</a></td>
+<th class="colLast" scope="row">
+<div class="block">A fragment that prompt the user to select if they want to add photo via camera or gallery</div>
+</th>
+</tr>
+<tr id="i26" class="altColor">
+<td class="colFirst"><a href="com/example/qrchaser/QrChangeNameFragment.html" title="class in com.example.qrchaser">QrChangeNameFragment</a></td>
+<th class="colLast" scope="row">
+<div class="block">This fragment prompts the user to enter a new name for the qrcode</div>
+</th>
+</tr>
+<tr id="i27" class="rowColor">
+<td class="colFirst"><a href="com/example/qrchaser/QrChangeNameFragment.OnFragmentInteractionListener.html" title="interface in com.example.qrchaser">QrChangeNameFragment.OnFragmentInteractionListener</a></td>
+<th class="colLast" scope="row">&nbsp;</th>
+</tr>
+<tr id="i28" class="altColor">
+<td class="colFirst"><a href="com/example/qrchaser/oop/QRCode.html" title="class in com.example.qrchaser.oop">QRCode</a></td>
+<th class="colLast" scope="row">
+<div class="block">This class holds all of the data for a single QR Code</div>
+</th>
+</tr>
+<tr id="i29" class="rowColor">
+<td class="colFirst"><a href="com/example/qrchaser/general/QRCodeAdapter.html" title="class in com.example.qrchaser.general">QRCodeAdapter</a></td>
+<th class="colLast" scope="row">
+<div class="block">This Adapter Class is used for listview in MyQRCodeScreen and BrowseQRCodesScreen</div>
+</th>
+</tr>
+<tr id="i30" class="altColor">
+<td class="colFirst"><a href="com/example/qrchaser/player/browse/QRCodeInfoActivity.html" title="class in com.example.qrchaser.player.browse">QRCodeInfoActivity</a></td>
+<th class="colLast" scope="row">
+<div class="block">Display the general information of the qrcode such as name, score, location, image, and owners</div>
+</th>
+</tr>
+<tr id="i31" class="rowColor">
+<td class="colFirst"><a href="com/example/qrchaser/oop/QRCodeScoreComparator1.html" title="class in com.example.qrchaser.oop">QRCodeScoreComparator1</a></td>
+<th class="colLast" scope="row">
+<div class="block">This class is used for ordering QRCodes based on scores from High to Low</div>
+</th>
+</tr>
+<tr id="i32" class="altColor">
+<td class="colFirst"><a href="com/example/qrchaser/oop/QRCodeScoreComparator2.html" title="class in com.example.qrchaser.oop">QRCodeScoreComparator2</a></td>
+<th class="colLast" scope="row">
+<div class="block">This class is used for ordering QRCodes based on scores from Low to High</div>
+</th>
+</tr>
+<tr id="i33" class="rowColor">
+<td class="colFirst"><a href="com/example/qrchaser/general/SaveANDLoad.html" title="class in com.example.qrchaser.general">SaveANDLoad</a></td>
+<th class="colLast" scope="row">
+<div class="block">This class makes it convenient to sava and load data with shared preference</div>
+</th>
+</tr>
+<tr id="i34" class="altColor">
+<td class="colFirst"><a href="com/example/qrchaser/player/map/SelectQRLocationActivity.html" title="class in com.example.qrchaser.player.map">SelectQRLocationActivity</a></td>
+<th class="colLast" scope="row">
+<div class="block">This Activity Class allows the user to select the location of a QR code on a map</div>
+</th>
+</tr>
+<tr id="i35" class="rowColor">
+<td class="colFirst"><a href="com/example/qrchaser/logIn/WelcomeActivity.html" title="class in com.example.qrchaser.logIn">WelcomeActivity</a></td>
+<th class="colLast" scope="row">
+<div class="block">This Activity Class allows a Player to login with a QR Code or with a new Account</div>
+</th>
 </tr>
 </table>
 </li>

@@ -32,6 +32,10 @@ public class QRCode implements Comparable<QRCode> {
      * This constructor did not take into the consideration that two Players scan the same QR Code
      * @param qrCodeData
      * @param name
+     * @param owner
+     * @param comment
+     * @param latitude
+     * @param longitude
      */
     public QRCode(String qrCodeData, String name, String owner, Comments comment,
                   double latitude, double longitude) {
@@ -149,7 +153,7 @@ public class QRCode implements Comparable<QRCode> {
 
     /**
      * This sets the score of the QRCode
-     * @return The score of the QRCode
+     * @param score
      */
     public void setScore(int score) {
         this.score = score;
@@ -228,18 +232,20 @@ public class QRCode implements Comparable<QRCode> {
     /**
      * This removes and owner from the List of owners on the QRCode
      * @param owner
+     * @return Returns true if the owner was deleted
      */
     public Boolean removeOwner(String owner) { return owners.remove(owner); } // end removeOwner
 
     /**
      * Find if the QRCode contains the owner or not
      * @param owner
-     * @return
+     * @return true if the owner was deleted
      */
     public Boolean containOwner(String owner) { return owners.contains(owner); } // end containOwner
 
     /**
      * This adds a comment to ArrayList of comments on the QRCode
+     * @param user
      * @param comment
      */
     public void addComment(String user, String comment) { comments.add(new Comments(user, comment)); } // end addComment

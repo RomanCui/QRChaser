@@ -9,6 +9,8 @@ public class Comments {
 
     /**
      * This constructor creates a new comment with the passed in data;
+     * @param username
+     * @param comment
      */
     public Comments(String username, String comment) {
         this.username = username;

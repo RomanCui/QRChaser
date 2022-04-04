@@ -52,6 +52,7 @@ public class WelcomeActivity extends SaveANDLoad {
                              if (documentSnapshot.exists()) {
                                  Intent intent = new Intent(WelcomeActivity.this, MyQRCodeScreenActivity.class);
                                  startActivity(intent);
+                                 Toast.makeText(getApplicationContext(),"Logged in", Toast.LENGTH_LONG).show();
                                  finish();
                              } else {
                                  Toast.makeText(getApplicationContext(),"No Previous Login Info", Toast.LENGTH_LONG).show();

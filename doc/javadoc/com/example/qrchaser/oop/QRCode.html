@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -129,10 +129,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="description">
 <ul class="blockList">
 <li class="blockList">
+<dl>
+<dt>All Implemented Interfaces:</dt>
+<dd><code>java.lang.Comparable&lt;<a href="QRCode.html" title="class in com.example.qrchaser.oop">QRCode</a>&gt;</code></dd>
+</dl>
 <hr>
 <pre>public class <span class="typeNameLabel">QRCode</span>
-extends java.lang.Object</pre>
-<div class="block">This class holds all of the data for a single QR code</div>
+extends java.lang.Object
+implements java.lang.Comparable&lt;<a href="QRCode.html" title="class in com.example.qrchaser.oop">QRCode</a>&gt;</pre>
+<div class="block">This class holds all of the data for a single QR Code</div>
 </li>
 </ul>
 </div>
@@ -154,19 +159,21 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">QRCode</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">A no-argument constructor for the QR Code, for creating a QR Code from the database query</div>
+</td>
 </tr>
 <tr class="rowColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.lang.String,java.lang.String,java.lang.String,java.lang.String,double,double)">QRCode</a></span>&#8203;(java.lang.String&nbsp;qrCodeData,
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.lang.String,java.lang.String,java.lang.String,com.example.qrchaser.oop.Comments,double,double)">QRCode</a></span>&#8203;(java.lang.String&nbsp;qrCodeData,
       java.lang.String&nbsp;name,
       java.lang.String&nbsp;owner,
-      java.lang.String&nbsp;comment,
+      <a href="Comments.html" title="class in com.example.qrchaser.oop">Comments</a>&nbsp;comment,
       double&nbsp;latitude,
       double&nbsp;longitude)</code></th>
 <td class="colLast">
-<div class="block">A constructor for the QR code
+<div class="block">A constructor for the QR Code
  To do:
- This constructor did not take into the consideration that two players scan the same QR code</div>
+ This constructor did not take into the consideration that two Players scan the same QR Code</div>
 </td>
 </tr>
 </table>
@@ -188,91 +195,152 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>java.util.List&lt;java.lang.String&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getComments()">getComments</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addComment(java.lang.String,java.lang.String)">addComment</a></span>&#8203;(java.lang.String&nbsp;user,
+          java.lang.String&nbsp;comment)</code></th>
+<td class="colLast">
+<div class="block">This adds a comment to ArrayList of comments on the QRCode</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getHash()">getHash</a></span>()</code></th>
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addOwner(java.lang.String)">addOwner</a></span>&#8203;(java.lang.String&nbsp;owner)</code></th>
 <td class="colLast">
-<div class="block">This gets the hash of the QRCode</div>
+<div class="block">Add owner to the list of owners</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#compareTo(com.example.qrchaser.oop.QRCode)">compareTo</a></span>&#8203;(<a href="QRCode.html" title="class in com.example.qrchaser.oop">QRCode</a>&nbsp;otherQR)</code></th>
+<td class="colLast">
+<div class="block">This compares 2 QR Codes together so they can be ordered.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#containOwner(java.lang.String)">containOwner</a></span>&#8203;(java.lang.String&nbsp;owner)</code></th>
+<td class="colLast">
+<div class="block">Find if the QRCode contains the owner or not</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteCommentAt(int)">deleteCommentAt</a></span>&#8203;(int&nbsp;index)</code></th>
+<td class="colLast">
+<div class="block">Remove the comment in the comments ArrayList given the index</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>java.util.ArrayList&lt;<a href="Comments.html" title="class in com.example.qrchaser.oop">Comments</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getComments()">getComments</a></span>()</code></th>
+<td class="colLast">
+<div class="block">This gets all of the Comments that were made on the QRCode</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getHash()">getHash</a></span>()</code></th>
+<td class="colLast">
+<div class="block">This gets the hash value of the QRCode</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLatitude()">getLatitude</a></span>()</code></th>
 <td class="colLast">
 <div class="block">This gets the latitude of the QRCode</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLongitude()">getLongitude</a></span>()</code></th>
 <td class="colLast">
-<div class="block">This gets the Longitude of the QRCode</div>
+<div class="block">This gets the longitude of the QRCode</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getName()">getName</a></span>()</code></th>
 <td class="colLast">
 <div class="block">This gets the name of the QRCode</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;java.lang.String&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getOwners()">getOwners</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">This gets the all of the owners of the QRCode</div>
+</td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getScore()">getScore</a></span>()</code></th>
 <td class="colLast">
 <div class="block">This gets the score of the QRCode</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeOwner(java.lang.String)">removeOwner</a></span>&#8203;(java.lang.String&nbsp;owner)</code></th>
+<td class="colLast">
+<div class="block">This removes and owner from the List of owners on the QRCode</div>
+</td>
+</tr>
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#saveToDatabase()">saveToDatabase</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">This saves the QR Code object to the database</div>
+</td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setComments(java.util.List)">setComments</a></span>&#8203;(java.util.List&lt;java.lang.String&gt;&nbsp;comments)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setComments(java.util.ArrayList)">setComments</a></span>&#8203;(java.util.ArrayList&lt;<a href="Comments.html" title="class in com.example.qrchaser.oop">Comments</a>&gt;&nbsp;comments)</code></th>
+<td class="colLast">
+<div class="block">This sets the ArrayList of Comments on the QRCode</div>
+</td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setHash(java.lang.String)">setHash</a></span>&#8203;(java.lang.String&nbsp;hash)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">This sets the hash value of the QRCode</div>
+</td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLatitude(double)">setLatitude</a></span>&#8203;(double&nbsp;latitude)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">This sets the latitude of the QRCode</div>
+</td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLongitude(double)">setLongitude</a></span>&#8203;(double&nbsp;longitude)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">This sets the longitude of the QRCode</div>
+</td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setName(java.lang.String)">setName</a></span>&#8203;(java.lang.String&nbsp;name)</code></th>
 <td class="colLast">
 <div class="block">This sets the name of the QRCode</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setOwners(java.util.List)">setOwners</a></span>&#8203;(java.util.List&lt;java.lang.String&gt;&nbsp;owners)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">This sets the List of owners of the QRCode</div>
+</td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setScore(int)">setScore</a></span>&#8203;(int&nbsp;score)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">This sets the score of the QRCode</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -298,7 +366,7 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(java.lang.String,java.lang.String,java.lang.String,java.lang.String,double,double)">
+<a id="&lt;init&gt;(java.lang.String,java.lang.String,java.lang.String,com.example.qrchaser.oop.Comments,double,double)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -307,16 +375,20 @@ extends java.lang.Object</pre>
 <pre>public&nbsp;QRCode&#8203;(java.lang.String&nbsp;qrCodeData,
               java.lang.String&nbsp;name,
               java.lang.String&nbsp;owner,
-              java.lang.String&nbsp;comment,
+              <a href="Comments.html" title="class in com.example.qrchaser.oop">Comments</a>&nbsp;comment,
               double&nbsp;latitude,
               double&nbsp;longitude)</pre>
-<div class="block">A constructor for the QR code
+<div class="block">A constructor for the QR Code
  To do:
- This constructor did not take into the consideration that two players scan the same QR code</div>
+ This constructor did not take into the consideration that two Players scan the same QR Code</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>qrCodeData</code> - </dd>
 <dd><code>name</code> - </dd>
+<dd><code>owner</code> - </dd>
+<dd><code>comment</code> - </dd>
+<dd><code>latitude</code> - </dd>
+<dd><code>longitude</code> - </dd>
 </dl>
 </li>
 </ul>
@@ -327,6 +399,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>QRCode</h4>
 <pre>public&nbsp;QRCode()</pre>
+<div class="block">A no-argument constructor for the QR Code, for creating a QR Code from the database query</div>
 </li>
 </ul>
 </li>
@@ -346,6 +419,51 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>saveToDatabase</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;saveToDatabase()</pre>
+<div class="block">This saves the QR Code object to the database</div>
+</li>
+</ul>
+<a id="compareTo(com.example.qrchaser.oop.QRCode)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>compareTo</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;compareTo&#8203;(<a href="QRCode.html" title="class in com.example.qrchaser.oop">QRCode</a>&nbsp;otherQR)</pre>
+<div class="block">This compares 2 QR Codes together so they can be ordered.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code>compareTo</code>&nbsp;in interface&nbsp;<code>java.lang.Comparable&lt;<a href="QRCode.html" title="class in com.example.qrchaser.oop">QRCode</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>otherQR</code> - </dd>
+</dl>
+</li>
+</ul>
+<a id="getHash()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getHash</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getHash()</pre>
+<div class="block">This gets the hash value of the QRCode</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The hash of the QRCode</dd>
+</dl>
+</li>
+</ul>
+<a id="setHash(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setHash</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setHash&#8203;(java.lang.String&nbsp;hash)</pre>
+<div class="block">This sets the hash value of the QRCode</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>hash</code> - </dd>
+</dl>
 </li>
 </ul>
 <a id="getName()">
@@ -376,20 +494,6 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a id="getHash()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getHash</h4>
-<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getHash()</pre>
-<div class="block">This gets the hash of the QRCode</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>The hash of the QRCode</dd>
-</dl>
-</li>
-</ul>
 <a id="getScore()">
 <!--   -->
 </a>
@@ -401,6 +505,20 @@ extends java.lang.Object</pre>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The score of the QRCode</dd>
+</dl>
+</li>
+</ul>
+<a id="setScore(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setScore</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setScore&#8203;(int&nbsp;score)</pre>
+<div class="block">This sets the score of the QRCode</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>score</code> - </dd>
 </dl>
 </li>
 </ul>
@@ -418,38 +536,6 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a id="getLongitude()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getLongitude</h4>
-<pre class="methodSignature">public&nbsp;double&nbsp;getLongitude()</pre>
-<div class="block">This gets the Longitude of the QRCode</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>The Longitude of the QRCode</dd>
-</dl>
-</li>
-</ul>
-<a id="setHash(java.lang.String)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setHash</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setHash&#8203;(java.lang.String&nbsp;hash)</pre>
-</li>
-</ul>
-<a id="setScore(int)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setScore</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setScore&#8203;(int&nbsp;score)</pre>
-</li>
-</ul>
 <a id="setLatitude(double)">
 <!--   -->
 </a>
@@ -457,6 +543,25 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>setLatitude</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setLatitude&#8203;(double&nbsp;latitude)</pre>
+<div class="block">This sets the latitude of the QRCode</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>latitude</code> - </dd>
+</dl>
+</li>
+</ul>
+<a id="getLongitude()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getLongitude</h4>
+<pre class="methodSignature">public&nbsp;double&nbsp;getLongitude()</pre>
+<div class="block">This gets the longitude of the QRCode</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The longitude of the QRCode</dd>
+</dl>
 </li>
 </ul>
 <a id="setLongitude(double)">
@@ -466,6 +571,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>setLongitude</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setLongitude&#8203;(double&nbsp;longitude)</pre>
+<div class="block">This sets the longitude of the QRCode</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>longitude</code> - </dd>
+</dl>
 </li>
 </ul>
 <a id="getComments()">
@@ -474,16 +584,26 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getComments</h4>
-<pre class="methodSignature">public&nbsp;java.util.List&lt;java.lang.String&gt;&nbsp;getComments()</pre>
+<pre class="methodSignature">public&nbsp;java.util.ArrayList&lt;<a href="Comments.html" title="class in com.example.qrchaser.oop">Comments</a>&gt;&nbsp;getComments()</pre>
+<div class="block">This gets all of the Comments that were made on the QRCode</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>An ArrayList of all Comments</dd>
+</dl>
 </li>
 </ul>
-<a id="setComments(java.util.List)">
+<a id="setComments(java.util.ArrayList)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setComments</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setComments&#8203;(java.util.List&lt;java.lang.String&gt;&nbsp;comments)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;setComments&#8203;(java.util.ArrayList&lt;<a href="Comments.html" title="class in com.example.qrchaser.oop">Comments</a>&gt;&nbsp;comments)</pre>
+<div class="block">This sets the ArrayList of Comments on the QRCode</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>comments</code> - </dd>
+</dl>
 </li>
 </ul>
 <a id="getOwners()">
@@ -493,15 +613,101 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getOwners</h4>
 <pre class="methodSignature">public&nbsp;java.util.List&lt;java.lang.String&gt;&nbsp;getOwners()</pre>
+<div class="block">This gets the all of the owners of the QRCode</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>An ArrayList of all of the owners</dd>
+</dl>
 </li>
 </ul>
 <a id="setOwners(java.util.List)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>setOwners</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setOwners&#8203;(java.util.List&lt;java.lang.String&gt;&nbsp;owners)</pre>
+<div class="block">This sets the List of owners of the QRCode</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>owners</code> - </dd>
+</dl>
+</li>
+</ul>
+<a id="addOwner(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>addOwner</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;addOwner&#8203;(java.lang.String&nbsp;owner)</pre>
+<div class="block">Add owner to the list of owners</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>owner</code> - </dd>
+</dl>
+</li>
+</ul>
+<a id="removeOwner(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>removeOwner</h4>
+<pre class="methodSignature">public&nbsp;java.lang.Boolean&nbsp;removeOwner&#8203;(java.lang.String&nbsp;owner)</pre>
+<div class="block">This removes and owner from the List of owners on the QRCode</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>owner</code> - </dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Returns true if the owner was deleted</dd>
+</dl>
+</li>
+</ul>
+<a id="containOwner(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>containOwner</h4>
+<pre class="methodSignature">public&nbsp;java.lang.Boolean&nbsp;containOwner&#8203;(java.lang.String&nbsp;owner)</pre>
+<div class="block">Find if the QRCode contains the owner or not</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>owner</code> - </dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if the owner was deleted</dd>
+</dl>
+</li>
+</ul>
+<a id="addComment(java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>addComment</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;addComment&#8203;(java.lang.String&nbsp;user,
+                       java.lang.String&nbsp;comment)</pre>
+<div class="block">This adds a comment to ArrayList of comments on the QRCode</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>user</code> - </dd>
+<dd><code>comment</code> - </dd>
+</dl>
+</li>
+</ul>
+<a id="deleteCommentAt(int)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>deleteCommentAt</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;deleteCommentAt&#8203;(int&nbsp;index)</pre>
+<div class="block">Remove the comment in the comments ArrayList given the index</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>index</code> - </dd>
+</dl>
 </li>
 </ul>
 </li>
