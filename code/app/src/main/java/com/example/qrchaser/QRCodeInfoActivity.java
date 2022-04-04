@@ -35,7 +35,7 @@ import com.google.firebase.firestore.Source;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class QRcodeInfoActivity extends SaveANDLoad implements DeleteCommentFragment.OnFragmentInteractionListener {
+public class QRCodeInfoActivity extends SaveANDLoad implements DeleteCommentFragment.OnFragmentInteractionListener {
     // UI
     private TextView qrName, score, location;
     private ListView commentsListView;
@@ -134,7 +134,7 @@ public class QRcodeInfoActivity extends SaveANDLoad implements DeleteCommentFrag
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(QRcodeInfoActivity.this);
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(QRCodeInfoActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.delete_dialog, null);
                 Button confirm = (Button) mView.findViewById(R.id.button_confirm);
                 Button cancel = (Button) mView.findViewById(R.id.button_cancel);
