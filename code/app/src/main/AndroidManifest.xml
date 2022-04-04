@@ -22,7 +22,7 @@
             android:name=".player.map.SelectQRLocationActivity"
             android:exported="false" />
         <activity
-            android:name=".QRcodeInfoActivity"
+            android:name=".QRCodeInfoActivity"
             android:exported="false" />
         <activity
             android:name=".player.profile.FoundPlayerProfileActivity"

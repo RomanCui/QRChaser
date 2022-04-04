@@ -11,42 +11,35 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.qrchaser.R;
+import com.example.qrchaser.oop.Comments;
 import com.example.qrchaser.oop.Player;
 
 import java.util.ArrayList;
 
-/**
- * This Adapter Class is used for listview in the BrowsePlayersScreen (getHighestScore())
- */
-public class PlayerAdapter3 extends ArrayAdapter<Player> {
+public class PlayerAdapter extends ArrayAdapter<Player> {
     private ArrayList<Player> players;
     private Context context;
 
-    public PlayerAdapter3(Context context, ArrayList<Player> players) {
-        super(context, 0, players);
+    public PlayerAdapter(@NonNull Context context, int resource, ArrayList<Player> players) {
+        super(context, resource, players);
         this.players = players;
         this.context = context;
-    } // end PlayerAdapter3 Constructor
+    } // end PlayerAdapter Constructor
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        // return super.getView(position, convertView, parent);
         View view = convertView;
 
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.qrcode_content, parent,false);
+            view = LayoutInflater.from(context).inflate(R.layout.players_content, parent,false);
         }
 
         Player player = players.get(position);
+        TextView username = view.findViewById(R.id.player_string_textView);
 
-        // Assign values to views in qrcode_content
-        TextView qrCodeName = view.findViewById(R.id.name_text);
-        TextView qrCodeScore = view.findViewById(R.id.score_text);
-        qrCodeName.setText(player.getNickname());
-        qrCodeScore.setText(String.valueOf(player.getHighestScore()));
-
+        username.setText(player.getNickname());
         return view;
     } // end getView
 
-} // end PlayerAdapter3 Class
+} // end PlayerAdapter Class

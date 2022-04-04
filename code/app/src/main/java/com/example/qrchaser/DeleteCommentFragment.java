@@ -10,6 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+/**
+ * This fragment prompt the admin if they want to delete the comment
+ */
 public class DeleteCommentFragment extends DialogFragment {
 
     private OnFragmentInteractionListener listener;
@@ -17,11 +20,11 @@ public class DeleteCommentFragment extends DialogFragment {
 
     public DeleteCommentFragment(int index) {
         this.index = index;
-    }
+    } // end DeleteCommentFragment Constructor
 
     public interface OnFragmentInteractionListener {
         void onDeletePressed(int index);
-    }
+    } // end OnFragmentInteractionListener
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -32,7 +35,7 @@ public class DeleteCommentFragment extends DialogFragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-    }
+    } // end onAttach
 
     @NonNull
     @Override
@@ -47,7 +50,8 @@ public class DeleteCommentFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         listener.onDeletePressed(index);
-                    }
+                    } // end onClick
                 }).create();
-    }
-}
+    } // end onCreateDialog
+
+} // end AddCommentFragment Class

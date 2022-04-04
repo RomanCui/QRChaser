@@ -3,6 +3,7 @@ package com.example.qrchaser.player.profile;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +21,11 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
+
+import java.util.ArrayList;
 
 /**
  * This Activity Class allows the user to see and change their password, nickname and phone number
@@ -29,10 +34,11 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
     // UI
     private EditText emailET, nicknameET, phoneNumberET;
     private Button buttonConfirm, buttonSignOut, buttonGenerateLoginQRCode, buttonGenerateInfoQRCode;
-    // Database
-    private FirebaseFirestore db;
     // General Data
     private Player currentPlayer;
+    ArrayList<String> nickNameList = new ArrayList<>();
+    // Database
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +55,7 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
         buttonGenerateInfoQRCode = findViewById(R.id.ButtonGenerateInfoQRCode);
 
         // Get the player id in order to load the data from the database
-        String playerID = loadData(getApplicationContext(), "uniqueID");
+        String playerID = loadData(getApplicationContext(),"uniqueID");
 
         // Get Player info from the database
         db = FirebaseFirestore.getInstance();
@@ -78,17 +84,43 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
             }
         }); // end addOnCompleteListener
 
-
-        //Confirm all changes made (Push the changes to the database)
+        // Confirm all changes made (Push the changes to the database)
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // format check
                 currentPlayer.setEmail(emailET.getText().toString());
                 currentPlayer.setPhoneNumber(phoneNumberET.getText().toString());
-                currentPlayer.setNickname(nicknameET.getText().toString());
-                currentPlayer.updateDatabase();
-                finish();
+                nickNameList = new ArrayList<>();
+                String nickname = nicknameET.getText().toString();
+                final String TAG = "Error";
+
+                accountsRef
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        Player player = document.toObject(Player.class);
+                                        nickNameList.add(player.getNickname());
+                                    }// Populate the listview
+
+                                    if (nickNameList.contains(nickname)){
+                                        Toast.makeText(getApplicationContext(),"Name already exists",Toast.LENGTH_LONG).show();
+                                    }
+                                    else {
+                                        currentPlayer.setNickname(nickname);
+                                        currentPlayer.updateDatabase();
+                                        finish();
+                                    }
+
+                                } else {
+                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                }
+                            } // end onComplete
+                        }); // end accountsRef.get().addOnCompleteListener
+
             } // end onClick
         }); // end buttonConfirm.setOnClickListener
 
@@ -109,7 +141,7 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss();
-                        saveData(getApplicationContext(), "uniqueID", "");
+                        saveData(getApplicationContext(),"uniqueID", "");
                         Intent intent = new Intent(EditPlayerProfileActivity.this, WelcomeActivity.class);
                         startActivity(intent);
                         finish();
@@ -124,27 +156,27 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
                 }); // end confirm.setOnClickListener(new View.OnClickListener()
 
             } // end onClick
-        });// end buttonSignOut.setOnClickListener
+        }); // end buttonSignOut.setOnClickListener
 
         // Generate Login QRCode
         buttonGenerateLoginQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EditPlayerProfileActivity.this, GeneratedQRCodeActivity.class);
-                intent.putExtra("qrData", "QRCHASERLOGIN," + currentPlayer.getUniqueID());
+                intent.putExtra("qrData","QRCHASERLOGIN," + currentPlayer.getUniqueID());
                 startActivity(intent);
             } // end onClick
-        });// end buttonGenerateLoginQRCode.setOnClickListener
+        }); // end buttonGenerateLoginQRCode.setOnClickListener
 
         // Generate Info QRCode
         buttonGenerateInfoQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EditPlayerProfileActivity.this, GeneratedQRCodeActivity.class);
-                intent.putExtra("qrData", "QRCHASERINFO," + currentPlayer.getUniqueID());
+                intent.putExtra("qrData","QRCHASERINFO," + currentPlayer.getUniqueID());
                 startActivity(intent);
             } // end onClick
-        });// end buttonGenerateInfoQRCode.setOnClickListener
-
+        }); // end buttonGenerateInfoQRCode.setOnClickListener
     } // end onCreate
+
 } // end PlayerProfileInfoActivity Class

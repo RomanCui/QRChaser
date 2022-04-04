@@ -11,25 +11,26 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.UUID;
 
 /**
- * This class holds all of the data for a single player
+ * This class holds all of the data for a single Player
  */
 public class Player {
     private String uniqueID;
-    private String email;
     private String nickname;
+    private String email;
     private String phoneNumber;
     private boolean admin;
     private int numQR;
     private int totalScore;
     private int highestScore;
+    private int lowestScore;
 
     /**
-     * This constructor creates a new player with the default data;
+     * This constructor creates a new Player with the default data;
      */
-    public Player(){
+    public Player() {
         this.uniqueID = "" + UUID.randomUUID();
-        this.email = "";
         this.nickname = "Player_" + this.uniqueID.substring(0, 4);
+        this.email = "";
         this.phoneNumber = "";
         this.admin = false;
         this.numQR = 0;
@@ -38,9 +39,9 @@ public class Player {
     }
 
     /**
-     * This saves the player object to the database for the first time (Used in create player)
+     * This saves the Player object to the database for the first time (Used in CreatePlayer)
      */
-    public void saveToDatabase(){
+    public void saveToDatabase() {
         // create Firestore collection
         final String TAG = "Error";
         FirebaseFirestore db;
@@ -54,22 +55,22 @@ public class Player {
                     @Override
                     public void onSuccess(Void aVoid) {
                         // These are a method which gets executed when the task is succeeded
-                        Log.d(TAG, "Data has been added successfully!");
+                        Log.d(TAG,"Data has been added successfully!");
                     } // end onSuccess
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         // These are a method which gets executed if there’s any problem
-                        Log.d(TAG, "Data could not be added!" + e.toString());
+                        Log.d(TAG,"Data could not be added!" + e.toString());
                     } // end onSuccess
                 });
-    } // end  saveToDatabase
+    } // end saveToDatabase
 
     /**
      * This updates the database with the data contained in the current player object
      */
-    public void updateDatabase(){
+    public void updateDatabase() {
         // Create Firestore collection
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
@@ -92,71 +93,7 @@ public class Player {
     } // end updateDatabase
 
     /**
-     * This gets the email of the player
-     * @return The email of the QRCode
-     */
-    public String getEmail() {
-        return email;
-    } // end getEmail
-
-    /**
-     * This sets the email of the player
-     * @param email
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    } // end setEmail
-    
-    /**
-     * This gets the nickname of the player
-     * @return The nickname of the QRCode
-     */
-    public String getNickname() {
-        return nickname;
-    } // end getNickname
-
-    /**
-     * This sets the nickname of the player
-     * @param nickname
-     */
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    } // end setNickname
-
-    /**
-     * This gets the phone number of the player
-     * @return The phone number of the QRCode
-     */
-    public String getPhoneNumber() {
-        return phoneNumber;
-    } // end getPhoneNumber
-
-    /**
-     * This sets the phone number of the player
-     * @param phoneNumber
-     */
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    } // end setPhoneNumber
-
-    /**
-     * This gets the admin privilege of the player
-     * @return admin
-     */
-    public boolean isAdmin() {
-        return this.admin;
-    } // end isAdmin
-
-    /**
-     * This sets the admin privilege of the player
-     * @param admin
-     */
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    } // end setAdmin
-
-    /**
-     * This gets the unique ID of the player
+     * This gets the unique ID of the Player
      * @return uniqueID
      */
     public String getUniqueID() {
@@ -164,15 +101,79 @@ public class Player {
     } // end uniqueID
 
     /**
-     * This gets the number of QR codes that the player has
-     * @return The number of QR codes
+     * This gets the nickname of the Player
+     * @return The nickname of the Player
+     */
+    public String getNickname() {
+        return nickname;
+    } // end getNickname
+
+    /**
+     * This sets the nickname of the Player
+     * @param nickname
+     */
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    } // end setNickname
+
+    /**
+     * This gets the email of the Player
+     * @return The email of the Player
+     */
+    public String getEmail() {
+        return email;
+    } // end getEmail
+
+    /**
+     * This sets the email of the Player
+     * @param email
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    } // end setEmail
+
+    /**
+     * This gets the phone number of the Player
+     * @return The phone number of the Player
+     */
+    public String getPhoneNumber() {
+        return phoneNumber;
+    } // end getPhoneNumber
+
+    /**
+     * This sets the phone number of the Player
+     * @param phoneNumber
+     */
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    } // end setPhoneNumber
+
+    /**
+     * This gets the admin privilege of the Player
+     * @return admin
+     */
+    public boolean isAdmin() {
+        return this.admin;
+    } // end isAdmin
+
+    /**
+     * This sets the admin privilege of the Player
+     * @param admin
+     */
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    } // end setAdmin
+
+    /**
+     * This gets the number of QR Codes that the Player has scanned
+     * @return The number of QR Codes
      */
     public int getNumQR() {
         return numQR;
     } // end getNumQR
 
     /**
-     * This sets the number of QR codes that the player has
+     * This sets the number of QR Codes that the Player has scanned
      * @param numQR
      */
     public void setNumQR(int numQR) {
@@ -180,7 +181,7 @@ public class Player {
     } // end setNumQR
 
     /**
-     * This gets the total score that the player has
+     * This gets the total score that the Player has
      * @return The total score
      */
     public int getTotalScore() {
@@ -188,7 +189,7 @@ public class Player {
     } // end getTotalScore
 
     /**
-     * This sets the total score that the player has
+     * This sets the total score that the Player has
      * @param totalScore
      */
     public void setTotalScore(int totalScore) {
@@ -196,7 +197,7 @@ public class Player {
     } // end setTotalScore
 
     /**
-     * This gets the highest score that the player has
+     * This gets the highest score that the Player has
      * @return The highest score
      */
     public int getHighestScore() {
@@ -204,10 +205,27 @@ public class Player {
     } // end getHighestScore
 
     /**
-     * This sets the highest score that the player has
+     * This sets the highest score that the Player has
      * @param highestScore
      */
     public void setHighestScore(int highestScore) {
         this.highestScore = highestScore;
     } // end setHighestScore
+
+    /**
+     * This gets the lowest score that the player has
+     * @return lowestScore
+     */
+    public int getLowestScore() {
+        return lowestScore;
+    }
+
+    /**
+     * This sets the highest score that the player has
+     * @param  lowestScore
+     */
+    public void setLowestScore(int lowestScore) {
+        this.lowestScore = lowestScore;
+    }
+
 } // end Player Class

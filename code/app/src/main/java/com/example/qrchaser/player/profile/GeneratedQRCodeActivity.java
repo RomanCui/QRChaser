@@ -21,7 +21,7 @@ Author: https://auth.geeksforgeeks.org/user/chaitanyamunje
  */
 
 /**
- * This Activity Class is opened when a user needs to generate a QR code (To login or share their profile)
+ * This Activity Class is opened when a Player needs to generate a QR Code (to login or share their profile)
  */
 public class GeneratedQRCodeActivity extends AppCompatActivity {
     private ImageView qrCodeIV;
@@ -61,4 +61,5 @@ public class GeneratedQRCodeActivity extends AppCompatActivity {
             Log.e("Error", e.toString());
         }
     } // end onCreate
+
 } // end GeneratedQRCodeActivity Class
