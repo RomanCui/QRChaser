@@ -164,6 +164,7 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
             public void onClick(View v) {
                 Intent intent = new Intent(EditPlayerProfileActivity.this, GeneratedQRCodeActivity.class);
                 intent.putExtra("qrData","QRCHASERLOGIN," + currentPlayer.getUniqueID());
+                intent.putExtra("qrTitle","Player Login Code");
                 startActivity(intent);
             } // end onClick
         }); // end buttonGenerateLoginQRCode.setOnClickListener
@@ -174,6 +175,7 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
             public void onClick(View v) {
                 Intent intent = new Intent(EditPlayerProfileActivity.this, GeneratedQRCodeActivity.class);
                 intent.putExtra("qrData","QRCHASERINFO," + currentPlayer.getUniqueID());
+                intent.putExtra("qrTitle","Player Info Code");
                 startActivity(intent);
             } // end onClick
         }); // end buttonGenerateInfoQRCode.setOnClickListener
