@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * This Activity Class allows the Player to see their own scanned QR Codes
+ * This Activity Class allows the Player to see their own scanned QR Codes, and contains a button that allows user to scan new qrcode
  */
 public class MyQRCodeScreenActivity extends SaveANDLoad {
     // UI

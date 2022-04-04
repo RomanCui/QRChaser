@@ -39,12 +39,15 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
+/**
+ * This activity launches the camera to scan qrcode, bind the qrcode scanner and qrcode analyzer to camera,
+ * and preview the feed from camera
+ */
 public class CameraScannerActivity extends AppCompatActivity implements CameraXConfig.Provider {
     // Permissions
     private static final int CAMERA_REQUEST_CODE = 1;
     // UI
     private PreviewView cameraView;
-    private TextView valueText;
     // General Data
     private String value;
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
@@ -55,11 +58,10 @@ public class CameraScannerActivity extends AppCompatActivity implements CameraXC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner_camera_screen);
         cameraView = findViewById(R.id.cameraView);
-        valueText = findViewById(R.id.qrValueTextView);
 
         // Check permission
         if(checkCameraPermission()) {
-            Toast.makeText(this, "Camera Permission Granted", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Camera Permission Granted", Toast.LENGTH_LONG).show();
             // Start camera
             launchCamera();
         } else {
@@ -73,7 +75,7 @@ public class CameraScannerActivity extends AppCompatActivity implements CameraXC
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == CAMERA_REQUEST_CODE) {
             if (checkCameraPermission()) {
-                Toast.makeText(this,"Camera Permission Granted ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this,"Camera Permission Granted ", Toast.LENGTH_LONG).show();
                 // Start camera
                 launchCamera();
             } else {
@@ -84,18 +86,25 @@ public class CameraScannerActivity extends AppCompatActivity implements CameraXC
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     } // end onRequestPermissionsResult
 
-    // Check camera permission
+    /**
+     * Check for camera permission
+     */
     @RequiresApi(api = Build.VERSION_CODES.M)
     private Boolean checkCameraPermission() {
         return checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
     } // end checkCameraPermission
 
-    // Request camera permission
+    /**
+     * Request camera permission
+     */
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void requestCameraPermission() {
         requestPermissions(new String[] {Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
     } // end requestCameraPermission
 
+    /**
+     * Launch the camera and bind the image feed to previewView
+     */
     private void launchCamera() {
         cameraProviderFuture = ProcessCameraProvider.getInstance(CameraScannerActivity.this);
         cameraProviderFuture.addListener(() -> {
@@ -103,11 +112,16 @@ public class CameraScannerActivity extends AppCompatActivity implements CameraXC
                 ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
                 bindPreview(cameraProvider);
             } catch (ExecutionException | InterruptedException e) {
-                // TODO: display proper error handling
+                e.printStackTrace();
             }
         }, ContextCompat.getMainExecutor(this));
     } // end launchCamera
 
+    /**
+     * Bind the scanner and qrcode analysis tool to camera, then bind camera to previewView
+     * @param cameraProvider
+     * @return Camera instance
+     */
     private Camera bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
         // Bind camera view
         Preview preview = new Preview.Builder()
@@ -128,10 +142,6 @@ public class CameraScannerActivity extends AppCompatActivity implements CameraXC
 
         ImageAnalysis qrAnalyser = new ImageAnalysis.Builder().build();
 
-//        qrAnalyser.setAnalyzer(
-//                Executors.newSingleThreadExecutor(),
-//                { imageProxy -> processImageProxy(scanner, imageProxy) }
-//        );
 
         qrAnalyser.setAnalyzer(Executors.newSingleThreadExecutor(), new ImageAnalysis.Analyzer() {
             @Override
@@ -147,7 +157,6 @@ public class CameraScannerActivity extends AppCompatActivity implements CameraXC
                             if(!barcodes.isEmpty()) {
                                 Barcode barcode = barcodes.get(0); // Check if not null
                                 value = barcode.getRawValue();
-                                valueText.setText(value);
                             }
                         }).addOnCompleteListener(new OnCompleteListener<List<Barcode>>() {
                     @Override
@@ -166,7 +175,10 @@ public class CameraScannerActivity extends AppCompatActivity implements CameraXC
         return cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, preview, qrAnalyser);
     } // end bindPreview
 
-    // TODO: Might not need this, try testing without this method
+    /**
+     * Get the camera config, for some situation where android could not get the camera config
+     * Might not need this, try testing without this method
+     */
     @NonNull
     @Override
     public CameraXConfig getCameraXConfig() {

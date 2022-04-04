@@ -33,7 +33,9 @@ import com.google.firebase.firestore.Source;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-// TODO: 2022-03-27 To be completed
+/**
+ *  This activity allows user to edit the general information about the qrcode such changing name, and adding comments
+ */
 public class EditQRCodeScreenActivity extends SaveANDLoad implements AddCommentFragment.OnFragmentInteractionListener, QrChangeNameFragment.OnFragmentInteractionListener {
     // UI
     private Button changeComments, changeName, removeQR, backButton;
@@ -130,12 +132,17 @@ public class EditQRCodeScreenActivity extends SaveANDLoad implements AddCommentF
         }); // end backButton.setOnClickListener
     } // end onCreate
 
+    /**
+     * Update the Name and Score textView
+     */
     private void updateTextView() {
         qrName.setText("Name: " + qrCode.getName());
         qrScore.setText("Score: " + qrCode.getScore());
     } // end updateTextView
 
-    // Return download the img if exist, and update imageView
+    /**
+     *  Return download the img if exist, and update imageView
+     */
     private void updateImageView() {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReferenceFromUrl("gs://qrchaseredition2.appspot.com");

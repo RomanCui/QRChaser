@@ -13,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+/**
+ * This fragment prompt the user to type in the new comment
+ */
 public class AddCommentFragment extends DialogFragment {
 
     private OnFragmentInteractionListener listener;

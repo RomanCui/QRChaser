@@ -10,6 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+/**
+ * This fragment prompt the admin if they want to delete the comment
+ */
 public class DeleteCommentFragment extends DialogFragment {
 
     private OnFragmentInteractionListener listener;

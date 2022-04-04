@@ -140,9 +140,6 @@ public class QrAddScreenActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-
-                            // for testing the result
-                            Toast.makeText(getApplicationContext(), qrValue, Toast.LENGTH_SHORT).show();
                         }
                     } // end onActivityResult
                 }
@@ -271,13 +268,12 @@ public class QrAddScreenActivity extends AppCompatActivity {
                                 QRCode scannedQR = new QRCode(qrValue, qrName, playerID, comments, latitude, longitude);
                                 scannedQR.saveToDatabase();
 
-                                // For testing
+
+                                // For testing / preview score
                                 int score = scannedQR.getScore();
                                 String scoreTestString = String.valueOf(score);
                                 String hashTestString = scannedQR.getHash();
-                                String testString = "score: " + scoreTestString + " hash: " + hashTestString;
-
-                                // For Testing
+                                String testString = "score: " + scoreTestString;
                                 Toast.makeText(getApplicationContext(), testString, Toast.LENGTH_SHORT).show();
 
                                 // Compressed the image and upload to firebase storage
@@ -367,7 +363,6 @@ public class QrAddScreenActivity extends AppCompatActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 String downloadUrl = taskSnapshot.getMetadata().getPath();
-                Toast.makeText(getApplicationContext(), downloadUrl, Toast.LENGTH_SHORT).show();
             } // end onSuccess
         })
                 .addOnFailureListener(new OnFailureListener() {

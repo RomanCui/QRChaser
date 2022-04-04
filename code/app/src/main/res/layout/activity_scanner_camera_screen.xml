@@ -13,14 +13,4 @@
 
     </androidx.camera.view.PreviewView>
 
-    <TextView
-        android:id="@+id/qrValueTextView"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:paddingTop="10sp"
-        android:text="Value"
-        android:textAlignment="center"
-        android:textSize="24sp" />
-
-
 </LinearLayout>

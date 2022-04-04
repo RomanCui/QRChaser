@@ -14,6 +14,9 @@ import androidx.fragment.app.DialogFragment;
 import com.example.qrchaser.R;
 import com.example.qrchaser.player.myQRCodes.QrAddScreenActivity;
 
+/**
+ * A fragment that prompt the user to select if they want to add photo via camera or gallery
+ */
 public class QrAddScreenAddPhotoFragment extends DialogFragment {
 
     @NonNull
