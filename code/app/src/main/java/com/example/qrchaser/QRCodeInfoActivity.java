@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.qrchaser.general.CommentAdapter;
+import com.example.qrchaser.general.PlayerAdapter;
 import com.example.qrchaser.general.SaveANDLoad;
 import com.example.qrchaser.oop.Comments;
 import com.example.qrchaser.oop.Player;
@@ -31,20 +32,26 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class QRCodeInfoActivity extends SaveANDLoad implements DeleteCommentFragment.OnFragmentInteractionListener {
     // UI
     private TextView qrName, score, location;
-    private ListView commentsListView;
+    private ListView commentsListView, playersListView;
     private ImageView imageView;
     private Button backButton, deleteButton;
     // General Data
     private String hash;
     private QRCode qrCode;
     private ArrayAdapter<Comments> commentsAdapter;
+    private ArrayAdapter<Player> playersAdapter;
     private Player currentPlayer;
     // Database
     private FirebaseFirestore db;
@@ -60,6 +67,7 @@ public class QRCodeInfoActivity extends SaveANDLoad implements DeleteCommentFrag
         qrName = findViewById(R.id.qrcode_info_qrname_textView);
         score = findViewById(R.id.qrcode_info_score_textView);
         commentsListView = findViewById(R.id.qrcode_info_comment_listView);
+        playersListView = findViewById(R.id.qrcode_info_players_listView);
         location = findViewById(R.id.qrcode_info_location_textView);
         imageView = findViewById(R.id.qrcode_info_imageView);
         backButton = findViewById(R.id.qrcode_info_back_button);
@@ -84,6 +92,39 @@ public class QRCodeInfoActivity extends SaveANDLoad implements DeleteCommentFrag
 
                         commentsAdapter = new CommentAdapter(QRCodeInfoActivity.this, 0, qrCode.getComments());
                         commentsListView.setAdapter(commentsAdapter);
+
+
+                        ArrayList<Player> playerNames = new ArrayList<Player>();
+                        // Initialize database Access
+                        CollectionReference accountsRef = db.collection("Accounts");
+                        // Source can be CACHE, SERVER, or DEFAULT.
+                        Source source = Source.CACHE;
+
+                        for (String player: qrCode.getOwners()) {
+                            DocumentReference account = accountsRef.document(player);
+                            // Get the document, forcing the SDK to use the offline cache
+                            account.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        // Document found in the offline cache
+                                        DocumentSnapshot document = task.getResult();
+                                        Player tempPlayer = document.toObject(Player.class);
+                                        if (tempPlayer != null) {
+                                            playerNames.add(tempPlayer);
+                                            Log.d("Player*****", ""+ tempPlayer.getNickname());
+
+                                        }
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Owner List Failed", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }); // end addOnCompleteListener
+                        }
+                        playersAdapter = new PlayerAdapter(QRCodeInfoActivity.this, 0, playerNames);
+                        playersListView.setAdapter(playersAdapter);
+
+
                     } else {
                         Log.d("queryQR","QR does not exist");
                     }
@@ -94,7 +135,7 @@ public class QRCodeInfoActivity extends SaveANDLoad implements DeleteCommentFrag
         });
 
         // Check If the player is an admin
-        //Initialize database Access
+        // Initialize database Access
         db = FirebaseFirestore.getInstance();
         CollectionReference accountsRef = db.collection("Accounts");
         // Source can be CACHE, SERVER, or DEFAULT.
@@ -175,7 +216,15 @@ public class QRCodeInfoActivity extends SaveANDLoad implements DeleteCommentFrag
         });
     } // end onCreate
 
-    // Use QRCode information to update textViews
+    private List<String> getAllPlayerNames(List<String> playerOwners) {
+        List<String> playerNames = new ArrayList<String>();
+
+        return playerNames;
+    } // end getAllPlayerNames
+
+    /**
+     * Use QRCode information to update textViews
+     */
     private void updateViewData() {
         qrName.setText("Name: " + qrCode.getName());
         score.setText("Score: " + qrCode.getScore());
