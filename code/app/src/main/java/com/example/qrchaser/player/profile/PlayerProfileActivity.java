@@ -36,22 +36,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * This Activity Class shows off the player profile and that data contained in their account (such as qr codes and total score)
+ * This Activity Class shows the Player profile and the data contained in their account (such as QR Codes and Total Score)
  */
 public class PlayerProfileActivity extends SaveANDLoad {
     // UI
     private Button buttonPlayerInfo;
     private BottomNavigationView bottomNavigationView;
-    private TextView nickname_text, num_QR_text, total_score_text, single_score_text, num_QR_ranking_text, total_score_ranking_text, single_score_ranking_text;
-    // Database
-    private FirebaseFirestore db;
-    final String TAG = "Error";
-    // Source can be CACHE, SERVER, or DEFAULT.
-    private Source source = Source.CACHE;
+    private TextView nickname_text, num_QR_text, single_score_text, total_score_text, num_QR_ranking_text, single_score_ranking_text, total_score_ranking_text;
     // General Data
     private ArrayList<Player> players = new ArrayList<>();
     private Player currentPlayer;
-    private int num_QR_ranking, total_score_ranking, single_score_ranking;
+    private int num_QR_ranking, single_score_ranking, total_score_ranking;
+    // Database
+    private final String TAG = "Error";
+    private FirebaseFirestore db;
+    // Source can be CACHE, SERVER, or DEFAULT.
+    private Source source = Source.CACHE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +67,12 @@ public class PlayerProfileActivity extends SaveANDLoad {
         single_score_ranking_text = findViewById(R.id.single_score_ranking_2);
 
         // Get the player id in order to load the data from the database
-        String playerID = loadData(getApplicationContext(), "uniqueID");
+        String playerID = loadData(getApplicationContext(),"uniqueID");
 
         // Get Player info from the database
         db = FirebaseFirestore.getInstance();
         CollectionReference accountsRef = db.collection("Accounts");
         DocumentReference myAccount = accountsRef.document(playerID);
-
 
         // Get the document, forcing the SDK to use the offline cache
         myAccount.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -84,7 +83,7 @@ public class PlayerProfileActivity extends SaveANDLoad {
                     DocumentSnapshot document = task.getResult();
                     currentPlayer = document.toObject(Player.class);
                 } else {
-                    Toast.makeText(getApplicationContext(),"Load Failed",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Load Failed", Toast.LENGTH_LONG).show();
                 }
                 nickname_text.setText(currentPlayer.getNickname());
                 num_QR_text.setText(String.valueOf(currentPlayer.getNumQR()));
@@ -100,41 +99,35 @@ public class PlayerProfileActivity extends SaveANDLoad {
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         Player player = document.toObject(Player.class);
                                         players.add(player);
-                                    }// Populate the listview
-
+                                    } // Populate the listview
                                     Collections.sort(players, new PlayerNumQRComparator());
                                     for (int i = 0; i < players.size(); i++){
                                         if (currentPlayer.getUniqueID().equals(players.get(i).getUniqueID())){
                                             num_QR_ranking = i + 1;
                                         }
                                     }
-
                                     Collections.sort(players, new PlayerTotalScoreComparator());
-                                    for (int i = 0; i < players.size(); i++){
+                                    for (int i = 0; i < players.size(); i++) {
                                         if (currentPlayer.getUniqueID().equals(players.get(i).getUniqueID())){
                                             total_score_ranking = i + 1;
                                         }
                                     }
-
                                     Collections.sort(players, new PlayerSingleScoreComparator());
-                                    for (int i = 0; i < players.size(); i++){
+                                    for (int i = 0; i < players.size(); i++) {
                                         if (currentPlayer.getUniqueID().equals(players.get(i).getUniqueID())){
                                             single_score_ranking = i + 1;
                                         }
                                     }
-
                                     num_QR_ranking_text.setText(String.valueOf(num_QR_ranking));
                                     total_score_ranking_text.setText(String.valueOf(total_score_ranking));
                                     single_score_ranking_text.setText(String.valueOf(single_score_ranking));
-
                                 } else {
-                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                    Log.d(TAG,"Error getting documents: ", task.getException());
                                 }
                             } // end onComplete
                         }); // end accountsRef.get().addOnCompleteListener
             } // end onComplete
         }); // end myAccount.get(source).addOnCompleteListener
-
 
         // ************************** Page Selection ****************************************
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -158,7 +151,6 @@ public class PlayerProfileActivity extends SaveANDLoad {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.self_profile:
-
                         return true;
                 }
                 return false;
@@ -173,7 +165,6 @@ public class PlayerProfileActivity extends SaveANDLoad {
                 startActivity(intent);
             } // end onClick
         }); // end buttonPlayerInfo.setOnClickListener
-
     } // end onCreate
 
     @Override
@@ -185,8 +176,7 @@ public class PlayerProfileActivity extends SaveANDLoad {
     @Override
     protected void onResume() {
         super.onResume();
-
-        String playerID = loadData(getApplicationContext(), "uniqueID");
+        String playerID = loadData(getApplicationContext(),"uniqueID");
         db = FirebaseFirestore.getInstance();
         CollectionReference accountsRef = db.collection("Accounts");
         DocumentReference myAccount = accountsRef.document(playerID);
@@ -199,7 +189,7 @@ public class PlayerProfileActivity extends SaveANDLoad {
                     DocumentSnapshot document = task.getResult();
                     nickname_text.setText(document.getString("nickname"));
                 } else {
-                    Toast.makeText(getApplicationContext(),"Load Nickname Failed",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Load Nickname Failed", Toast.LENGTH_LONG).show();
                 }
             } // end onComplete
         }); // end myAccount.get(source).addOnCompleteListener

@@ -32,12 +32,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * This Activity Class allows the user to see their own QR codes
+ * This Activity Class allows the Player to see their own scanned QR Codes
  */
 public class MyQRCodeScreenActivity extends SaveANDLoad {
     // UI
-    private ImageButton highToLowButton, lowToHighButton;
     private BottomNavigationView bottomNavigationView;
+    private ImageButton highToLowButton, lowToHighButton;
     private FloatingActionButton addQR;
     private ArrayList<QRCode> qrCodes = new ArrayList<>();
     private ListView myQRCodeListView;
@@ -59,7 +59,7 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
         lowToHighButton = findViewById(R.id.lowToHigh_button);
 
         // Get the player email in order for the query
-        String playerID = loadData(getApplicationContext(), "uniqueID");
+        String playerID = loadData(getApplicationContext(),"uniqueID");
 
         // Find all the QR codes that belong to this player, then add the name and score
         // to array lists.
@@ -74,10 +74,8 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 QRCode qrCode = document.toObject(QRCode.class);
                                 qrCodes.add(qrCode);
-                            }// Populate the listview
-
+                            } // Populate the listview
                             Collections.sort(qrCodes);
-
                             qrCodeAdapter = new QRCodeAdapter(MyQRCodeScreenActivity.this,qrCodes);
                             myQRCodeListView.setAdapter(qrCodeAdapter);
                     } else {
@@ -85,7 +83,6 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
                     }
             } // end onComplete
         });
-
 
         highToLowButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,8 +100,7 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
             } // end onClick
         }); // end lowToHighButton.setOnClickListener
 
-
-        // Click on the Name to see details about the code
+        // Click on the Name to see details about the QR Code
         myQRCodeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -114,7 +110,6 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
                 startActivity(intent);
             } // end onItemClick
         }); // end myQRCodeListView.setOnItemClickListener
-
 
         bottomNavigationView.setSelectedItemId(R.id.my_qr_code);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -140,8 +135,7 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
             } //end onNavigationItemSelected
         });
 
-
-        // Head to qr add screen
+        // Head to QRAddScreen
         addQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,12 +145,12 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
         }); // end addQR.setOnClickListener
     } // end onCreate
 
-
     /**
-     * For testing purpose: Get the arraylist of qrcode currently present on MyQRCodeScreen
+     * For testing purpose: Get the ArrayList of QRCode currently present on MyQRCodeScreen
      * @return qrCodes
      */
     public ArrayList<QRCode> getQrCodes() {
         return qrCodes;
     } // end getQrCodes
+
 } // end MyQRCodeScreenActivity Class

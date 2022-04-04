@@ -55,9 +55,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * This Activity Class allows the user to add QR codes.
- * The QR code must be added with a name, but may include a photo (In progress),
- * location (Under review), and a comment.
+ * This Activity Class allows the user to add QR Codes.
+ * The QR Code must be added with a name, but may include a photo,
+ * location, and/or a comment.
  */
 public class QrAddScreenActivity extends AppCompatActivity {
     // UI
@@ -73,22 +73,21 @@ public class QrAddScreenActivity extends AppCompatActivity {
     private double longitude  = 200;
     // Player Data
     private Player currentPlayer;
-    private int numQR, totalScore, singleScore;
+    private int numQR, singleScore, totalScore;
     private String playerName;
     private String playerID;
     // ActivityResultLaunchers
     private ActivityResultLauncher<Intent> galleryResultLauncher;
     private ActivityResultLauncher<Intent> cameraResultLauncher;
-    private ActivityResultLauncher<Intent>  locationResultLauncher;
+    private ActivityResultLauncher<Intent> locationResultLauncher;
     // Database
     private final String TAG = "Error";
     private FirebaseFirestore db;
     // Boolean Value check
-    // Ronggang(Alex) implemented comment check in the QRCode class
+    // Ronggang implemented commentCheck in the QRCode class
     private Boolean nameCheck = false;
     private Boolean scanCheck = false;
     private Boolean photoCheck = false;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -116,27 +115,24 @@ public class QrAddScreenActivity extends AppCompatActivity {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == Activity.RESULT_OK) {
-                            //get the result
+                            // get the result
                             Intent scannerResult = result.getData();
                             qrValue = scannerResult.getStringExtra("qrValue");
 
-                            //check for qr in database
+                            // check for qr in database
                             String qrHash = Hashing.sha256().hashString(qrValue, StandardCharsets.UTF_8).toString();
                             DocumentReference qrReference = db.collection("QRCodes").document(qrHash);
-
                             qrReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                 @Override
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                                     QRCode qrcode = documentSnapshot.toObject(QRCode.class);
                                     if (qrcode != null) {
-
-                                        //if not scanned before, add qr and update score
-                                        if(!qrcode.containOwner(playerID)) {
+                                        // if not scanned before, add qr and update score
+                                        if (!qrcode.containOwner(playerID)) {
                                             qrcode.addOwner(playerID);
                                             qrcode.saveToDatabase();
                                             updateScore();
                                         }
-
                                         Intent intent = new Intent(QrAddScreenActivity.this, EditQRCodeScreenActivity.class);
                                         intent.putExtra("qrHash", qrcode.getHash());
                                         startActivity(intent);
@@ -145,8 +141,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                                 }
                             });
 
-
-                            //for testing the result
+                            // for testing the result
                             Toast.makeText(getApplicationContext(), qrValue, Toast.LENGTH_SHORT).show();
                         }
                     } // end onActivityResult
@@ -172,7 +167,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                         } // end onActivityResult
                     }
                 }
-        );
+        ); // end registerForActivityResult
 
         // Camera result receiver
         cameraResultLauncher = registerForActivityResult(
@@ -187,7 +182,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                         } // end onActivityResult
                     }
                 }
-        );
+        ); // end registerForActivityResult
 
         // Location result receiver
         locationResultLauncher = registerForActivityResult(
@@ -202,7 +197,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                         } // end onActivityResult
                     }
                 }
-        );
+        ); // end registerForActivityResult
 
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -215,7 +210,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
         addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Launch a fragment and ask user to use camera or gallery
+                // Launch a fragment and ask user to use camera or gallery
                 new QrAddScreenAddPhotoFragment().show(getSupportFragmentManager(), "QR_ADD_PHOTO");
             } // end onClick
         });
@@ -232,10 +227,8 @@ public class QrAddScreenActivity extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 // for testing
-                //qrValue = "AAA";
-
+                // qrValue = "AAA";
                 qrName = nicknameET.getText().toString();
                 qrComment = commentET.getText().toString();
 
@@ -245,11 +238,9 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 if (image != null) { photoCheck = true; }
 
                 // Do other checks here
-
                 // If the name and scan are added, the program can store a QR code
                 // in the database
                 if (nameCheck && scanCheck) {
-
                     // Get Player info from the database
                     CollectionReference accountsRef = db.collection("Accounts");
                     DocumentReference myAccount = accountsRef.document(playerID);
@@ -268,7 +259,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                                 playerName = currentPlayer.getNickname();
                                 Log.d("name", playerName);
 
-                                //check comments
+                                // check comments
                                 Comments comments;
                                 if(qrComment.equals("")) {
                                     comments = null;
@@ -279,7 +270,6 @@ public class QrAddScreenActivity extends AppCompatActivity {
                                 // store the scanned code to database
                                 QRCode scannedQR = new QRCode(qrValue, qrName, playerID, comments, latitude, longitude);
                                 scannedQR.saveToDatabase();
-
 
                                 // For testing
                                 int score = scannedQR.getScore();
@@ -293,7 +283,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                                 // Compressed the image and upload to firebase storage
                                 if(photoCheck) compressAndUpload(image, scannedQR.getHash());
 
-                                //update the user's score
+                                // update the user's score
                                 updateScore();
                                 finish();
 
@@ -305,9 +295,9 @@ public class QrAddScreenActivity extends AppCompatActivity {
 
                 }
                 // If there is a missing mandatory component, prompt the user for input
-                else if(!nameCheck && !scanCheck) {
+                else if (!nameCheck && !scanCheck) {
                     Toast.makeText(getApplicationContext(), "Please Scan and Enter nickname for this QRCode", Toast.LENGTH_SHORT).show();
-                } else if(!scanCheck) {
+                } else if (!scanCheck) {
                     Toast.makeText(getApplicationContext(), "Please Scan the QRCode", Toast.LENGTH_SHORT).show();
                 } else if (!nameCheck) {
                     Toast.makeText(getApplicationContext(), "Please Enter nickname for this QRCode", Toast.LENGTH_SHORT).show();
@@ -323,18 +313,16 @@ public class QrAddScreenActivity extends AppCompatActivity {
         }); // end cancel.setOnClickListener
     } // end onCreate
 
-
     /**
-     *  Create intent for image capture, and launch the camera activity for the user to take a picture
+     *  Create intent for image capture, and launch the CameraActivity for the Player to take a picture
      */
     public void cameraAddPhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraResultLauncher.launch(intent);
     } // end cameraAddPhoto
 
-
     /**
-     *  Create intent for selecting image, and launch the gallery activity for the user to select a picture
+     *  Create intent for selecting image, and launch the GalleryActivity for the Player to select a picture
      */
     public void galleryAddPhoto() {
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -348,13 +336,13 @@ public class QrAddScreenActivity extends AppCompatActivity {
      * @param imgName name to be saved on storage
      */
     public void compressAndUpload(Bitmap img, String imgName) {
-        //TODO: Implement proper authentication and rules for database
+        // TODO: Implement proper authentication and rules for database
         FirebaseStorage db = FirebaseStorage.getInstance();
         StorageReference storage = db.getReferenceFromUrl("gs://qrchaseredition2.appspot.com");
-        StorageReference imageRef = storage.child(imgName+".jpg");
+        StorageReference imageRef = storage.child(imgName + ".jpg");
         int imgQuality = 100;
 
-        if(img.getByteCount() > 5000) {
+        if (img.getByteCount() > 5000) {
             imgQuality = 50;
 
             // Resize image
@@ -363,7 +351,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                 int width = 250;
                 int height = img.getHeight() * 250 / img.getWidth();
 
-                Bitmap resizedImg = Bitmap.createScaledBitmap(img, width, height, false);
+                Bitmap resizedImg = Bitmap.createScaledBitmap(img, width, height,false);
                 img.recycle();
                 img = resizedImg;
             }
@@ -371,7 +359,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
 
         // Compress the image and convert it to byte array
         ByteArrayOutputStream imgBuffer = new ByteArrayOutputStream();
-        img.compress(Bitmap.CompressFormat.JPEG, imgQuality, imgBuffer); //compress to smallest size
+        img.compress(Bitmap.CompressFormat.JPEG, imgQuality, imgBuffer); // compress to smallest size
         byte[] imageBytes = imgBuffer.toByteArray();
 
         imageRef.putBytes(imageBytes)
@@ -386,7 +374,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "upload failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"upload failed", Toast.LENGTH_SHORT).show();
             } // end onFailure
         });
     } // end compressAndUpload
@@ -403,7 +391,7 @@ public class QrAddScreenActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 QRCode qrCode = document.toObject(QRCode.class);
                                 qrCodes.add(qrCode);
-                            }// Populate the listview
+                            } // Populate the listview
                             numQR = qrCodes.size();
                             totalScore = 0;
                             for (int i = 0; i < qrCodes.size(); i++){
@@ -415,18 +403,15 @@ public class QrAddScreenActivity extends AppCompatActivity {
                             } else {
                                 singleScore = 0;
                             }
-
                             currentPlayer.setNumQR(numQR);
                             currentPlayer.setTotalScore(totalScore);
                             currentPlayer.setHighestScore(singleScore);
                             currentPlayer.updateDatabase();
-
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     } // end onComplete
                 });
-
     }
 
 } // end QrAddScreenActivity Class

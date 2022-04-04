@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.example.qrchaser.QRcodeInfoActivity;
+import com.example.qrchaser.QRCodeInfoActivity;
 import com.example.qrchaser.general.QRCodeAdapter;
 import com.example.qrchaser.oop.QRCode;
 import com.example.qrchaser.oop.QRCodeScoreComparator1;
@@ -57,7 +57,7 @@ public class BrowseQRActivity extends AppCompatActivity {
         highToLowButton = findViewById(R.id.highToLow_button);
         lowToHighButton = findViewById(R.id.lowToHigh_button);
 
-        // Read all QR codes in this game into an array of QRCode objects
+        // Read all QR Codes in this game into an array of QRCode objects
         db = FirebaseFirestore.getInstance();
         CollectionReference QRCodesReference = db.collection("QRCodes");
         QRCodesReference
@@ -70,14 +70,12 @@ public class BrowseQRActivity extends AppCompatActivity {
                                 QRCode qrCode = document.toObject(QRCode.class);
                                 qrCodes.add(qrCode);
                             }
-
                             Collections.sort(qrCodes);
-
                             // Populate the listview
                             qrCodeAdapter = new QRCodeAdapter(BrowseQRActivity.this,qrCodes);
                             myQRCodeListView.setAdapter(qrCodeAdapter);
                         } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
+                            Log.d(TAG,"Error getting documents: ", task.getException());
                         }
                     } // end onComplete
                 }); // end QRCodesReference.get().addOnCompleteListener
@@ -98,25 +96,25 @@ public class BrowseQRActivity extends AppCompatActivity {
             } // end onClick
         }); // end lowToHighButton.setOnClickListener
 
-        // Click on the Name to see details about the code
+        // Click on the Name to see details about the QR Code
         myQRCodeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 QRCode selectedQrCode = qrCodeAdapter.getItem(position);
-                Intent intent = new Intent(BrowseQRActivity.this, QRcodeInfoActivity.class);
+                Intent intent = new Intent(BrowseQRActivity.this, QRCodeInfoActivity.class);
                 intent.putExtra("qrHash", selectedQrCode.getHash());
                 startActivity(intent);
             } // end onItemClick
         }); // end myQRCodeListView.setOnItemClickListener
 
-        // ************************** Page Selection ****************************************
+        // ******************************** Page Selection ****************************************
         // Bottom Navigation bar
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.browse_qr);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.my_qr_code:
                         startActivity(new Intent(getApplicationContext(),MyQRCodeScreenActivity.class));
                         overridePendingTransition(0,0);
@@ -146,7 +144,7 @@ public class BrowseQRActivity extends AppCompatActivity {
                         return true;
                     case R.id.browse_other_players:
                         startActivity(new Intent(getApplicationContext(), BrowsePlayerActivity.class));
-                        overridePendingTransition(0, 0);
+                        overridePendingTransition(0,0);
                         return true;
                 }
                 return false;
@@ -154,4 +152,5 @@ public class BrowseQRActivity extends AppCompatActivity {
         }); // end topNavigationView.setOnItemSelectedListener
 
     } // end onCreate
+
 } // end BrowseActivity Class

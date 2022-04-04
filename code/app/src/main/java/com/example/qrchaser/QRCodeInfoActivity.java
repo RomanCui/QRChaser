@@ -28,18 +28,18 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class QRcodeInfoActivity extends AppCompatActivity implements DeleteCommentFragment.OnFragmentInteractionListener {
+public class QRCodeInfoActivity extends AppCompatActivity implements DeleteCommentFragment.OnFragmentInteractionListener {
     // UI
     private TextView qrName, score, location;
     private ListView commentsListView;
     private ImageView imageView;
     private Button backButton;
-    // Database
-    private FirebaseFirestore db;
     // General Data
     private String hash;
     private QRCode qrCode;
     private ArrayAdapter<Comments> commentsAdapter;
+    // Database
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class QRcodeInfoActivity extends AppCompatActivity implements DeleteComme
         imageView = findViewById(R.id.qrcode_info_imageView);
         backButton = findViewById(R.id.qrcode_info_back_button);
 
-        //back button - return to previous activity
+        // back button -> return to previous activity
         backButton.setOnClickListener( v -> {
             finish();
         });
@@ -72,44 +72,41 @@ public class QRcodeInfoActivity extends AppCompatActivity implements DeleteComme
                         updateViewData();
                         updateImageView();
 
-                        commentsAdapter = new CommentAdapter(QRcodeInfoActivity.this, 0, qrCode.getComments());
+                        commentsAdapter = new CommentAdapter(QRCodeInfoActivity.this, 0, qrCode.getComments());
                         commentsListView.setAdapter(commentsAdapter);
-
                     } else {
-                        Log.d("queryQR", "QR does not exist");
+                        Log.d("queryQR","QR does not exist");
                     }
                 } else {
-                    Log.d("queryQR", "Error getting documents: ", task.getException());
+                    Log.d("queryQR","Error getting documents: ", task.getException());
                 }
             }
         });
 
-        //Launch fragment that prompt the admin to delete the comment
+        // Launch fragment that prompt the admin to delete the comment
         commentsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                new DeleteCommentFragment(i).show(getSupportFragmentManager(), "DELETE_COMMENT");
-            } //end onItemClick
+                new DeleteCommentFragment(i).show(getSupportFragmentManager(),"DELETE_COMMENT");
+            } // end onItemClick
         });
-
-
     } // end onCreate
 
-    //Use qrCode information to update textViews
+    // Use QRCode information to update textViews
     private void updateViewData() {
         qrName.setText("Name: " + qrCode.getName());
         score.setText("Score: " + qrCode.getScore());
         location.setText("Latitude: " + qrCode.getLatitude() + " Longitude: " + qrCode.getLongitude());
     } // end updateViewData
 
-    //Same code as EditQRCodeScreenActivity
-    //TODO: find a way to reuse this method
+    // Same code as EditQRCodeScreenActivity
+    // TODO: find a way to reuse this method
     private void updateImageView() {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReferenceFromUrl("gs://qrchaseredition2.appspot.com");
         StorageReference imgReference = storageReference.child(qrCode.getHash() + ".jpg");
 
-        //set max img size to ~10kb, most image size should be around 5kb
+        // set max img size to ~10kb, most image size should be around 5kb
         imgReference.getBytes(10000)
                 .addOnSuccessListener(new OnSuccessListener<byte[]>() {
                     @Override
@@ -117,21 +114,20 @@ public class QRcodeInfoActivity extends AppCompatActivity implements DeleteComme
                         //create Bitmap from data and set imageView
                         Bitmap imgBM = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                         imageView.setImageBitmap(imgBM);
-                        Log.d("LoadImg", "Img Found");
+                        Log.d("LoadImg","Img Found");
                     } // end onSuccess
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         e.printStackTrace();
-                        Log.d("LoadImg", "Img not found");
+                        Log.d("LoadImg","Img not found");
                     } // end onFailure
                 });
     } // end updateImageView
 
-
     /**
-     * Delete the comment from qrCode, update the database and listView
+     * Delete the comment from the QR Code, update the database and ListView
      * @param index
      */
     @Override
@@ -140,4 +136,5 @@ public class QRcodeInfoActivity extends AppCompatActivity implements DeleteComme
         qrCode.saveToDatabase();
         commentsAdapter.notifyDataSetChanged();
     }
-} // end QRcodeInfoActivity Class
+
+} // end QRCodeInfoActivity Class

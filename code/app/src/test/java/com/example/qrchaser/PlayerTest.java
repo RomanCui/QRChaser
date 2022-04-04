@@ -4,20 +4,19 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import com.example.qrchaser.oop.Player;
 
-
 public class PlayerTest {
 
     private Player mockPlayer1(){
-        Player player1 = new Player("Roy@gmail.com","Roy","1234",false,"1");
+        Player player1 = new Player();
         return player1;
     }
 
     private Player mockPlayer2(){
-        Player player2 = new Player("Roy@gmail.com","Roy","1234",false, "2");
+        Player player2 = new Player();
         return player2;
     }
     private Player mockPlayer3(){
-        Player player3 = new Player("Lesley@gmail.com","Lesley","123456",false, "3");
+        Player player3 = new Player();
         return player3;
     }
 
@@ -27,7 +26,6 @@ public class PlayerTest {
 
         player1.setEmail("Bob@gmail.com");
         assertEquals(player1.getEmail(),"Bob@gmail.com");
-
     }
 
     @Test
@@ -38,16 +36,14 @@ public class PlayerTest {
 
         assertEquals(player1.getEmail(),player2.getEmail());
         assertNotEquals(player1.getEmail(),player3.getEmail());
-
     }
 
     @Test
     public void setPasswordTest(){
         Player player1 = mockPlayer1();
 
-        //player1.setPassword("1234567");
-        //assertEquals(player1.getPassword(),"1234567");
-
+        // player1.setPassword("1234567");
+        // assertEquals(player1.getPassword(),"1234567");
     }
 
     @Test
@@ -58,7 +54,6 @@ public class PlayerTest {
 
        // assertEquals(player1.getPassword(),player2.getPassword());
        // assertNotEquals(player1.getPassword(),player3.getPassword());
-
     }
 
     @Test
@@ -67,7 +62,6 @@ public class PlayerTest {
 
         player1.setNickname("Bob");
         assertEquals(player1.getNickname(),"Bob");
-
     }
 
     @Test
@@ -78,7 +72,6 @@ public class PlayerTest {
 
         assertEquals(player1.getNickname(),player2.getNickname());
         assertNotEquals(player1.getNickname(),player3.getNickname());
-
     }
 
     @Test
@@ -87,7 +80,6 @@ public class PlayerTest {
 
         player1.setPhoneNumber("1234567890");
         assertEquals(player1.getPhoneNumber(),"1234567890");
-
     }
 
     @Test
@@ -98,9 +90,6 @@ public class PlayerTest {
 
         assertEquals(player1.getPhoneNumber(),player2.getPhoneNumber());
         assertNotEquals(player1.getPhoneNumber(),player3.getPhoneNumber());
-
     }
 
-
-
-}
+} // end PlayerTest

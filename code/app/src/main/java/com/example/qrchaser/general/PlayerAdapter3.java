@@ -16,7 +16,7 @@ import com.example.qrchaser.oop.Player;
 import java.util.ArrayList;
 
 /**
- * This Adapter Class is used for list view in the Browse Players Screen
+ * This Adapter Class is used for listview in the BrowsePlayersScreen (getHighestScore())
  */
 public class PlayerAdapter3 extends ArrayAdapter<Player> {
     private ArrayList<Player> players;
@@ -31,11 +31,11 @@ public class PlayerAdapter3 extends ArrayAdapter<Player> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        //return super.getView(position, convertView, parent);
+        // return super.getView(position, convertView, parent);
         View view = convertView;
 
-        if(view == null){
-            view = LayoutInflater.from(context).inflate(R.layout.qrcode_content,parent,false);
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.qrcode_content, parent,false);
         }
 
         Player player = players.get(position);
@@ -48,5 +48,5 @@ public class PlayerAdapter3 extends ArrayAdapter<Player> {
 
         return view;
     } // end getView
-} // end PlayerAdapter3 Class
 
+} // end PlayerAdapter3 Class

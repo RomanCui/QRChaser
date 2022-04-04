@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 public class QrChangeNameFragment extends DialogFragment {
+
     private OnFragmentInteractionListener listener;
 
     public interface OnFragmentInteractionListener {
@@ -53,5 +54,5 @@ public class QrChangeNameFragment extends DialogFragment {
                     }
                 }).create();
     } // end onCreateDialog
-} // end QrChangeNameFragment Class
 
+} // end QrChangeNameFragment Class

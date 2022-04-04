@@ -52,8 +52,8 @@ import java.util.Collections;
  */
 public class BrowsePlayerActivity extends AppCompatActivity {
     // UI
-    private BottomNavigationView topNavigationView,bottomNavigationView;
-    private ImageButton numButton, totalButton, singleButton;
+    private BottomNavigationView bottomNavigationView, topNavigationView;
+    private ImageButton numButton, singleButton, totalButton;
     private TextView scoreType;
     private ArrayAdapter<Player> playersAdapter1, playersAdapter2, playersAdapter3;
     private ListView playersListView;
@@ -91,7 +91,7 @@ public class BrowsePlayerActivity extends AppCompatActivity {
                             }// Populate the listview
 
                         } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
+                            Log.d(TAG,"Error getting documents: ", task.getException());
                         }
                         scoreType.setText("Number of QR");
                         playersAdapter1 = new PlayerAdapter1(BrowsePlayerActivity.this, players);
@@ -157,7 +157,6 @@ public class BrowsePlayerActivity extends AppCompatActivity {
             } // end onItemClick
         }); // end myQRCodeListView.setOnItemClickListener
 
-
         // Scanner result receiver
         ActivityResultLauncher<Intent> scannerResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -173,14 +172,14 @@ public class BrowsePlayerActivity extends AppCompatActivity {
                                 intent.putExtra("playerID", qrDataArray[1]);
                                 startActivity(intent);
                             } else {
-                                Toast.makeText(getApplicationContext(),"Invalid QR Code",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),"Invalid QR Code", Toast.LENGTH_LONG).show();
                             }
                         }
                     } // end onActivityResult
                 }
         ); // end registerForActivityResult
 
-        // Head to scan screen
+        // Head to ScanScreen
         scanPlayerQRButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -189,7 +188,7 @@ public class BrowsePlayerActivity extends AppCompatActivity {
             } // end onClick
         }); // end scanPlayerQRButton.setOnClickListener
 
-        // ************************** Page Selection ****************************************
+        // ******************************** Page Selection ****************************************
         // Bottom Navigation bar
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.browse_qr);
@@ -225,7 +224,7 @@ public class BrowsePlayerActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.browse_qr_code:
                         startActivity(new Intent(getApplicationContext(), BrowseQRActivity.class));
-                        overridePendingTransition(0, 0);
+                        overridePendingTransition(0,0);
                         return true;
                     case R.id.browse_other_players:
                         return true;
@@ -251,10 +250,10 @@ public class BrowsePlayerActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Player player = document.toObject(Player.class);
                                 players.add(player);
-                            }// Populate the listview
+                            } // Populate the ListView
 
                         } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
+                            Log.d(TAG,"Error getting documents: ", task.getException());
                         }
                         playersAdapter1 = new PlayerAdapter1(BrowsePlayerActivity.this, players);
                         playersAdapter2 = new PlayerAdapter2(BrowsePlayerActivity.this, players);

@@ -26,7 +26,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
- * This Activity Class allows user to go to login with a qr code or with a new account
+ * This Activity Class allows a Player to login with a QR Code or with a new Account
  */
 public class WelcomeActivity extends SaveANDLoad {
     // UI
@@ -39,8 +39,8 @@ public class WelcomeActivity extends SaveANDLoad {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        // Before doing anything check if you can login with the saved info
-        String playerID = loadData(getApplicationContext(), "uniqueID");
+        // Before doing anything, check if you can login with the saved info
+        String playerID = loadData(getApplicationContext(),"uniqueID");
         if (playerID != ""){
              FirebaseFirestore db = FirebaseFirestore.getInstance();
              CollectionReference accountsRef = db.collection("Accounts");
@@ -60,7 +60,7 @@ public class WelcomeActivity extends SaveANDLoad {
                      }).addOnFailureListener(new OnFailureListener() {
                  @Override
                  public void onFailure(@NonNull Exception e) {
-                     Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
+                     Toast.makeText(getApplicationContext(),"Error", Toast.LENGTH_LONG).show();
                  } // end onFailure
              }); // end myAccount.get().addOnSuccessListener
          }
@@ -68,13 +68,13 @@ public class WelcomeActivity extends SaveANDLoad {
         createAccount = findViewById(R.id.buttonCreateAccount);
         qrCode = findViewById(R.id.buttonQRCodeLogin);
 
-        // Activated when "Scan with QR code is completed"
+        // Activated when "Scan with QR Code is completed"
         ActivityResultLauncher<Intent> scannerResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
-                        if(result.getResultCode() == Activity.RESULT_OK) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
                             Intent scannerResult = result.getData();
                             qrValue = scannerResult.getStringExtra("qrValue");
                             // For testing the result
@@ -90,21 +90,21 @@ public class WelcomeActivity extends SaveANDLoad {
                                             @Override
                                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                                 if (documentSnapshot.exists()) {
-                                                    saveData(getApplicationContext(), "uniqueID", qrDataArray[1]);
+                                                    saveData(getApplicationContext(),"uniqueID", qrDataArray[1]);
                                                     Intent intent = new Intent(WelcomeActivity.this, MyQRCodeScreenActivity.class);
                                                     startActivity(intent);
                                                 } else {
-                                                    Toast.makeText(getApplicationContext(),"Document does not exist. Please try again",Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(getApplicationContext(),"Document does not exist. Please try again", Toast.LENGTH_LONG).show();
                                                 }
                                             } // end onSuccess
                                         }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(getApplicationContext(),"Player not found",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(),"Player not found", Toast.LENGTH_LONG).show();
                                     } // end onFailure
                                 });
                             } else {
-                                Toast.makeText(getApplicationContext(),"Invalid QR Code",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),"Invalid QR Code", Toast.LENGTH_LONG).show();
                             }
                         }
                     } // end onActivityResult
@@ -117,7 +117,7 @@ public class WelcomeActivity extends SaveANDLoad {
                 // Automatically Create a new account here and save it to the database:
                 Player newPlayer = new Player();
                 newPlayer.saveToDatabase();
-                saveData(getApplicationContext(), "uniqueID", newPlayer.getUniqueID());
+                saveData(getApplicationContext(),"uniqueID", newPlayer.getUniqueID());
                 Intent intent = new Intent(WelcomeActivity.this, MyQRCodeScreenActivity.class);
                 startActivity(intent);
                 finish();
@@ -133,5 +133,5 @@ public class WelcomeActivity extends SaveANDLoad {
         }); // end qrCode.setOnClickListener
 
     } // end onCreate
-} // end WelcomeActivity Class
 
+} // end WelcomeActivity Class

@@ -14,14 +14,13 @@ import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.qrchaser.QRcodeInfoActivity;
+import com.example.qrchaser.QRCodeInfoActivity;
 import com.example.qrchaser.R;
 import com.example.qrchaser.player.browse.BrowseQRActivity;
 import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
@@ -56,7 +55,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This Activity Class allows the user to view QR codes in a map
+ * This Activity Class allows the user to view QR Codes in a Map
  */
 public class MapActivity extends AppCompatActivity{
     // UI
@@ -77,17 +76,17 @@ public class MapActivity extends AppCompatActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Handle permissions first, before map is created. Is this done? I think so
+        // Handle permissions first, before map is created. Is this done? -> I think so
 
         // Load/initialize the osmdroid configuration, this can be done
         Context context = getApplicationContext();
         Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context));
-        //setting this before the layout is inflated is a good idea
-        //it 'should' ensure that the map has a writable location for the map cache, even without permissions
-        //if no tiles are displayed, you can try overriding the cache path using Configuration.getInstance().setCachePath
-        //see also StorageUtils
-        //note, the load method also sets the HTTP User Agent to your application's package name, abusing osm's
-        //tile servers will get you banned based on this string
+        // setting this before the layout is inflated is a good idea
+        // it 'should' ensure that the map has a writable location for the map cache, even without permissions
+        // if no tiles are displayed, you can try overriding the cache path using Configuration.getInstance().setCachePath
+        // see also StorageUtils
+        // note, the load method also sets the HTTP User Agent to your application's package name, abusing osm's
+        // tile servers will get you banned based on this string
 
         // Inflate and create the map
         setContentView(R.layout.activity_map);
@@ -199,7 +198,7 @@ public class MapActivity extends AppCompatActivity{
         sfpo.setOnClickListener(new SimpleFastPointOverlay.OnClickListener() {
             @Override
             public void onClick(SimpleFastPointOverlay.PointAdapter points, Integer point) {
-                Intent intent = new Intent(MapActivity.this, QRcodeInfoActivity.class);
+                Intent intent = new Intent(MapActivity.this, QRCodeInfoActivity.class);
                 intent.putExtra("qrHash", ((LabelledGeoPoint) points.get(point)).getLabel());
                 startActivity(intent);
             } // end onClick
@@ -295,4 +294,5 @@ public class MapActivity extends AppCompatActivity{
                     REQUEST_PERMISSIONS_REQUEST_CODE);
         }
     } // end requestPermissionsIfNecessary
+
 } // end MapActivity Class

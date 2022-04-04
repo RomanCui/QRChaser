@@ -29,10 +29,10 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
     // UI
     private EditText emailET, nicknameET, phoneNumberET;
     private Button buttonConfirm, buttonSignOut, buttonGenerateLoginQRCode, buttonGenerateInfoQRCode;
-    // Database
-    private FirebaseFirestore db;
     // General Data
     private Player currentPlayer;
+    // Database
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
         buttonGenerateInfoQRCode = findViewById(R.id.ButtonGenerateInfoQRCode);
 
         // Get the player id in order to load the data from the database
-        String playerID = loadData(getApplicationContext(), "uniqueID");
+        String playerID = loadData(getApplicationContext(),"uniqueID");
 
         // Get Player info from the database
         db = FirebaseFirestore.getInstance();
@@ -78,8 +78,7 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
             }
         }); // end addOnCompleteListener
 
-
-        //Confirm all changes made (Push the changes to the database)
+        // Confirm all changes made (Push the changes to the database)
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +108,7 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss();
-                        saveData(getApplicationContext(), "uniqueID", "");
+                        saveData(getApplicationContext(),"uniqueID", "");
                         Intent intent = new Intent(EditPlayerProfileActivity.this, WelcomeActivity.class);
                         startActivity(intent);
                         finish();
@@ -124,27 +123,27 @@ public class EditPlayerProfileActivity extends SaveANDLoad {
                 }); // end confirm.setOnClickListener(new View.OnClickListener()
 
             } // end onClick
-        });// end buttonSignOut.setOnClickListener
+        }); // end buttonSignOut.setOnClickListener
 
         // Generate Login QRCode
         buttonGenerateLoginQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EditPlayerProfileActivity.this, GeneratedQRCodeActivity.class);
-                intent.putExtra("qrData", "QRCHASERLOGIN," + currentPlayer.getUniqueID());
+                intent.putExtra("qrData","QRCHASERLOGIN," + currentPlayer.getUniqueID());
                 startActivity(intent);
             } // end onClick
-        });// end buttonGenerateLoginQRCode.setOnClickListener
+        }); // end buttonGenerateLoginQRCode.setOnClickListener
 
         // Generate Info QRCode
         buttonGenerateInfoQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EditPlayerProfileActivity.this, GeneratedQRCodeActivity.class);
-                intent.putExtra("qrData", "QRCHASERINFO," + currentPlayer.getUniqueID());
+                intent.putExtra("qrData","QRCHASERINFO," + currentPlayer.getUniqueID());
                 startActivity(intent);
             } // end onClick
-        });// end buttonGenerateInfoQRCode.setOnClickListener
-
+        }); // end buttonGenerateInfoQRCode.setOnClickListener
     } // end onCreate
+
 } // end PlayerProfileInfoActivity Class

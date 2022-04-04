@@ -50,7 +50,7 @@ public class SelectQRLocationActivity extends AppCompatActivity {
     private MyLocationNewOverlay myLocationOverlay;
     private RotationGestureOverlay mapRotationGestureOverlay;
     private ScaleBarOverlay mapScaleBarOverlay;
-    // The  marker and location for the QR Code
+    // The marker and location for the QR Code
     private GeoPoint QRLocation;
     private Marker QRLocationMarker = null;
 
@@ -60,12 +60,12 @@ public class SelectQRLocationActivity extends AppCompatActivity {
 
         Context context = getApplicationContext();
         Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context));
-        //setting this before the layout is inflated is a good idea
-        //it 'should' ensure that the map has a writable location for the map cache, even without permissions
-        //if no tiles are displayed, you can try overriding the cache path using Configuration.getInstance().setCachePath
-        //see also StorageUtils
-        //note, the load method also sets the HTTP User Agent to your application's package name, abusing osm's
-        //tile servers will get you banned based on this string
+        // setting this before the layout is inflated is a good idea
+        // it 'should' ensure that the map has a writable location for the map cache, even without permissions
+        // if no tiles are displayed, you can try overriding the cache path using Configuration.getInstance().setCachePath
+        // see also StorageUtils
+        // note, the load method also sets the HTTP User Agent to your application's package name, abusing osm's
+        // tile servers will get you banned based on this string
 
         // Inflate and create the map
         setContentView(R.layout.activity_select_qr_location_map);
@@ -110,7 +110,7 @@ public class SelectQRLocationActivity extends AppCompatActivity {
         mapScaleBarOverlay = new ScaleBarOverlay(map);
         mapScaleBarOverlay.setCentred(true);
         // Play around with these values to get the location on screen in the right place for your application
-        mapScaleBarOverlay.setScaleBarOffset(dm.widthPixels / 2, 10);
+        mapScaleBarOverlay.setScaleBarOffset(dm.widthPixels / 2,10);
         map.getOverlays().add(this.mapScaleBarOverlay);
 
         // Attempt to set to current location
@@ -133,7 +133,7 @@ public class SelectQRLocationActivity extends AppCompatActivity {
             map.getOverlays().add(QRLocationMarker);
         } else {
             // Set to out of bounds
-            QRLocation = new GeoPoint(200.0, 200.0);
+            QRLocation = new GeoPoint(200.0,200.0);
         }
 //            Toast.makeText(getBaseContext(),"yes", Toast.LENGTH_LONG).show();
         // Setup Click For location (if the decide to choose a new location)
@@ -141,13 +141,13 @@ public class SelectQRLocationActivity extends AppCompatActivity {
             @Override
             public boolean singleTapConfirmedHelper(GeoPoint p) {
                 // Remove old marker
-                for(int i = 0; i < map.getOverlays().size(); i++){
+                for (int i = 0; i < map.getOverlays().size(); i++) {
                     Overlay overlay = map.getOverlays().get(i);
-                    if(overlay instanceof Marker && ((Marker) overlay).getId().equals("QRLocation")){
+                    if (overlay instanceof Marker && ((Marker) overlay).getId().equals("QRLocation")) {
                         map.getOverlays().remove(overlay);
                     }
                 }
-                //Set new one
+                // Set new one
                 QRLocation = p;
                 QRLocationMarker = new Marker(map);
                 QRLocationMarker.setId("QRLocation");
@@ -183,7 +183,6 @@ public class SelectQRLocationActivity extends AppCompatActivity {
                 finish();
             } // end onClick
         }); // end qrCode.setOnClickListener
-
     } // end onCreate
 
     @Override
@@ -237,4 +236,5 @@ public class SelectQRLocationActivity extends AppCompatActivity {
                     REQUEST_PERMISSIONS_REQUEST_CODE);
         }
     } // end requestPermissionsIfNecessary
+
 } // end SelectQRLocationActivity class

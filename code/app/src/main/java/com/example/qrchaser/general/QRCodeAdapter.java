@@ -13,7 +13,7 @@ import com.example.qrchaser.oop.QRCode;
 import java.util.ArrayList;
 
 /**
- * This Adapter Class is used for list view in MyQRCodeScreen and Browse QR Codes Screen
+ * This Adapter Class is used for listview in MyQRCodeScreen and BrowseQRCodesScreen
  */
 public class QRCodeAdapter extends ArrayAdapter<QRCode> {
     private ArrayList<QRCode> qrCodes;
@@ -28,11 +28,11 @@ public class QRCodeAdapter extends ArrayAdapter<QRCode> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        //return super.getView(position, convertView, parent);
+        // return super.getView(position, convertView, parent);
         View view = convertView;
 
-        if(view == null){
-            view = LayoutInflater.from(context).inflate(R.layout.qrcode_content,parent,false);
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.qrcode_content, parent,false);
         }
 
         QRCode qrCode = qrCodes.get(position);
@@ -41,8 +41,9 @@ public class QRCodeAdapter extends ArrayAdapter<QRCode> {
         TextView qrCodeName = view.findViewById(R.id.name_text);
         TextView qrCodeScore = view.findViewById(R.id.score_text);
         qrCodeName.setText(qrCode.getName());
-        qrCodeScore.setText(qrCode.getScore()+"");
+        qrCodeScore.setText(qrCode.getScore() + "");
 
         return view;
     } // end getView
+
 } // end QRCodeAdapter Class

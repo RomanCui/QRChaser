@@ -18,12 +18,11 @@ public class Comments {
     /**
      * No-argument constructor for comments, used for creating Comments object from database query
      */
-    public Comments(){} // end Comments Constructor
-
+    public Comments() {} // end Comments Constructor
 
     /**
-     * This gets the username of the player who made the comment
-     * @return the username of the player who made the comment
+     * This gets the username of the Player who made the comment
+     * @return the username of the Player who made the comment
      */
     public String getUsername() {
         return username;
@@ -36,4 +35,5 @@ public class Comments {
     public String getComment() {
         return comment;
     } // end getComment
+
 } // end Comments Class
