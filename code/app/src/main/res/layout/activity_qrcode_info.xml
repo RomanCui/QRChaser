@@ -103,4 +103,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <TextView
+        android:id="@+id/owners_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:gravity="left"
+        android:text="Owners:"
+        android:textColor="#051367"
+        android:textSize="20sp" />
+
+    <ListView
+        android:id="@+id/qrcode_info_players_listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
