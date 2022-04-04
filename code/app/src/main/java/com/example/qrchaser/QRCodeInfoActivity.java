@@ -35,6 +35,9 @@ import com.google.firebase.firestore.Source;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+/**
+ * Display the general information of the qrcode such as name, score, location, image, and owners
+ */
 public class QRCodeInfoActivity extends SaveANDLoad implements DeleteCommentFragment.OnFragmentInteractionListener {
     // UI
     private TextView qrName, score, location;

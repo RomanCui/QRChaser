@@ -13,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+/**
+ * This fragment prompts the user to enter a new name for the qrcode
+ */
 public class QrChangeNameFragment extends DialogFragment {
 
     private OnFragmentInteractionListener listener;
