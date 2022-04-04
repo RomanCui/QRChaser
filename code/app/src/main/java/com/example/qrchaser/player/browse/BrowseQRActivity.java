@@ -1,8 +1,13 @@
 package com.example.qrchaser.player.browse;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -112,6 +117,7 @@ public class BrowseQRActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.browse_qr);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
@@ -122,8 +128,11 @@ public class BrowseQRActivity extends AppCompatActivity {
                     case R.id.browse_qr:
                         return true;
                     case R.id.map:
-                        startActivity(new Intent(getApplicationContext(),MapActivity.class));
-                        overridePendingTransition(0,0);
+                        if(checkCoarseLocationPermission() && checkFineLocationPermission() && checkInternetPermission() && checkWritePermission()) {
+                            launchMap();
+                        } else {
+                            requestMapPermissions();
+                        }
                         return true;
                     case R.id.self_profile:
                         startActivity(new Intent(getApplicationContext(),PlayerProfileActivity.class));
@@ -153,4 +162,42 @@ public class BrowseQRActivity extends AppCompatActivity {
 
     } // end onCreate
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private Boolean checkCoarseLocationPermission() {
+        return checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    } // end checkCoarseLocationPermission
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private Boolean checkFineLocationPermission() {
+        return checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    } // end checkFineLocationPermission
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private Boolean checkWritePermission() {
+        return checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+    } // end checkWritePermission
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private Boolean checkInternetPermission() {
+        return checkSelfPermission(Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED;
+    } // end checkInternetPermission
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void requestMapPermissions() {
+        requestPermissions(new String[] {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET}, 1);
+    } // end requestMapPermissions
+
+    private void launchMap() {
+        startActivity(new Intent(getApplicationContext(),MapActivity.class));
+        overridePendingTransition(0,0);
+    } // end launchMap
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(checkCoarseLocationPermission() && checkFineLocationPermission() && checkWritePermission()) {
+            launchMap();
+        }
+    } // end onRequestPermissionsResult
 } // end BrowseActivity Class
