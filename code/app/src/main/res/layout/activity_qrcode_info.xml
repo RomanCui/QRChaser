@@ -100,6 +100,15 @@
         android:textColor="@color/black"
         android:textSize="20sp" />
 
+    <TextView
+        android:id="@+id/qrcode_info_comments_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Comments:"
+        android:textColor="@color/black"
+        android:fontFamily="sans-serif"
+        android:textSize="20sp"/>
+
     <ListView
         android:id="@+id/qrcode_info_comment_listView"
         android:layout_width="match_parent"
@@ -112,7 +121,7 @@
         android:fontFamily="sans-serif"
         android:gravity="left"
         android:text="Owners:"
-        android:textColor="#051367"
+        android:textColor="@color/black"
         android:textSize="20sp" />
 
     <ListView
