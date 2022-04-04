@@ -105,10 +105,10 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.map:
-                        if(checkCoarseLocationPermission() && checkFineLocationPermission()) {
+                        if(checkCoarseLocationPermission() && checkFineLocationPermission() && checkInternetPermission() && checkWritePermission()) {
                             launchMap();
                         } else {
-                            requestLocationPermission();
+                            requestMapPermissions();
                         }
 
                         return true;
@@ -187,9 +187,20 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void requestLocationPermission() {
-        requestPermissions(new String[] {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+    private Boolean checkWritePermission() {
+        return checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private Boolean checkInternetPermission() {
+        return checkSelfPermission(Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void requestMapPermissions() {
+        requestPermissions(new String[] {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET}, 1);
+    }
+
 
     private void launchMap() {
         startActivity(new Intent(getApplicationContext(),MapActivity.class));
