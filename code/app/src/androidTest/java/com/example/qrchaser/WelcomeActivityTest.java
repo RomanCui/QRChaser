@@ -97,7 +97,7 @@ public class WelcomeActivityTest {
      */
     @Test
     public void testNavigation1() {
-        solo.assertCurrentActivity("Not main Activity", WelcomeActivity.class);
+        solo.assertCurrentActivity("Not main Activity", MyQRCodeScreenActivity.class);
         solo.clickOnButton("Guest");
         solo.assertCurrentActivity("Not MyQRCodeScreen Activity", MyQRCodeScreenActivity.class);
 

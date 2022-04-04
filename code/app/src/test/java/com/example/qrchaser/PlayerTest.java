@@ -31,29 +31,14 @@ public class PlayerTest {
     @Test
     public void getEmailTest(){
         Player player1 = mockPlayer1();
+        player1.setEmail("Bob@gmail.com");
         Player player2 = mockPlayer2();
+        player2.setEmail("Bob@gmail.com");
         Player player3 = mockPlayer3();
+        player3.setEmail("Alice@gmail.com");
 
         assertEquals(player1.getEmail(),player2.getEmail());
         assertNotEquals(player1.getEmail(),player3.getEmail());
-    }
-
-    @Test
-    public void setPasswordTest(){
-        Player player1 = mockPlayer1();
-
-        // player1.setPassword("1234567");
-        // assertEquals(player1.getPassword(),"1234567");
-    }
-
-    @Test
-    public void getPasswordTest(){
-        Player player1 = mockPlayer1();
-        Player player2 = mockPlayer2();
-        Player player3 = mockPlayer3();
-
-       // assertEquals(player1.getPassword(),player2.getPassword());
-       // assertNotEquals(player1.getPassword(),player3.getPassword());
     }
 
     @Test
@@ -67,8 +52,11 @@ public class PlayerTest {
     @Test
     public void getNicknameTest(){
         Player player1 = mockPlayer1();
+        player1.setNickname("Bob");
         Player player2 = mockPlayer2();
+        player2.setNickname("Bob");
         Player player3 = mockPlayer3();
+        player3.setNickname("Alice");
 
         assertEquals(player1.getNickname(),player2.getNickname());
         assertNotEquals(player1.getNickname(),player3.getNickname());
@@ -85,11 +73,90 @@ public class PlayerTest {
     @Test
     public void getPhoneNumberTest(){
         Player player1 = mockPlayer1();
+        player1.setPhoneNumber("1234567890");
         Player player2 = mockPlayer2();
+        player2.setPhoneNumber("1234567890");
         Player player3 = mockPlayer3();
+        player3.setPhoneNumber("1234567809");
 
         assertEquals(player1.getPhoneNumber(),player2.getPhoneNumber());
         assertNotEquals(player1.getPhoneNumber(),player3.getPhoneNumber());
     }
+
+    @Test
+    public void getUniqueIDTest(){
+        Player player1 = mockPlayer1();
+        Player player2 = mockPlayer2();
+
+        assertNotEquals(player1.getUniqueID(),player2.getUniqueID());
+    }
+
+    @Test
+    public void isAdminTest(){
+        Player player1 = mockPlayer1();
+
+        assertEquals(player1.isAdmin(),false);
+    }
+
+    @Test
+    public void setAdminTest(){
+        Player player1 = mockPlayer1();
+        player1.setAdmin(true);
+
+        assertEquals(player1.isAdmin(),true);
+    }
+
+    @Test
+    public void setNumQRAndGetNumQRTest(){
+        Player player1 = mockPlayer1();
+        Player player2 = mockPlayer2();
+
+        player1.setNumQR(10);
+        player2.setNumQR(20);
+
+        assertEquals(player1.getNumQR(),10);
+        assertNotEquals(player1.getNumQR(),player2.getNumQR());
+
+    }
+
+    @Test
+    public void setTotalScoreAndGetTotalScoreTest(){
+        Player player1 = mockPlayer1();
+        Player player2 = mockPlayer2();
+
+        player1.setTotalScore(2000);
+        player2.setTotalScore(1000);
+
+        assertEquals(player1.getTotalScore(),2000);
+        assertNotEquals(player1.getTotalScore(),player2.getTotalScore());
+
+    }
+
+    @Test
+    public void setHighestScoreAndGetHighestScoreTest(){
+        Player player1 = mockPlayer1();
+        Player player2 = mockPlayer2();
+
+        player1.setHighestScore(100);
+        player2.setHighestScore(200);
+
+        assertEquals(player1.getHighestScore(),100);
+        assertNotEquals(player1.getHighestScore(),player2.getHighestScore());
+
+    }
+
+    @Test
+    public void setLowestScoreAndGetLowestScoreTest(){
+        Player player1 = mockPlayer1();
+        Player player2 = mockPlayer2();
+
+        player1.setLowestScore(10);
+        player2.setLowestScore(15);
+
+        assertEquals(player1.getLowestScore(),10);
+        assertNotEquals(player1.getLowestScore(),player2.getLowestScore());
+
+    }
+
 
 } // end PlayerTest
