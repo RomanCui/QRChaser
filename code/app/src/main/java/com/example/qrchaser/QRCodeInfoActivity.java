@@ -41,13 +41,13 @@ public class QRcodeInfoActivity extends SaveANDLoad implements DeleteCommentFrag
     private ListView commentsListView;
     private ImageView imageView;
     private Button backButton, deleteButton;
-    // Database
-    private FirebaseFirestore db;
     // General Data
     private String hash;
     private QRCode qrCode;
     private ArrayAdapter<Comments> commentsAdapter;
     private Player currentPlayer;
+    // Database
+    private FirebaseFirestore db;
     private final String TAG = "Error";
 
     @Override
@@ -65,7 +65,7 @@ public class QRcodeInfoActivity extends SaveANDLoad implements DeleteCommentFrag
         backButton = findViewById(R.id.qrcode_info_back_button);
         deleteButton = findViewById(R.id.qrcode_info_delete_button);
 
-        //back button - return to previous activity
+        // back button -> return to previous activity
         backButton.setOnClickListener( v -> {
             finish();
         });
@@ -82,18 +82,16 @@ public class QRcodeInfoActivity extends SaveANDLoad implements DeleteCommentFrag
                         updateViewData();
                         updateImageView();
 
-                        commentsAdapter = new CommentAdapter(QRcodeInfoActivity.this, 0, qrCode.getComments());
+                        commentsAdapter = new CommentAdapter(QRCodeInfoActivity.this, 0, qrCode.getComments());
                         commentsListView.setAdapter(commentsAdapter);
-
                     } else {
-                        Log.d("queryQR", "QR does not exist");
+                        Log.d("queryQR","QR does not exist");
                     }
                 } else {
-                    Log.d("queryQR", "Error getting documents: ", task.getException());
+                    Log.d("queryQR","Error getting documents: ", task.getException());
                 }
             }
         });
-
 
         // Check If the player is an admin
         //Initialize database Access
@@ -122,8 +120,6 @@ public class QRcodeInfoActivity extends SaveANDLoad implements DeleteCommentFrag
             }
         }); // end addOnCompleteListener
 
-
-
         //Launch fragment that prompt the admin to delete the comment
         commentsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -131,7 +127,7 @@ public class QRcodeInfoActivity extends SaveANDLoad implements DeleteCommentFrag
                 if (currentPlayer.isAdmin()){
                     new DeleteCommentFragment(i).show(getSupportFragmentManager(), "DELETE_COMMENT");
                 }
-            } //end onItemClick
+            } // end onItemClick
         });
 
         // Delete button - Delete QR code and return to previous activity
@@ -177,17 +173,17 @@ public class QRcodeInfoActivity extends SaveANDLoad implements DeleteCommentFrag
                 }); // end confirm.setOnClickListener(new View.OnClickListener()
             }
         });
-    }// end onCreate
+    } // end onCreate
 
-    //Use qrCode information to update textViews
+    // Use QRCode information to update textViews
     private void updateViewData() {
         qrName.setText("Name: " + qrCode.getName());
         score.setText("Score: " + qrCode.getScore());
         location.setText("Latitude: " + qrCode.getLatitude() + " Longitude: " + qrCode.getLongitude());
     } // end updateViewData
 
-    //Same code as EditQRCodeScreenActivity
-    //TODO: find a way to reuse this method
+    // Same code as EditQRCodeScreenActivity
+    // TODO: find a way to reuse this method
     private void updateImageView() {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReferenceFromUrl("gs://qrchaseredition2.appspot.com");
@@ -201,21 +197,20 @@ public class QRcodeInfoActivity extends SaveANDLoad implements DeleteCommentFrag
                         //create Bitmap from data and set imageView
                         Bitmap imgBM = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                         imageView.setImageBitmap(imgBM);
-                        Log.d("LoadImg", "Img Found");
+                        Log.d("LoadImg","Img Found");
                     } // end onSuccess
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         e.printStackTrace();
-                        Log.d("LoadImg", "Img not found");
+                        Log.d("LoadImg","Img not found");
                     } // end onFailure
                 });
     } // end updateImageView
 
-
     /**
-     * Delete the comment from qrCode, update the database and listView
+     * Delete the comment from the QR Code, update the database and ListView
      * @param index
      */
     @Override
@@ -224,4 +219,5 @@ public class QRcodeInfoActivity extends SaveANDLoad implements DeleteCommentFrag
         qrCode.saveToDatabase();
         commentsAdapter.notifyDataSetChanged();
     }
-} // end QRcodeInfoActivity Class
+
+} // end QRCodeInfoActivity Class

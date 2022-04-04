@@ -32,12 +32,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * This Activity Class allows the user to see their own QR codes
+ * This Activity Class allows the Player to see their own scanned QR Codes
  */
 public class MyQRCodeScreenActivity extends SaveANDLoad {
     // UI
-    private ImageButton highToLowButton, lowToHighButton;
     private BottomNavigationView bottomNavigationView;
+    private ImageButton highToLowButton, lowToHighButton;
     private FloatingActionButton addQR;
     private ArrayList<QRCode> qrCodes = new ArrayList<>();
     private ListView myQRCodeListView;
@@ -75,8 +75,7 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
             } // end onClick
         }); // end lowToHighButton.setOnClickListener
 
-
-        // Click on the Name to see details about the code
+        // Click on the Name to see details about the QR Code
         myQRCodeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -86,7 +85,6 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
                 startActivity(intent);
             } // end onItemClick
         }); // end myQRCodeListView.setOnItemClickListener
-
 
         bottomNavigationView.setSelectedItemId(R.id.my_qr_code);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -112,8 +110,7 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
             } //end onNavigationItemSelected
         });
 
-
-        // Head to qr add screen
+        // Head to QRAddScreen
         addQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,10 +156,11 @@ public class MyQRCodeScreenActivity extends SaveANDLoad {
 
 
     /**
-     * For testing purpose: Get the arraylist of qrcode currently present on MyQRCodeScreen
+     * For testing purpose: Get the ArrayList of QRCode currently present on MyQRCodeScreen
      * @return qrCodes
      */
     public ArrayList<QRCode> getQrCodes() {
         return qrCodes;
     } // end getQrCodes
+
 } // end MyQRCodeScreenActivity Class

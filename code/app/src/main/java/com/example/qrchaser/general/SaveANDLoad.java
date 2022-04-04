@@ -19,7 +19,8 @@ public class SaveANDLoad extends AppCompatActivity {
 
     public static String loadData(Context context, String key) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        String text = sharedPreferences.getString(key, "");
+        String text = sharedPreferences.getString(key,"");
         return text;
     } // end loadData
+
 } // end SaveANDLoad Class

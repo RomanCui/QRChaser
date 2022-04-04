@@ -62,30 +62,27 @@ public class CameraScannerActivity extends AppCompatActivity implements CameraXC
             Toast.makeText(this, "Camera Permission Granted", Toast.LENGTH_LONG).show();
             // Start camera
             launchCamera();
-
         } else {
             // Request permission
             requestCameraPermission();
         }
     } // end onCreate
 
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == CAMERA_REQUEST_CODE) {
-            if(checkCameraPermission()) {
-                Toast.makeText(this, "Camera Permission Granted ", Toast.LENGTH_LONG).show();
+            if (checkCameraPermission()) {
+                Toast.makeText(this,"Camera Permission Granted ", Toast.LENGTH_LONG).show();
                 // Start camera
                 launchCamera();
             } else {
                 // Request permission
-                Toast.makeText(this, "No Camera Permission", Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"No Camera Permission", Toast.LENGTH_LONG).show();
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     } // end onRequestPermissionsResult
-
 
     // Check camera permission
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -93,13 +90,11 @@ public class CameraScannerActivity extends AppCompatActivity implements CameraXC
         return checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
     } // end checkCameraPermission
 
-
     // Request camera permission
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void requestCameraPermission() {
         requestPermissions(new String[] {Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
     } // end requestCameraPermission
-
 
     private void launchCamera() {
         cameraProviderFuture = ProcessCameraProvider.getInstance(CameraScannerActivity.this);
@@ -108,11 +103,10 @@ public class CameraScannerActivity extends AppCompatActivity implements CameraXC
                 ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
                 bindPreview(cameraProvider);
             } catch (ExecutionException | InterruptedException e) {
-                // TODO:display proper error handling
+                // TODO: display proper error handling
             }
         }, ContextCompat.getMainExecutor(this));
     } // end launchCamera
-
 
     private Camera bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
         // Bind camera view
@@ -172,9 +166,7 @@ public class CameraScannerActivity extends AppCompatActivity implements CameraXC
         return cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, preview, qrAnalyser);
     } // end bindPreview
 
-
-
-    //TODO: Might not need this, try testing without this method
+    // TODO: Might not need this, try testing without this method
     @NonNull
     @Override
     public CameraXConfig getCameraXConfig() {

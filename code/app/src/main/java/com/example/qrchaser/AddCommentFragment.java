@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 public class AddCommentFragment extends DialogFragment {
+
     private OnFragmentInteractionListener listener;
 
     public interface OnFragmentInteractionListener {
@@ -43,7 +44,7 @@ public class AddCommentFragment extends DialogFragment {
                 .setTitle("Enter new comments")
                 .setNegativeButton("Cancel", null)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    //takes user input roll
+                    // takes user input roll
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String comment = addComment.getText().toString();
@@ -53,4 +54,5 @@ public class AddCommentFragment extends DialogFragment {
                     } // end onClick
                 }).create();
     } // end onCreateDialog
+
 } // end AddCommentFragment Class

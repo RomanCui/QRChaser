@@ -30,8 +30,8 @@ public class CommentAdapter extends ArrayAdapter<Comments> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
 
-        if(view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.comments_content,parent,false);
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.comments_content, parent,false);
         }
 
         Comments comment = comments.get(position);
@@ -43,4 +43,5 @@ public class CommentAdapter extends ArrayAdapter<Comments> {
 
         return view;
     } // end getView
+
 } // end CommentAdapter Class
