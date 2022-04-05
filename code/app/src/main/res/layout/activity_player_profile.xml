@@ -63,13 +63,14 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingLeft="20dp"
                 android:text="Number of QR codes owned: "
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
                 android:textColor="@color/black"
                 android:textSize="15sp">
-                >
             </TextView>
 
             <TextView
@@ -77,7 +78,9 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingLeft="20dp"
                 android:text=""
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
@@ -97,13 +100,14 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingLeft="20dp"
                 android:text="Total score: "
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
                 android:textColor="@color/black"
                 android:textSize="15sp">
-                >
             </TextView>
 
             <TextView
@@ -111,14 +115,15 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingLeft="20dp"
                 android:text=""
                 android:textSize="15sp"
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
                 android:textColor="@color/black">
             </TextView>
-
         </LinearLayout>
 
         <LinearLayout
@@ -131,7 +136,9 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingLeft="20dp"
                 android:text="Highest scoring QR code: "
                 android:textSize="15sp"
                 android:gravity="left|center"
@@ -144,7 +151,45 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingLeft="20dp"
+                android:text=""
+                android:textSize="15sp"
+                android:gravity="left|center"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/black">
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/single_scoreL_1"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingLeft="20dp"
+                android:text="Lowest scoring QR code: "
+                android:textSize="15sp"
+                android:gravity="left|center"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/black">
+            </TextView>
+
+            <TextView
+                android:id="@+id/single_scoreL_2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingLeft="20dp"
                 android:text=""
                 android:textSize="15sp"
                 android:gravity="left|center"
@@ -160,56 +205,28 @@
             android:orientation="horizontal" >
 
             <TextView
-                android:id="@+id/single_scoreL_1"
+                android:id="@+id/num_qr_ranking_1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:fontFamily="sans-serif"
-                android:gravity="left|center"
-                android:padding="20dp"
-                android:text="Lowest scoring QR code: "
-                android:textColor="@color/black"
-                android:textSize="15sp"></TextView>
-
-            <TextView
-                android:id="@+id/single_scoreL_2"
-                android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:text=""
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingLeft="20dp"
+                android:text="Number of scanned QR codes ranking: "
                 android:textSize="15sp"
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
-                android:textColor="#051367">
+                android:textColor="@color/black">
             </TextView>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:id="@+id/num_qr_ranking_1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:fontFamily="sans-serif"
-                android:gravity="left|center"
-                android:padding="20dp"
-                android:text="Number of scanned QR codes ranking: "
-                android:textColor="@color/black"
-                android:textSize="15sp">
-                </TextView>
 
             <TextView
                 android:id="@+id/num_qr_ranking_2"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingLeft="20dp"
                 android:text=""
                 android:textSize="15sp"
                 android:gravity="left|center"
@@ -228,7 +245,9 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingLeft="20dp"
                 android:text="Total score ranking: "
                 android:textSize="15sp"
                 android:gravity="left|center"
@@ -241,7 +260,9 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingLeft="20dp"
                 android:text=""
                 android:textSize="15sp"
                 android:gravity="left|center"
@@ -260,13 +281,14 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingLeft="20dp"
                 android:text="Single highest scoring QR ranking: "
                 android:textSize="15sp"
                 android:gravity="left|center"
                 android:fontFamily="sans-serif"
                 android:textColor="@color/black">
-                >
             </TextView>
 
             <TextView
@@ -274,7 +296,9 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingLeft="20dp"
                 android:text=""
                 android:textSize="15sp"
                 android:gravity="left|center"
