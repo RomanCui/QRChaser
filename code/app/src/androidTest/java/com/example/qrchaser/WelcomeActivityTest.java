@@ -42,7 +42,7 @@ public class WelcomeActivityTest {
     @Test
     public void LoginWithQRCodeTest() {
         solo.assertCurrentActivity("Not WelcomeActivity", WelcomeActivity.class);
-        solo.clickOnButton("Login With QR Code"); // Click QR Code Button
+        solo.clickOnButton("Login With QR Code"); // Click LOGIN WITH QR CODE Button
         solo.assertCurrentActivity("Not MyQRCodeScreenActivity", MyQRCodeScreenActivity.class);
     }
 
