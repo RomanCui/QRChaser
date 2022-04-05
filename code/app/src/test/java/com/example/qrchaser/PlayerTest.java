@@ -2,7 +2,28 @@ package com.example.qrchaser;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import android.util.Log;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+
+import com.example.qrchaser.general.SaveANDLoad;
 import com.example.qrchaser.oop.Player;
+import com.example.qrchaser.oop.PlayerNumQRComparator;
+import com.example.qrchaser.oop.PlayerSingleScoreComparator;
+import com.example.qrchaser.oop.PlayerTotalScoreComparator;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
+
+import java.util.Collections;
 
 public class PlayerTest {
 
