@@ -27,27 +27,29 @@
 
         <Button
             android:id="@+id/buttonQRCodeLogin"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="35dp"
+            android:layout_marginRight="16dp"
             android:text="Login With QR Code"
             android:textSize="15sp"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="55dp" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/buttonCreateAccount"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="35dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="16dp"
             android:text="Continue with new Account"
             android:textSize="15sp"
-            app:layout_constraintTop_toBottomOf="@+id/buttonQRCodeLogin"
-            tools:layout_editor_absoluteX="111dp" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonQRCodeLogin" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
