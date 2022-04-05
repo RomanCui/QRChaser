@@ -17,7 +17,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.example.qrchaser.general.PlayerAdapter1;
+import com.example.qrchaser.general.PlayerAdapter2;
+import com.example.qrchaser.general.PlayerAdapter3;
 import com.example.qrchaser.general.QRCodeAdapter;
+import com.example.qrchaser.oop.Player;
+import com.example.qrchaser.oop.PlayerNumQRComparator;
 import com.example.qrchaser.oop.QRCode;
 import com.example.qrchaser.oop.QRCodeScoreComparator1;
 import com.example.qrchaser.oop.QRCodeScoreComparator2;
@@ -30,11 +35,16 @@ import com.example.qrchaser.player.map.MapActivity;
 import com.example.qrchaser.player.myQRCodes.MyQRCodeScreenActivity;
 import com.example.qrchaser.player.profile.PlayerProfileActivity;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import javax.annotation.Nullable;
 
 // TODO: 2022-03-27  A twin activity to browse players is to be developed? (Who wrote this and what does it mean)
 /**
@@ -60,29 +70,6 @@ public class BrowseQRActivity extends AppCompatActivity {
         myQRCodeListView = findViewById(R.id.browse_qr_listView);
         highToLowButton = findViewById(R.id.highToLow_button);
         lowToHighButton = findViewById(R.id.lowToHigh_button);
-
-        // Read all QR Codes in this game into an array of QRCode objects
-        db = FirebaseFirestore.getInstance();
-        CollectionReference QRCodesReference = db.collection("QRCodes");
-        QRCodesReference
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                QRCode qrCode = document.toObject(QRCode.class);
-                                qrCodes.add(qrCode);
-                            }
-                            Collections.sort(qrCodes);
-                            // Populate the listview
-                            qrCodeAdapter = new QRCodeAdapter(BrowseQRActivity.this,qrCodes);
-                            myQRCodeListView.setAdapter(qrCodeAdapter);
-                        } else {
-                            Log.d(TAG,"Error getting documents: ", task.getException());
-                        }
-                    } // end onComplete
-                }); // end QRCodesReference.get().addOnCompleteListener
 
         highToLowButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,6 +147,37 @@ public class BrowseQRActivity extends AppCompatActivity {
         }); // end topNavigationView.setOnItemSelectedListener
 
     } // end onCreate
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        qrCodes = new ArrayList<>();
+
+        // Read all QR Codes in this game into an array of QRCode objects
+        db = FirebaseFirestore.getInstance();
+        CollectionReference QRCodesReference = db.collection("QRCodes");
+        QRCodesReference
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                QRCode qrCode = document.toObject(QRCode.class);
+                                qrCodes.add(qrCode);
+                            }
+                            Collections.sort(qrCodes);
+                            // Populate the listview
+                            qrCodeAdapter = new QRCodeAdapter(BrowseQRActivity.this,qrCodes);
+                            myQRCodeListView.setAdapter(qrCodeAdapter);
+                        } else {
+                            Log.d(TAG,"Error getting documents: ", task.getException());
+                        }
+                    } // end onComplete
+                }); // end QRCodesReference.get().addOnCompleteListener
+
+    } // end onResume
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private Boolean checkCoarseLocationPermission() {
