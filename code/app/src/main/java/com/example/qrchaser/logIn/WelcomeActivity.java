@@ -41,9 +41,9 @@ public class WelcomeActivity extends SaveANDLoad {
 
         // Before doing anything, check if you can login with the saved info
         String playerID = loadData(getApplicationContext(),"uniqueID");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference accountsRef = db.collection("Accounts");
         if (playerID != ""){
-             FirebaseFirestore db = FirebaseFirestore.getInstance();
-             CollectionReference accountsRef = db.collection("Accounts");
              DocumentReference myAccount = accountsRef.document(playerID);
              myAccount.get()
                      .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
