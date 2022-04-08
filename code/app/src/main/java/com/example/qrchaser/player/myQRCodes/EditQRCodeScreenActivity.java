@@ -21,6 +21,7 @@ import com.example.qrchaser.general.SaveANDLoad;
 import com.example.qrchaser.oop.Comments;
 import com.example.qrchaser.oop.Player;
 import com.example.qrchaser.oop.QRCode;
+import com.example.qrchaser.oop.QRCodeScoreComparator1;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,9 +30,14 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *  This activity allows user to edit the general information about the qrcode such changing name, and adding comments
@@ -122,6 +128,7 @@ public class EditQRCodeScreenActivity extends SaveANDLoad implements AddCommentF
         removeQR.setOnClickListener((v) -> {
             if (qrCode.removeOwner(playerID)) {
                 qrCode.saveToDatabase();
+                player.updateScore();
                 finish();
             }
         }); // end removeQR.setOnClickListener

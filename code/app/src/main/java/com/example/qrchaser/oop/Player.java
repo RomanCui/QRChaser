@@ -2,12 +2,19 @@ package com.example.qrchaser.oop;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.UUID;
 
 /**
@@ -36,6 +43,7 @@ public class Player {
         this.numQR = 0;
         this.totalScore = 0;
         this.highestScore = 0;
+        this.lowestScore = 0;
     }
 
     /**
@@ -46,7 +54,7 @@ public class Player {
         final String TAG = "Error";
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
-        final CollectionReference collectionReference =
+        CollectionReference collectionReference =
                 db.collection("Accounts");
 
         collectionReference.document(uniqueID)
@@ -66,6 +74,44 @@ public class Player {
                     } // end onSuccess
                 });
     } // end saveToDatabase
+
+    public void updateScore(){
+        // updating the user's scores
+        final String TAG = "Error";
+        FirebaseFirestore db;
+        db = FirebaseFirestore.getInstance();
+        CollectionReference QRCodesReference = db.collection("QRCodes");
+        ArrayList<QRCode> qrCodes = new ArrayList<>();
+        QRCodesReference.whereArrayContains("owners", uniqueID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                QRCode qrCode = document.toObject(QRCode.class);
+                                qrCodes.add(qrCode);
+                            } // Populate the listview
+                            numQR = qrCodes.size();
+                            totalScore = 0;
+                            for (int i = 0; i < qrCodes.size(); i++){
+                                totalScore += qrCodes.get(i).getScore();
+                            }
+                            Collections.sort(qrCodes, new QRCodeScoreComparator1());
+                            if (qrCodes.size() > 0) {
+                                highestScore = qrCodes.get(0).getScore();
+                                lowestScore = qrCodes.get(qrCodes.size()-1).getScore();
+                            } else {
+                                highestScore = 0;
+                                lowestScore = 0;
+                            }
+                            updateDatabase();
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    } // end onComplete
+                });
+    }
 
     /**
      * This updates the database with the data contained in the current player object
@@ -90,6 +136,8 @@ public class Player {
                 .update("totalScore", totalScore);
         myAccountRef
                 .update("highestScore", highestScore);
+        myAccountRef
+                .update("lowestScore", lowestScore);
     } // end updateDatabase
 
     /**
