@@ -1,5 +1,5 @@
 QRChaser is an Android App built in Java with Android Studio.
-Timeline: Jan - April 2022 developed in a team of five members
+Timeline: Jan - April 2022 developed in a team of five members at UAlberta
           Sep 2022 - current maintained and updated by Ronggang(Roman) Cui
 
 
