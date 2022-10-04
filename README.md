@@ -1,6 +1,6 @@
 Introduction:
 
-This project is an Android App that allows players to scan QR codes. Each QR code a player scan has a score. The point of this app is to encourage users to scan more QR codes and achieve a higher score. It is just like the game of Pokémon GO, where players go around the real world and have fun.
+This project is an Android App built in Java with Android Studio. It allows players to scan QR codes. Each QR code a player scan has a score. The point of this app is to encourage users to scan more QR codes and achieve a higher score. It is just like the game of Pokémon GO, where players go around the real world and have fun.
 
 Development Proccess:
 
