@@ -14,7 +14,7 @@ Below is the sequence diagram of the app
 
 <div align="left">
   <p>
-    <img width="300" src="https://github.com/RonggangCui/QRChaser/blob/main/doc/SequenceDiagram.png"></a>
+    <img src="https://github.com/RonggangCui/QRChaser/blob/main/doc/SequenceDiagram.png"></a>
   </p>
 </div>
 
