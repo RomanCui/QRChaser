@@ -13,8 +13,7 @@ Used firebase for realtime update for the scores and QR code information
 
 ## <div align="center">Introduction</div>
 
-We built a mobile application that allows us to hunt for the coolest QR codes that score the most points. Players will run around scanning QR codes, trying to find codes that give them the most points. QR codes will be hashed and the hashes they produce will be analyzed and scored. <br>
-We let users to compete with each other for the highest scoring QR codes, the most QR codes, the highest sum of QR codes, or highest scoring QR codes in a region.
+We built a mobile application that allows us to hunt for the coolest QR codes that score the most points. Players will run around scanning QR codes, trying to find codes that give them the most points. QR codes will be hashed and the hashes they produce will be analyzed and scored. We let users to compete with each other for the highest scoring QR codes, the most QR codes, the highest sum of QR codes, or highest scoring QR codes in a region.
 
 ## <div align="center">User Manual</div>
 
