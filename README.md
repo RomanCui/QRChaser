@@ -7,7 +7,7 @@
 </div>
 
 ## <div align="center">Software Design</div>
-This app was developed in CMPUT 301 at University of Alberta in Winter 2022 under the instruction of Abram Hindle
+This app was developed in CMPUT 301 at University of Alberta in Winter 2022 under the instruction of Abram Hindle <br>
 Developed using Java in Android Studio <br>
 Used firebase for realtime update for the scores and QR code information
 
