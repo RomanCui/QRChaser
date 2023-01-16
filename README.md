@@ -17,11 +17,71 @@ We built a mobile application that allows us to hunt for the coolest QR codes th
 
 ## <div align="center">User Manual</div>
 
-When a player scans a QR code they will take a photo of what or where the QR code is and also record the geolocation of the QR code.
-Players can see on a map local QR codes that other players have scanned.
+A user can start using this app by creating a new account. If the user already have an account, a login QR code will be saved in your device and the user can use it for login.
 
-Example use of the app: 
-	
+<div align="left">
+  <p>
+    <img width="300" src="https://github.com/RonggangCui/QRChaser/blob/main/doc/AppScreenshots/AppScreenshots-01.png"></a>
+  </p>
+</div>
+
+After login, you can see all the QR codes that you already obtained with the associated score. 
+
+<div align="left">
+  <p>
+    <img width="300" src="https://github.com/RonggangCui/QRChaser/blob/main/doc/AppScreenshots/AppScreenshots-02.png"></a>
+  </p>
+</div>
+
+You can click on the QR code to see more details or make some changes
+
+<div align="left">
+  <p>
+    <img width="300" src="https://github.com/RonggangCui/QRChaser/blob/main/doc/AppScreenshots/AppScreenshots-03.png"></a>
+  </p>
+</div>
+
+The second tab on the bottom manu shows a page that allow you to see other players on this app and all of their QR codes. 
+
+<div align="left">
+  <p>
+    <img width="300" src="https://github.com/RonggangCui/QRChaser/blob/main/doc/AppScreenshots/AppScreenshots-04.png"></a>
+  </p>
+</div>
+
+<div align="left">
+  <p>
+    <img width="300" src="https://github.com/RonggangCui/QRChaser/blob/main/doc/AppScreenshots/AppScreenshots-06.png"></a>
+  </p>
+</div>
+
+The third tab on the bottom manu shows a page that allow you to see other players on this app and all of their QR codes.
+This feature is still under development and the map is a placeholder for now.
+
+<div align="left">
+  <p>
+    <img width="300" src="https://github.com/RonggangCui/QRChaser/blob/main/doc/AppScreenshots/AppScreenshots-08.png"></a>
+  </p>
+</div>
+
+The last tab on the bottom manu shows your profile and you can edit your profile there.
+
+<div align="left">
+  <p>
+    <img width="300" src="https://github.com/RonggangCui/QRChaser/blob/main/doc/AppScreenshots/AppScreenshots-09.png"></a>
+  </p>
+</div>
+
+<div align="left">
+  <p>
+    <img width="300" src="https://github.com/RonggangCui/QRChaser/blob/main/doc/AppScreenshots/AppScreenshots-10.png"></a>
+  </p>
+</div>
+
+
+
+
+
 Users:
 	• Player: a person who plays the game <br>
 	• Owner: the entity that owns the infrastructure that the game runs on.
